@@ -1,0 +1,115 @@
+---
+import Base from '../layouts/Base.astro';
+
+// Living style guide — renders the design tokens so anyone (engineer, CEO,
+// future designer) can see the system at a glance. Kept out of the primary nav.
+const swatches = [
+  { name: 'Paper', var: '--color-paper', hex: '#f7f3ec' },
+  { name: 'Paper sunk', var: '--color-paper-sunk', hex: '#efe9df' },
+  { name: 'Ink', var: '--color-ink', hex: '#1f1a16' },
+  { name: 'Ink soft', var: '--color-ink-soft', hex: '#4a423a' },
+  { name: 'Ink muted', var: '--color-ink-muted', hex: '#877c6f' },
+  { name: 'Clay (accent)', var: '--color-clay', hex: '#b4552d' },
+  { name: 'Clay deep', var: '--color-clay-deep', hex: '#8f4021' },
+  { name: 'Sage', var: '--color-sage', hex: '#5c6b57' },
+  { name: 'Line', var: '--color-line', hex: '#e2d9cb' },
+];
+const type = [
+  { label: 'Hero display', cls: 'ty-hero', note: 'Fraunces 900 · clamp' },
+  { label: 'Heading 1 · --text-2xl', cls: 'ty-h1', note: 'Fraunces 600' },
+  { label: 'Heading 2 · --text-xl', cls: 'ty-h2', note: 'Fraunces 600' },
+  { label: 'Heading 3 · --text-lg', cls: 'ty-h3', note: 'Fraunces 600' },
+  { label: 'Lead · --text-md', cls: 'ty-lead', note: 'Inter 400' },
+  { label: 'Body · --text-base', cls: 'ty-body', note: 'Inter 400' },
+  { label: 'Caption · --text-sm', cls: 'ty-cap', note: 'Inter 400' },
+];
+const spaces = ['xs','sm','md','lg','xl','2xl','3xl'];
+---
+
+<Base title="Design system — Meish Printed">
+  <section class="section container">
+    <p class="eyebrow">Design system</p>
+    <h1>Meish Printed — tokens &amp; primitives</h1>
+    <p class="lead">The one source of truth. Editorial, warm, print-studio. All
+      values live in <code>src/styles/tokens.css</code>.</p>
+
+    <hr class="rule" />
+
+    <h2>Color</h2>
+    <ul class="swatches">
+      {swatches.map((s) => (
+        <li>
+          <span class="chip" style={`background: var(${s.var})`}></span>
+          <strong>{s.name}</strong>
+          <code>{s.hex}</code>
+          <code class="muted">{s.var}</code>
+        </li>
+      ))}
+    </ul>
+
+    <hr class="rule" />
+
+    <h2>Typography</h2>
+    <div class="type-stack">
+      {type.map((t) => (
+        <div class="type-row">
+          <span class={t.cls}>Words worth framing</span>
+          <span class="type-meta">{t.label} · {t.note}</span>
+        </div>
+      ))}
+    </div>
+
+    <hr class="rule" />
+
+    <h2>Spacing</h2>
+    <ul class="spaces">
+      {spaces.map((s) => (
+        <li>
+          <span class="bar" style={`width: var(--space-${s})`}></span>
+          <code>--space-{s}</code>
+        </li>
+      ))}
+    </ul>
+
+    <hr class="rule" />
+
+    <h2>Buttons &amp; tags</h2>
+    <div class="demo-row">
+      <a class="button button--primary" href="#">Primary</a>
+      <a class="button button--ghost" href="#">Ghost</a>
+      <span class="tag">Wall décor</span>
+    </div>
+  </section>
+</Base>
+
+<style>
+  code { font-family: var(--font-mono); font-size: 0.85em; }
+  .muted { color: var(--text-muted); }
+
+  .swatches { list-style: none; padding: 0; display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: var(--space-md); }
+  .swatches li { display: grid; grid-template-columns: auto 1fr; grid-auto-rows: min-content;
+    column-gap: var(--space-sm); align-items: center; }
+  .chip { grid-row: span 2; width: 3rem; height: 3rem; border-radius: var(--radius-md);
+    border: var(--border-hair); }
+  .swatches strong { align-self: end; }
+  .swatches code { align-self: start; }
+
+  .type-stack { display: grid; gap: var(--space-lg); }
+  .type-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-md); }
+  .type-meta { font-size: var(--text-xs); color: var(--text-muted);
+    letter-spacing: var(--tracking-wide); text-transform: uppercase; }
+  .ty-hero { font-family: var(--font-display); font-weight: 900; font-size: var(--text-3xl); line-height: 1; }
+  .ty-h1 { font-family: var(--font-display); font-weight: 600; font-size: var(--text-2xl); }
+  .ty-h2 { font-family: var(--font-display); font-weight: 600; font-size: var(--text-xl); }
+  .ty-h3 { font-family: var(--font-display); font-weight: 600; font-size: var(--text-lg); }
+  .ty-lead { font-size: var(--text-md); color: var(--text-soft); }
+  .ty-body { font-size: var(--text-base); }
+  .ty-cap { font-size: var(--text-sm); color: var(--text-muted); }
+
+  .spaces { list-style: none; padding: 0; display: grid; gap: var(--space-sm); }
+  .spaces li { display: flex; align-items: center; gap: var(--space-md); }
+  .spaces .bar { height: 1rem; background: var(--accent); border-radius: var(--radius-sm); }
+
+  .demo-row { display: flex; align-items: center; gap: var(--space-md); flex-wrap: wrap; }
+</style>

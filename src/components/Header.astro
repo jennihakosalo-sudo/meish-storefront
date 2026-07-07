@@ -1,0 +1,88 @@
+---
+const links = [
+  { href: '/shop', label: 'Shop' },
+  { href: '/about', label: 'Studio' },
+  { href: '/reserve', label: 'Reserve' },
+];
+const path = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <div class="container container--wide bar">
+    <a href="/" class="wordmark" aria-label="Meish Printed — home">
+      Meish<span class="wordmark__mark">Printed</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav">
+        {links.map((l) => (
+          <li>
+            <a
+              href={l.href}
+              class="nav__link"
+              aria-current={path === l.href ? 'page' : undefined}
+            >
+              {l.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <a href="/reserve" class="button button--primary header-cta">Reserve a print</a>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-header);
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: saturate(140%) blur(10px);
+    border-bottom: var(--border-hair);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xl);
+    min-height: 4.5rem;
+  }
+  .wordmark {
+    font-family: var(--font-display);
+    font-weight: var(--weight-black);
+    font-size: var(--text-lg);
+    letter-spacing: var(--tracking-tight);
+    color: var(--text);
+    margin-right: auto;
+  }
+  .wordmark:hover { color: var(--text); text-decoration: none; }
+  .wordmark__mark {
+    color: var(--accent);
+    font-weight: var(--weight-regular);
+    font-style: italic;
+    margin-left: 0.28em;
+  }
+  .nav {
+    display: flex;
+    gap: var(--space-lg);
+    list-style: none;
+    padding: 0;
+  }
+  .nav__link {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--text-soft);
+    letter-spacing: 0.01em;
+  }
+  .nav__link:hover,
+  .nav__link[aria-current='page'] {
+    color: var(--text);
+    text-decoration: none;
+  }
+  .nav__link[aria-current='page'] { border-bottom: 2px solid var(--accent); }
+
+  @media (max-width: 640px) {
+    .header-cta { display: none; }
+    .bar { gap: var(--space-md); min-height: 3.75rem; }
+    .nav { gap: var(--space-md); }
+  }
+</style>

@@ -1,0 +1,23 @@
+# build output
+dist/
+.output/
+
+# dependencies
+node_modules/
+
+# generated types
+.astro/
+
+# environment
+.env
+.env.production
+.dev.vars
+
+# host tooling
+.wrangler/
+.vercel/
+.netlify/
+
+# macOS / editor
+.DS_Store
+*.log

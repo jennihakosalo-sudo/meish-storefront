@@ -1,0 +1,5 @@
+# Cloudflare Pages configuration for Meish Printed.
+# Static build; the `dist/` directory is what Pages serves.
+name = "meish-storefront"
+compatibility_date = "2024-11-01"
+pages_build_output_dir = "dist"

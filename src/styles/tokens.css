@@ -1,0 +1,113 @@
+/* ==========================================================================
+   Meish Printed — Design Tokens
+   The single source of truth for the brand. Editorial print-studio feel:
+   warm paper, ink-black type, a clay accent, a display serif over a quiet sans.
+   Everything downstream (components, pages) consumes these variables — never
+   hard-code a hex, size, or spacing value in a component.
+   ========================================================================== */
+
+:root {
+  /* --- Color: warm paper & ink -------------------------------------------
+     A boutique print studio, not a SaaS dashboard. The palette is warm and
+     low-contrast-neutral, letting product photography carry the color. */
+  --color-paper:        #f7f3ec; /* page background — warm off-white */
+  --color-paper-sunk:   #efe9df; /* recessed sections, cards */
+  --color-paper-raised: #fffdf9; /* raised cards on paper */
+  --color-ink:          #1f1a16; /* primary text — warm near-black */
+  --color-ink-soft:     #4a423a; /* secondary text */
+  --color-ink-muted:    #877c6f; /* captions, meta, placeholders */
+  --color-line:         #e2d9cb; /* hairline borders, rules */
+  --color-line-strong:  #cabfae; /* stronger dividers */
+
+  /* Clay accent — evokes terracotta, printer's ink, kraft. Used sparingly:
+     primary CTAs, links, small marks. Never as a large fill. */
+  --color-clay:         #b4552d;
+  --color-clay-deep:    #8f4021; /* hover / pressed */
+  --color-clay-tint:    #f0e2d6; /* faint accent wash */
+
+  /* Botanical secondary — for tags/categories, quiet contrast to the clay. */
+  --color-sage:         #5c6b57;
+
+  /* Semantic aliases — components reference these, not raw swatches. */
+  --bg:            var(--color-paper);
+  --bg-alt:        var(--color-paper-sunk);
+  --surface:       var(--color-paper-raised);
+  --text:          var(--color-ink);
+  --text-soft:     var(--color-ink-soft);
+  --text-muted:    var(--color-ink-muted);
+  --border:        var(--color-line);
+  --accent:        var(--color-clay);
+  --accent-hover:  var(--color-clay-deep);
+  --accent-tint:   var(--color-clay-tint);
+
+  /* --- Typography ---------------------------------------------------------
+     Fraunces (variable serif) for display/headings — editorial, characterful.
+     Inter (variable sans) for body/UI — quiet, legible, gets out of the way. */
+  --font-display: 'Fraunces Variable', 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-body:    'Inter Variable', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-mono:    'SFMono-Regular', ui-monospace, 'Menlo', monospace;
+
+  /* Modular type scale — major-third (1.250) from a 1rem (16px) base.
+     Editorial layouts want a wide, confident range from caption to hero. */
+  --text-xs:   0.694rem;  /* 11px — labels, eyebrows */
+  --text-sm:   0.833rem;  /* 13px — captions, meta */
+  --text-base: 1rem;      /* 16px — body */
+  --text-md:   1.25rem;   /* 20px — lead paragraphs */
+  --text-lg:   1.563rem;  /* 25px — h3 */
+  --text-xl:   1.953rem;  /* 31px — h2 */
+  --text-2xl:  2.441rem;  /* 39px — h1 */
+  --text-3xl:  3.815rem;  /* 61px — hero display */
+  --text-hero: clamp(2.8rem, 6vw + 1rem, 5.5rem); /* fluid hero */
+
+  --weight-regular: 400;
+  --weight-medium:  500;
+  --weight-semibold:600;
+  --weight-black:   900; /* Fraunces optical black for display moments */
+
+  --leading-tight:  1.08; /* display headings */
+  --leading-snug:   1.25; /* sub-headings */
+  --leading-normal: 1.6;  /* body copy */
+
+  --tracking-tight: -0.02em; /* large display */
+  --tracking-normal: 0;
+  --tracking-wide:  0.14em;  /* eyebrows / small caps labels */
+
+  /* --- Spacing: 4px base, gentle geometric growth ------------------------- */
+  --space-2xs: 0.25rem;  /* 4px  */
+  --space-xs:  0.5rem;   /* 8px  */
+  --space-sm:  0.75rem;  /* 12px */
+  --space-md:  1rem;     /* 16px */
+  --space-lg:  1.5rem;   /* 24px */
+  --space-xl:  2.5rem;   /* 40px */
+  --space-2xl: 4rem;     /* 64px */
+  --space-3xl: 6.5rem;   /* 104px — section rhythm */
+  --space-4xl: 10rem;    /* 160px — full-bleed breathing room */
+
+  /* --- Layout ------------------------------------------------------------- */
+  --measure:      68ch;   /* readable text column */
+  --width-content:1080px; /* editorial content max width */
+  --width-wide:   1320px; /* wide galleries / grids */
+  --gutter:       clamp(1.25rem, 5vw, 3.5rem);
+
+  /* --- Radius, borders, shadow — restrained, print-like ------------------- */
+  --radius-sm: 3px;
+  --radius-md: 6px;
+  --radius-lg: 12px;
+  --radius-pill: 999px;
+  --border-hair: 1px solid var(--border);
+
+  /* Soft, warm-tinted shadows — never a hard SaaS drop shadow. */
+  --shadow-sm: 0 1px 2px rgba(31, 26, 22, 0.05);
+  --shadow-md: 0 8px 24px rgba(31, 26, 22, 0.08);
+  --shadow-lg: 0 24px 60px rgba(31, 26, 22, 0.12);
+
+  /* --- Motion ------------------------------------------------------------- */
+  --ease: cubic-bezier(0.4, 0, 0.15, 1);
+  --dur-fast: 140ms;
+  --dur: 240ms;
+  --dur-slow: 500ms;
+
+  /* --- Z layers ----------------------------------------------------------- */
+  --z-header: 100;
+  --z-overlay: 200;
+}

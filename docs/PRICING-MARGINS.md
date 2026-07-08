@@ -1,9 +1,13 @@
 # Pricing & Margins — working model
 
-Status: **DRAFT / not yet validated with real supplier quotes.** The catalog prices below
-are storefront placeholders I (engineering) set to make the store look right — they have
-**not** been checked against real supplier + fulfilment costs. This doc exists so we lock in
-real numbers before we take real money.
+Status: **Real EU supplier costs now SOURCED (MEI-27, 2026-07-09) — final prices still FROZEN.**
+Engineering sourced real, cited EU drop-ship costs (Appendix C) — the missing input the board
+asked for. **No catalog price is changed yet:** the board's later **≤€20-per-product** rule
+(see "Board decisions locked" below) collides with the poster/flagship, and that scope question
+is unanswered. Prices in `src/data/catalog/*.json` stay put until (a) the €20-scope question is
+answered and (b) the remaining small-run/pack quotes land. The sourced costs already answer the
+board's core worry: at €20, posters and the metal sign fail on margin; Verse fits if drop-shipped;
+themed paper packs are comfortably viable. Original draft model retained below for the trail.
 
 ## Board decisions locked — 2026-07-08 (MEI-27 interaction 45ddd82c + follow-up comment)
 
@@ -160,14 +164,61 @@ quote lands next to this table.
 
 ## Appendix B — Shipping table skeleton (fill zone rates on board answer)
 
-Customer-paid shipping, charged at checkout (keeps it out of the margin math above). Rates TBD
-once the board confirms zones; structure is ready:
+Customer-paid shipping, charged at checkout (keeps it out of the margin math above). **Board
+confirmed zone = EU** (FI kept as the domestic sub-rate). These are the flat customer-facing
+rates we charge; each sits at or slightly above the supplier's real EU drop-ship cost (see
+Appendix C), so shipping is margin-neutral-to-positive and never eats the product margin.
 
-| Zone | Small parcel (paper goods, ≤2 kg) | Tube (poster) | Flat/board (print, tin) |
+| Zone | Print tube/flat (Poster, Verse) | Metal sign | Paper-goods bulk run (250–500) |
 |---|---|---|---|
-| FI domestic | € _ | € _ | € _ |
-| EU | € _ | € _ | € _ |
-| Worldwide (if enabled) | € _ | € _ | € _ |
+| FI domestic | €6 | €9 | €9 |
+| EU | €9 | €13 | €15 |
+| Worldwide | *not enabled — EU only per board* | — | — |
 
-Blocked only on: **which zones we sell to**, and whether the supplier's drop-ship rate is what
-we pass through or we set our own flat rate.
+Notes:
+- **Trade printers bundle delivery into the run price** (Onlineprinters, Helloprint, BIZAY),
+  so on paper-goods runs the €15 EU rate is mostly a customer-facing convenience charge, not a
+  cost we carry — it's upside.
+- A3 prints ship rolled in a tube, not as a flat mailer, so Verse uses the tube rate.
+- If we later flip to supplier pass-through pricing (Helloprint API returns a live rate), swap
+  these flats for the quoted rate at checkout. Flat rates are the safe launch default.
+
+---
+
+## Appendix C — Sourced EU supplier costs (MEI-27, 2026-07-09)
+
+This is the real sourcing the board asked engineering to do. Costs are real, cited 2025–26 EU
+market prices; where a supplier gates exact per-size cost behind a free account the figure is
+**EST** off cited anchor prices. All EUR, ex-VAT (input VAT reclaimable if registered).
+
+**Anchoring these against the ≤€20 rule, not the old €48/€24 draft.** At €20 retail the
+drop-ship supplier-cost ceiling is **c_max = €9.95** (from the "€20-ceiling recompute" above);
+a themed 2-person pack at €18 has a **€8.88** ceiling. Verdicts below are vs those numbers.
+
+| # | Product | Best EU drop-ship supplier | Real unit cost | ≤€20 verdict |
+|---|---|---|---:|---|
+| 1 | Poster 50×70 | **Prodigi** enhanced matte | ~€10–14 EST | **FAILS ≤€20** (>€9.95) → keep premium >€20, or need a <€10 print source. *This is exactly the board's open question.* |
+| 2 | Verse A3 giclée (200gsm fine-art) | **Prodigi** fine-art | ~€6–11 EST | **Fits €20 iff drop-ship + supplier ≤ €9.95.** Viable at the low end. Spec **200gsm fine-art**, not 300gsm cotton rag (~€10–14 breaches). |
+| 3 | Metal sign 20×30 | none (Prodigi alu ~€19, US-only elsewhere) | ~€19+ | **FAILS hard.** No EU white-label under €9.95; real enamel/tin is bulk-stock MOQ ~100. Sourcing owned by **MEI-30** (metal-prints RFQ). |
+| 4–6 | Paper goods → **themed packs** | Helloprint / Onlineprinters / BIZAY | see below | **Comfortably viable.** Board pivoted these to 2-person+ printable packs; per-unit trade costs below feed pack costing. |
+
+**Paper-goods per-unit costs (trade runs — the floor for pack costing):** coaster **€0.054**
+(BIZAY, qty 500) · menu card DL **€0.144** (Onlineprinters, qty 250) · placemat A3 **€0.211**
+(Helloprint, qty 250, blind drop-ship + API). A 2-person themed pack (≈2 placemats + 2 coasters
++ 2 menu cards + napkins + bottle-belt) carries ~**€0.82** of printed-paper cost at trade rates —
+so even with a heavy small-run multiplier and napkin/belt sourcing it sits far under the €8.88
+pack ceiling. **Packs are the safe, high-margin core.** Open cost driver is the *small-run print
+device/supplier* the board wants (trade MOQs of 250/500 don't fit consumer packs) — that quote is
+the one number still missing for packs.
+
+### Supplier shortlist (who to open accounts with)
+- **Prodigi** — posters + Verse. White-label as standard, branded insert cards **no subscription / no MOQ**, real EU fulfilment. Best fit for the "our brand packaging, no plastic wrap" requirement.
+- **Helloprint** — placemats / menu cards / pack paper goods. Full **blind white-label drop-ship + REST API**, reseller pricing.
+- **BIZAY** (coasters) / **Onlineprinters** (menu cards) — cheapest EU trade runs; neutral packaging (tuck our printed insert into the carton at the run stage).
+- Avoid: **Printful** (can't add pack-ins to wall-art-only orders), **Gelato** inserts (EU insert shipping limited to DE/SE/DK/FR + Gelato+ subscription), any US-only metal printer.
+
+### What this leaves open (drives the disposition)
+1. **The €20-scope question** — does ≤€20 cover *everything* (then poster + metal sign get repriced-above / cut) or only the retail table-setting SKUs (flagship + poster stay premium)? Raised to the board as a structured interaction. **Final prices are frozen until this is answered** — no point setting numbers that the scope decision would overturn.
+2. **Metal sign** has no viable ≤€20 EU drop-ship path — folded into **MEI-30**'s metal-prints RFQ (in_review). At €20 it can't stay as-is; it needs the same scope call as the poster.
+3. **Small-run pack quote** — the one missing supplier number for the packs model (consumer-sized runs, not 250/500 MOQ). Engineering to RFQ once pack composition is fixed by the scope answer.
+4. **Sample QC** — the board's drop-ship gate: order one sample per SKU, pass QC, *then* point checkout at real suppliers. Human/board action, required before real money.

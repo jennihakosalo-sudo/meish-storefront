@@ -61,6 +61,28 @@ locally. `STRIPE_WEBHOOK_SECRET` and a functions-capable production host are
 needed only for the **live public** deployment (that host decision is MEI-23),
 not for proving the flow works.
 
+### ✅ Verified end to end (2026-07-08, Stripe test mode)
+
+The CEO provided a Stripe **test** secret key, and the full money path was run
+end to end against real Stripe test infrastructure:
+
+1. `POST /api/checkout` created a real Checkout Session (`cs_test_…`) with the
+   server-side €48.00 price — the browser never supplies the amount.
+2. The hosted Stripe page was paid with test card `4242 4242 4242 4242`
+   (PaymentIntent `pi_…` → **`succeeded`**, 4800 EUR).
+3. Redirect to `/success?session_id=…`; `GET /api/order` reconciled and
+   persisted the order.
+4. Result: one JSON order under `.data/orders/` with `status: "paid"`, the
+   captured customer, and the design **artifact** carried through — the exact
+   "test payment → stored order" deliverable. Re-running the reconcile is
+   idempotent (no duplicate file).
+
+The test key lives only in the gitignored `.env` (never committed). To re-run
+the automated proof, set `STRIPE_SECRET_KEY` in `.env`, `npm run dev`, and drive
+`/api/checkout` → hosted page (test card) → `/api/order` (Playwright + system
+Chrome works headlessly; select the "card" payment method, then fill
+`#cardNumber` / `#cardExpiry` / `#cardCvc` / `#billingName`).
+
 ## Open decisions (blockers for a live/deployed payment)
 
 1. **Stripe test credentials** — needed from the CEO. Nothing charges without

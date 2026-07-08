@@ -39,8 +39,15 @@ that unblocks checkout (MEI-23). On that host:
 
 1. **Real email delivery.** Create a free Resend account, verify the meish
    sending domain, and set `RESEND_API_KEY` as an env var. OUTBOX flips to real
-   send with **no code change**. Confirm `RESERVE_NOTIFY_EMAIL=moona.m@meish.work`
-   and set `RESERVE_FROM_EMAIL` to an address on the verified domain.
+   send with **no code change**. Set `RESERVE_FROM_EMAIL` to an address on the
+   verified domain. For `RESERVE_NOTIFY_EMAIL`, route the studio-notify to a
+   **live, monitored** inbox — it may be a comma-separated list so both the
+   studio and the anti-abuse monitor are notified **directly via Resend**, e.g.
+   `moona.m@meish.work,jenni.hakosalo@gmail.com`. Do **not** depend on a mailbox
+   auto-forward for monitoring: Gmail does not forward Spam-classified mail, so
+   the expected spam/scam wave would never reach a forward-based monitor.
+   **Verify delivery before opening the form** — see the runbook in
+   `docs/EMAIL-DELIVERABILITY.md` (MEI-28).
 2. **CAPTCHA (Cloudflare Turnstile).** Create a Turnstile widget at
    dash.cloudflare.com → Turnstile (free), then set all three:
    - `PUBLIC_TURNSTILE_SITE_KEY` — public site key (baked into the form HTML at

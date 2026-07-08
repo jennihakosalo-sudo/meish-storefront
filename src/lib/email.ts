@@ -38,8 +38,32 @@ export interface SendResult {
   id: string;
 }
 
+const DEFAULT_NOTIFY = 'moona.m@meish.work';
+
+/**
+ * All studio-notify recipients. `RESERVE_NOTIFY_EMAIL` may be a comma-separated
+ * list, so a live-monitored inbox (e.g. the CoS anti-abuse watch, MEI-21/28)
+ * receives the "new reservation" email DIRECTLY via Resend — never via a
+ * mailbox auto-forward. This matters: Gmail auto-forwarding does not forward
+ * Spam-classified mail, so a forward-based monitor would miss the expected
+ * spam/scam wave. A direct Resend recipient is not subject to that.
+ */
+export function notifyRecipients(): string[] {
+  const raw = process.env.RESERVE_NOTIFY_EMAIL ?? DEFAULT_NOTIFY;
+  const list = raw
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean);
+  return list.length ? list : [DEFAULT_NOTIFY];
+}
+
+/**
+ * Primary studio address — the first of `notifyRecipients()`. Used as the
+ * customer confirmation's Reply-To (a single address, so replies land in one
+ * studio inbox).
+ */
 export function notifyAddress(): string {
-  return process.env.RESERVE_NOTIFY_EMAIL ?? 'moona.m@meish.work';
+  return notifyRecipients()[0];
 }
 
 export function fromAddress(): string {
@@ -66,7 +90,12 @@ export async function sendEmail(msg: EmailMessage): Promise<SendResult> {
         },
         body: JSON.stringify({
           from: fromAddress(),
-          to: [msg.to],
+          // `to` may carry a comma-separated list (studio + monitor); Resend
+          // wants an array of individual addresses.
+          to: msg.to
+            .split(',')
+            .map((s) => s.trim())
+            .filter(Boolean),
           subject: msg.subject,
           text: msg.text,
           ...(msg.replyTo ? { reply_to: msg.replyTo } : {}),
@@ -110,7 +139,7 @@ export async function sendEmail(msg: EmailMessage): Promise<SendResult> {
 /** Studio-facing "new reservation" email. */
 export function buildNotifyEmail(r: Reservation): EmailMessage {
   return {
-    to: notifyAddress(),
+    to: notifyRecipients().join(', '),
     replyTo: r.customer.email,
     subject: `New reservation — ${r.product.name} ×${r.quantity} (${r.customer.name})`,
     text:

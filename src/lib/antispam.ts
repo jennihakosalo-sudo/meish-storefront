@@ -148,10 +148,81 @@ export function rateLimit(ip: string | null, email: string, now = Date.now()): R
 /**
  * Pre-launch hook: whether a CAPTCHA/Turnstile token must be verified before a
  * reservation is accepted. Off for the MVP; flip via RESERVE_REQUIRE_CAPTCHA=1
- * once keys are provisioned (MEI-21). Kept here so the wiring point is explicit.
+ * once keys are provisioned (MEI-21/MEI-26). Kept here so the wiring point is
+ * explicit.
  */
 export function captchaRequired(): boolean {
   return process.env.RESERVE_REQUIRE_CAPTCHA === '1';
+}
+
+/* --- CAPTCHA (Cloudflare Turnstile) --------------------------------------- */
+
+/**
+ * The form field Turnstile injects with the challenge token. The widget adds a
+ * hidden `<input name="cf-turnstile-response">`, so it rides along in both the
+ * form POST and the enhanced fetch's FormData with no extra client wiring.
+ */
+export const CAPTCHA_TOKEN_FIELD = 'cf-turnstile-response';
+
+const TURNSTILE_VERIFY_URL =
+  'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+
+export interface CaptchaVerdict {
+  ok: boolean;
+  /** Machine-readable reason, for logging. */
+  reason?: 'disabled-ok' | 'misconfigured' | 'missing-token' | 'rejected' | 'error';
+}
+
+/**
+ * Verify a Turnstile token server-side before a reservation is accepted.
+ *
+ * Fail-closed by design: this is only reached when RESERVE_REQUIRE_CAPTCHA=1,
+ * i.e. the operator explicitly turned the gate on. If it's on but the secret is
+ * missing, or the token is absent/invalid, we REJECT — a misconfiguration must
+ * not silently disable anti-abuse. When the gate is off we short-circuit to ok
+ * so dev/OUTBOX runs keyless.
+ *
+ * Never throws: a network error against Cloudflare returns a rejection verdict
+ * the caller turns into a retriable 4xx, not a 500.
+ */
+export async function verifyCaptcha(
+  token: string | null | undefined,
+  remoteIp: string | null,
+): Promise<CaptchaVerdict> {
+  if (!captchaRequired()) return { ok: true, reason: 'disabled-ok' };
+
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+  if (!secret) {
+    // Gate is on but we cannot verify — refuse rather than wave traffic through.
+    console.error(
+      '[antispam] RESERVE_REQUIRE_CAPTCHA=1 but TURNSTILE_SECRET_KEY is unset — rejecting.',
+    );
+    return { ok: false, reason: 'misconfigured' };
+  }
+
+  const t = typeof token === 'string' ? token.trim() : '';
+  if (!t) return { ok: false, reason: 'missing-token' };
+
+  const body = new URLSearchParams({ secret, response: t });
+  if (remoteIp) body.set('remoteip', remoteIp);
+
+  try {
+    const res = await fetch(TURNSTILE_VERIFY_URL, {
+      method: 'POST',
+      headers: { 'content-type': 'application/x-www-form-urlencoded' },
+      body,
+    });
+    const data = (await res.json().catch(() => ({}))) as {
+      success?: boolean;
+      'error-codes'?: string[];
+    };
+    if (data.success) return { ok: true };
+    console.warn('[antispam] turnstile rejected:', data['error-codes'] ?? '(no codes)');
+    return { ok: false, reason: 'rejected' };
+  } catch (err) {
+    console.error('[antispam] turnstile verify threw:', err);
+    return { ok: false, reason: 'error' };
+  }
 }
 
 /** Test-only: clear rate-limit state between runs. */

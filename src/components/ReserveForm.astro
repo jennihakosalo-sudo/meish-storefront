@@ -17,6 +17,12 @@ interface Props {
 
 const { product, source = 'reserve-page' } = Astro.props;
 const options = products.map((p) => ({ slug: p.slug, name: p.name }));
+
+// CAPTCHA (Cloudflare Turnstile). The widget is rendered ONLY when a public
+// site key is configured, so dev/OUTBOX and no-key builds stay untouched. At
+// go-live, set PUBLIC_TURNSTILE_SITE_KEY (public, safe to bake into HTML) here
+// and TURNSTILE_SECRET_KEY + RESERVE_REQUIRE_CAPTCHA=1 on the server (MEI-26).
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 ---
 
 <form
@@ -75,6 +81,14 @@ const options = products.map((p) => ({ slug: p.slug, name: p.name }));
     </label>
   </div>
 
+  {turnstileSiteKey && (
+    <div class="reserve__captcha">
+      {/* Turnstile injects a hidden input[name="cf-turnstile-response"] into the
+          form; it rides along in both the no-JS POST and the enhanced fetch. */}
+      <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="auto"></div>
+    </div>
+  )}
+
   <div class="reserve__actions">
     <button type="submit" class="button button--primary">Reserve my interest</button>
     <p class="reserve__note">No card needed — this just holds your interest and we reply by email.</p>
@@ -82,6 +96,14 @@ const options = products.map((p) => ({ slug: p.slug, name: p.name }));
 
   <p class="reserve__status" data-reserve-status role="status" aria-live="polite" hidden></p>
 </form>
+
+{turnstileSiteKey && (
+  <script
+    src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+    async
+    defer
+  ></script>
+)}
 
 <script>
   import '../scripts/reserve';
@@ -141,6 +163,7 @@ const options = products.map((p) => ({ slug: p.slug, name: p.name }));
     margin-top: var(--space-xs);
   }
   .reserve__note { margin: 0; font-size: var(--text-sm); color: var(--text-muted); }
+  .reserve__captcha { margin-top: var(--space-2xs); }
   .reserve__status {
     margin: 0;
     padding: var(--space-sm) var(--space-md);

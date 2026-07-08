@@ -24,10 +24,12 @@ import {
 } from '../../lib/email';
 import {
   HONEYPOT_FIELD,
+  CAPTCHA_TOKEN_FIELD,
   honeypotTripped,
   timeTrapTripped,
   validateReservation,
   rateLimit,
+  verifyCaptcha,
 } from '../../lib/antispam';
 
 export const prerender = false;
@@ -110,6 +112,21 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     console.warn(`[reserve] rate limited (${verdict.scope})`, ip, input.email);
     const msg = 'Too many reservations from here just now — please try again later.';
     if (wantsJson) return json({ ok: false, errors: { _: msg } }, 429);
+    return redirectThanks(false);
+  }
+
+  // 5. CAPTCHA — Cloudflare Turnstile, last because it's a network round-trip:
+  //    cheaper gates above have already dropped obvious bots. No-op unless
+  //    RESERVE_REQUIRE_CAPTCHA=1, in which case a valid token is mandatory
+  //    (fail-closed — see verifyCaptcha). Verified BEFORE any store or email.
+  const captcha = await verifyCaptcha(fields[CAPTCHA_TOKEN_FIELD], ip);
+  if (!captcha.ok) {
+    console.warn(`[reserve] captcha failed (${captcha.reason})`, ip);
+    const msg =
+      captcha.reason === 'misconfigured'
+        ? 'Reservations are briefly unavailable — please try again shortly.'
+        : 'Please complete the anti-spam check and try again.';
+    if (wantsJson) return json({ ok: false, errors: { _: msg } }, 403);
     return redirectThanks(false);
   }
 

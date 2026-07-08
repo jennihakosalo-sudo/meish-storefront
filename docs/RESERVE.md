@@ -32,11 +32,36 @@ With no `RESEND_API_KEY`, the flow is fully exercised in **OUTBOX mode**:
 That proves *stored + emailed + confirmed* without a single credential — the same
 way the Stripe path degrades gracefully without a key (see `CHECKOUT.md`).
 
-## Going live
+## Going live (MEI-26)
 
-Set `RESEND_API_KEY` (and verify the `RESERVE_FROM_EMAIL` domain in Resend).
-OUTBOX mode flips to real delivery — no code change. All env vars are documented
-in `.env.example`.
+Needs a **functions-capable host** (surge.sh is static-only) — the same host
+that unblocks checkout (MEI-23). On that host:
+
+1. **Real email delivery.** Create a free Resend account, verify the meish
+   sending domain, and set `RESEND_API_KEY` as an env var. OUTBOX flips to real
+   send with **no code change**. Confirm `RESERVE_NOTIFY_EMAIL=moona.m@meish.work`
+   and set `RESERVE_FROM_EMAIL` to an address on the verified domain.
+2. **CAPTCHA (Cloudflare Turnstile).** Create a Turnstile widget at
+   dash.cloudflare.com → Turnstile (free), then set all three:
+   - `PUBLIC_TURNSTILE_SITE_KEY` — public site key (baked into the form HTML at
+     build; **rebuild** after setting it).
+   - `TURNSTILE_SECRET_KEY` — secret, server-side only.
+   - `RESERVE_REQUIRE_CAPTCHA=1` — turns the server gate on.
+
+   With the site key set, the widget renders on the form; the client needs no
+   other change (Turnstile injects `cf-turnstile-response`, which rides along in
+   both the no-JS POST and the enhanced fetch). The server verifies the token in
+   `POST /api/reserve` **before** any store or email, and **fails closed**: if
+   the gate is on but the secret is missing/invalid, the request is rejected —
+   a misconfiguration can never silently disable anti-abuse.
+3. **Rate-limit store.** The in-memory limiter is correct for a single-node
+   deploy. If the host runs **multiple instances**, back `hit()` in `antispam.ts`
+   with a shared store (KV/Redis) so the window is global; pick the store once
+   the host is chosen (Cloudflare KV pairs with a Pages/Workers host).
+
+All env vars are documented in `.env.example`. Keyless (no `RESEND_API_KEY`, no
+Turnstile keys) stays fully functional for dev/OUTBOX — nothing above is
+required to run the flow locally.
 
 ## Anti-spam (built in from day one — we expect a spam wave at publish)
 
@@ -51,7 +76,7 @@ Cheapest-first, so bots are dropped before they cost us a write or an email:
    (3 / 60 min). In-memory for the single-node MVP; back it with a shared store
    (KV/Redis) on a multi-instance deploy.
 
-**Deferred to before public launch (MEI-21):** a CAPTCHA / Cloudflare Turnstile
-challenge. The wiring point already exists — `captchaRequired()` in
-`antispam.ts`; flip `RESERVE_REQUIRE_CAPTCHA=1` once keys are provisioned and
-verify the token in the route before `saveReservation`.
+5. **CAPTCHA (Cloudflare Turnstile)** — verified server-side in the route
+   before `saveReservation`, gated on `RESERVE_REQUIRE_CAPTCHA=1` and fail-closed.
+   See `verifyCaptcha()` in `antispam.ts` and the go-live steps above. Built in
+   MEI-26; off (keyless) by default so dev/OUTBOX is unaffected.

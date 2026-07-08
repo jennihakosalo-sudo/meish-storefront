@@ -64,6 +64,9 @@ function enhance(form: HTMLFormElement): void {
             ? 'Too many reservations from here just now — please try again later.'
             : 'Something went wrong. Please check the form and try again.';
       show(firstError, 'error');
+      // Turnstile tokens are single-use; reset the widget so a retry gets a
+      // fresh one. No-op when the widget isn't present (keyless builds).
+      (window as unknown as { turnstile?: { reset: () => void } }).turnstile?.reset();
     } catch {
       // Network/JS failure — let the browser submit the form the classic way.
       show('Submitting…', 'ok');

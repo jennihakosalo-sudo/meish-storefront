@@ -1,15 +1,17 @@
 ---
 import Base from '../layouts/Base.astro';
-// Skeleton. The working reserve-interest flow (form → store + email to
-// moona.m@meish.work + customer confirmation, with anti-spam) is MEI-21.
+import ReserveForm from '../components/ReserveForm.astro';
 ---
-<Base title="Reserve a print — Meish Printed">
+<Base
+  title="Reserve a print — Meish Printed"
+  description="Tell us what you'd like printed. No card needed — we hold your interest and reply by email."
+>
   <section class="section container">
     <p class="eyebrow">Reserve interest</p>
     <h1>Tell us what to print</h1>
-    <p class="lead">The reservation form — name, email, product, quantity and a
-      note — plugs in here. No card needed yet: it records your interest and we
-      reply by email. Anti-spam is built into the final version.</p>
-    <p><a class="button button--ghost" href="/shop">Back to the shop</a></p>
+    <p class="lead">No card needed yet. Leave your name, email and what you have
+      in mind — we'll record your interest, send you a confirmation, and reply by
+      email to talk details and a quote.</p>
+    <ReserveForm source="reserve-page" />
   </section>
 </Base>

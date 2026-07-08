@@ -1,0 +1,162 @@
+---
+// Reserve-interest form (MEI-20). Works with NO JavaScript — it's a plain
+// POST to /api/reserve that 303s to /reserve/thanks. The script in
+// src/scripts/reserve.ts progressively enhances it: it stamps the time-trap
+// field, submits via fetch, and shows an inline result without a page reload.
+//
+// Anti-spam surface lives here too: the hidden `company` honeypot and the
+// `_ts` time-trap field. See src/lib/antispam.ts.
+import { products } from '../data/products';
+
+interface Props {
+  /** When set, the form is scoped to one product (its detail page). */
+  product?: { slug: string; name: string };
+  /** For metadata / analytics — where this form was rendered. */
+  source?: string;
+}
+
+const { product, source = 'reserve-page' } = Astro.props;
+const options = products.map((p) => ({ slug: p.slug, name: p.name }));
+---
+
+<form
+  class="reserve"
+  data-reserve
+  action="/api/reserve"
+  method="POST"
+  novalidate
+>
+  <input type="hidden" name="source" value={source} />
+  <input type="hidden" name="_ts" value="0" data-reserve-ts />
+
+  {product ? (
+    <input type="hidden" name="productSlug" value={product.slug} />
+  ) : (
+    <label class="reserve__field">
+      <span class="reserve__label">Which product?</span>
+      <select name="productSlug" required>
+        <option value="unspecified">Not sure yet — general enquiry</option>
+        {options.map((o) => (
+          <option value={o.slug}>{o.name}</option>
+        ))}
+      </select>
+    </label>
+  )}
+
+  <div class="reserve__row">
+    <label class="reserve__field">
+      <span class="reserve__label">Your name</span>
+      <input type="text" name="name" required minlength="2" maxlength="80"
+        autocomplete="name" placeholder="Moona M." />
+    </label>
+    <label class="reserve__field">
+      <span class="reserve__label">Email</span>
+      <input type="email" name="email" required maxlength="254"
+        autocomplete="email" placeholder="you@example.com" />
+    </label>
+  </div>
+
+  <label class="reserve__field reserve__field--qty">
+    <span class="reserve__label">Quantity</span>
+    <input type="number" name="quantity" value="1" min="1" max="9999"
+      inputmode="numeric" />
+  </label>
+
+  <label class="reserve__field">
+    <span class="reserve__label">Note <span class="reserve__opt">(optional)</span></span>
+    <textarea name="note" rows="3" maxlength="2000"
+      placeholder="Tell us what you'd like printed — the words, the vibe, a link to a design…"></textarea>
+  </label>
+
+  {/* Honeypot — visually hidden, off the tab order, ignored by humans. */}
+  <div class="reserve__hp" aria-hidden="true">
+    <label>Company (leave blank)
+      <input type="text" name="company" tabindex="-1" autocomplete="off" />
+    </label>
+  </div>
+
+  <div class="reserve__actions">
+    <button type="submit" class="button button--primary">Reserve my interest</button>
+    <p class="reserve__note">No card needed — this just holds your interest and we reply by email.</p>
+  </div>
+
+  <p class="reserve__status" data-reserve-status role="status" aria-live="polite" hidden></p>
+</form>
+
+<script>
+  import '../scripts/reserve';
+</script>
+
+<style>
+  .reserve {
+    display: grid;
+    gap: var(--space-md);
+    max-width: 34rem;
+  }
+  .reserve__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+  }
+  .reserve__field { display: block; }
+  .reserve__field--qty { max-width: 8rem; }
+  .reserve__label {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--text-soft);
+    margin-bottom: var(--space-2xs);
+  }
+  .reserve__opt { color: var(--text-muted); font-weight: normal; }
+  .reserve input,
+  .reserve select,
+  .reserve textarea {
+    width: 100%;
+    font: inherit;
+    color: var(--text);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--space-xs) var(--space-sm);
+  }
+  .reserve textarea { resize: vertical; }
+  .reserve input:focus,
+  .reserve select:focus,
+  .reserve textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+  /* Honeypot — removed from layout and assistive tech, kept in the DOM so bots
+     that fill every field trip it. */
+  .reserve__hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .reserve__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+    margin-top: var(--space-xs);
+  }
+  .reserve__note { margin: 0; font-size: var(--text-sm); color: var(--text-muted); }
+  .reserve__status {
+    margin: 0;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+  }
+  .reserve__status[data-tone='ok'] {
+    background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+    color: var(--text);
+  }
+  .reserve__status[data-tone='error'] {
+    background: color-mix(in srgb, #c0392b 12%, var(--surface));
+    color: var(--text);
+  }
+
+  @media (max-width: 560px) {
+    .reserve__row { grid-template-columns: 1fr; }
+  }
+</style>

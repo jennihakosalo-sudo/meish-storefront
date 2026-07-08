@@ -1,0 +1,21 @@
+---
+import Base from '../../layouts/Base.astro';
+// Landing page for the no-JS reserve POST (the enhanced form shows an inline
+// message instead of navigating here). See src/pages/api/reserve.ts.
+---
+<Base
+  title="Reservation received — Meish Printed"
+  description="Thank you — your reservation is in."
+>
+  <section class="section container">
+    <p class="eyebrow">Reserve interest</p>
+    <h1>Thank you — your reservation is in.</h1>
+    <p class="lead">No payment was taken. We've emailed you a confirmation and
+      our studio has your details. We'll be in touch shortly to talk through the
+      print and a quote. If you don't see the confirmation, check your spam
+      folder or just reply to any email from us.</p>
+    <p>
+      <a class="button button--primary" href="/shop">Keep browsing the shop</a>
+    </p>
+  </section>
+</Base>

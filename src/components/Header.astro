@@ -27,7 +27,15 @@ const path = Astro.url.pathname;
         ))}
       </ul>
     </nav>
-    <a href="/reserve" class="button button--primary header-cta">Reserve a print</a>
+    <a
+      href="/cart"
+      class="cart-link"
+      aria-current={path === '/cart' ? 'page' : undefined}
+      aria-label="Cart"
+    >
+      Cart<span class="cart-badge" data-cart-count hidden>0</span>
+    </a>
+    <a href="/shop" class="button button--primary header-cta">Shop the studio</a>
   </div>
 </header>
 
@@ -79,6 +87,32 @@ const path = Astro.url.pathname;
     text-decoration: none;
   }
   .nav__link[aria-current='page'] { border-bottom: 2px solid var(--accent); }
+
+  .cart-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--text-soft);
+    letter-spacing: 0.01em;
+  }
+  .cart-link:hover,
+  .cart-link[aria-current='page'] { color: var(--text); text-decoration: none; }
+  .cart-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.35rem;
+    height: 1.35rem;
+    padding: 0 0.4rem;
+    border-radius: var(--radius-pill);
+    background: var(--accent);
+    color: var(--color-paper-raised);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    line-height: 1;
+  }
 
   @media (max-width: 640px) {
     .header-cta { display: none; }

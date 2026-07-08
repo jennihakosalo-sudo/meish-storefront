@@ -1,0 +1,133 @@
+---
+import Base from '../layouts/Base.astro';
+// Static page. On load it reads ?session_id from the URL and asks /api/order to
+// confirm + return the captured order (reconciling from Stripe if the webhook
+// hasn't landed yet). The cart is cleared once payment is confirmed.
+---
+<Base title="Thank you — Meish Printed">
+  <section class="section container">
+    <p class="eyebrow">Order confirmed</p>
+    <h1 data-order-heading>Thank you — we’re on it</h1>
+
+    <div data-order-loading>
+      <p class="lead">Confirming your payment…</p>
+    </div>
+
+    <div data-order-detail hidden>
+      <p class="lead">
+        We’ve received your order and payment. A receipt is on its way to
+        <strong data-order-email></strong>. The studio will be in touch as your
+        pieces are made.
+      </p>
+      <div class="receipt">
+        <div class="receipt__row receipt__row--head">
+          <span>Order</span><span data-order-id></span>
+        </div>
+        <ul class="receipt__items" data-order-items></ul>
+        <div class="receipt__row receipt__row--total">
+          <span>Total paid</span><strong data-order-total></strong>
+        </div>
+      </div>
+      <p><a class="button button--primary" href="/shop">Back to the shop</a></p>
+    </div>
+
+    <div data-order-error hidden>
+      <p class="lead">
+        We couldn’t confirm this order automatically. If you completed payment,
+        don’t worry — it’s safely recorded with Stripe and we’ll reconcile it.
+        Contact <a href="mailto:hello@meish.work">hello@meish.work</a> with any
+        questions.
+      </p>
+      <p><a class="button button--ghost" href="/shop">Back to the shop</a></p>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const params = new URLSearchParams(location.search);
+  const sessionId = params.get('session_id');
+
+  const loading = document.querySelector<HTMLElement>('[data-order-loading]')!;
+  const detail = document.querySelector<HTMLElement>('[data-order-detail]')!;
+  const errorEl = document.querySelector<HTMLElement>('[data-order-error]')!;
+
+  function money(cents: number, currency: string) {
+    return new Intl.NumberFormat('en-IE', {
+      style: 'currency',
+      currency: currency.toUpperCase(),
+    }).format(cents / 100);
+  }
+
+  function show(el: HTMLElement) {
+    loading.hidden = true;
+    detail.hidden = true;
+    errorEl.hidden = true;
+    el.hidden = false;
+  }
+
+  async function confirm() {
+    if (!sessionId) return show(errorEl);
+    try {
+      const res = await fetch(`/api/order?session_id=${encodeURIComponent(sessionId)}`);
+      const data = await res.json();
+      if (!res.ok || !data.order) throw new Error('not found');
+      const order = data.order;
+
+      // Payment confirmed → clear the cart.
+      localStorage.removeItem('meish.cart.v1');
+      window.dispatchEvent(new CustomEvent('meish:cart-changed'));
+
+      (document.querySelector('[data-order-email]') as HTMLElement).textContent =
+        order.customer?.email ?? 'your email';
+      (document.querySelector('[data-order-id]') as HTMLElement).textContent = order.id;
+      (document.querySelector('[data-order-total]') as HTMLElement).textContent = money(
+        order.amountTotalCents,
+        order.currency,
+      );
+
+      const items = document.querySelector('[data-order-items]') as HTMLElement;
+      items.innerHTML = '';
+      for (const it of order.items) {
+        const li = document.createElement('li');
+        li.className = 'receipt__item';
+        li.innerHTML = `<span>${it.quantity} × ${escapeHtml(it.name)}</span><span>${money(
+          it.unitAmountCents * it.quantity,
+          order.currency,
+        )}</span>`;
+        items.appendChild(li);
+      }
+      show(detail);
+    } catch {
+      show(errorEl);
+    }
+  }
+
+  function escapeHtml(s: string) {
+    return s.replace(/[&<>"']/g, (c) =>
+      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c] as string,
+    );
+  }
+
+  confirm();
+</script>
+
+<style>
+  .receipt {
+    margin: var(--space-xl) 0;
+    max-width: 32rem;
+    border: var(--border-hair);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    background: var(--surface);
+  }
+  .receipt__row { display: flex; justify-content: space-between; align-items: baseline; }
+  .receipt__row--head { color: var(--text-muted); font-size: var(--text-sm); padding-bottom: var(--space-sm); }
+  .receipt__items { list-style: none; padding: 0; margin: 0; border-top: var(--border-hair); }
+  :global(.receipt__item) {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--space-sm) 0;
+    border-bottom: var(--border-hair);
+  }
+  .receipt__row--total { padding-top: var(--space-md); font-size: var(--text-md); }
+</style>

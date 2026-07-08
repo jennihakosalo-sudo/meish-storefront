@@ -1,0 +1,121 @@
+---
+import Base from '../layouts/Base.astro';
+import { pricedCatalogue } from '../lib/pricing';
+// The cart itself is client-side (localStorage) so this page stays static.
+// We hand the client the machine-priced catalogue as JSON; cart.ts joins it
+// with the stored cart lines to render rows, totals and the checkout button.
+const catalogue = pricedCatalogue();
+---
+<Base title="Your cart — Meish Printed">
+  <section class="section container" data-cart-root>
+    <p class="eyebrow">Your cart</p>
+    <h1>Ready when you are</h1>
+
+    <p class="cart-empty lead" data-cart-empty hidden>
+      Your cart is empty. <a href="/shop">Browse the shop →</a>
+    </p>
+
+    <div class="cart-items" data-cart-items></div>
+
+    <div class="cart-summary" data-cart-summary hidden>
+      <div class="cart-summary__row">
+        <span>Total</span>
+        <strong data-cart-total>—</strong>
+      </div>
+      <p class="cart-summary__note">
+        Made to order. Shipping and any taxes are calculated at secure checkout,
+        powered by Stripe.
+      </p>
+      <p class="cart-error" data-cart-error role="alert" hidden></p>
+      <button type="button" class="button button--primary cart-checkout" data-checkout>
+        Proceed to secure checkout →
+      </button>
+      <p class="cart-continue"><a href="/shop">← Keep browsing</a></p>
+    </div>
+  </section>
+
+  <script type="application/json" id="meish-catalogue" set:html={JSON.stringify(catalogue)}></script>
+</Base>
+
+<style>
+  .cart-empty { margin-top: var(--space-xl); }
+
+  .cart-items { margin-top: var(--space-xl); }
+  :global(.cart-row) {
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    align-items: center;
+    gap: var(--space-lg);
+    padding: var(--space-lg) 0;
+    border-bottom: var(--border-hair);
+  }
+  :global(.cart-row__name) { font-size: var(--text-md); margin: 0; }
+  :global(.cart-row__meta) { color: var(--text-muted); font-size: var(--text-sm); margin: 0.2em 0 0; }
+  :global(.cart-row__artifact) {
+    margin: var(--space-xs) 0 0;
+    color: var(--text-soft);
+    font-size: var(--text-sm);
+    max-width: 48ch;
+  }
+  :global(.cart-row__artifact .eyebrow) { display: block; }
+  :global(.cart-row__qty) {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    padding: var(--space-2xs) var(--space-sm);
+  }
+  :global(.qty-btn) {
+    border: 0;
+    background: none;
+    font-size: var(--text-md);
+    line-height: 1;
+    cursor: pointer;
+    color: var(--text-soft);
+  }
+  :global(.qty-btn:hover) { color: var(--accent); }
+  :global(.qty-value) { min-width: 2ch; text-align: center; font-variant-numeric: tabular-nums; }
+  :global(.cart-row__price) { font-weight: var(--weight-semibold); font-variant-numeric: tabular-nums; }
+  :global(.cart-row__remove) {
+    border: 0;
+    background: none;
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  :global(.cart-row__remove:hover) { color: var(--accent); }
+
+  .cart-summary { margin-top: var(--space-xl); max-width: 32rem; }
+  .cart-summary__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: var(--text-lg);
+    padding-bottom: var(--space-md);
+    border-bottom: 2px solid var(--text);
+  }
+  .cart-summary__note { color: var(--text-muted); font-size: var(--text-sm); margin: var(--space-md) 0; }
+  .cart-error {
+    color: var(--color-clay-deep);
+    background: var(--accent-tint);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--text-sm);
+  }
+  .cart-checkout { width: 100%; margin-top: var(--space-sm); }
+  .cart-continue { margin-top: var(--space-md); font-size: var(--text-sm); }
+
+  @media (max-width: 560px) {
+    :global(.cart-row) {
+      grid-template-columns: 1fr auto;
+      grid-template-areas: 'main price' 'qty remove';
+      row-gap: var(--space-sm);
+    }
+    :global(.cart-row__main) { grid-area: main; }
+    :global(.cart-row__price) { grid-area: price; text-align: right; }
+    :global(.cart-row__qty) { grid-area: qty; justify-self: start; }
+    :global(.cart-row__remove) { grid-area: remove; justify-self: end; }
+  }
+</style>

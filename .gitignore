@@ -13,6 +13,9 @@ node_modules/
 .env.production
 .dev.vars
 
+# captured orders (MVP file store — see src/lib/orders.ts)
+.data/
+
 # secrets (API tokens — never commit)
 secrets/
 

@@ -45,6 +45,11 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     </main>
     <Footer />
 
+    <!-- Client cart: keeps badges in sync, wires add-to-cart + checkout. -->
+    <script>
+      import '../scripts/cart';
+    </script>
+
     <style>
       .skip-link {
         position: absolute;

@@ -2,6 +2,10 @@
 import Base from '../layouts/Base.astro';
 import ProductCard from '../components/ProductCard.astro';
 import { categories, products, productsByCategory } from '../data/products';
+
+// Only surface categories that actually have products, so the filter never
+// offers an empty view.
+const activeCategories = categories.filter((cat) => productsByCategory(cat.id).length > 0);
 ---
 
 <Base title="Shop — Meish Printed" description="Custom quote prints, wall décor, tin plates and single-use restaurant pieces. Start from a template and make it yours in the browser.">
@@ -14,35 +18,127 @@ import { categories, products, productsByCategory } from '../data/products';
         print before you order. Nothing here is fixed until you make it so.</p>
     </header>
 
-    {categories.map((cat) => {
-      const items = productsByCategory(cat.id);
-      if (items.length === 0) return null;
-      return (
-        <section class="cat" id={cat.id}>
-          <div class="cat__head">
-            <h2>{cat.name}</h2>
-            <p class="cat__blurb">{cat.blurb}</p>
-          </div>
-          <ul class="grid">
-            {items.map((p) => <ProductCard product={p} />)}
-          </ul>
-        </section>
-      );
-    })}
+    {/* Category filter. Renders as anchor links (works with no JS — each jumps
+        to its section); the script below upgrades them to an in-place filter. */}
+    <nav class="filter" aria-label="Filter by category">
+      <a class="chip is-active" href="#all" data-filter="all" aria-current="true">
+        All <span class="chip__count">{products.length}</span>
+      </a>
+      {activeCategories.map((cat) => (
+        <a class="chip" href={`#${cat.id}`} data-filter={cat.id}>
+          {cat.name} <span class="chip__count">{productsByCategory(cat.id).length}</span>
+        </a>
+      ))}
+    </nav>
+
+    <div id="all" class="cats">
+      {activeCategories.map((cat) => {
+        const items = productsByCategory(cat.id);
+        return (
+          <section class="cat" id={cat.id} data-category={cat.id}>
+            <div class="cat__head">
+              <h2>{cat.name}</h2>
+              <p class="cat__blurb">{cat.blurb}</p>
+            </div>
+            <ul class="grid">
+              {items.map((p) => <ProductCard product={p} />)}
+            </ul>
+          </section>
+        );
+      })}
+    </div>
 
     <p class="shop-foot lead">{products.length} formats and counting — can’t find your
       size? <a href="/reserve">Reserve a custom print</a> and we’ll set it up.</p>
   </section>
 </Base>
 
+<script>
+  // Progressive enhancement: turn the anchor chips into an in-place category
+  // filter. With JS off, the chips remain plain jump links and every section
+  // stays visible — nothing is hidden behind a script.
+  const chips = Array.from(document.querySelectorAll<HTMLAnchorElement>('.chip'));
+  const sections = Array.from(document.querySelectorAll<HTMLElement>('.cat'));
+  if (chips.length && sections.length) {
+    const apply = (filter: string) => {
+      for (const section of sections) {
+        const show = filter === 'all' || section.dataset.category === filter;
+        section.hidden = !show;
+      }
+      for (const chip of chips) {
+        const active = chip.dataset.filter === filter;
+        chip.classList.toggle('is-active', active);
+        if (active) chip.setAttribute('aria-current', 'true');
+        else chip.removeAttribute('aria-current');
+      }
+    };
+
+    for (const chip of chips) {
+      chip.addEventListener('click', (e) => {
+        e.preventDefault();
+        const filter = chip.dataset.filter || 'all';
+        apply(filter);
+        // Reflect state in the URL so a filtered view is shareable/back-able.
+        const url = filter === 'all' ? location.pathname : `#${filter}`;
+        history.replaceState(null, '', url);
+      });
+    }
+
+    // Honour a deep link like /shop#tin-plates on first load.
+    const initial = location.hash.replace('#', '');
+    if (initial && initial !== 'all' && sections.some((s) => s.dataset.category === initial)) {
+      apply(initial);
+    }
+  }
+</script>
+
 <style>
   .shop-head {
     max-width: var(--measure);
-    margin-bottom: var(--space-2xl);
+    margin-bottom: var(--space-xl);
   }
+
+  .filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    padding-bottom: var(--space-xl);
+    margin-bottom: var(--space-xl);
+    border-bottom: var(--border-hair);
+  }
+  .chip {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.4em;
+    padding: 0.5em 1em;
+    border: var(--border-hair);
+    border-radius: var(--radius-pill);
+    font-size: var(--text-sm);
+    color: var(--text-soft);
+    background: var(--surface);
+    transition: color var(--dur) var(--ease), background var(--dur) var(--ease),
+      border-color var(--dur) var(--ease);
+  }
+  .chip:hover {
+    text-decoration: none;
+    color: var(--text);
+    border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  }
+  .chip.is-active {
+    color: var(--bg);
+    background: var(--text);
+    border-color: var(--text);
+  }
+  .chip__count {
+    font-size: var(--text-xs);
+    color: currentColor;
+    opacity: 0.55;
+  }
+
   .cat {
     margin-block: var(--space-2xl);
   }
+  .cat:first-child { margin-top: 0; }
   .cat__head {
     display: flex;
     align-items: baseline;

@@ -1,13 +1,16 @@
 ---
 import Base from '../layouts/Base.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { categories, productsByCategory } from '../data/products';
 
-// Placeholder featured products. MEI-18 replaces this with the real content
-// model (git-based / headless CMS) a non-technical admin can edit.
-const featured = [
-  { name: 'Kitchen Wisdom', category: 'Wall décor', price: 'from €24', tone: '#c98a5e' },
-  { name: 'The Regulars', category: 'Tin plates', price: 'from €18', tone: '#7d8b74' },
-  { name: 'Table No. 6', category: 'Restaurant single-use', price: 'from €0.40', tone: '#b4552d' },
-];
+// Featured = one representative piece from each category, drawn live from the
+// MEI-18 catalogue (each product's own `order` decides which leads its
+// category). No hand-maintained list — add a product in /admin and the
+// homepage curates itself on the next build.
+const featured = categories
+  .map((cat) => productsByCategory(cat.id)[0])
+  .filter((p) => p !== undefined)
+  .slice(0, 4);
 ---
 
 <Base>
@@ -40,21 +43,11 @@ const featured = [
         <h2>Made to be looked at twice</h2>
       </div>
       <ul class="grid">
-        {featured.map((p) => (
-          <li class="card">
-            <a href="/shop" class="card__link">
-              <div class="card__thumb" style={`--tone:${p.tone}`}>
-                <span class="card__placeholder">Photography — {p.name}</span>
-              </div>
-              <div class="card__body">
-                <span class="tag">{p.category}</span>
-                <h3 class="card__name">{p.name}</h3>
-                <p class="card__price">{p.price}</p>
-              </div>
-            </a>
-          </li>
-        ))}
+        {featured.map((p) => <ProductCard product={p} />)}
       </ul>
+      <p class="section-more">
+        <a href="/shop" class="link-more">See the whole shop →</a>
+      </p>
     </div>
   </section>
 
@@ -93,36 +86,15 @@ const featured = [
     list-style: none;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
     gap: var(--space-xl);
   }
-  .card__link { display: block; color: var(--text); }
-  .card__link:hover { color: var(--text); text-decoration: none; }
-  .card__thumb {
-    aspect-ratio: 4 / 5;
-    border-radius: var(--radius-md);
-    background: linear-gradient(160deg,
-      color-mix(in srgb, var(--tone) 22%, var(--surface)),
-      color-mix(in srgb, var(--tone) 44%, var(--bg-alt)));
-    border: var(--border-hair);
-    display: grid;
-    place-items: center;
-    overflow: hidden;
-    transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
-  }
-  .card__link:hover .card__thumb {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
-  }
-  .card__placeholder {
-    font-size: var(--text-xs);
+  .section-more { margin-top: var(--space-xl); }
+  .link-more {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
     letter-spacing: var(--tracking-wide);
-    text-transform: uppercase;
-    color: color-mix(in srgb, var(--text) 45%, transparent);
   }
-  .card__body { padding-top: var(--space-md); }
-  .card__name { font-size: var(--text-lg); margin-top: var(--space-2xs); }
-  .card__price { color: var(--text-muted); font-size: var(--text-sm); margin-top: var(--space-2xs); }
 
   .band { background: var(--bg-alt); border-block: var(--border-hair); }
   .band__inner { max-width: 44rem; }

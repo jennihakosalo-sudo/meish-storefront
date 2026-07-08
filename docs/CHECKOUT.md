@@ -51,6 +51,16 @@ shop/[slug]  ──Add to cart──▶  localStorage cart  ──▶  /cart
 6. You land on `/success` with a receipt, and a JSON order appears in
    `.data/orders/` — that is the "stored order end to end" deliverable.
 
+### Minimal proof needs only one key
+
+Step 3 (the webhook) is **optional for the local proof**. `/api/order`
+*reconciles*: on the `/success` page it retrieves the paid session from Stripe
+and persists the order using only `STRIPE_SECRET_KEY`. So a single test secret
+key is enough to demonstrate the full "test payment → stored order" deliverable
+locally. `STRIPE_WEBHOOK_SECRET` and a functions-capable production host are
+needed only for the **live public** deployment (that host decision is MEI-23),
+not for proving the flow works.
+
 ## Open decisions (blockers for a live/deployed payment)
 
 1. **Stripe test credentials** — needed from the CEO. Nothing charges without

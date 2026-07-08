@@ -62,3 +62,66 @@ ships direct to the customer in our packaging) and delete legs 1 and 2 entirely?
 
 Once I have supplier quotes + a shipping table I'll plug them in here and set final,
 margin-validated prices in `src/data/catalog/*.json`.
+
+---
+
+## Appendix A — Cost ceilings (computed, no quotes needed) — added MEI-27
+
+Two things changed the picture since the draft above:
+
+- The catalog **already carries `minQuantity`** on the paper goods (coaster 500, menu card
+  250, placemat 250). So they are **not** sold per-unit — the smallest coaster order is
+  500 × €0.15 = **€75**, which absorbs one €4–6 parcel at ~7%. **Finding #1 is already
+  mitigated in the schema.** The open variable is purely supplier print cost.
+
+Instead of asking the board open-ended questions, we can hand them a **pass/fail test**: the
+**maximum supplier unit cost** at which each product still clears a **40% gross margin**.
+Model per order of N = MOQ units:
+
+```
+R = N × retail_unit
+require  R − N·c − S − P − (1.5%R + €0.25) − 5%R  ≥  0.40 R
+  ⇒  c_max = (0.535·R − 0.25 − S − P) / N
+     S = outbound parcel we absorb   P = branded insert (€0.50)
+```
+
+| Product | Retail | MOQ | Order € | **c_max (blind-drop-ship, S=0)** | **c_max (we absorb 1 parcel)** |
+|---|---:|---:|---:|---:|---:|
+| Atelier poster 50×70 | €48 | 1 | €48 | **€25.43** | €12.93 (tube) |
+| Verse print 240gsm | €24 | 1 | €24 | **€12.59** | **€4.09** ⚠ |
+| Enamel tin plate | €18 | 1 | €18 | **€9.38** | **€2.88** ⚠ |
+| Menu card | €0.30 | 250 | €75 | **€0.160** | €0.138 |
+| Table placemat | €0.40 | 250 | €100 | **€0.213** | €0.191 |
+| Coaster | €0.15 | 500 | €75 | **€0.080** | €0.069 |
+
+**The real margin cliff is the mid-price items, not the paper goods.** Draft estimates put
+Verse supply at €6–10 and Enamel at €7–11 — both **blow straight through** the €4.09 / €2.88
+ceilings the moment we repack-and-reship. Conclusion sharpened:
+
+1. **Blind-drop-ship is mandatory for Verse and Enamel**, not optional. Repacked, they lose
+   money at any realistic print cost. If a supplier *cannot* drop-ship these two, we either
+   raise their price or drop them.
+2. **Paper goods are fine on shipping** thanks to MOQ — they only need a print cost under the
+   c_max above (coaster ≤ 8¢ is the tight one; achievable in 500-runs).
+3. **Poster survives either way** (ceiling €12.93 even absorbing a tube), so it's the safe
+   flagship.
+
+### Decision-ready ask for the board
+For each product, one question: **is the real supplier unit cost at or below the drop-ship
+c_max?** If yes → price stands. If a supplier can't drop-ship Verse/Enamel → those two need a
+price bump or get cut. Everything else in `src/data/catalog/*.json` is validated the moment a
+quote lands next to this table.
+
+## Appendix B — Shipping table skeleton (fill zone rates on board answer)
+
+Customer-paid shipping, charged at checkout (keeps it out of the margin math above). Rates TBD
+once the board confirms zones; structure is ready:
+
+| Zone | Small parcel (paper goods, ≤2 kg) | Tube (poster) | Flat/board (print, tin) |
+|---|---|---|---|
+| FI domestic | € _ | € _ | € _ |
+| EU | € _ | € _ | € _ |
+| Worldwide (if enabled) | € _ | € _ | € _ |
+
+Blocked only on: **which zones we sell to**, and whether the supplier's drop-ship rate is what
+we pass through or we set our own flat rate.

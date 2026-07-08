@@ -11,7 +11,8 @@
 
 import type { APIRoute } from 'astro';
 import { getStripe, orderFromSession, hasStripeKey } from '../../lib/stripe';
-import { getOrder, saveOrder } from '../../lib/orders';
+import { getOrder } from '../../lib/orders';
+import { onOrderPaid } from '../../lib/order-flow';
 
 export const prerender = false;
 
@@ -49,8 +50,9 @@ export const GET: APIRoute = async ({ url }) => {
       limit: 100,
       expand: ['data.price.product'],
     });
-    const order = orderFromSession(session, lineItems.data);
-    await saveOrder(order);
+    // Reconcile → capture, notify, and route to fulfillment. Idempotent, so if
+    // the webhook already ran this is a safe no-op that just returns the order.
+    const order = await onOrderPaid(orderFromSession(session, lineItems.data), new Date().toISOString());
     return json({ order });
   } catch (err) {
     console.error('[order] reconcile failed:', err);

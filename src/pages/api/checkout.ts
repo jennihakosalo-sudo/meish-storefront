@@ -23,6 +23,14 @@ interface IncomingItem {
 const MAX_QTY = 999;
 const MAX_ARTIFACT_LEN = 480; // Stripe metadata values cap at 500 chars.
 
+// Destinations Checkout will accept a shipping address for. Gelato prints and
+// ships locally in all of these, so it's a sensible launch set for an EU studio;
+// extend as the studio confirms more markets. Stripe wants ISO-3166-1 alpha-2.
+const SHIP_TO_COUNTRIES = [
+  'FI', 'SE', 'NO', 'DK', 'IE', 'GB', 'DE', 'FR', 'NL', 'BE',
+  'ES', 'IT', 'PT', 'AT', 'PL', 'EE', 'LV', 'LT', 'US', 'CA',
+] as const;
+
 function json(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), {
     status,
@@ -102,6 +110,12 @@ export const POST: APIRoute = async ({ request }) => {
       cancel_url: `${origin}/cart?canceled=1`,
       // Checkout always collects the buyer's email; captured with the order.
       billing_address_collection: 'auto',
+      // A physical print has to be mailed, so collect a shipping address — it's
+      // what fulfillment routing needs (MEI-5). Countries we currently ship to;
+      // widen this list as the studio confirms supported destinations.
+      shipping_address_collection: {
+        allowed_countries: [...SHIP_TO_COUNTRIES],
+      },
       metadata: { source: 'meish-storefront' },
     });
 

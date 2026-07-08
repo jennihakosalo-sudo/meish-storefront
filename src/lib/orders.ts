@@ -27,6 +27,53 @@ export interface OrderItem {
   artifact?: string;
 }
 
+/** A postal shipping address, captured by Stripe Checkout for fulfillment. */
+export interface ShippingAddress {
+  line1: string | null;
+  line2: string | null;
+  city: string | null;
+  /** State / province / region — often null for EU addresses. */
+  state: string | null;
+  postalCode: string | null;
+  /** ISO 3166-1 alpha-2, e.g. 'FI', 'IE'. */
+  country: string | null;
+}
+
+/**
+ * Where the order goes once paid (MEI-5). Lifecycle:
+ *   not_submitted → (routing) → submitted → in_production → shipped → delivered
+ * with `needs_artwork` when a print-ready file couldn't be resolved from the
+ * line item (so the studio produces/uploads it), and `failed` for a provider
+ * submission error that needs a human. `provider` is 'dry-run' until a real
+ * fulfillment API key is configured (keyless-degrade, like Stripe/email).
+ */
+export type FulfillmentStatus =
+  | 'not_submitted'
+  | 'needs_artwork'
+  | 'submitted'
+  | 'in_production'
+  | 'shipped'
+  | 'delivered'
+  | 'canceled'
+  | 'failed';
+
+export interface Fulfillment {
+  provider: string;
+  status: FulfillmentStatus;
+  /** The provider's order id, once accepted. */
+  providerOrderId: string | null;
+  submittedAt: string | null;
+  updatedAt: string;
+  /** Carrier tracking, populated when the provider reports a shipment. */
+  tracking: { carrier: string | null; code: string | null; url: string | null } | null;
+  /** Per-line print-file resolution — flags items the studio must art up. */
+  items: Array<{ productId: string; printFileUrl: string | null; needsManualArt: boolean }>;
+  /** Last routing/submission error, if any. */
+  error: string | null;
+  /** Last fulfillment status the customer was emailed about (dedupe). */
+  notifiedStatus: FulfillmentStatus | null;
+}
+
 export interface Order {
   /** Our order id — the Stripe Checkout Session id. */
   id: string;
@@ -39,10 +86,22 @@ export interface Order {
     email: string | null;
     name: string | null;
   };
+  /** Delivery address for fulfillment. Null if Checkout didn't collect one. */
+  shipping: {
+    name: string | null;
+    address: ShippingAddress | null;
+  } | null;
   items: OrderItem[];
   stripe: {
     sessionId: string;
     paymentIntentId: string | null;
+  };
+  /** Fulfillment routing + status (MEI-5). Null until first routed. */
+  fulfillment?: Fulfillment | null;
+  /** Which post-payment side effects have already run (idempotency). */
+  notifications?: {
+    /** ISO timestamp the customer order-confirmation email was sent. */
+    confirmationSentAt: string | null;
   };
 }
 

@@ -9,7 +9,7 @@
 import type { APIRoute } from 'astro';
 import { getStripe } from '../../lib/stripe';
 import { orderFromSession } from '../../lib/stripe';
-import { saveOrder } from '../../lib/orders';
+import { onOrderPaid } from '../../lib/order-flow';
 
 export const prerender = false;
 
@@ -43,8 +43,12 @@ export const POST: APIRoute = async ({ request }) => {
         limit: 100,
         expand: ['data.price.product'],
       });
-      await saveOrder(orderFromSession(session, lineItems.data));
-      console.log(`[webhook] captured order ${session.id} (${session.payment_status})`);
+      // Capture, notify, and route to fulfillment (idempotent — Stripe retries
+      // and the success-page reconcile both land here safely). MEI-5.
+      const order = await onOrderPaid(orderFromSession(session, lineItems.data), new Date().toISOString());
+      console.log(
+        `[webhook] captured order ${session.id} (${session.payment_status}) → fulfillment ${order.fulfillment?.status}`,
+      );
     } catch (err) {
       console.error('[webhook] failed to capture order:', err);
       // 500 → Stripe retries later, so a transient store failure isn't lost.

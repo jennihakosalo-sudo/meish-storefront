@@ -27,6 +27,12 @@ import Base from '../layouts/Base.astro';
         <div class="receipt__row receipt__row--total">
           <span>Total paid</span><strong data-order-total></strong>
         </div>
+        <div class="receipt__row receipt__status">
+          <span>Status</span><span data-order-status>Confirmed</span>
+        </div>
+        <p class="receipt__track" data-order-track hidden>
+          <a data-order-track-link href="#" target="_blank" rel="noopener">Track your shipment →</a>
+        </p>
       </div>
       <p><a class="button button--primary" href="/shop">Back to the shop</a></p>
     </div>
@@ -96,6 +102,29 @@ import Base from '../layouts/Base.astro';
         )}</span>`;
         items.appendChild(li);
       }
+
+      // Fulfillment status (MEI-5) — customer-facing labels for each state.
+      const STATUS_LABEL: Record<string, string> = {
+        not_submitted: 'Confirmed — preparing for print',
+        needs_artwork: 'Confirmed — the studio is preparing your print file',
+        submitted: 'Sent to the print studio',
+        in_production: 'In production',
+        shipped: 'Shipped',
+        delivered: 'Delivered',
+        canceled: 'Canceled',
+        failed: 'Confirmed — we’ll be in touch',
+      };
+      const f = order.fulfillment;
+      const statusEl = document.querySelector('[data-order-status]') as HTMLElement;
+      statusEl.textContent = f ? (STATUS_LABEL[f.status] ?? 'Confirmed') : 'Confirmed';
+
+      const track = document.querySelector('[data-order-track]') as HTMLElement;
+      const trackLink = document.querySelector('[data-order-track-link]') as HTMLAnchorElement;
+      if (f?.tracking?.url) {
+        trackLink.href = f.tracking.url;
+        track.hidden = false;
+      }
+
       show(detail);
     } catch {
       show(errorEl);
@@ -130,4 +159,11 @@ import Base from '../layouts/Base.astro';
     border-bottom: var(--border-hair);
   }
   .receipt__row--total { padding-top: var(--space-md); font-size: var(--text-md); }
+  .receipt__status {
+    padding-top: var(--space-sm);
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+  }
+  .receipt__status [data-order-status] { color: var(--text); font-weight: 600; }
+  .receipt__track { margin: var(--space-sm) 0 0; font-size: var(--text-sm); }
 </style>

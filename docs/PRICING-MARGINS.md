@@ -5,6 +5,52 @@ are storefront placeholders I (engineering) set to make the store look right —
 **not** been checked against real supplier + fulfilment costs. This doc exists so we lock in
 real numbers before we take real money.
 
+## Board decisions locked — 2026-07-08 (MEI-27 interaction 45ddd82c + follow-up comment)
+
+The board answered the 5 sourcing questions and added product direction. Locked:
+
+1. **Price ceiling: every product ≤ €20 retail.** ⚠ This overturns the current catalog — the
+   Atelier poster is €48 and Verse print €24. See "€20-ceiling recompute" below; the poster
+   and the Master-Brief book+pencils+plate bundle do **not** fit ≤€20 at 40% margin, so that
+   collision is escalated back to the board (open question, not silently repriced).
+2. **Market / zones: EU only** (no worldwide yet). Engineering recommendation for launch
+   sequence: **Finland first** (domestic — Finnish brand, EUR, cheapest/fastest shipping,
+   easiest returns + GDPR + drop-ship QC on home turf), then **Germany + Netherlands** (largest
+   EU e-commerce volume, strong cross-border logistics, English-friendly for the humour-forward
+   copy), then broader Eurozone. All inside the single market → one currency, no customs.
+3. **Drop-ship: allowed *after* a quality check**, and only if the supplier will ship in **our
+   brand packaging** (blind-drop-ship, our box/label). **No all-plastic "China wrap".** Brand
+   packaging is a hard requirement (repack_required = yes) — so the target is *supplier
+   drop-ships using our branded materials*, not us repacking.
+4. **Small paper goods: MOQ is mandatory OR move to small-quantity printing.** Board's chosen
+   direction: sell **themed printable packs "for 2 persons and up"** (e.g. a Halloween dinner
+   pack: placemats + coasters + menu cards + napkins + bottle belts), not per-unit. Packs use
+   **themed templates** and accept **per-order customization requests** ("more skeletons, no
+   cats") — the supplier honours these to our quality standard. This replaces the 250/500-unit
+   MOQ model with consumer-sized packs and needs a small-run print device/supplier.
+5. **Real per-unit supplier costs: still none** (have_quotes = no). Sourcing is engineering's
+   to drive → RFQs are in flight in **MEI-29 / MEI-30**. Final ≤€20 prices land when quotes
+   return and are checked against the €20 c_max table below.
+
+### €20-ceiling recompute (same formula, R = €20)
+
+`c_max = (0.535·R − 0.25 − S − P)/N`, P = €0.50 branded insert.
+
+| Scenario | c_max (max supplier unit cost for 40% GM) |
+|---|---:|
+| Blind-drop-ship, S = 0 | **€9.95** |
+| We absorb one parcel, S ≈ €5 | **€4.95** ⚠ |
+| Themed 2-person pack @ €18, drop-ship | **€8.88** |
+
+**Implications at €20:**
+- **Poster** (est. supplier €12–18) **fails** ≤€20 even drop-shipped → keep it >€20 as a
+  premium exception, drop it, or find a <€10 print source. **Board decision needed.**
+- **Verse print** (€6–10) fits at €20 **only if drop-shipped** and supplier ≤ €9.95.
+- **Enamel plate** (€7–11) borderline; needs supplier ≤ €9.95 **and** drop-ship.
+- **Themed packs** are viable at €12–20 **only** with small-run printing + drop-ship.
+- **Flagship book + pencils + metal plate** (Master Brief, MEI-6) cannot be ≤€20 at 40% GM —
+  confirm the €20 ceiling applies to **retail table-setting SKUs**, not the flagship editions.
+
 ## Why the board is right to worry
 
 The concern was: *"decent profit even after shipping, repacking and reshipping."*

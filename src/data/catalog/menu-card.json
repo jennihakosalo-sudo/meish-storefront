@@ -1,0 +1,20 @@
+{
+  "name": "Menu card",
+  "category": "restaurant",
+  "tagline": "The day, on a card.",
+  "description": "A tall single-use menu card for daily specials and tasting flights. Set a heading and a photo; the kitchen fills the rest at the table.",
+  "priceLabel": "from €0.30 / unit",
+  "price": {
+    "unitAmountCents": 30,
+    "minQuantity": 250,
+    "unitLabel": "per unit"
+  },
+  "material": "Uncoated 250gsm card, 100 × 210 mm, runs of 250+",
+  "orientationNote": "Portrait · DL",
+  "width_mm": 100,
+  "height_mm": 210,
+  "dpi": 300,
+  "bleed_mm": 3,
+  "tone": "#7d8b74",
+  "order": 30
+}

@@ -35,8 +35,11 @@ const priced = getPricedProduct(product.slug);
           class="preview"
           style={`--tone:${product.tone}; aspect-ratio:${ratio};`}
         >
+          {product.image && (
+            <img class="preview__img" src={product.image} alt={product.name} />
+          )}
           <div class="preview__stage">
-            <span class="preview__name">{product.name}</span>
+            {!product.image && <span class="preview__name">{product.name}</span>}
             <span class="preview__hint">Design preview appears in the studio</span>
           </div>
           <span class="preview__ratio">{product.orientationNote}</span>
@@ -137,6 +140,13 @@ const priced = getPricedProduct(product.slug);
     );
     box-shadow: var(--shadow-md);
     max-height: 72vh;
+  }
+  .preview__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   .preview__stage {
     position: absolute;

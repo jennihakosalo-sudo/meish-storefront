@@ -1,0 +1,20 @@
+{
+  "name": "Table N°",
+  "category": "restaurant",
+  "tagline": "Printed by the run, used once, remembered.",
+  "description": "A single-use paper placemat sized for A3 landscape. Set your restaurant name, a welcome and a photo — ideal for events, tastings and seasonal menus.",
+  "priceLabel": "from €0.40 / unit",
+  "price": {
+    "unitAmountCents": 40,
+    "minQuantity": 250,
+    "unitLabel": "per unit"
+  },
+  "material": "Uncoated 120gsm paper, A3 landscape, printed in runs of 250+",
+  "orientationNote": "Landscape · A3",
+  "width_mm": 420,
+  "height_mm": 297,
+  "dpi": 150,
+  "bleed_mm": 3,
+  "tone": "#b4552d",
+  "order": 10
+}

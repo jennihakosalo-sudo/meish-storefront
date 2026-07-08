@@ -1,0 +1,20 @@
+{
+  "name": "Coaster",
+  "category": "restaurant",
+  "tagline": "A small square with a name on it.",
+  "description": "Square single-use paper coaster. Perfect for a logo, a hashtag or a house cocktail — printed in generous runs for bars and events.",
+  "priceLabel": "from €0.15 / unit",
+  "price": {
+    "unitAmountCents": 15,
+    "minQuantity": 500,
+    "unitLabel": "per unit"
+  },
+  "material": "Pulpboard coaster, 95 × 95 mm, runs of 500+",
+  "orientationNote": "Square · 9.5 cm",
+  "width_mm": 95,
+  "height_mm": 95,
+  "dpi": 300,
+  "bleed_mm": 3,
+  "tone": "#c98a5e",
+  "order": 20
+}

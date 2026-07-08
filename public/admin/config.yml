@@ -1,0 +1,168 @@
+# ==========================================================================
+# Meish Printed — Decap CMS configuration  (MEI-18)
+# --------------------------------------------------------------------------
+# This drives the /admin product editor. A non-technical admin fills in a
+# form; Decap writes a JSON file into src/data/catalog/ and commits it. The
+# next site build reads that file (src/data/products.ts) and the product
+# renders statically. No code editing required.
+#
+# TWO WAYS TO RUN IT:
+#
+# 1. LOCAL (works today, no accounts, no hosting):
+#      npm run cms      # starts the Decap local proxy on :8081
+#      npm run dev      # starts the site on :4321
+#    then open http://localhost:4321/admin/ — edits write straight to the
+#    JSON files in this repo. `local_backend: true` (below) enables this.
+#
+# 2. HOSTED (for the CEO to edit from a browser, no laptop):
+#    Requires the production host + auth wiring tracked as a follow-up of
+#    MEI-18 (rides the host decision in MEI-23). Point `backend` at the git
+#    provider (git-gateway + Netlify Identity, or the GitHub backend) once the
+#    repo has a remote and the host is chosen.
+# ==========================================================================
+
+backend:
+  name: git-gateway
+  branch: main
+
+# Enables the `npm run cms` local proxy so the admin works offline against the
+# repo files — this is how the flow is demonstrable before the host is chosen.
+local_backend: true
+
+# Where uploaded product photos land, and how they're referenced on the site.
+media_folder: "public/images/products"
+public_folder: "/images/products"
+
+# Small, plain-language editor. Every label is written for a shop owner, not an
+# engineer.
+locale: "en"
+
+collections:
+  - name: "products"
+    label: "Products"
+    label_singular: "Product"
+    description: "Everything in the shop. Add one here and it appears on the site after the next build."
+    folder: "src/data/catalog"
+    create: true
+    delete: true
+    extension: "json"
+    format: "json"
+    # The URL becomes /shop/<slugified-name>. Editing an existing product keeps
+    # its original URL.
+    slug: "{{name}}"
+    identifier_field: "name"
+    summary: "{{name}} — {{priceLabel}}"
+    sortable_fields: ["name", "category", "order"]
+    fields:
+      - label: "Name"
+        name: "name"
+        widget: "string"
+        hint: "What the product is called, e.g. “Verse” or “Coaster”."
+
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        hint: "Which section of the shop it belongs in."
+        options:
+          - { label: "Quote prints", value: "quotes" }
+          - { label: "Wall décor", value: "wall-decor" }
+          - { label: "Tin plates", value: "tin-plates" }
+          - { label: "Restaurant single-use", value: "restaurant" }
+
+      - label: "Tagline"
+        name: "tagline"
+        widget: "string"
+        hint: "One short line under the name on the product card."
+
+      - label: "Description"
+        name: "description"
+        widget: "text"
+        hint: "A sentence or two shown on the product page."
+
+      - label: "Price label (shown to shoppers)"
+        name: "priceLabel"
+        widget: "string"
+        hint: "The human price on the storefront, e.g. “from €24” or “from €0.40 / unit”."
+
+      - label: "Price (used at checkout)"
+        name: "price"
+        widget: "object"
+        hint: "The exact amount a card is charged. Keep this in step with the label above."
+        fields:
+          - label: "Unit price in euro CENTS"
+            name: "unitAmountCents"
+            widget: "number"
+            value_type: "int"
+            min: 1
+            hint: "Whole cents. 2400 = €24.00. 40 = €0.40."
+          - label: "Minimum order quantity"
+            name: "minQuantity"
+            widget: "number"
+            value_type: "int"
+            default: 1
+            min: 1
+            hint: "Restaurant items print in runs, e.g. 250. Prints are usually 1."
+          - label: "Unit label"
+            name: "unitLabel"
+            widget: "string"
+            default: "per unit"
+            hint: "Shown in the cart, e.g. “per print” or “per unit”."
+
+      - label: "Product photo (optional)"
+        name: "image"
+        widget: "image"
+        required: false
+        hint: "A real product shot. Leave empty to use the warm colour placeholder."
+
+      - label: "Material"
+        name: "material"
+        widget: "string"
+        hint: "What it's printed on, e.g. “Giclée on 240gsm cotton paper”."
+
+      - label: "Orientation / size note"
+        name: "orientationNote"
+        widget: "string"
+        hint: "Short size caption on the card, e.g. “Portrait · A3”."
+
+      - label: "Print width (mm)"
+        name: "width_mm"
+        widget: "number"
+        value_type: "int"
+        min: 1
+        hint: "The print's width in millimetres (drives the design studio)."
+
+      - label: "Print height (mm)"
+        name: "height_mm"
+        widget: "number"
+        value_type: "int"
+        min: 1
+        hint: "The print's height in millimetres."
+
+      - label: "Resolution (dpi)"
+        name: "dpi"
+        widget: "number"
+        value_type: "int"
+        default: 300
+        min: 1
+        hint: "Print resolution. 300 for prints, 150 for large single-use runs."
+
+      - label: "Bleed (mm)"
+        name: "bleed_mm"
+        widget: "number"
+        value_type: "int"
+        default: 3
+        min: 1
+        hint: "Print bleed margin in millimetres. Usually 3."
+
+      - label: "Placeholder colour"
+        name: "tone"
+        widget: "color"
+        default: "#c98a5e"
+        hint: "The warm tint shown until a real photo is added."
+
+      - label: "Sort order"
+        name: "order"
+        widget: "number"
+        value_type: "int"
+        default: 100
+        hint: "Lower numbers show first within the category. Ties fall back to name."

@@ -1,0 +1,20 @@
+{
+  "name": "Verse",
+  "category": "quotes",
+  "tagline": "A line worth living with.",
+  "description": "A typographic art print for a single line that means something — a vow, a lyric, a family saying. Set in our editorial serif on warm archival paper.",
+  "priceLabel": "from €24",
+  "price": {
+    "unitAmountCents": 2400,
+    "minQuantity": 1,
+    "unitLabel": "per print"
+  },
+  "material": "Giclée on 240gsm warm-white cotton paper",
+  "orientationNote": "Portrait · A3",
+  "width_mm": 297,
+  "height_mm": 420,
+  "dpi": 300,
+  "bleed_mm": 3,
+  "tone": "#c98a5e",
+  "order": 10
+}

@@ -1,0 +1,20 @@
+{
+  "name": "Enamel",
+  "category": "tin-plates",
+  "tagline": "Made to be nailed to a wall.",
+  "description": "An enamel-style metal sign with a hard-wearing, honest charm — house rules, a bar name, a welcome. Rounded corners, drilled for hanging.",
+  "priceLabel": "from €18",
+  "price": {
+    "unitAmountCents": 1800,
+    "minQuantity": 1,
+    "unitLabel": "per plate"
+  },
+  "material": "Powder-coated steel, 200 × 300 mm",
+  "orientationNote": "Portrait · 20 × 30 cm",
+  "width_mm": 200,
+  "height_mm": 300,
+  "dpi": 300,
+  "bleed_mm": 4,
+  "tone": "#b4552d",
+  "order": 10
+}

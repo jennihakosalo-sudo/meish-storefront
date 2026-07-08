@@ -1,0 +1,20 @@
+{
+  "name": "Atelier",
+  "category": "wall-decor",
+  "tagline": "Large-format, small-batch.",
+  "description": "A generous wall piece that pairs a photograph with a title. Bring your own image — a place, a person, a plate of food — and let it hold a room.",
+  "priceLabel": "from €48",
+  "price": {
+    "unitAmountCents": 4800,
+    "minQuantity": 1,
+    "unitLabel": "per print"
+  },
+  "material": "Matte fine-art poster, 500 × 700 mm",
+  "orientationNote": "Portrait · 50 × 70 cm",
+  "width_mm": 500,
+  "height_mm": 700,
+  "dpi": 300,
+  "bleed_mm": 3,
+  "tone": "#7d8b74",
+  "order": 10
+}

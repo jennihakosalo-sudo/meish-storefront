@@ -1,0 +1,94 @@
+---
+import type { Product } from '../data/products';
+import { categoryName } from '../data/products';
+
+interface Props {
+  product: Product;
+}
+const { product } = Astro.props;
+const cat = categoryName(product.category);
+---
+
+<li class="card">
+  <a href={`/shop/${product.slug}`} class="card__link">
+    <div class="card__thumb" style={`--tone:${product.tone}`}>
+      <span class="card__ratio">{product.orientationNote}</span>
+      <span class="card__placeholder">{product.name}</span>
+    </div>
+    <div class="card__body">
+      <span class="tag">{cat}</span>
+      <h3 class="card__name">{product.name}</h3>
+      <p class="card__tagline">{product.tagline}</p>
+      <p class="card__price">{product.priceLabel}</p>
+    </div>
+  </a>
+</li>
+
+<style>
+  .card {
+    list-style: none;
+  }
+  .card__link {
+    display: block;
+    color: inherit;
+  }
+  .card__link:hover {
+    text-decoration: none;
+  }
+  .card__thumb {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--tone) 26%, var(--surface)),
+      color-mix(in srgb, var(--tone) 52%, var(--color-paper-sunk))
+    );
+    border: var(--border-hair);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  }
+  .card__link:hover .card__thumb {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+  .card__ratio {
+    position: absolute;
+    top: var(--space-sm);
+    left: var(--space-sm);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--color-ink) 55%, transparent);
+    background: color-mix(in srgb, var(--color-paper-raised) 70%, transparent);
+    padding: 0.2em 0.6em;
+    border-radius: var(--radius-pill);
+  }
+  .card__placeholder {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-style: italic;
+    color: color-mix(in srgb, var(--color-ink) 78%, transparent);
+  }
+  .card__body {
+    padding-block: var(--space-md);
+  }
+  .card__name {
+    margin-top: 0.1em;
+    font-size: var(--text-lg);
+  }
+  .card__tagline {
+    color: var(--text-soft);
+    font-size: var(--text-sm);
+    margin-top: 0.2em;
+  }
+  .card__price {
+    margin-top: var(--space-xs);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--accent);
+  }
+</style>

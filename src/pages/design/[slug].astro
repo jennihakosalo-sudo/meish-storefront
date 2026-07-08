@@ -1,0 +1,105 @@
+---
+import '../../styles/global.css';
+import '../../styles/studio.css';
+import { products, printPixels } from '../../data/products';
+
+export function getStaticPaths() {
+  return products.map((product) => ({
+    params: { slug: product.slug },
+    props: { product },
+  }));
+}
+
+const { product } = Astro.props;
+const px = printPixels(product);
+
+// The editor is a client island. We hand it the whole product (geometry +
+// templates) as a JSON payload so all print math lives in one model.
+const configJson = JSON.stringify(product);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Design your {product.name} — Meish Printed</title>
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#efe9df" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body class="studio-body">
+    <div class="studio">
+      <!-- Top bar ------------------------------------------------------- -->
+      <header class="bar">
+        <a class="bar__back" href={`/shop/${product.slug}`}>← {product.name}</a>
+        <div class="bar__title">
+          <span class="bar__eyebrow">Design studio</span>
+          <span class="bar__size">{product.width_mm} × {product.height_mm} mm · {product.dpi} dpi · proof {px.width}×{px.height}px</span>
+        </div>
+        <div class="bar__actions">
+          <button id="export-json" class="button button--ghost" type="button">Save design</button>
+          <button id="export-png" class="button button--primary" type="button">Download print-ready proof</button>
+        </div>
+      </header>
+
+      <div class="workspace">
+        <!-- Canvas -------------------------------------------------------- -->
+        <div class="canvas" id="canvas">
+          <div class="stage-wrap" id="stage-wrap">
+            <div class="stage" id="stage" role="application" aria-label="Design canvas">
+              <div class="stage__guides" aria-hidden="true">
+                <div class="stage__trim"></div>
+              </div>
+              <!-- layer nodes are injected here by the editor -->
+            </div>
+          </div>
+          <p class="canvas__hint">Click an element to edit · drag to move · drag the corner to resize</p>
+        </div>
+
+        <!-- Control panel ------------------------------------------------- -->
+        <aside class="panel" aria-label="Design controls">
+          <section class="panel__section">
+            <h2 class="panel__h">Start from a template</h2>
+            <div class="tpl" id="tpl-list"></div>
+          </section>
+
+          <section class="panel__section">
+            <h2 class="panel__h">Add to your design</h2>
+            <div class="add-row">
+              <button id="add-text" class="button button--ghost" type="button">+ Text</button>
+              <button id="add-image" class="button button--ghost" type="button">+ Photo</button>
+              <input id="image-input" type="file" accept="image/*" hidden />
+            </div>
+          </section>
+
+          <section class="panel__section">
+            <h2 class="panel__h">Background</h2>
+            <div class="bg-row">
+              <input id="bg-color" type="color" value={product.templates[0]?.background ?? '#f7f3ec'} aria-label="Background colour" />
+              <div class="swatches" id="bg-swatches"></div>
+            </div>
+          </section>
+
+          <section class="panel__section" id="inspector-section">
+            <h2 class="panel__h">Selected element</h2>
+            <div class="inspector" id="inspector">
+              <p class="muted">Nothing selected. Click an element on the canvas, or add one above.</p>
+            </div>
+          </section>
+
+          <section class="panel__section panel__help">
+            <p class="muted" id="proof-status">Your proof exports at {px.width}×{px.height}px — the exact
+              resolution we print at. We’ll email you a confirmation before anything goes to press.</p>
+          </section>
+        </aside>
+      </div>
+    </div>
+
+    <script type="application/json" id="product-config" is:inline set:html={configJson}></script>
+    <script>
+      import '../../scripts/editor.ts';
+    </script>
+
+  </body>
+</html>

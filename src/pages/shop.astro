@@ -1,15 +1,71 @@
 ---
 import Base from '../layouts/Base.astro';
-// Skeleton placeholder. Real product listing arrives in MEI-20 (storefront
-// pages) on top of the content model from MEI-18.
+import ProductCard from '../components/ProductCard.astro';
+import { categories, products, productsByCategory } from '../data/products';
 ---
-<Base title="Shop — Meish Printed">
-  <section class="section container">
-    <p class="eyebrow">The shop</p>
-    <h1>Coming into focus</h1>
-    <p class="lead">The full catalogue — wall décor, tin plates and restaurant
-      pieces — lands here once the product model and pages are built. This page
-      is the routing skeleton for the storefront foundation.</p>
-    <p><a class="button button--primary" href="/reserve">Reserve a print instead</a></p>
+
+<Base title="Shop — Meish Printed" description="Custom quote prints, wall décor, tin plates and single-use restaurant pieces. Start from a template and make it yours in the browser.">
+  <section class="section container container--wide">
+    <header class="shop-head">
+      <p class="eyebrow">The shop</p>
+      <h1>Every piece, made yours</h1>
+      <p class="lead">Pick a format, start from one of our templates, then design it
+        in the browser — set your own words, drop in a photo, and preview the
+        print before you order. Nothing here is fixed until you make it so.</p>
+    </header>
+
+    {categories.map((cat) => {
+      const items = productsByCategory(cat.id);
+      if (items.length === 0) return null;
+      return (
+        <section class="cat" id={cat.id}>
+          <div class="cat__head">
+            <h2>{cat.name}</h2>
+            <p class="cat__blurb">{cat.blurb}</p>
+          </div>
+          <ul class="grid">
+            {items.map((p) => <ProductCard product={p} />)}
+          </ul>
+        </section>
+      );
+    })}
+
+    <p class="shop-foot lead">{products.length} formats and counting — can’t find your
+      size? <a href="/reserve">Reserve a custom print</a> and we’ll set it up.</p>
   </section>
 </Base>
+
+<style>
+  .shop-head {
+    max-width: var(--measure);
+    margin-bottom: var(--space-2xl);
+  }
+  .cat {
+    margin-block: var(--space-2xl);
+  }
+  .cat__head {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+    padding-bottom: var(--space-md);
+    border-bottom: var(--border-hair);
+    margin-bottom: var(--space-xl);
+  }
+  .cat__blurb {
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+  }
+  .grid {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: var(--space-xl);
+  }
+  .shop-foot {
+    margin-top: var(--space-3xl);
+    text-align: center;
+    max-width: none;
+  }
+</style>

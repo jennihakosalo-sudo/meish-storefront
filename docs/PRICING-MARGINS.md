@@ -1,13 +1,13 @@
 # Pricing & Margins — working model
 
-Status: **Real EU supplier costs now SOURCED (MEI-27, 2026-07-09) — final prices still FROZEN.**
-Engineering sourced real, cited EU drop-ship costs (Appendix C) — the missing input the board
-asked for. **No catalog price is changed yet:** the board's later **≤€20-per-product** rule
-(see "Board decisions locked" below) collides with the poster/flagship, and that scope question
-is unanswered. Prices in `src/data/catalog/*.json` stay put until (a) the €20-scope question is
-answered and (b) the remaining small-run/pack quotes land. The sourced costs already answer the
-board's core worry: at €20, posters and the metal sign fail on margin; Verse fits if drop-shipped;
-themed paper packs are comfortably viable. Original draft model retained below for the trail.
+Status: **UNFROZEN — scope answered, final prices SET (MEI-27, 2026-07-09).**
+The board answered the scope interaction **`80b7eb96`**, which **corrects the earlier "≤€20
+ceiling" reading**: the rule is a **€19 FLOOR — "price from €19 or higher, not lower"** (premium
+positioning), **not** a €20 cap. Poster = **premium** (stays above €20); metal sign = **defer to
+MEI-30**. With a €19 floor the whole "≤€20 breaks margin" problem dissolves — at premium prices
+the sourced drop-ship costs (Appendix C) clear 40% GM comfortably. **Final, margin-validated
+prices are now in `src/data/catalog/*.json`** — see **Appendix D** for the numbers and the math.
+The ≤€20 recompute below is **SUPERSEDED**; kept only for the decision trail.
 
 ## Board decisions locked — 2026-07-08 (MEI-27 interaction 45ddd82c + follow-up comment)
 
@@ -222,3 +222,37 @@ the one number still missing for packs.
 2. **Metal sign** has no viable ≤€20 EU drop-ship path — folded into **MEI-30**'s metal-prints RFQ (in_review). At €20 it can't stay as-is; it needs the same scope call as the poster.
 3. **Small-run pack quote** — the one missing supplier number for the packs model (consumer-sized runs, not 250/500 MOQ). Engineering to RFQ once pack composition is fixed by the scope answer.
 4. **Sample QC** — the board's drop-ship gate: order one sample per SKU, pass QC, *then* point checkout at real suppliers. Human/board action, required before real money.
+
+---
+
+## Appendix D — FINAL margin-validated prices (MEI-27, 2026-07-09, interaction 80b7eb96)
+
+The board answered scope `80b7eb96`: **price from €19 or higher, not lower** (a floor, premium
+positioning — the "≤€20 ceiling" reading in earlier appendices is dead); **poster = premium**;
+**metal = defer to MEI-30**. That removes the ceiling collision and lets prices be set.
+
+Margin rule (drop-ship, customer pays shipping separately so `S=0`; branded insert `P=€0.50`;
+Stripe EU `1.5%+€0.25`; returns/reprint reserve `5%`; target GM ≥ 40% of retail):
+
+```
+GM = R − c − P − (0.015R + 0.25) − 0.05R  ≥  0.40 R
+⇒ margin-safe floor:  R ≥ (c + P + 0.25) / 0.535
+```
+
+| Product | Retail (SET) | Sourced drop-ship cost (Appx C) | GM @ worst-case cost | Verdict |
+|---|---:|---:|---:|---|
+| **Atelier poster 50×70** | **€48** (premium, unchanged) | ~€10–14 (Prodigi) | €30.13 → **62.8%** | ✅ set — board: premium |
+| **Verse A3 print** | **€24 → €29** | ~€6–11, worst €14 (Prodigi fine-art) | €12.36 → **42.6%** | ✅ set — €24 failed (32%) at €14 cost; €29 clears the floor and keeps 240gsm cotton spec |
+| **Enamel metal sign 20×30** | **€18 → €39** *(provisional)* | ~€19 (Prodigi alu) | €16.71 → **42.9%** | ⚠ set but **go-live gated on MEI-30**: €18 was **negative margin**; €39 clears 40% *iff* MEI-30 confirms an EU metal drop-shipper ≤ €20.12/unit (Prodigi alu ~€19 fits). Not sellable until MEI-30 + sample QC. |
+| **Coaster / Menu card / Placemat** | per-unit MOQ **unchanged** (€0.15/€0.30/€0.40) | trade: €0.054 / €0.144 / €0.211 | all ≤ c_max (Appx A) | ✅ margin-valid **as trade/MOQ runs**; consumer **themed-pack** SKU is the board's target form and is **not yet priced** — see below |
+
+### Still open after this pass (delegated, not blocking the core price-set)
+- **Themed printable packs** (board's chosen consumer form for paper goods): priced ≥ €19 per
+  the floor, printed paper cost ~€0.82/pack → ample margin, **but** needs a **small-run print
+  supplier quote** (consumer runs, not 250/500 trade MOQ). That single missing number → own
+  child issue (engineering RFQ). Per-unit MOQ prices above stand as the interim trade offering.
+- **Metal sign** supplier confirmation + the €39 go-live → **MEI-30**.
+- **Sample QC** per SKU before pointing checkout at live suppliers → board gate (pairs with the
+  MEI-23 host / go-live step; not a blocker on price-setting itself).
+
+Shipping stays customer-paid at the flat EU rates in Appendix B, so it never enters the GM math.

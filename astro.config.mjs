@@ -1,6 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import node from '@astrojs/node';
+import vercel from '@astrojs/vercel/serverless';
 
 // Hybrid rendering. Every marketing/catalogue page still prerenders to plain
 // HTML at build time (free, fast, cache-friendly). Only the money path opts
@@ -15,7 +15,7 @@ import node from '@astrojs/node';
 export default defineConfig({
   site: 'https://meish.work',
   output: 'hybrid',
-  adapter: node({ mode: 'standalone' }),
+  adapter: vercel(),
   build: {
     format: 'directory',
   },

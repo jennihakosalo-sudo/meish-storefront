@@ -9,8 +9,8 @@ interface Props {
 }
 
 const {
-  title = 'Meish Printed — custom prints with taste',
-  description = 'A boutique print studio for custom quotes, wall décor, tin plates and single-use restaurant pieces. Made to order, made with care.',
+  title = 'Meish — making the human experience lighter, clearer and more enjoyable',
+  description = 'Meish is an ecosystem for the human experience: a venture portfolio, Experience Ops for spaces and events, and the tools and philosophy behind them.',
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -29,7 +29,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 
     <!-- Open Graph / social -->
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Meish Printed" />
+    <meta property="og:site_name" content="Meish" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />

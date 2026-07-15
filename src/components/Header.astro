@@ -1,9 +1,12 @@
 ---
+// Primary nav mirrors the Meish business architecture. Short labels here;
+// each section page carries the full "Meish for your …" heading.
 const links = [
-  { href: '/services', label: 'Services' },
+  { href: '/for-business', label: 'For business' },
+  { href: '/services', label: 'For your space' },
+  { href: '/for-you', label: 'For you' },
+  { href: '/tools', label: 'Tools' },
   { href: '/philosophy', label: 'Philosophy' },
-  { href: '/shop', label: 'Shop' },
-  { href: '/about', label: 'Studio' },
   { href: '/contact', label: 'Contact' },
 ];
 const path = Astro.url.pathname;
@@ -11,8 +14,8 @@ const path = Astro.url.pathname;
 
 <header class="site-header">
   <div class="container container--wide bar">
-    <a href="/" class="wordmark" aria-label="Meish Printed — home">
-      Meish<span class="wordmark__mark">Printed</span>
+    <a href="/" class="wordmark" aria-label="Meish — home">
+      Meish
     </a>
     <nav aria-label="Primary">
       <ul class="nav">
@@ -37,7 +40,7 @@ const path = Astro.url.pathname;
     >
       Cart<span class="cart-badge" data-cart-count hidden>0</span>
     </a>
-    <a href="/shop" class="button button--primary header-cta">Shop the studio</a>
+    <a href="/contact" class="button button--primary header-cta">Get in touch</a>
   </div>
 </header>
 

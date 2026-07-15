@@ -3,65 +3,86 @@ import Base from '../layouts/Base.astro';
 import ProductCard from '../components/ProductCard.astro';
 import { categories, productsByCategory } from '../data/products';
 
-// Featured = one representative piece from each category, drawn live from the
-// MEI-18 catalogue (each product's own `order` decides which leads its
-// category). No hand-maintained list — add a product in /admin and the
-// homepage curates itself on the next build.
+// One product to represent the Meish Printed venture on the parent homepage —
+// the shop is shown as ONE venture inside Meish, not as the site's identity.
 const featured = categories
   .map((cat) => productsByCategory(cat.id)[0])
   .filter((p) => p !== undefined)
-  .slice(0, 4);
+  .slice(0, 3);
+
+const areas = [
+  { href: '/for-business', label: 'Meish for your business', blurb: 'Our venture portfolio — businesses we build and run, starting with Meish Treasure.' },
+  { href: '/services', label: 'Meish for your space', blurb: 'Experience Audits and Clara — measure and improve the human experience in hotels, events and journeys.' },
+  { href: '/for-you', label: 'Meish for you', blurb: 'Support for individuals — growth, decision support, everyday guidance.' },
+  { href: '/tools', label: 'Meish tools', blurb: 'The methods behind the work — the Abundance Tool, Design Thinking gate and more.' },
+  { href: '/philosophy', label: 'Philosophy', blurb: 'Why we measure what others don’t dare to measure.' },
+  { href: '/contact', label: 'Contact', blurb: 'Start one conversation.' },
+];
 ---
 
-<Base>
+<Base
+  title="Meish — making the human experience lighter, clearer and more enjoyable"
+  description="Meish is an ecosystem for the human experience: a venture portfolio, Experience Ops for spaces and events, tools and methods. Making the human experience lighter, clearer and more enjoyable — with love."
+>
   <!-- Hero ---------------------------------------------------------------- -->
   <section class="hero section">
     <div class="container hero__inner">
-      <p class="eyebrow">A boutique print studio</p>
+      <p class="eyebrow">Meish</p>
       <h1 class="hero__title">
-        Words worth<br /><em>framing.</em>
+        Making the human experience<br /><em>lighter, clearer, and more enjoyable.</em>
       </h1>
       <p class="lead hero__lead">
-        Custom quotes, wall décor, tin plates and single-use pieces for
-        restaurants — printed to order in small, considered runs. Bring your own
-        design, or start from one of ours.
+        Meish is an ecosystem, not a single product: a portfolio of businesses,
+        Experience Ops for spaces and events, and the tools and philosophy behind
+        them. One umbrella — many ways in.
       </p>
       <div class="hero__actions">
-        <a href="/shop" class="button button--primary">Browse the shop</a>
-        <a href="/reserve" class="button button--ghost">Reserve a print</a>
+        <a href="/for-business" class="button button--primary">Explore the ecosystem</a>
+        <a href="/contact" class="button button--ghost">Get in touch</a>
       </div>
     </div>
   </section>
 
   <hr class="rule container" />
 
-  <!-- Featured ------------------------------------------------------------ -->
+  <!-- The six areas ------------------------------------------------------- -->
   <section class="section">
     <div class="container--wide container">
       <div class="section-head">
-        <p class="eyebrow">Featured this season</p>
-        <h2>Made to be looked at twice</h2>
+        <p class="eyebrow">Ways in</p>
+        <h2>Six doors into Meish</h2>
       </div>
+      <ul class="areas">
+        {areas.map((a) => (
+          <li class="area">
+            <a href={a.href}><h3>{a.label}</h3></a>
+            <p>{a.blurb}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Venture spotlight: Meish Printed ------------------------------------ -->
+  <section class="section band">
+    <div class="container band__inner">
+      <p class="eyebrow">From the portfolio · Meish for your business</p>
+      <h2 class="band__title">Meish Treasure → Meish Printed</h2>
+      <p class="lead">
+        <strong>Meish Printed</strong> is one operating venture inside
+        <a href="/for-business/meish-treasure">Meish Treasure</a>, our venture
+        foundry — a boutique print studio for custom quotes, wall décor, tin
+        plates and restaurant pieces. It’s one business among several in the Meish
+        ecosystem, with its own shop and story.
+      </p>
       <ul class="grid">
         {featured.map((p) => <ProductCard product={p} />)}
       </ul>
       <p class="section-more">
-        <a href="/shop" class="link-more">See the whole shop →</a>
+        <a href="/for-business/meish-treasure/meish-printed" class="link-more">Meet Meish Printed →</a>
+        &nbsp;·&nbsp;
+        <a href="/shop" class="link-more">Visit the shop →</a>
       </p>
-    </div>
-  </section>
-
-  <!-- Value / brand ------------------------------------------------------- -->
-  <section class="section band">
-    <div class="container band__inner">
-      <p class="eyebrow">Why Meish</p>
-      <h2 class="band__title">Small runs. Real paper. No filler.</h2>
-      <p class="lead">
-        Everything is made to order, so nothing is wasted and every piece is
-        yours. Send us a quote that made you laugh, a recipe worth keeping, or a
-        menu that needs a hundred beautiful copies — we print it with care.
-      </p>
-      <a href="/reserve" class="button button--primary">Reserve yours</a>
     </div>
   </section>
 </Base>
@@ -82,12 +103,23 @@ const featured = categories
   .section-head { margin-bottom: var(--space-xl); }
   .section-head h2 { margin-top: var(--space-xs); }
 
+  .areas {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+    gap: var(--space-xl);
+  }
+  .area h3 { margin: 0 0 var(--space-2xs); }
+  .area p { color: var(--text-soft); }
+
   .grid {
     list-style: none;
     padding: 0;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
     gap: var(--space-xl);
+    margin-top: var(--space-lg);
   }
   .section-more { margin-top: var(--space-xl); }
   .link-more {
@@ -97,7 +129,6 @@ const featured = categories
   }
 
   .band { background: var(--bg-alt); border-block: var(--border-hair); }
-  .band__inner { max-width: 44rem; }
+  .band__inner { max-width: 52rem; }
   .band__title { margin-block: var(--space-xs) var(--space-md); font-size: var(--text-2xl); }
-  .band .button { margin-top: var(--space-lg); }
 </style>

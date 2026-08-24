@@ -1,16 +1,17 @@
 ---
 import MeishStar from './MeishStar.astro';
 
+/** Cardinal doors — N · E · S · W. Inter-cardinals are rhythm accents only. */
 const objects = [
   {
     id: 'review',
     label: 'Review Human Experience',
     href: '#review',
-    angle: 35,
-    radius: '22vmin',
-    duration: 118,
+    angle: -90,
+    radius: '24vmin',
+    duration: 140,
     delay: 0,
-    palette: 'navy-gold',
+    tint: 'navy',
     placard: 'Experience Review — reading human experience in real places. What works, what frictions hide, what could be better.',
     satellites: ['Observe', 'Document', 'Recommend'],
   },
@@ -18,11 +19,11 @@ const objects = [
     id: 'business',
     label: 'Make Human Experience Better',
     href: '#business',
-    angle: 125,
-    radius: '20vmin',
-    duration: 132,
-    delay: -8,
-    palette: 'lavender-gold',
+    angle: 0,
+    radius: '24vmin',
+    duration: 140,
+    delay: -35,
+    tint: 'lavender',
     placard: 'Possibility Map · Fit Check · practical next steps for founders and teams. 590 € + VAT.',
     satellites: ['Map', 'Paths', 'Next 30 days'],
   },
@@ -30,11 +31,11 @@ const objects = [
     id: 'gifts',
     label: 'Meish Gifts',
     href: '#gifts',
-    angle: 215,
+    angle: 90,
     radius: '24vmin',
-    duration: 126,
-    delay: -16,
-    palette: 'red-gold',
+    duration: 140,
+    delay: -70,
+    tint: 'red',
     placard: 'Thoughtful gifts and rituals — including RAMI, a session-only name-giving experience.',
     satellites: ['Ritual', 'RAMI', 'Moment'],
   },
@@ -42,14 +43,21 @@ const objects = [
     id: 'tools',
     label: 'Meish Tools',
     href: '#tools',
-    angle: 305,
-    radius: '21vmin',
+    angle: 180,
+    radius: '24vmin',
     duration: 140,
-    delay: -24,
-    palette: 'navy-lavender',
+    delay: -105,
+    tint: 'gold',
     placard: 'Custom tools when the right ones do not exist yet. Elements · Friction · Fiction · BA — coming soon.',
     satellites: ['Build', 'Clarity', 'Agency'],
   },
+];
+
+const axisDiamonds = [
+  { angle: -45, radius: '24vmin', tint: 'lavender' },
+  { angle: 45, radius: '24vmin', tint: 'gold' },
+  { angle: 135, radius: '24vmin', tint: 'red' },
+  { angle: -135, radius: '24vmin', tint: 'navy' },
 ];
 ---
 
@@ -58,22 +66,20 @@ const objects = [
     <div class="meish-universe__vignette" />
     <div class="meish-universe__aurora meish-universe__aurora--lavender" />
     <div class="meish-universe__aurora meish-universe__aurora--gold" />
-    <div class="meish-universe__aurora meish-universe__aurora--red" />
     <div class="meish-universe__chart-lines" />
+    <div class="meish-universe__axes" />
   </div>
 
   <div class="meish-universe__stage">
     <div class="meish-universe__rings" aria-hidden="true">
       <div class="orbit-ring orbit-ring--outer" />
-      <div class="orbit-ring orbit-ring--mid" />
-      <div class="orbit-ring orbit-ring--inner" />
+      <div class="orbit-ring orbit-ring--cardinal" />
     </div>
 
     <div class="meish-universe__core">
       <MeishStar />
 
       <div class="meish-universe__copy">
-        <p class="meish-universe__wordmark">MEISH</p>
         <p class="meish-universe__subline">Meish for Your Business</p>
         <p class="meish-universe__north">Human experience is our North Star.</p>
         <p class="meish-universe__support">
@@ -82,20 +88,37 @@ const objects = [
       </div>
     </div>
 
+    <div class="axis-field" aria-hidden="true">
+      {axisDiamonds.map((d) => (
+        <span
+          class={`axis-diamond axis-diamond--${d.tint}`}
+          style={`--obj-angle: ${d.angle}deg; --obj-radius: ${d.radius}`}
+        >
+          <img src="/brand/meish-logo-384.jpg" alt="" width="48" height="48" />
+        </span>
+      ))}
+    </div>
+
     <div class="celestial-field" data-orbit-field aria-label="Universe objects">
       {objects.map((obj) => (
         <a
           href={obj.href}
-          class={`celestial-object celestial-object--${obj.palette}`}
+          class={`celestial-object celestial-object--${obj.tint}`}
           data-celestial={obj.id}
           style={`--obj-angle: ${obj.angle}deg; --obj-radius: ${obj.radius}; --obj-duration: ${obj.duration}s; --obj-delay: ${obj.delay}s`}
         >
           <span class="celestial-object__track">
             <span class="celestial-object__body">
-              <span class="celestial-object__facet celestial-object__facet--a" />
-              <span class="celestial-object__facet celestial-object__facet--b" />
-              <span class="celestial-object__facet celestial-object__facet--c" />
-              <span class="celestial-object__core" />
+              <span class="celestial-object__gem-wrap">
+                <img
+                  src="/brand/meish-logo-384.jpg"
+                  alt=""
+                  class="celestial-object__gem"
+                  width="72"
+                  height="72"
+                />
+                <span class="celestial-object__gem-glow" />
+              </span>
               <span class="celestial-object__label">{obj.label}</span>
               <span class="celestial-object__satellites" aria-hidden="true">
                 {obj.satellites.map((s) => (

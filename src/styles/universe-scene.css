@@ -180,15 +180,13 @@
 }
 
 .meish-universe__copy {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
+  z-index: 6;
   text-align: center;
   width: min(92%, 34rem);
-  z-index: 5;
+  margin: -1.5rem auto 0;
+  padding: 0 var(--gutter);
   pointer-events: none;
-  padding-bottom: 0.5rem;
 }
 
 .meish-universe__subline {
@@ -576,7 +574,7 @@
 
 @media (max-width: 720px) {
   .meish-star { width: min(56vmin, 300px); }
-  .meish-universe__copy { bottom: -6%; }
+  .meish-universe__copy { margin-top: -0.5rem; }
   .celestial-object__label { font-size: 0.52rem; max-width: 7.5rem; }
   .axis-diamond img { width: 1.5rem; }
 }

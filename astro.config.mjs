@@ -1,20 +1,12 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import vercel from '@astrojs/vercel/serverless';
+import vercel from '@astrojs/vercel/static';
 
-// Hybrid rendering. Every marketing/catalogue page still prerenders to plain
-// HTML at build time (free, fast, cache-friendly). Only the money path opts
-// into server rendering via `export const prerender = false`:
-//   - POST /api/checkout        → create a Stripe Checkout Session
-//   - POST /api/stripe-webhook  → capture the paid order (source of truth)
-//   - GET  /api/order           → reconcile/read an order on the success page
-//
-// The Node adapter is deliberately host-neutral: the API routes are standard
-// Web `Request`/`Response` handlers, so moving to Vercel/Cloudflare later is a
-// one-line adapter swap (see docs/CHECKOUT.md) — no route changes.
+// Static deploy: no _render serverless function (Vercel no longer accepts nodejs18.x).
+// Stripe/API routes live in src/_api_hold/ until adapter upgrade — homepage first.
 export default defineConfig({
   site: 'https://meish.work',
-  output: 'hybrid',
+  output: 'static',
   adapter: vercel(),
   build: {
     format: 'directory',

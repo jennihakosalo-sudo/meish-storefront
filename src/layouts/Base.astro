@@ -9,8 +9,8 @@ interface Props {
 }
 
 const {
-  title = 'Meish — making the human experience lighter, clearer and more enjoyable',
-  description = 'Meish is an ecosystem for the human experience: a venture portfolio, Experience Ops for spaces and events, and the tools and philosophy behind them.',
+  title = 'Meish — human experience is our North Star',
+  description = 'Meish specialises in human experience — for business, spaces, gifts and custom tools. Possibility Map from 590 € + VAT.',
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -27,14 +27,17 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
 
-    <!-- Open Graph / social -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Roboto+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Meish" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
 
-    <meta name="theme-color" content="#f7f3ec" />
+    <meta name="theme-color" content="#FFFBF5" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   </head>
   <body>
@@ -45,7 +48,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     </main>
     <Footer />
 
-    <!-- Client cart: keeps badges in sync, wires add-to-cart + checkout. -->
     <script>
       import '../scripts/cart';
     </script>

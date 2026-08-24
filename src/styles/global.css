@@ -1,12 +1,6 @@
 /* ==========================================================================
-   Meish Printed — Global base styles
-   Applies the design tokens. Minimal reset + editorial defaults. Imported once
-   in the Base layout; component styles stay scoped inside their .astro files.
+   Meish Universe — Global base styles (Brand Kit 2)
    ========================================================================== */
-
-/* Self-hosted variable fonts (no external requests, fast first paint). */
-@import '@fontsource-variable/fraunces';
-@import '@fontsource-variable/inter';
 
 @import './tokens.css';
 
@@ -34,7 +28,6 @@ body {
   min-height: 100vh;
 }
 
-/* --- Headings: display serif, tight, confident --------------------------- */
 h1, h2, h3, h4 {
   font-family: var(--font-display);
   font-weight: var(--weight-semibold);
@@ -51,7 +44,6 @@ h4 { font-size: var(--text-md); line-height: var(--leading-snug); }
 
 p { max-width: var(--measure); }
 
-/* --- Links ---------------------------------------------------------------- */
 a {
   color: var(--accent);
   text-decoration: none;
@@ -67,9 +59,6 @@ img, picture, svg, video {
   height: auto;
 }
 
-/* --- Reusable editorial primitives --------------------------------------- */
-
-/* Eyebrow: the small tracked-out label above a heading — a boutique signature. */
 .eyebrow {
   font-family: var(--font-body);
   font-size: var(--text-xs);
@@ -85,7 +74,6 @@ img, picture, svg, video {
   color: var(--text-soft);
 }
 
-/* Layout container */
 .container {
   width: 100%;
   max-width: var(--width-content);
@@ -96,7 +84,6 @@ img, picture, svg, video {
 
 .section { padding-block: var(--space-3xl); }
 
-/* Buttons — primary uses the clay accent, secondary is an ink hairline. */
 .button {
   display: inline-flex;
   align-items: center;
@@ -105,7 +92,8 @@ img, picture, svg, video {
   font-family: var(--font-body);
   font-size: var(--text-sm);
   font-weight: var(--weight-semibold);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   padding: 0.85em 1.6em;
   border-radius: var(--radius-pill);
   border: 1px solid transparent;
@@ -130,26 +118,29 @@ img, picture, svg, video {
 }
 .button--ghost:hover { border-color: var(--text); }
 
-/* Category tag / pill */
+.button--motion {
+  background: transparent;
+  color: var(--text-muted);
+  border: var(--border-hair);
+  font-size: var(--text-xs);
+  padding: 0.6em 1.2em;
+}
+
 .tag {
   display: inline-block;
   font-size: var(--text-xs);
   font-weight: var(--weight-medium);
   letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
-  color: var(--color-sage);
-  background: transparent;
-  padding: 0.25em 0;
+  color: var(--text-muted);
 }
 
-/* Hairline rule used to divide editorial sections. */
 .rule {
   border: 0;
   border-top: var(--border-hair);
   margin-block: var(--space-2xl);
 }
 
-/* Respect users who prefer reduced motion. */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

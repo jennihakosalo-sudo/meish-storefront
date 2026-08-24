@@ -1,0 +1,21 @@
+---
+import UniverseNodeLayout from '../../layouts/UniverseNode.astro';
+import { getUniverseNode, getAllUniverseSlugs } from '../../data/universe/index';
+
+export function getStaticPaths() {
+  return getAllUniverseSlugs()
+    .filter((slug) => slug.length > 0)
+    .map((slug) => ({
+      params: { slug },
+    }));
+}
+
+const slug = Astro.params.slug ?? '';
+const node = getUniverseNode(slug);
+
+if (!node) {
+  return Astro.redirect('/404');
+}
+---
+
+<UniverseNodeLayout node={node} />

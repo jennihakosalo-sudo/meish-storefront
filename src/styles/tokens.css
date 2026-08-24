@@ -1,113 +1,101 @@
 /* ==========================================================================
-   Meish Printed — Design Tokens
-   The single source of truth for the brand. Editorial print-studio feel:
-   warm paper, ink-black type, a clay accent, a display serif over a quiet sans.
-   Everything downstream (components, pages) consumes these variables — never
-   hard-code a hex, size, or spacing value in a component.
+   Meish Universe — Brand Kit 2 (ELO26)
+   Cream, navy, lavender, gold, red. Shop clay kept as secondary alias.
    ========================================================================== */
 
 :root {
-  /* --- Color: warm paper & ink -------------------------------------------
-     A boutique print studio, not a SaaS dashboard. The palette is warm and
-     low-contrast-neutral, letting product photography carry the color. */
-  --color-paper:        #f7f3ec; /* page background — warm off-white */
-  --color-paper-sunk:   #efe9df; /* recessed sections, cards */
-  --color-paper-raised: #fffdf9; /* raised cards on paper */
-  --color-ink:          #1f1a16; /* primary text — warm near-black */
-  --color-ink-soft:     #4a423a; /* secondary text */
-  --color-ink-muted:    #877c6f; /* captions, meta, placeholders */
-  --color-line:         #e2d9cb; /* hairline borders, rules */
-  --color-line-strong:  #cabfae; /* stronger dividers */
+  /* Kit 2 primary */
+  --color-cream:        #FFFBF5;
+  --color-navy:         #020C59;
+  --color-lavender:     #695EDB;
+  --color-gold:         #FBD79F;
+  --color-red:          #CD0316;
 
-  /* Clay accent — evokes terracotta, printer's ink, kraft. Used sparingly:
-     primary CTAs, links, small marks. Never as a large fill. */
+  /* Legacy shop aliases (sub-pages until touched) */
+  --color-paper:        var(--color-cream);
+  --color-paper-sunk:   #f5f0e8;
+  --color-paper-raised: #fffdf9;
   --color-clay:         #b4552d;
-  --color-clay-deep:    #8f4021; /* hover / pressed */
-  --color-clay-tint:    #f0e2d6; /* faint accent wash */
-
-  /* Botanical secondary — for tags/categories, quiet contrast to the clay. */
+  --color-clay-deep:    #8f4021;
+  --color-clay-tint:    #f0e2d6;
   --color-sage:         #5c6b57;
 
-  /* Semantic aliases — components reference these, not raw swatches. */
-  --bg:            var(--color-paper);
+  --color-ink:          var(--color-navy);
+  --color-ink-soft:     #2a3568;
+  --color-ink-muted:    #5a6294;
+  --color-line:         rgba(2, 12, 89, 0.12);
+  --color-line-strong:  rgba(2, 12, 89, 0.22);
+
+  --bg:            var(--color-cream);
   --bg-alt:        var(--color-paper-sunk);
   --surface:       var(--color-paper-raised);
-  --text:          var(--color-ink);
+  --text:          var(--color-navy);
   --text-soft:     var(--color-ink-soft);
   --text-muted:    var(--color-ink-muted);
   --border:        var(--color-line);
-  --accent:        var(--color-clay);
-  --accent-hover:  var(--color-clay-deep);
-  --accent-tint:   var(--color-clay-tint);
+  --accent:        var(--color-lavender);
+  --accent-hover:  #5248c4;
+  --accent-tint:   rgba(105, 94, 219, 0.1);
 
-  /* --- Typography ---------------------------------------------------------
-     Fraunces (variable serif) for display/headings — editorial, characterful.
-     Inter (variable sans) for body/UI — quiet, legible, gets out of the way. */
-  --font-display: 'Fraunces Variable', 'Fraunces', Georgia, 'Times New Roman', serif;
-  --font-body:    'Inter Variable', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-body:    'Roboto Condensed', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
   --font-mono:    'SFMono-Regular', ui-monospace, 'Menlo', monospace;
 
-  /* Modular type scale — major-third (1.250) from a 1rem (16px) base.
-     Editorial layouts want a wide, confident range from caption to hero. */
-  --text-xs:   0.694rem;  /* 11px — labels, eyebrows */
-  --text-sm:   0.833rem;  /* 13px — captions, meta */
-  --text-base: 1rem;      /* 16px — body */
-  --text-md:   1.25rem;   /* 20px — lead paragraphs */
-  --text-lg:   1.563rem;  /* 25px — h3 */
-  --text-xl:   1.953rem;  /* 31px — h2 */
-  --text-2xl:  2.441rem;  /* 39px — h1 */
-  --text-3xl:  3.815rem;  /* 61px — hero display */
-  --text-hero: clamp(2.8rem, 6vw + 1rem, 5.5rem); /* fluid hero */
+  --text-xs:   0.6875rem;
+  --text-sm:   0.8125rem;
+  --text-base: 1rem;
+  --text-md:   1.125rem;
+  --text-lg:   1.5rem;
+  --text-xl:   2rem;
+  --text-2xl:  2.75rem;
+  --text-3xl:  4rem;
+  --text-hero: clamp(4rem, 12vw + 1rem, 9rem);
+  --text-meish: clamp(5rem, 18vw + 1rem, 11rem);
 
   --weight-regular: 400;
   --weight-medium:  500;
   --weight-semibold:600;
-  --weight-black:   900; /* Fraunces optical black for display moments */
+  --weight-black:   700;
 
-  --leading-tight:  1.08; /* display headings */
-  --leading-snug:   1.25; /* sub-headings */
-  --leading-normal: 1.6;  /* body copy */
+  --leading-tight:  1.05;
+  --leading-snug:   1.25;
+  --leading-normal: 1.55;
 
-  --tracking-tight: -0.02em; /* large display */
+  --tracking-tight: -0.02em;
   --tracking-normal: 0;
-  --tracking-wide:  0.14em;  /* eyebrows / small caps labels */
+  --tracking-wide:  0.18em;
 
-  /* --- Spacing: 4px base, gentle geometric growth ------------------------- */
-  --space-2xs: 0.25rem;  /* 4px  */
-  --space-xs:  0.5rem;   /* 8px  */
-  --space-sm:  0.75rem;  /* 12px */
-  --space-md:  1rem;     /* 16px */
-  --space-lg:  1.5rem;   /* 24px */
-  --space-xl:  2.5rem;   /* 40px */
-  --space-2xl: 4rem;     /* 64px */
-  --space-3xl: 6.5rem;   /* 104px — section rhythm */
-  --space-4xl: 10rem;    /* 160px — full-bleed breathing room */
+  --space-2xs: 0.25rem;
+  --space-xs:  0.5rem;
+  --space-sm:  0.75rem;
+  --space-md:  1rem;
+  --space-lg:  1.5rem;
+  --space-xl:  2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6.5rem;
+  --space-4xl: 10rem;
 
-  /* --- Layout ------------------------------------------------------------- */
-  --measure:      68ch;   /* readable text column */
-  --width-content:1080px; /* editorial content max width */
-  --width-wide:   1320px; /* wide galleries / grids */
+  --measure:      68ch;
+  --width-content:1080px;
+  --width-wide:   1320px;
   --gutter:       clamp(1.25rem, 5vw, 3.5rem);
 
-  /* --- Radius, borders, shadow — restrained, print-like ------------------- */
-  --radius-sm: 3px;
-  --radius-md: 6px;
-  --radius-lg: 12px;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
   --radius-pill: 999px;
   --border-hair: 1px solid var(--border);
 
-  /* Soft, warm-tinted shadows — never a hard SaaS drop shadow. */
-  --shadow-sm: 0 1px 2px rgba(31, 26, 22, 0.05);
-  --shadow-md: 0 8px 24px rgba(31, 26, 22, 0.08);
-  --shadow-lg: 0 24px 60px rgba(31, 26, 22, 0.12);
+  --shadow-sm: 0 2px 8px rgba(2, 12, 89, 0.06);
+  --shadow-md: 0 12px 32px rgba(2, 12, 89, 0.1);
+  --shadow-lg: 0 24px 60px rgba(2, 12, 89, 0.14);
+  --shadow-diamond: 0 20px 60px rgba(105, 94, 219, 0.25), 0 8px 24px rgba(2, 12, 89, 0.12);
 
-  /* --- Motion ------------------------------------------------------------- */
   --ease: cubic-bezier(0.4, 0, 0.15, 1);
   --dur-fast: 140ms;
   --dur: 240ms;
   --dur-slow: 500ms;
 
-  /* --- Z layers ----------------------------------------------------------- */
   --z-header: 100;
   --z-overlay: 200;
 }

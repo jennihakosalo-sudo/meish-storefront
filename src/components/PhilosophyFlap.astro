@@ -1,0 +1,164 @@
+---
+const lines = [
+  'Human experience is our North Star.',
+  'We make work and life clearer, smoother and more useful.',
+  'Technology is not the goal — it should create more room for human experience.',
+  'The human remains the decision-maker, owner and creator.',
+  'We build the tools when the right ones do not exist yet.',
+];
+---
+
+<div class="philosophy-flap" data-flap>
+  <div class="philosophy-flap__header">
+    <p class="philosophy-flap__title">Philosophy</p>
+    <div class="philosophy-flap__controls">
+      <button type="button" class="philosophy-flap__btn" data-flap-prev aria-label="Previous line">‹</button>
+      <button type="button" class="philosophy-flap__btn" data-flap-next aria-label="Next line">›</button>
+    </div>
+  </div>
+  <div class="philosophy-flap__board" aria-live="polite">
+    {lines.map((line, i) => (
+      <p class="philosophy-flap__line" data-flap-line data-index={i} hidden={i !== 0}>
+        {line}
+      </p>
+    ))}
+  </div>
+</div>
+
+<script define:vars={{ lines }}>
+  const flap = document.querySelector('[data-flap]');
+  if (flap) {
+    const lineEls = flap.querySelectorAll('[data-flap-line]');
+    let current = 0;
+    let timer = null;
+    let paused = false;
+
+    function show(index) {
+      lineEls.forEach((el, i) => {
+        el.hidden = i !== index;
+        el.classList.toggle('is-active', i === index);
+      });
+      current = index;
+    }
+
+    function next() {
+      show((current + 1) % lineEls.length);
+    }
+
+    function prev() {
+      show((current - 1 + lineEls.length) % lineEls.length);
+    }
+
+    function startAuto() {
+      if (timer) clearInterval(timer);
+      if (paused) return;
+      timer = setInterval(next, 5000);
+    }
+
+    flap.querySelector('[data-flap-next]')?.addEventListener('click', () => {
+      next();
+      startAuto();
+    });
+
+    flap.querySelector('[data-flap-prev]')?.addEventListener('click', () => {
+      prev();
+      startAuto();
+    });
+
+    document.getElementById('motion-stop')?.addEventListener('click', () => {
+      const orbit = document.querySelector('[data-orbit]');
+      paused = orbit?.classList.contains('is-paused') ?? false;
+      if (paused) {
+        if (timer) clearInterval(timer);
+        timer = null;
+      } else {
+        startAuto();
+      }
+    });
+
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      startAuto();
+    }
+  }
+</script>
+
+<style>
+  .philosophy-flap {
+    margin-block: var(--space-xl);
+    padding: var(--space-lg);
+    background: var(--surface);
+    border: var(--border-hair);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    max-width: 36rem;
+    margin-inline: auto;
+  }
+
+  .philosophy-flap__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-md);
+  }
+
+  .philosophy-flap__title {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .philosophy-flap__controls {
+    display: flex;
+    gap: var(--space-xs);
+  }
+
+  .philosophy-flap__btn {
+    width: 2rem;
+    height: 2rem;
+    border: var(--border-hair);
+    border-radius: var(--radius-sm);
+    background: var(--bg);
+    color: var(--text);
+    font-size: 1.25rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: border-color var(--dur-fast) var(--ease);
+  }
+
+  .philosophy-flap__btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .philosophy-flap__board {
+    min-height: 4rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .philosophy-flap__line {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-style: italic;
+    color: var(--text);
+    line-height: var(--leading-snug);
+    margin: 0;
+    max-width: none;
+    animation: flap-in var(--dur-slow) var(--ease);
+  }
+
+  .philosophy-flap__line[hidden] {
+    display: none;
+  }
+
+  @keyframes flap-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .philosophy-flap__line { animation: none; }
+  }
+</style>

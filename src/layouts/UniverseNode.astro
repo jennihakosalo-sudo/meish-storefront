@@ -1,0 +1,251 @@
+---
+import Base from './Base.astro';
+import type { UniverseNode } from '../data/universe/index';
+
+interface Props {
+  node: UniverseNode;
+}
+
+const { node } = Astro.props;
+
+const breadcrumbs = [
+  { href: '/', label: 'Universe' },
+  ...(node.kokonaisuudet ?? []).map((k) => ({
+    href: k.slug ? `/universe/${k.slug}` : '/',
+    label: k.title,
+  })),
+  { href: `/universe/${node.slug}`, label: node.title },
+];
+---
+
+<Base
+  title={`${node.title} — Meish Universe`}
+  description={node.summary ?? `${node.title} in the Meish Universe.`}
+>
+  <article class="universe-node section">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <ol>
+          {breadcrumbs.map((crumb, i) => (
+            <li>
+              {i < breadcrumbs.length - 1 ? (
+                <a href={crumb.href}>{crumb.label}</a>
+              ) : (
+                <span aria-current="page">{crumb.label}</span>
+              )}
+            </li>
+          ))}
+        </ol>
+      </nav>
+
+      <header class="universe-node__header">
+        <p class="eyebrow">Universe node</p>
+        <h1>{node.title}</h1>
+        {node.summary && <p class="lead">{node.summary}</p>}
+      </header>
+
+      <div class="universe-node__blocks">
+        {node.drawMe && (
+          <section class="block">
+            <h2>Draw Me</h2>
+            <p>{node.drawMe}</p>
+          </section>
+        )}
+
+        {node.taidot && node.taidot.length > 0 && (
+          <section class="block">
+            <h2>Taidot</h2>
+            <ul>
+              {node.taidot.map((t) => <li>{t}</li>)}
+            </ul>
+          </section>
+        )}
+
+        {node.tuotteet && node.tuotteet.length > 0 && (
+          <section class="block">
+            <h2>Tuotteet</h2>
+            <ul class="product-list">
+              {node.tuotteet.map((p) => (
+                <li>
+                  {p.href ? <a href={p.href}>{p.name}</a> : p.name}
+                  {p.note && <span class="note"> — {p.note}</span>}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {node.kokonaisuudet && node.kokonaisuudet.length > 0 && (
+          <section class="block">
+            <h2>Kokonaisuudet</h2>
+            <ul>
+              {node.kokonaisuudet.map((k) => (
+                <li>
+                  <a href={k.slug ? `/universe/${k.slug}` : '/'}>{k.title}</a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {node.ikonit && node.ikonit.length > 0 && (
+          <section class="block">
+            <h2>Ikonit</h2>
+            <ul class="icon-list">
+              {node.ikonit.map((icon) => <li>{icon}</li>)}
+            </ul>
+          </section>
+        )}
+
+        {node.tyokalut && node.tyokalut.length > 0 && (
+          <section class="block">
+            <h2>Työkalut</h2>
+            <ul>
+              {node.tyokalut.map((t) => <li>{t}</li>)}
+            </ul>
+          </section>
+        )}
+
+        {node.lapset && node.lapset.length > 0 && (
+          <section class="block block--children">
+            <h2>Lapset</h2>
+            <div class="children-grid">
+              {node.lapset.map((child) => (
+                <a href={`/universe/${child.slug}`} class="child-card">
+                  <h3>{child.title}</h3>
+                  {child.summary && <p>{child.summary}</p>}
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+      </div>
+
+      {node.slug === 'business/possibility-map' && (
+        <div class="universe-node__cta">
+          <a href="mailto:jenni@meish.work?subject=Possibility%20Map%20Fit%20Check" class="button button--primary">
+            Fit Check — jenni@meish.work
+          </a>
+          <a href="/#business" class="button button--ghost">Back to Business door</a>
+        </div>
+      )}
+    </div>
+  </article>
+</Base>
+
+<style>
+  .breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    list-style: none;
+    padding: 0;
+    margin-bottom: var(--space-lg);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+  }
+
+  .breadcrumb li:not(:last-child)::after {
+    content: '›';
+    margin-left: var(--space-xs);
+    color: var(--text-muted);
+  }
+
+  .universe-node__header {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .universe-node__header h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .universe-node__blocks {
+    display: grid;
+    gap: var(--space-xl);
+  }
+
+  .block h2 {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: var(--space-sm);
+  }
+
+  .block ul {
+    padding-left: 1.25rem;
+    color: var(--text-soft);
+  }
+
+  .block li { margin-bottom: var(--space-xs); }
+
+  .product-list .note {
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .icon-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    list-style: none;
+    padding: 0;
+  }
+
+  .icon-list li {
+    padding: 0.35em 0.75em;
+    background: var(--accent-tint);
+    border-radius: var(--radius-pill);
+    font-size: var(--text-xs);
+    margin: 0;
+  }
+
+  .children-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--space-md);
+  }
+
+  .child-card {
+    display: block;
+    padding: var(--space-lg);
+    background: var(--surface);
+    border: var(--border-hair);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  }
+
+  .child-card:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-sm);
+    text-decoration: none;
+    color: var(--text);
+  }
+
+  .child-card h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-md);
+    margin-bottom: var(--space-xs);
+  }
+
+  .child-card p {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    max-width: none;
+    margin: 0;
+  }
+
+  .universe-node__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-xl);
+    border-top: var(--border-hair);
+  }
+</style>

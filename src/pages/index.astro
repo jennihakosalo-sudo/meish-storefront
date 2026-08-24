@@ -2,228 +2,40 @@
 import Base from '../layouts/Base.astro';
 import MeishUniverseScene from '../components/MeishUniverseScene.astro';
 import PhilosophyFlap from '../components/PhilosophyFlap.astro';
+import ProductCatalog from '../components/ProductCatalog.astro';
 ---
 
 <Base
   title="Meish — human experience is our North Star"
-  description="Meish specialises in human experience — for business, spaces, gifts and custom tools. Possibility Map from 590 € + VAT."
+  description="Meish specialises in human experience — understanding it, reviewing it and making it better. Fit Check free · Possibility Map from €590 + VAT."
   universeHome={true}
 >
-  <MeishUniverseScene>
-    <PhilosophyFlap slot="flap" />
-  </MeishUniverseScene>
+  <MeishUniverseScene />
 
-  <section id="review" class="door section">
-    <div class="container">
-      <p class="eyebrow">Door 1</p>
-      <h2>Reviewing Human Experience</h2>
-      <p class="lead">
-        Experience Review (ExR) is our method for reading human experience in real places — what works, what frictions hide in plain sight, and what could be better.
-      </p>
-      <p>
-        We observe, document and recommend. Contact us when you want a review for your space, event or service.
-      </p>
-      <a href="/services/experience-audits" class="button button--ghost">Learn about ExR</a>
+  <section class="philosophy-zone section" aria-label="Meish philosophy">
+    <div class="container philosophy-zone__inner">
+      <PhilosophyFlap />
     </div>
   </section>
 
-  <section id="business" class="door section door--jewel">
-    <div class="container">
-      <p class="eyebrow">Door 2</p>
-      <h2>Meish for Your Business</h2>
-      <p class="lead">
-        A clear map of your goals, skills, materials and next steps — before you commit to a big build.
-      </p>
-
-      <article class="offer-jewel">
-        <h3>Possibility Map</h3>
-        <p class="offer-jewel__price">590 € + VAT · Gamma Test Phase</p>
-        <ul class="offer-jewel__list">
-          <li>60-minute client interview</li>
-          <li>Summary of goals, skills, materials and opportunities</li>
-          <li>Visible Possibility Map</li>
-          <li>Three different path options</li>
-          <li>Recommendation for first implementation</li>
-          <li>Practical guide for the next 30 days</li>
-          <li>AI tools review — competitive edge, time saved, new business</li>
-          <li>30-minute results walkthrough</li>
-        </ul>
-        <p class="offer-jewel__note">Delivery within five business days after the interview.</p>
-        <div class="offer-jewel__actions">
-          <a href="/universe/business/possibility-map" class="button button--primary">Explore Possibility Map</a>
-          <a href="mailto:jenni@meish.work?subject=Possibility%20Map%20Fit%20Check" class="button button--ghost">Fit Check — jenni@meish.work</a>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <section id="gifts" class="door section">
-    <div class="container">
-      <p class="eyebrow">Door 3</p>
-      <h2>Meish Gifts</h2>
-      <p class="lead">Thoughtful gifts and small rituals — moments that matter.</p>
-
-      <article class="gift-jewel" id="rami-gift">
-        <h3>RAMI — a name-giving ritual</h3>
-        <p>
-          RAMI is a session-only name ritual. Enter a name below and receive a short, personal reading — stored only in this browser session, never sent to a server.
-        </p>
-        <form class="rami-form" id="rami-form">
-          <label for="rami-name">Name</label>
-          <input type="text" id="rami-name" name="name" required maxlength="64" placeholder="Enter a name" />
-          <button type="submit" class="button button--primary">Receive RAMI</button>
-        </form>
-        <output id="rami-result" class="rami-result" for="rami-name"></output>
-      </article>
-    </div>
-  </section>
-
-  <section id="tools" class="door section">
-    <div class="container">
-      <p class="eyebrow">Door 4</p>
-      <h2>Meish Tools</h2>
-      <p class="lead">
-        We build custom tools when the right ones do not exist yet — always in service of human experience, never technology for its own sake.
-      </p>
-      <p><strong>Coming soon:</strong></p>
-      <ul class="tools-list">
-        <li>Elements</li>
-        <li>Friction</li>
-        <li>Fiction</li>
-        <li>BA</li>
-      </ul>
-      <a href="/tools" class="button button--ghost">Tools overview</a>
-    </div>
-  </section>
+  <ProductCatalog />
 </Base>
 
-<script>
-  const form = document.getElementById('rami-form');
-  const result = document.getElementById('rami-result');
-  const storageKey = 'meish-rami-names';
-
-  function ramiReading(name) {
-    const vowels = (name.match(/[aeiouyäö]/gi) || []).length;
-    const tone = vowels > name.length / 2 ? 'open and luminous' : 'grounded and deliberate';
-    return `${name} carries a ${tone} quality — a name that invites presence. RAMI sees intention in how it is spoken aloud.`;
-  }
-
-  form?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const input = document.getElementById('rami-name');
-    const name = input?.value.trim();
-    if (!name || !result) return;
-    result.textContent = ramiReading(name);
-    try {
-      const stored = JSON.parse(sessionStorage.getItem(storageKey) || '[]');
-      stored.push({ name, reading, at: Date.now() });
-      sessionStorage.setItem(storageKey, JSON.stringify(stored.slice(-10)));
-    } catch { /* session only */ }
-  });
-
-  try {
-    const stored = JSON.parse(sessionStorage.getItem(storageKey) || '[]');
-    const last = stored[stored.length - 1];
-    if (last && result) result.textContent = last.reading;
-  } catch { /* ignore */ }
-</script>
-
 <style>
-  .door {
-    border-top: 1px solid rgba(2, 12, 89, 0.1);
-    background: linear-gradient(180deg, rgba(255, 251, 245, 0.6) 0%, var(--color-cream) 100%);
-  }
-
-  .door--jewel {
+  .philosophy-zone {
     background:
-      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(105, 94, 219, 0.08) 0%, transparent 60%),
-      var(--color-cream);
+      linear-gradient(180deg, rgba(243, 236, 226, 0.5) 0%, #FFFBF5 100%);
+    border-top: 1px solid rgba(2, 12, 89, 0.08);
+    border-bottom: 1px solid rgba(2, 12, 89, 0.08);
+    padding-block: var(--space-2xl);
   }
 
-  .offer-jewel, .gift-jewel {
-    margin-top: var(--space-lg);
-    padding: var(--space-xl);
-    background: rgba(255, 253, 249, 0.65);
-    border: 1px solid rgba(251, 215, 159, 0.35);
-    box-shadow: 0 16px 48px rgba(2, 12, 89, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(6px);
-  }
-
-  .offer-jewel h3, .gift-jewel h3 {
-    font-family: var(--font-display);
-    font-size: var(--text-xl);
-    margin-bottom: var(--space-sm);
-  }
-
-  .offer-jewel__price {
-    font-size: var(--text-sm);
-    font-weight: var(--weight-semibold);
-    color: var(--color-lavender);
-    margin-bottom: var(--space-md);
-    max-width: none;
-  }
-
-  .offer-jewel__list {
-    margin: var(--space-md) 0;
-    padding-left: 1.25rem;
-    color: var(--text-soft);
-    font-size: var(--text-sm);
-  }
-
-  .offer-jewel__list li { margin-bottom: var(--space-xs); }
-
-  .offer-jewel__note {
-    font-size: var(--text-xs);
-    color: var(--text-muted);
-    margin-bottom: var(--space-lg);
-    max-width: none;
-  }
-
-  .offer-jewel__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-md);
-  }
-
-  .rami-form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-md);
-    align-items: flex-end;
-    margin-top: var(--space-lg);
-  }
-
-  .rami-form label {
-    width: 100%;
-    font-size: var(--text-xs);
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-wide);
-    color: var(--text-muted);
-  }
-
-  .rami-form input {
-    flex: 1;
-    min-width: 12rem;
-    padding: 0.75em 1em;
-    border: 1px solid rgba(2, 12, 89, 0.18);
-    border-radius: var(--radius-md);
-    font-family: var(--font-body);
-    font-size: var(--text-base);
-    background: var(--color-cream);
-  }
-
-  .rami-result {
-    display: block;
-    margin-top: var(--space-lg);
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: var(--text-md);
-    color: var(--text);
-  }
-
-  .tools-list {
-    margin: var(--space-md) 0 var(--space-lg);
-    padding-left: 1.25rem;
-    color: var(--text-soft);
+  .philosophy-zone__inner {
+    max-width: 36rem;
+    margin-inline: auto;
+    padding: var(--space-lg);
+    background: rgba(2, 12, 89, 0.03);
+    border: 1px solid rgba(251, 215, 159, 0.25);
+    box-shadow: 0 20px 48px rgba(2, 12, 89, 0.08);
   }
 </style>

@@ -1,0 +1,234 @@
+---
+import {
+  getPublicOffers,
+  getOffersByOrbit,
+  orbitGroups,
+} from '../data/meish-offers';
+
+const allProducts = getPublicOffers();
+const featured = allProducts.filter((p) => p.priority <= 2);
+---
+
+<section id="products" class="product-catalog section">
+  <div class="container">
+    <header class="product-catalog__intro">
+      <p class="eyebrow">Meish for your business</p>
+      <h2>Start where it fits. Build from there.</h2>
+      <p class="lead">
+        Every offer serves human experience — understanding it, improving it, or building something useful around it.
+        Not sure? Begin with the free Fit Check.
+      </p>
+    </header>
+
+    <div class="product-catalog__featured">
+      {featured.map((product) => (
+        <article class={`product-card product-card--p${product.priority}`}>
+          <p class="product-card__category">{product.category}</p>
+          <h3>{product.name}</h3>
+          <p class="product-card__summary">{product.summary}</p>
+          <p class="product-card__price">
+            {product.price}
+            {product.duration && <span class="product-card__duration"> · {product.duration}</span>}
+          </p>
+          {product.priceNote && <p class="product-card__note">{product.priceNote}</p>}
+          <ul class="product-card__includes">
+            {product.includes.slice(0, 4).map((item) => <li>{item}</li>)}
+          </ul>
+          <a href={product.ctaHref} class="button button--primary">{product.cta}</a>
+        </article>
+      ))}
+    </div>
+
+    {orbitGroups.map((group) => {
+      const featuredIds = new Set(featured.map((p) => p.id));
+      const groupProducts = getOffersByOrbit(group.id).filter((p) => !featuredIds.has(p.id));
+      if (groupProducts.length === 0) return null;
+      return (
+        <section id={group.id} class="product-group">
+          <header class="product-group__head">
+            <h3>{group.shortLabel}</h3>
+            <p>{group.tagline}</p>
+          </header>
+          <div class="product-group__grid">
+            {groupProducts.map((product) => (
+              <article class="product-card product-card--compact">
+                <p class="product-card__category">{product.category}</p>
+                <h4>{product.name}</h4>
+                <p class="product-card__summary">{product.summary}</p>
+                <p class="product-card__price">
+                  {product.price}
+                  {product.duration && <span> · {product.duration}</span>}
+                </p>
+                {product.lenses && (
+                  <details class="product-card__details">
+                    <summary>Lenses</summary>
+                    <ul>{product.lenses.map((l) => <li>{l}</li>)}</ul>
+                  </details>
+                )}
+                {product.applications && (
+                  <details class="product-card__details">
+                    <summary>Applications</summary>
+                    <ul>{product.applications.map((a) => <li>{a}</li>)}</ul>
+                  </details>
+                )}
+                <ul class="product-card__includes">
+                  {product.includes.map((item) => <li>{item}</li>)}
+                </ul>
+                <a href={product.ctaHref} class="button button--ghost">{product.cta}</a>
+              </article>
+            ))}
+          </div>
+        </section>
+      );
+    })}
+
+    <section id="tools" class="product-group product-group--tools">
+      <header class="product-group__head">
+        <h3>Tools</h3>
+        <p>Use a focused Meish tool when the right instrument already exists.</p>
+      </header>
+      <p class="product-group__coming">
+        Focused Meish tools are in development. Contact us if you need a specific instrument for human experience work.
+      </p>
+      <a href="mailto:jenni@meish.work?subject=Meish%20Tools" class="button button--ghost">Ask about tools</a>
+    </section>
+  </div>
+</section>
+
+<style>
+  .product-catalog {
+    background: #FFFBF5;
+    border-top: 1px solid rgba(2, 12, 89, 0.1);
+  }
+
+  .product-catalog__intro {
+    max-width: 42rem;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .product-catalog__intro h2 {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    margin: var(--space-sm) 0;
+  }
+
+  .product-catalog__featured {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-lg);
+    margin-bottom: var(--space-3xl);
+  }
+
+  .product-card {
+    padding: var(--space-xl);
+    background: rgba(255, 253, 249, 0.85);
+    border: 1px solid rgba(251, 215, 159, 0.35);
+    box-shadow: 0 12px 36px rgba(2, 12, 89, 0.06);
+  }
+
+  .product-card--p1 {
+    border-color: rgba(105, 94, 219, 0.35);
+    background: linear-gradient(165deg, rgba(105, 94, 219, 0.06) 0%, rgba(255, 253, 249, 0.95) 100%);
+  }
+
+  .product-card--p2 {
+    border-color: rgba(2, 12, 89, 0.2);
+  }
+
+  .product-card__category {
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-lavender);
+    margin-bottom: var(--space-xs);
+    max-width: none;
+  }
+
+  .product-card h3, .product-card h4 {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .product-card__summary {
+    font-size: var(--text-sm);
+    color: var(--text-soft);
+    margin-bottom: var(--space-md);
+    max-width: none;
+  }
+
+  .product-card__price {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--color-navy);
+    margin-bottom: var(--space-xs);
+    max-width: none;
+  }
+
+  .product-card__note {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    margin-bottom: var(--space-md);
+    max-width: none;
+  }
+
+  .product-card__includes {
+    margin: var(--space-md) 0 var(--space-lg);
+    padding-left: 1.15rem;
+    font-size: var(--text-sm);
+    color: var(--text-soft);
+  }
+
+  .product-card__includes li { margin-bottom: 0.25rem; }
+
+  .product-card__details {
+    font-size: var(--text-sm);
+    color: var(--text-soft);
+    margin-bottom: var(--space-sm);
+  }
+
+  .product-card__details summary {
+    cursor: pointer;
+    font-weight: var(--weight-medium);
+    color: var(--text);
+    margin-bottom: var(--space-xs);
+  }
+
+  .product-group {
+    margin-bottom: var(--space-3xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid rgba(2, 12, 89, 0.08);
+  }
+
+  .product-group__head h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+  }
+
+  .product-group__head p {
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-lg);
+    max-width: none;
+  }
+
+  .product-group__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .product-group--tools .product-group__coming {
+    font-size: var(--text-sm);
+    color: var(--text-soft);
+    max-width: 40ch;
+    margin-bottom: var(--space-lg);
+  }
+
+  @media (max-width: 640px) {
+    .product-catalog__featured { grid-template-columns: 1fr; }
+  }
+</style>

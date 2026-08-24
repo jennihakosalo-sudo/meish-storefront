@@ -1,17 +1,16 @@
 ---
+import { orbitGroups } from '../data/meish-offers';
+
 interface Props {
   universeHome?: boolean;
 }
 
 const { universeHome = false } = Astro.props;
 
-const links = [
-  { href: '/#review', label: 'Review' },
-  { href: '/#business', label: 'Business' },
-  { href: '/#gifts', label: 'Gifts' },
-  { href: '/#tools', label: 'Tools' },
-];
-const path = Astro.url.pathname;
+const links = orbitGroups.map((g) => ({
+  href: g.href,
+  label: g.shortLabel,
+}));
 ---
 
 <header class:list={['site-header', universeHome && 'site-header--universe']}>
@@ -26,9 +25,12 @@ const path = Astro.url.pathname;
             <a href={l.href} class="nav__link">{l.label}</a>
           </li>
         ))}
+        <li>
+          <a href="#products" class="nav__link">Offers</a>
+        </li>
       </ul>
     </nav>
-    <a href="/#business" class="button button--primary header-cta">Possibility Map</a>
+    <a href="mailto:jenni@meish.work?subject=Meish%20AI%20Fit%20Check" class="button button--primary header-cta">Fit Check</a>
   </div>
 </header>
 
@@ -46,7 +48,7 @@ const path = Astro.url.pathname;
     position: absolute;
     left: 0;
     right: 0;
-    background: linear-gradient(180deg, rgba(255, 251, 245, 0.88) 0%, rgba(255, 251, 245, 0.4) 70%, transparent 100%);
+    background: linear-gradient(180deg, rgba(255, 251, 245, 0.92) 0%, rgba(255, 251, 245, 0.45) 70%, transparent 100%);
     backdrop-filter: blur(8px);
     border-bottom: none;
   }
@@ -68,7 +70,7 @@ const path = Astro.url.pathname;
 
   .nav {
     display: flex;
-    gap: var(--space-lg);
+    gap: var(--space-md);
     list-style: none;
     padding: 0;
   }
@@ -77,7 +79,7 @@ const path = Astro.url.pathname;
     font-size: var(--text-xs);
     font-weight: var(--weight-medium);
     color: var(--text-soft);
-    letter-spacing: 0.14em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
   }
 
@@ -87,17 +89,14 @@ const path = Astro.url.pathname;
   }
 
   .site-header--universe .header-cta {
-    background: rgba(2, 12, 89, 0.92);
+    background: #020C59;
     border: 1px solid rgba(251, 215, 159, 0.25);
-  }
-
-  .site-header--universe .header-cta:hover {
-    background: var(--color-navy);
   }
 
   @media (max-width: 640px) {
     .header-cta { display: none; }
-    .bar { gap: var(--space-md); min-height: 3.75rem; }
-    .nav { gap: var(--space-sm); }
+    .bar { gap: var(--space-sm); min-height: 3.75rem; }
+    .nav { gap: var(--space-xs); }
+    .nav__link { font-size: 0.6rem; letter-spacing: 0.08em; }
   }
 </style>

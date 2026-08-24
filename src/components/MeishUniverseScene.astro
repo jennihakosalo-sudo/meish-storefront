@@ -1,63 +1,15 @@
 ---
 import MeishStar from './MeishStar.astro';
+import { orbitGroups } from '../data/meish-offers';
 
-/** Cardinal doors — N · E · S · W. Inter-cardinals are rhythm accents only. */
-const objects = [
-  {
-    id: 'review',
-    label: 'Review Human Experience',
-    href: '#review',
-    angle: -90,
-    radius: '24vmin',
-    duration: 140,
-    delay: 0,
-    tint: 'navy',
-    placard: 'Experience Review — reading human experience in real places. What works, what frictions hide, what could be better.',
-    satellites: ['Observe', 'Document', 'Recommend'],
-  },
-  {
-    id: 'business',
-    label: 'Make Human Experience Better',
-    href: '#business',
-    angle: 0,
-    radius: '24vmin',
-    duration: 140,
-    delay: -35,
-    tint: 'lavender',
-    placard: 'Possibility Map · Fit Check · practical next steps for founders and teams. 590 € + VAT.',
-    satellites: ['Map', 'Paths', 'Next 30 days'],
-  },
-  {
-    id: 'gifts',
-    label: 'Meish Gifts',
-    href: '#gifts',
-    angle: 90,
-    radius: '24vmin',
-    duration: 140,
-    delay: -70,
-    tint: 'red',
-    placard: 'Thoughtful gifts and rituals — including RAMI, a session-only name-giving experience.',
-    satellites: ['Ritual', 'RAMI', 'Moment'],
-  },
-  {
-    id: 'tools',
-    label: 'Meish Tools',
-    href: '#tools',
-    angle: 180,
-    radius: '24vmin',
-    duration: 140,
-    delay: -105,
-    tint: 'gold',
-    placard: 'Custom tools when the right ones do not exist yet. Elements · Friction · Fiction · BA — coming soon.',
-    satellites: ['Build', 'Clarity', 'Agency'],
-  },
-];
+const ORBIT_RADIUS = '26vmin';
+const ORBIT_DURATION = 160;
 
 const axisDiamonds = [
-  { angle: -45, radius: '24vmin', tint: 'lavender' },
-  { angle: 45, radius: '24vmin', tint: 'gold' },
-  { angle: 135, radius: '24vmin', tint: 'red' },
-  { angle: -135, radius: '24vmin', tint: 'navy' },
+  { angle: -45, tint: 'lavender' },
+  { angle: 45, tint: 'gold' },
+  { angle: 135, tint: 'red' },
+  { angle: -135, tint: 'navy' },
 ];
 ---
 
@@ -84,20 +36,20 @@ const axisDiamonds = [
       {axisDiamonds.map((d) => (
         <span
           class={`axis-diamond axis-diamond--${d.tint}`}
-          style={`--obj-angle: ${d.angle}deg; --obj-radius: ${d.radius}`}
+          style={`--obj-angle: ${d.angle}deg; --obj-radius: ${ORBIT_RADIUS}`}
         >
-          <img src="/brand/meish-logo-384.jpg" alt="" width="48" height="48" />
+          <img src="/brand/meish-logo-192.jpg" alt="" width="40" height="40" loading="lazy" />
         </span>
       ))}
     </div>
 
-    <div class="celestial-field" data-orbit-field aria-label="Universe objects">
-      {objects.map((obj) => (
+    <div class="celestial-field" data-orbit-field aria-label="Universe directions">
+      {orbitGroups.map((obj, i) => (
         <a
           href={obj.href}
           class={`celestial-object celestial-object--${obj.tint}`}
           data-celestial={obj.id}
-          style={`--obj-angle: ${obj.angle}deg; --obj-radius: ${obj.radius}; --obj-duration: ${obj.duration}s; --obj-delay: ${obj.delay}s`}
+          style={`--obj-angle: ${obj.angle}deg; --obj-radius: ${ORBIT_RADIUS}; --obj-duration: ${ORBIT_DURATION}s; --obj-delay: ${-i * 40}s`}
         >
           <span class="celestial-object__track">
             <span class="celestial-object__body">
@@ -106,26 +58,22 @@ const axisDiamonds = [
                   src="/brand/meish-logo-384.jpg"
                   alt=""
                   class="celestial-object__gem"
-                  width="72"
-                  height="72"
+                  width="64"
+                  height="64"
+                  loading="lazy"
                 />
                 <span class="celestial-object__gem-glow" />
               </span>
-              <span class="celestial-object__label">{obj.label}</span>
-              <span class="celestial-object__satellites" aria-hidden="true">
-                {obj.satellites.map((s) => (
-                  <span class="celestial-object__satellite">{s}</span>
-                ))}
-              </span>
+              <span class="celestial-object__label">{obj.shortLabel}</span>
             </span>
           </span>
 
           <aside class="museum-panel">
             <div class="museum-panel__frame">
-              <p class="museum-panel__catalog">Meish Universe · Object</p>
-              <h3 class="museum-panel__title">{obj.label}</h3>
+              <p class="museum-panel__catalog">Meish · {obj.shortLabel}</p>
+              <h3 class="museum-panel__title">{obj.tagline}</h3>
               <p class="museum-panel__text">{obj.placard}</p>
-              <span class="museum-panel__enter">Enter →</span>
+              <span class="museum-panel__enter">View offers →</span>
             </div>
           </aside>
         </a>
@@ -134,25 +82,23 @@ const axisDiamonds = [
   </div>
 
   <div class="meish-universe__copy">
-    <p class="meish-universe__subline">Meish for Your Business</p>
-    <p class="meish-universe__north">Human experience is our North Star.</p>
-    <p class="meish-universe__support">
-      We specialise in human experience — making work and life clearer, smoother and more useful.
+    <p class="meish-universe__what">
+      We specialise in human experience — understanding it, reviewing it and making it better.
     </p>
+    <p class="meish-universe__north">Human experience is our North Star.</p>
   </div>
 
-  <div class="meish-universe__deck">
-    <slot name="flap" />
+  <div class="meish-universe__controls">
     <button type="button" id="motion-stop" class="motion-kill-switch" aria-pressed="false">
       <span class="motion-kill-switch__lamp" aria-hidden="true" />
       STOP OBJECT MOTION
     </button>
   </div>
 
-  <nav class="meish-universe__static" aria-label="Universe objects">
+  <nav class="meish-universe__static" aria-label="Universe directions">
     <ul>
-      {objects.map((obj) => (
-        <li><a href={obj.href}>{obj.label}</a></li>
+      {orbitGroups.map((obj) => (
+        <li><a href={obj.href}>{obj.shortLabel} — {obj.tagline}</a></li>
       ))}
     </ul>
   </nav>

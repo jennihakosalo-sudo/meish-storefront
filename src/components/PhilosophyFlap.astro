@@ -23,9 +23,9 @@ const lines = [
     </div>
 
     <div class="split-flap__controls">
-      <button type="button" class="split-flap__key" data-flap-prev>Previous</button>
-      <button type="button" class="split-flap__key split-flap__key--pause" data-flap-pause aria-pressed="false">Pause</button>
-      <button type="button" class="split-flap__key" data-flap-next>Next</button>
+      <button type="button" class="split-flap__key" data-flap-prev>PREVIOUS</button>
+      <button type="button" class="split-flap__key split-flap__key--pause" data-flap-pause aria-pressed="false">PAUSE</button>
+      <button type="button" class="split-flap__key" data-flap-next>NEXT</button>
     </div>
   </div>
 </div>
@@ -67,7 +67,7 @@ const lines = [
   pauseBtn?.addEventListener('click', () => {
     paused = !paused;
     pauseBtn.setAttribute('aria-pressed', String(paused));
-    pauseBtn.textContent = paused ? 'Resume' : 'Pause';
+    pauseBtn.textContent = paused ? 'RESUME' : 'PAUSE';
     if (paused) {
       if (timer) clearInterval(timer);
       timer = null;

@@ -1,5 +1,10 @@
 ---
-// Four public doors — order locked per Brand Kit plan.
+interface Props {
+  universeHome?: boolean;
+}
+
+const { universeHome = false } = Astro.props;
+
 const links = [
   { href: '/#review', label: 'Review' },
   { href: '/#business', label: 'Business' },
@@ -7,25 +12,18 @@ const links = [
   { href: '/#tools', label: 'Tools' },
 ];
 const path = Astro.url.pathname;
-const hash = Astro.url.hash;
 ---
 
-<header class="site-header">
+<header class:list={['site-header', universeHome && 'site-header--universe']}>
   <div class="container container--wide bar">
     <a href="/" class="wordmark" aria-label="Meish — home">
-      <img src="/brand/meish-universe-lockup-cream.png" alt="Meish" class="wordmark__img" width="120" height="32" />
+      <img src="/brand/meish-universe-lockup-cream.png" alt="Meish" class="wordmark__img" width="140" height="36" />
     </a>
     <nav aria-label="Primary">
       <ul class="nav">
         {links.map((l) => (
           <li>
-            <a
-              href={l.href}
-              class="nav__link"
-              aria-current={path === '/' && hash === l.href.slice(1) ? 'page' : undefined}
-            >
-              {l.label}
-            </a>
+            <a href={l.href} class="nav__link">{l.label}</a>
           </li>
         ))}
       </ul>
@@ -43,46 +41,63 @@ const hash = Astro.url.hash;
     backdrop-filter: saturate(140%) blur(10px);
     border-bottom: var(--border-hair);
   }
+
+  .site-header--universe {
+    position: absolute;
+    left: 0;
+    right: 0;
+    background: linear-gradient(180deg, rgba(255, 251, 245, 0.88) 0%, rgba(255, 251, 245, 0.4) 70%, transparent 100%);
+    backdrop-filter: blur(8px);
+    border-bottom: none;
+  }
+
   .bar {
     display: flex;
     align-items: center;
     gap: var(--space-xl);
     min-height: 4.5rem;
   }
+
   .wordmark {
     margin-right: auto;
     display: flex;
     align-items: center;
   }
   .wordmark:hover { text-decoration: none; }
-  .wordmark__img {
-    height: 2rem;
-    width: auto;
-  }
+  .wordmark__img { height: 2.25rem; width: auto; }
+
   .nav {
     display: flex;
     gap: var(--space-lg);
     list-style: none;
     padding: 0;
   }
+
   .nav__link {
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     font-weight: var(--weight-medium);
     color: var(--text-soft);
-    letter-spacing: 0.04em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
   }
-  .nav__link:hover,
-  .nav__link[aria-current='page'] {
+
+  .nav__link:hover {
     color: var(--text);
     text-decoration: none;
   }
-  .nav__link[aria-current='page'] { border-bottom: 2px solid var(--accent); }
+
+  .site-header--universe .header-cta {
+    background: rgba(2, 12, 89, 0.92);
+    border: 1px solid rgba(251, 215, 159, 0.25);
+  }
+
+  .site-header--universe .header-cta:hover {
+    background: var(--color-navy);
+  }
 
   @media (max-width: 640px) {
     .header-cta { display: none; }
     .bar { gap: var(--space-md); min-height: 3.75rem; }
     .nav { gap: var(--space-sm); }
-    .nav__link { font-size: var(--text-xs); }
   }
 </style>

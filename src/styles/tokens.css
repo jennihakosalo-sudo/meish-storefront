@@ -1,19 +1,17 @@
 /* ==========================================================================
    Meish Universe — Brand Kit 2 (ELO26)
-   Cream, navy, lavender, gold, red. Shop clay kept as secondary alias.
+   Palette locked. ATHENA pending — Georgia is temporary display fallback only.
    ========================================================================== */
 
 :root {
-  /* Kit 2 primary */
-  --color-cream:        #FFFBF5;
-  --color-navy:         #020C59;
-  --color-lavender:     #695EDB;
-  --color-gold:         #FBD79F;
-  --color-red:          #CD0316;
+  --color-cream:    #FFFBF5;
+  --color-navy:     #020C59;
+  --color-lavender: #695EDB;
+  --color-gold:     #FBD79F;
+  --color-red:      #CD0316;
 
-  /* Legacy shop aliases (sub-pages until touched) */
   --color-paper:        var(--color-cream);
-  --color-paper-sunk:   #f5f0e8;
+  --color-paper-sunk:   #f3ece2;
   --color-paper-raised: #fffdf9;
   --color-clay:         #b4552d;
   --color-clay-deep:    #8f4021;
@@ -23,23 +21,23 @@
   --color-ink:          var(--color-navy);
   --color-ink-soft:     #2a3568;
   --color-ink-muted:    #5a6294;
-  --color-line:         rgba(2, 12, 89, 0.12);
-  --color-line-strong:  rgba(2, 12, 89, 0.22);
+  --color-line:         rgba(2, 12, 89, 0.14);
+  --color-line-strong:  rgba(2, 12, 89, 0.28);
 
   --bg:            var(--color-cream);
   --bg-alt:        var(--color-paper-sunk);
-  --surface:       var(--color-paper-raised);
+  --surface:       rgba(255, 253, 249, 0.72);
   --text:          var(--color-navy);
   --text-soft:     var(--color-ink-soft);
   --text-muted:    var(--color-ink-muted);
   --border:        var(--color-line);
   --accent:        var(--color-lavender);
   --accent-hover:  #5248c4;
-  --accent-tint:   rgba(105, 94, 219, 0.1);
+  --accent-tint:   rgba(105, 94, 219, 0.12);
 
-  --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
-  --font-body:    'Roboto Condensed', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-  --font-mono:    'SFMono-Regular', ui-monospace, 'Menlo', monospace;
+  /* TEMPORARY until ATHENA files in public/fonts/ — do not treat as brand font */
+  --font-display: 'ATHENA', Georgia, 'Times New Roman', serif;
+  --font-body:    'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
 
   --text-xs:   0.6875rem;
   --text-sm:   0.8125rem;
@@ -48,9 +46,7 @@
   --text-lg:   1.5rem;
   --text-xl:   2rem;
   --text-2xl:  2.75rem;
-  --text-3xl:  4rem;
-  --text-hero: clamp(4rem, 12vw + 1rem, 9rem);
-  --text-meish: clamp(5rem, 18vw + 1rem, 11rem);
+  --text-meish: clamp(2.25rem, 5vw, 3.5rem);
 
   --weight-regular: 400;
   --weight-medium:  500;
@@ -62,8 +58,7 @@
   --leading-normal: 1.55;
 
   --tracking-tight: -0.02em;
-  --tracking-normal: 0;
-  --tracking-wide:  0.18em;
+  --tracking-wide:  0.2em;
 
   --space-2xs: 0.25rem;
   --space-xs:  0.5rem;
@@ -75,10 +70,10 @@
   --space-3xl: 6.5rem;
   --space-4xl: 10rem;
 
-  --measure:      68ch;
-  --width-content:1080px;
-  --width-wide:   1320px;
-  --gutter:       clamp(1.25rem, 5vw, 3.5rem);
+  --measure:       68ch;
+  --width-content: 1080px;
+  --width-wide:    1320px;
+  --gutter:        clamp(1.25rem, 5vw, 3.5rem);
 
   --radius-sm: 2px;
   --radius-md: 4px;
@@ -86,16 +81,16 @@
   --radius-pill: 999px;
   --border-hair: 1px solid var(--border);
 
-  --shadow-sm: 0 2px 8px rgba(2, 12, 89, 0.06);
-  --shadow-md: 0 12px 32px rgba(2, 12, 89, 0.1);
-  --shadow-lg: 0 24px 60px rgba(2, 12, 89, 0.14);
-  --shadow-diamond: 0 20px 60px rgba(105, 94, 219, 0.25), 0 8px 24px rgba(2, 12, 89, 0.12);
+  --shadow-sm: 0 2px 8px rgba(2, 12, 89, 0.08);
+  --shadow-md: 0 16px 40px rgba(2, 12, 89, 0.14);
+  --shadow-lg: 0 32px 80px rgba(2, 12, 89, 0.2);
 
   --ease: cubic-bezier(0.4, 0, 0.15, 1);
   --dur-fast: 140ms;
-  --dur: 240ms;
-  --dur-slow: 500ms;
+  --dur: 280ms;
+  --dur-slow: 600ms;
 
   --z-header: 100;
+  --z-scene: 1;
   --z-overlay: 200;
 }

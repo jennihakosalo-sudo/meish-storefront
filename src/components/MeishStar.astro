@@ -1,0 +1,56 @@
+---
+/** Central Meish Star — large faceted merkaba + official diamond asset. Visual anchor of the homepage. */
+---
+
+<div class="meish-star" aria-hidden="true">
+  <div class="meish-star__radiance meish-star__radiance--lavender" />
+  <div class="meish-star__radiance meish-star__radiance--gold" />
+  <div class="meish-star__radiance meish-star__radiance--red" />
+
+  <svg class="meish-star__merkaba" viewBox="0 0 400 460" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="ms-navy" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#243078" /><stop offset="100%" stop-color="#020C59" />
+      </linearGradient>
+      <linearGradient id="ms-lavender" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#958ce8" /><stop offset="100%" stop-color="#695EDB" />
+      </linearGradient>
+      <linearGradient id="ms-gold" x1="0%" y1="100%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#d4a860" /><stop offset="100%" stop-color="#FBD79F" />
+      </linearGradient>
+      <linearGradient id="ms-red" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#e83045" /><stop offset="100%" stop-color="#CD0316" />
+      </linearGradient>
+      <radialGradient id="ms-core" cx="50%" cy="48%" r="38%">
+        <stop offset="0%" stop-color="#ffffff" stop-opacity="1" />
+        <stop offset="35%" stop-color="#dce4ff" stop-opacity="0.75" />
+        <stop offset="100%" stop-color="#695EDB" stop-opacity="0" />
+      </radialGradient>
+      <filter id="ms-shadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="#020C59" flood-opacity="0.45" />
+      </filter>
+    </defs>
+    <polygon points="200,420 60,280 200,230 340,280" fill="url(#ms-red)" filter="url(#ms-shadow)" />
+    <polygon points="200,420 340,280 200,230" fill="url(#ms-gold)" filter="url(#ms-shadow)" opacity="0.95" />
+    <polygon points="200,420 60,280 200,230" fill="url(#ms-gold)" filter="url(#ms-shadow)" opacity="0.9" />
+    <polygon points="200,40 60,180 200,230 340,180" fill="url(#ms-navy)" filter="url(#ms-shadow)" />
+    <polygon points="200,40 340,180 200,230" fill="url(#ms-lavender)" filter="url(#ms-shadow)" opacity="0.96" />
+    <polygon points="200,40 60,180 200,230" fill="url(#ms-lavender)" filter="url(#ms-shadow)" opacity="0.92" />
+    <polygon points="200,40 130,120 200,230 270,120" fill="url(#ms-navy)" opacity="0.8" />
+    <polygon points="200,420 130,300 200,230 270,300" fill="url(#ms-red)" opacity="0.78" />
+    <ellipse cx="200" cy="230" rx="62" ry="72" fill="url(#ms-core)" />
+    <polyline points="200,40 340,180 200,420 60,180 200,40" stroke="rgba(255,255,255,0.35)" stroke-width="1.2" fill="none" />
+    <polyline points="60,180 200,230 340,180" stroke="rgba(251,215,159,0.45)" stroke-width="1" fill="none" />
+    <polyline points="60,280 200,230 340,280" stroke="rgba(205,3,22,0.35)" stroke-width="1" fill="none" />
+  </svg>
+
+  <img
+    src="/brand/meish-diamond-emblem.png"
+    alt=""
+    class="meish-star__diamond-asset"
+    width="480"
+    height="480"
+    loading="eager"
+    decoding="async"
+  />
+</div>

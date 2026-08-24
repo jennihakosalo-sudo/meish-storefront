@@ -1,35 +1,17 @@
 ---
 import Base from '../layouts/Base.astro';
-import UniverseHero from '../components/UniverseHero.astro';
+import MeishUniverseScene from '../components/MeishUniverseScene.astro';
 import PhilosophyFlap from '../components/PhilosophyFlap.astro';
 ---
 
 <Base
   title="Meish — human experience is our North Star"
   description="Meish specialises in human experience — for business, spaces, gifts and custom tools. Possibility Map from 590 € + VAT."
+  universeHome={true}
 >
-  <section class="hero section">
-    <div class="container container--wide hero__inner">
-      <h1 class="hero__meish" aria-label="Meish">MEISH</h1>
-      <p class="hero__subline">Meish for Your Business</p>
-      <p class="hero__north-star">Human experience is our North Star.</p>
-      <p class="hero__support">
-        We specialise in human experience — making work and life clearer, smoother and more useful, and building the tools when the right ones do not exist yet.
-      </p>
-    </div>
-  </section>
-
-  <div class="container container--wide">
-    <UniverseHero />
-
-    <div class="motion-control">
-      <button type="button" id="motion-stop" class="button button--motion" aria-pressed="false">
-        STOP OBJECT MOTION
-      </button>
-    </div>
-
-    <PhilosophyFlap />
-  </div>
+  <MeishUniverseScene>
+    <PhilosophyFlap slot="flap" />
+  </MeishUniverseScene>
 
   <section id="review" class="door section">
     <div class="container">
@@ -39,13 +21,13 @@ import PhilosophyFlap from '../components/PhilosophyFlap.astro';
         Experience Review (ExR) is our method for reading human experience in real places — what works, what frictions hide in plain sight, and what could be better.
       </p>
       <p>
-        We observe, document and recommend. No new price on the homepage — contact us when you want a review for your space, event or service.
+        We observe, document and recommend. Contact us when you want a review for your space, event or service.
       </p>
       <a href="/services/experience-audits" class="button button--ghost">Learn about ExR</a>
     </div>
   </section>
 
-  <section id="business" class="door section door--highlight">
+  <section id="business" class="door section door--jewel">
     <div class="container">
       <p class="eyebrow">Door 2</p>
       <h2>Meish for Your Business</h2>
@@ -53,10 +35,10 @@ import PhilosophyFlap from '../components/PhilosophyFlap.astro';
         A clear map of your goals, skills, materials and next steps — before you commit to a big build.
       </p>
 
-      <article class="offer-card">
+      <article class="offer-jewel">
         <h3>Possibility Map</h3>
-        <p class="offer-card__price">590 € + VAT · Gamma Test Phase</p>
-        <ul class="offer-card__list">
+        <p class="offer-jewel__price">590 € + VAT · Gamma Test Phase</p>
+        <ul class="offer-jewel__list">
           <li>60-minute client interview</li>
           <li>Summary of goals, skills, materials and opportunities</li>
           <li>Visible Possibility Map</li>
@@ -66,8 +48,8 @@ import PhilosophyFlap from '../components/PhilosophyFlap.astro';
           <li>AI tools review — competitive edge, time saved, new business</li>
           <li>30-minute results walkthrough</li>
         </ul>
-        <p class="offer-card__note">Delivery within five business days after the interview.</p>
-        <div class="offer-card__actions">
+        <p class="offer-jewel__note">Delivery within five business days after the interview.</p>
+        <div class="offer-jewel__actions">
           <a href="/universe/business/possibility-map" class="button button--primary">Explore Possibility Map</a>
           <a href="mailto:jenni@meish.work?subject=Possibility%20Map%20Fit%20Check" class="button button--ghost">Fit Check — jenni@meish.work</a>
         </div>
@@ -81,7 +63,7 @@ import PhilosophyFlap from '../components/PhilosophyFlap.astro';
       <h2>Meish Gifts</h2>
       <p class="lead">Thoughtful gifts and small rituals — moments that matter.</p>
 
-      <article class="gift-card" id="rami-gift">
+      <article class="gift-jewel" id="rami-gift">
         <h3>RAMI — a name-giving ritual</h3>
         <p>
           RAMI is a session-only name ritual. Enter a name below and receive a short, personal reading — stored only in this browser session, never sent to a server.
@@ -131,8 +113,7 @@ import PhilosophyFlap from '../components/PhilosophyFlap.astro';
     const input = document.getElementById('rami-name');
     const name = input?.value.trim();
     if (!name || !result) return;
-    const reading = ramiReading(name);
-    result.textContent = reading;
+    result.textContent = ramiReading(name);
     try {
       const stored = JSON.parse(sessionStorage.getItem(storageKey) || '[]');
       stored.push({ name, reading, at: Date.now() });
@@ -148,123 +129,60 @@ import PhilosophyFlap from '../components/PhilosophyFlap.astro';
 </script>
 
 <style>
-  .hero {
-    padding-block: var(--space-2xl) var(--space-xl);
-    text-align: center;
-  }
-
-  .hero__inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-md);
-  }
-
-  .hero__meish {
-    font-family: var(--font-body);
-    font-size: var(--text-meish);
-    font-weight: var(--weight-black);
-    letter-spacing: 0.06em;
-    line-height: 0.9;
-    color: var(--text);
-    margin: 0;
-    max-width: none;
-  }
-
-  .hero__subline {
-    font-family: var(--font-body);
-    font-size: var(--text-sm);
-    font-weight: var(--weight-semibold);
-    letter-spacing: var(--tracking-wide);
-    text-transform: uppercase;
-    color: var(--text-soft);
-    max-width: none;
-  }
-
-  .hero__north-star {
-    font-family: var(--font-display);
-    font-size: var(--text-xl);
-    font-style: italic;
-    color: var(--text);
-    max-width: 28ch;
-  }
-
-  .hero__support {
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    max-width: 52ch;
-    line-height: var(--leading-normal);
-  }
-
-  .motion-control {
-    text-align: center;
-    margin-block: var(--space-md) var(--space-xl);
-  }
-
   .door {
-    border-top: var(--border-hair);
+    border-top: 1px solid rgba(2, 12, 89, 0.1);
+    background: linear-gradient(180deg, rgba(255, 251, 245, 0.6) 0%, var(--color-cream) 100%);
   }
 
-  .door--highlight {
-    background: var(--accent-tint);
+  .door--jewel {
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(105, 94, 219, 0.08) 0%, transparent 60%),
+      var(--color-cream);
   }
 
-  .offer-card {
+  .offer-jewel, .gift-jewel {
     margin-top: var(--space-lg);
     padding: var(--space-xl);
-    background: var(--surface);
-    border: var(--border-hair);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
+    background: rgba(255, 253, 249, 0.65);
+    border: 1px solid rgba(251, 215, 159, 0.35);
+    box-shadow: 0 16px 48px rgba(2, 12, 89, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(6px);
   }
 
-  .offer-card h3 {
+  .offer-jewel h3, .gift-jewel h3 {
     font-family: var(--font-display);
     font-size: var(--text-xl);
     margin-bottom: var(--space-sm);
   }
 
-  .offer-card__price {
+  .offer-jewel__price {
     font-size: var(--text-sm);
     font-weight: var(--weight-semibold);
-    color: var(--accent);
+    color: var(--color-lavender);
     margin-bottom: var(--space-md);
     max-width: none;
   }
 
-  .offer-card__list {
+  .offer-jewel__list {
     margin: var(--space-md) 0;
     padding-left: 1.25rem;
     color: var(--text-soft);
     font-size: var(--text-sm);
   }
 
-  .offer-card__list li { margin-bottom: var(--space-xs); }
+  .offer-jewel__list li { margin-bottom: var(--space-xs); }
 
-  .offer-card__note {
+  .offer-jewel__note {
     font-size: var(--text-xs);
     color: var(--text-muted);
     margin-bottom: var(--space-lg);
     max-width: none;
   }
 
-  .offer-card__actions {
+  .offer-jewel__actions {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-md);
-  }
-
-  .gift-card {
-    margin-top: var(--space-lg);
-    padding: var(--space-xl);
-    background: var(--surface);
-    border: var(--border-hair);
-    border-radius: var(--radius-lg);
-  }
-
-  .gift-card h3 {
-    font-family: var(--font-display);
-    margin-bottom: var(--space-sm);
   }
 
   .rami-form {
@@ -287,11 +205,11 @@ import PhilosophyFlap from '../components/PhilosophyFlap.astro';
     flex: 1;
     min-width: 12rem;
     padding: 0.75em 1em;
-    border: var(--border-hair);
+    border: 1px solid rgba(2, 12, 89, 0.18);
     border-radius: var(--radius-md);
     font-family: var(--font-body);
     font-size: var(--text-base);
-    background: var(--bg);
+    background: var(--color-cream);
   }
 
   .rami-result {

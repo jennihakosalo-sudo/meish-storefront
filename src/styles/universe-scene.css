@@ -1,0 +1,627 @@
+/* ==========================================================================
+   Meish Universe Scene — dimensional jewel aesthetic (Brand Kit 2)
+   ========================================================================== */
+
+/* --- Scene shell --------------------------------------------------------- */
+
+.meish-universe {
+  position: relative;
+  min-height: min(100vh, 920px);
+  min-height: min(100dvh, 920px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 42%, rgba(255, 251, 245, 1) 0%, rgba(255, 251, 245, 0.92) 35%, rgba(243, 236, 226, 0.85) 100%),
+    linear-gradient(180deg, #FFFBF5 0%, #f0e8dc 100%);
+  margin-top: -4.5rem;
+  padding-top: 4.5rem;
+}
+
+.meish-universe__sky {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.meish-universe__vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 45%, transparent 30%, rgba(2, 12, 89, 0.06) 100%),
+    radial-gradient(circle at 50% 50%, transparent 40%, rgba(2, 12, 89, 0.04) 100%);
+}
+
+.meish-universe__aurora {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.35;
+  animation: aurora-drift 24s ease-in-out infinite;
+}
+
+.meish-universe__aurora--lavender {
+  width: 55%; height: 45%;
+  top: 15%; left: 20%;
+  background: radial-gradient(circle, rgba(105, 94, 219, 0.5) 0%, transparent 70%);
+}
+
+.meish-universe__aurora--gold {
+  width: 45%; height: 40%;
+  bottom: 20%; right: 15%;
+  background: radial-gradient(circle, rgba(251, 215, 159, 0.55) 0%, transparent 70%);
+  animation-delay: -8s;
+}
+
+.meish-universe__aurora--red {
+  width: 30%; height: 28%;
+  bottom: 25%; left: 10%;
+  background: radial-gradient(circle, rgba(205, 3, 22, 0.25) 0%, transparent 70%);
+  animation-delay: -14s;
+}
+
+@keyframes aurora-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(2%, -1.5%) scale(1.04); }
+}
+
+.meish-universe__chart-lines {
+  position: absolute;
+  inset: 0;
+  opacity: 0.06;
+  background-image:
+    linear-gradient(rgba(2, 12, 89, 0.8) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(2, 12, 89, 0.8) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, black 20%, transparent 75%);
+}
+
+/* --- Stage + orbit rings ------------------------------------------------- */
+
+.meish-universe__stage {
+  position: relative;
+  width: min(100%, 980px);
+  aspect-ratio: 1;
+  max-height: min(78vh, 780px);
+  margin-inline: auto;
+  z-index: var(--z-scene);
+}
+
+.meish-universe__rings {
+  position: absolute;
+  inset: 8%;
+  pointer-events: none;
+}
+
+.orbit-ring {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(2, 12, 89, 0.08);
+  border-radius: 50%;
+  box-shadow:
+    inset 0 0 40px rgba(105, 94, 219, 0.04),
+    0 0 1px rgba(251, 215, 159, 0.3);
+}
+
+.orbit-ring--mid { inset: 12%; border-color: rgba(105, 94, 219, 0.1); }
+.orbit-ring--inner { inset: 22%; border-color: rgba(251, 215, 159, 0.15); }
+
+.orbit-ring--outer {
+  animation: ring-breathe 12s ease-in-out infinite;
+}
+
+@keyframes ring-breathe {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.015); opacity: 1; }
+}
+
+/* --- Central Meish Star -------------------------------------------------- */
+
+.meish-universe__core {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.meish-star {
+  position: relative;
+  width: min(62vmin, 520px);
+  height: min(62vmin, 520px);
+  display: grid;
+  place-items: center;
+  animation: star-float 10s ease-in-out infinite;
+}
+
+@keyframes star-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.meish-star__radiance {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.meish-star__radiance--lavender {
+  width: 70%; height: 70%;
+  background: rgba(105, 94, 219, 0.35);
+  animation: pulse-lavender 6s ease-in-out infinite;
+}
+
+.meish-star__radiance--gold {
+  width: 50%; height: 50%;
+  background: rgba(251, 215, 159, 0.4);
+  animation: pulse-gold 8s ease-in-out infinite;
+}
+
+.meish-star__radiance--red {
+  width: 35%; height: 35%;
+  bottom: 15%;
+  background: rgba(205, 3, 22, 0.2);
+  animation: pulse-red 7s ease-in-out infinite;
+}
+
+@keyframes pulse-lavender {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.08); }
+}
+
+@keyframes pulse-gold {
+  0%, 100% { opacity: 0.4; transform: scale(0.95); }
+  50% { opacity: 0.7; transform: scale(1.05); }
+}
+
+@keyframes pulse-red {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.45; }
+}
+
+.meish-star__merkaba {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 24px 48px rgba(2, 12, 89, 0.35));
+  animation: merkaba-turn 90s linear infinite;
+}
+
+@keyframes merkaba-turn {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.meish-star__diamond-asset {
+  position: absolute;
+  width: 88%;
+  height: auto;
+  mix-blend-mode: multiply;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+/* Hero copy — subordinate to the star */
+.meish-universe__copy {
+  position: absolute;
+  bottom: -2%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  width: min(92%, 36rem);
+  z-index: 5;
+  pointer-events: none;
+}
+
+.meish-universe__wordmark {
+  font-family: var(--font-body);
+  font-size: var(--text-meish);
+  font-weight: var(--weight-black);
+  letter-spacing: 0.28em;
+  color: var(--color-navy);
+  margin: 0;
+  max-width: none;
+  text-shadow: 0 1px 0 rgba(255, 251, 245, 0.8);
+}
+
+.meish-universe__subline {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-lavender);
+  margin-top: 0.35rem;
+  max-width: none;
+}
+
+.meish-universe__north {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2.2vw, 1.45rem);
+  font-style: italic;
+  color: var(--color-navy);
+  margin-top: 0.65rem;
+  max-width: none;
+}
+
+.meish-universe__support {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+  line-height: var(--leading-normal);
+  max-width: 42ch;
+  margin-inline: auto;
+}
+
+/* --- Celestial objects --------------------------------------------------- */
+
+.celestial-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.celestial-object {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: auto;
+  text-decoration: none;
+  color: inherit;
+  z-index: 4;
+}
+
+.celestial-object__track {
+  position: absolute;
+  display: block;
+  animation: obj-orbit var(--obj-duration, 120s) linear infinite;
+  animation-delay: var(--obj-delay, 0s);
+  transform-origin: 0 0;
+}
+
+@keyframes obj-orbit {
+  from { transform: rotate(var(--obj-angle)) translateX(var(--obj-radius)) rotate(calc(-1 * var(--obj-angle))); }
+  to { transform: rotate(calc(var(--obj-angle) + 360deg)) translateX(var(--obj-radius)) rotate(calc(-1 * var(--obj-angle) - 360deg)); }
+}
+
+.celestial-object__body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 5.5rem;
+  margin-left: -2.75rem;
+  margin-top: -2.75rem;
+  transition: transform 0.6s var(--ease);
+}
+
+.celestial-object__facet {
+  position: absolute;
+  width: 2.8rem;
+  height: 2.8rem;
+  clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+  filter: drop-shadow(0 6px 14px rgba(2, 12, 89, 0.25));
+  transition: transform 0.5s var(--ease), opacity 0.5s var(--ease);
+}
+
+.celestial-object__facet--a { transform: rotate(0deg) translateY(-4px); z-index: 3; }
+.celestial-object__facet--b { transform: rotate(72deg) scale(0.85); z-index: 2; opacity: 0.85; }
+.celestial-object__facet--c { transform: rotate(144deg) scale(0.7); z-index: 1; opacity: 0.7; }
+
+.celestial-object--navy-gold .celestial-object__facet--a { background: linear-gradient(135deg, #020C59, #243078); }
+.celestial-object--navy-gold .celestial-object__facet--b { background: linear-gradient(135deg, #FBD79F, #d4a860); }
+.celestial-object--navy-gold .celestial-object__facet--c { background: linear-gradient(135deg, #695EDB, #020C59); }
+
+.celestial-object--lavender-gold .celestial-object__facet--a { background: linear-gradient(135deg, #695EDB, #958ce8); }
+.celestial-object--lavender-gold .celestial-object__facet--b { background: linear-gradient(135deg, #FBD79F, #e8c890); }
+.celestial-object--lavender-gold .celestial-object__facet--c { background: linear-gradient(135deg, #020C59, #695EDB); }
+
+.celestial-object--red-gold .celestial-object__facet--a { background: linear-gradient(135deg, #CD0316, #e83045); }
+.celestial-object--red-gold .celestial-object__facet--b { background: linear-gradient(135deg, #FBD79F, #d4a860); }
+.celestial-object--red-gold .celestial-object__facet--c { background: linear-gradient(135deg, #020C59, #CD0316); }
+
+.celestial-object--navy-lavender .celestial-object__facet--a { background: linear-gradient(135deg, #020C59, #695EDB); }
+.celestial-object--navy-lavender .celestial-object__facet--b { background: linear-gradient(135deg, #695EDB, #958ce8); }
+.celestial-object--navy-lavender .celestial-object__facet--c { background: linear-gradient(135deg, #FBD79F, #695EDB); }
+
+.celestial-object__core {
+  position: relative;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.9), 0 0 24px rgba(105, 94, 219, 0.6);
+  z-index: 4;
+  margin-top: 1.2rem;
+}
+
+.celestial-object__label {
+  position: absolute;
+  top: calc(100% + 0.65rem);
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 11rem;
+  font-size: 0.625rem;
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--color-navy);
+  line-height: 1.35;
+  opacity: 0.75;
+  transition: opacity 0.4s var(--ease);
+}
+
+.celestial-object__satellites {
+  position: absolute;
+  inset: -1.5rem;
+  pointer-events: none;
+}
+
+.celestial-object__satellite {
+  position: absolute;
+  font-size: 0.5rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-lavender);
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+  white-space: nowrap;
+}
+
+.celestial-object__satellite:nth-child(1) { top: 0; left: 50%; transform: translateX(-50%) scale(0.6); }
+.celestial-object__satellite:nth-child(2) { bottom: 10%; right: -10%; }
+.celestial-object__satellite:nth-child(3) { bottom: 10%; left: -10%; }
+
+/* Hover / focus */
+.celestial-object:hover,
+.celestial-object:focus-visible,
+.celestial-object.is-near {
+  text-decoration: none;
+  z-index: 20;
+}
+
+.celestial-object:hover .celestial-object__body,
+.celestial-object:focus-visible .celestial-object__body,
+.celestial-object.is-near .celestial-object__body {
+  transform: scale(1.22);
+}
+
+.celestial-object:hover .celestial-object__track,
+.celestial-object:focus-visible .celestial-object__track,
+.celestial-object.is-near .celestial-object__track {
+  animation-play-state: paused;
+}
+
+.celestial-object:hover .celestial-object__facet--b,
+.celestial-object.is-near .celestial-object__facet--b {
+  transform: rotate(72deg) scale(0.85) translate(12px, -8px);
+}
+
+.celestial-object:hover .celestial-object__facet--c,
+.celestial-object.is-near .celestial-object__facet--c {
+  transform: rotate(144deg) scale(0.7) translate(-10px, 6px);
+  opacity: 0.95;
+}
+
+.celestial-object:hover .celestial-object__satellite,
+.celestial-object.is-near .celestial-object__satellite {
+  opacity: 0.85;
+  transform: scale(1);
+}
+
+.celestial-object:hover .celestial-object__satellite:nth-child(1),
+.celestial-object.is-near .celestial-object__satellite:nth-child(1) {
+  transform: translateX(-50%) translateY(-14px) scale(1);
+}
+
+.celestial-object:hover .celestial-object__label,
+.celestial-object.is-near .celestial-object__label {
+  opacity: 1;
+}
+
+/* Museum panel */
+.museum-panel {
+  position: absolute;
+  bottom: calc(100% + 1rem);
+  left: 50%;
+  transform: translateX(-50%) translateY(12px) scale(0.94);
+  opacity: 0;
+  pointer-events: none;
+  width: max-content;
+  max-width: 16rem;
+  transition: opacity 0.45s var(--ease), transform 0.45s var(--ease);
+  z-index: 30;
+}
+
+.celestial-object:hover .museum-panel,
+.celestial-object:focus-visible .museum-panel,
+.celestial-object.is-near .museum-panel {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.museum-panel__frame {
+  padding: 1rem 1.15rem 1.1rem;
+  background:
+    linear-gradient(165deg, rgba(2, 12, 89, 0.94) 0%, rgba(2, 12, 89, 0.88) 100%);
+  border: 1px solid rgba(251, 215, 159, 0.35);
+  box-shadow:
+    0 20px 50px rgba(2, 12, 89, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(8px);
+}
+
+.museum-panel__frame::before {
+  content: '';
+  display: block;
+  height: 3px;
+  margin: -0.25rem 0 0.65rem;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  opacity: 0.6;
+}
+
+.museum-panel__catalog {
+  font-size: 0.55rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(251, 215, 159, 0.7);
+  margin-bottom: 0.35rem;
+  max-width: none;
+}
+
+.museum-panel__title {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: var(--weight-semibold);
+  color: #FFFBF5;
+  margin-bottom: 0.4rem;
+  line-height: 1.25;
+}
+
+.museum-panel__text {
+  font-size: 0.72rem;
+  line-height: 1.45;
+  color: rgba(255, 251, 245, 0.78);
+  max-width: none;
+  margin: 0;
+}
+
+.museum-panel__enter {
+  display: inline-block;
+  margin-top: 0.65rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+/* --- Deck: flap + motion kill switch ------------------------------------ */
+
+.meish-universe__deck {
+  position: relative;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+  width: min(100%, 42rem);
+  padding: var(--space-xl) var(--gutter) var(--space-2xl);
+}
+
+.motion-kill-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.7rem 1.25rem 0.7rem 0.85rem;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: var(--weight-bold, 700);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #FFFBF5;
+  background: linear-gradient(180deg, #e81028 0%, #CD0316 45%, #a00212 100%);
+  border: 2px solid #8a0210;
+  border-radius: 3px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.35),
+    0 4px 12px rgba(205, 3, 22, 0.35);
+  cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+
+.motion-kill-switch:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 6px 16px rgba(205, 3, 22, 0.45);
+}
+
+.motion-kill-switch:active {
+  transform: translateY(1px);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.motion-kill-switch__lamp {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: #ff6b7a;
+  box-shadow: 0 0 8px rgba(255, 100, 110, 0.9);
+  animation: lamp-blink 2s ease-in-out infinite;
+}
+
+@keyframes lamp-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+
+.meish-universe.is-paused .motion-kill-switch__lamp {
+  background: #666;
+  box-shadow: none;
+  animation: none;
+}
+
+/* --- Pause all motion ---------------------------------------------------- */
+
+.meish-universe.is-paused .meish-star,
+.meish-universe.is-paused .meish-star__merkaba,
+.meish-universe.is-paused .meish-star__radiance,
+.meish-universe.is-paused .meish-universe__aurora,
+.meish-universe.is-paused .orbit-ring--outer,
+.meish-universe.is-paused .celestial-object__track {
+  animation-play-state: paused !important;
+}
+
+/* --- Static fallback ----------------------------------------------------- */
+
+.meish-universe__static {
+  display: none;
+  padding: var(--space-lg) var(--gutter) var(--space-2xl);
+}
+
+.meish-universe__static ul {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: var(--space-sm);
+  text-align: center;
+}
+
+.meish-universe__static a {
+  color: var(--text-soft);
+  font-size: var(--text-sm);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .meish-universe__stage,
+  .celestial-field,
+  .meish-star__merkaba,
+  .meish-star,
+  .meish-universe__aurora,
+  .orbit-ring--outer {
+    animation: none !important;
+  }
+
+  .meish-universe__static { display: block; }
+}
+
+@media (max-width: 720px) {
+  .meish-star { width: min(72vmin, 380px); height: min(72vmin, 380px); }
+  .meish-universe__copy { bottom: -8%; }
+  .celestial-object__label { font-size: 0.55rem; max-width: 8rem; }
+  .museum-panel { max-width: 13rem; }
+}

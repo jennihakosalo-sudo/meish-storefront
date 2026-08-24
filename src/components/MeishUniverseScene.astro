@@ -1,0 +1,157 @@
+---
+import MeishStar from './MeishStar.astro';
+
+const objects = [
+  {
+    id: 'review',
+    label: 'Review Human Experience',
+    href: '#review',
+    angle: 35,
+    radius: '22vmin',
+    duration: 118,
+    delay: 0,
+    palette: 'navy-gold',
+    placard: 'Experience Review — reading human experience in real places. What works, what frictions hide, what could be better.',
+    satellites: ['Observe', 'Document', 'Recommend'],
+  },
+  {
+    id: 'business',
+    label: 'Make Human Experience Better',
+    href: '#business',
+    angle: 125,
+    radius: '20vmin',
+    duration: 132,
+    delay: -8,
+    palette: 'lavender-gold',
+    placard: 'Possibility Map · Fit Check · practical next steps for founders and teams. 590 € + VAT.',
+    satellites: ['Map', 'Paths', 'Next 30 days'],
+  },
+  {
+    id: 'gifts',
+    label: 'Meish Gifts',
+    href: '#gifts',
+    angle: 215,
+    radius: '24vmin',
+    duration: 126,
+    delay: -16,
+    palette: 'red-gold',
+    placard: 'Thoughtful gifts and rituals — including RAMI, a session-only name-giving experience.',
+    satellites: ['Ritual', 'RAMI', 'Moment'],
+  },
+  {
+    id: 'tools',
+    label: 'Meish Tools',
+    href: '#tools',
+    angle: 305,
+    radius: '21vmin',
+    duration: 140,
+    delay: -24,
+    palette: 'navy-lavender',
+    placard: 'Custom tools when the right ones do not exist yet. Elements · Friction · Fiction · BA — coming soon.',
+    satellites: ['Build', 'Clarity', 'Agency'],
+  },
+];
+---
+
+<section class="meish-universe" data-universe-scene aria-label="Meish Universe">
+  <div class="meish-universe__sky" aria-hidden="true">
+    <div class="meish-universe__vignette" />
+    <div class="meish-universe__aurora meish-universe__aurora--lavender" />
+    <div class="meish-universe__aurora meish-universe__aurora--gold" />
+    <div class="meish-universe__aurora meish-universe__aurora--red" />
+    <div class="meish-universe__chart-lines" />
+  </div>
+
+  <div class="meish-universe__stage">
+    <div class="meish-universe__rings" aria-hidden="true">
+      <div class="orbit-ring orbit-ring--outer" />
+      <div class="orbit-ring orbit-ring--mid" />
+      <div class="orbit-ring orbit-ring--inner" />
+    </div>
+
+    <div class="meish-universe__core">
+      <MeishStar />
+
+      <div class="meish-universe__copy">
+        <p class="meish-universe__wordmark">MEISH</p>
+        <p class="meish-universe__subline">Meish for Your Business</p>
+        <p class="meish-universe__north">Human experience is our North Star.</p>
+        <p class="meish-universe__support">
+          We specialise in human experience — making work and life clearer, smoother and more useful.
+        </p>
+      </div>
+    </div>
+
+    <div class="celestial-field" data-orbit-field aria-label="Universe objects">
+      {objects.map((obj) => (
+        <a
+          href={obj.href}
+          class={`celestial-object celestial-object--${obj.palette}`}
+          data-celestial={obj.id}
+          style={`--obj-angle: ${obj.angle}deg; --obj-radius: ${obj.radius}; --obj-duration: ${obj.duration}s; --obj-delay: ${obj.delay}s`}
+        >
+          <span class="celestial-object__track">
+            <span class="celestial-object__body">
+              <span class="celestial-object__facet celestial-object__facet--a" />
+              <span class="celestial-object__facet celestial-object__facet--b" />
+              <span class="celestial-object__facet celestial-object__facet--c" />
+              <span class="celestial-object__core" />
+              <span class="celestial-object__label">{obj.label}</span>
+              <span class="celestial-object__satellites" aria-hidden="true">
+                {obj.satellites.map((s) => (
+                  <span class="celestial-object__satellite">{s}</span>
+                ))}
+              </span>
+            </span>
+          </span>
+
+          <aside class="museum-panel">
+            <div class="museum-panel__frame">
+              <p class="museum-panel__catalog">Meish Universe · Object</p>
+              <h3 class="museum-panel__title">{obj.label}</h3>
+              <p class="museum-panel__text">{obj.placard}</p>
+              <span class="museum-panel__enter">Enter →</span>
+            </div>
+          </aside>
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <div class="meish-universe__deck">
+    <slot name="flap" />
+    <button type="button" id="motion-stop" class="motion-kill-switch" aria-pressed="false">
+      <span class="motion-kill-switch__lamp" aria-hidden="true" />
+      STOP OBJECT MOTION
+    </button>
+  </div>
+
+  <nav class="meish-universe__static" aria-label="Universe objects">
+    <ul>
+      {objects.map((obj) => (
+        <li><a href={obj.href}>{obj.label}</a></li>
+      ))}
+    </ul>
+  </nav>
+</section>
+
+<script>
+  const scene = document.querySelector('[data-universe-scene]');
+  const stopBtn = document.getElementById('motion-stop');
+  if (scene && stopBtn) {
+    function setPaused(paused) {
+      scene.classList.toggle('is-paused', paused);
+      stopBtn.setAttribute('aria-pressed', String(paused));
+      stopBtn.textContent = paused ? 'RESUME MOTION' : 'STOP OBJECT MOTION';
+      window.dispatchEvent(new CustomEvent('meish:motion-pause', { detail: { paused } }));
+    }
+    stopBtn.addEventListener('click', () => setPaused(!scene.classList.contains('is-paused')));
+    scene.querySelectorAll('[data-celestial]').forEach((obj) => {
+      obj.addEventListener('mouseenter', () => obj.classList.add('is-near'));
+      obj.addEventListener('mouseleave', () => obj.classList.remove('is-near'));
+      obj.addEventListener('focusin', () => obj.classList.add('is-near'));
+      obj.addEventListener('focusout', () => obj.classList.remove('is-near'));
+    });
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) setPaused(true);
+  }
+</script>

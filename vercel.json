@@ -1,0 +1,12 @@
+{
+  "redirects": [
+    { "source": "/universe/:path*", "destination": "/", "permanent": false },
+    { "source": "/for-business/meish-treasure/:path*", "destination": "/for-business", "permanent": false },
+    { "source": "/services/:path*", "destination": "/contact", "permanent": false },
+    { "source": "/shop/:path*", "destination": "/", "permanent": false },
+    { "source": "/cart", "destination": "/", "permanent": false },
+    { "source": "/design/:path*", "destination": "/", "permanent": false },
+    { "source": "/reserve/:path*", "destination": "/contact", "permanent": false },
+    { "source": "/philosophy", "destination": "/about", "permanent": false }
+  ]
+}

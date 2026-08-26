@@ -1,36 +1,47 @@
 ---
 import Base from '../layouts/Base.astro';
+import { fitCheckHref } from '../data/hatchling-nav';
 ---
 <Base
   title="About Meish"
-  description="Meish is an ecosystem for the human experience — a venture portfolio, Experience Ops for spaces and events, tools and philosophy. Making the human experience lighter, clearer and more enjoyable, with love."
+  description="Meish specialises in human experience — understanding it, reviewing it and making it better. North Star: human experience."
 >
   <section class="section container">
     <p class="eyebrow">About</p>
     <h1>About Meish</h1>
-    <p class="lead">Meish is an ecosystem, not a single product. Under one umbrella it builds
-      businesses, improves the human experience in real spaces, supports individuals, and keeps
-      a shared set of methods and a shared philosophy. Making the human experience lighter,
-      clearer and more enjoyable — with love.</p>
+    <p class="lead">
+      Meish specialises in human experience — understanding it, reviewing it and making it
+      better. We build the tools when the right ones do not exist yet. Technology is not the
+      goal; it should create more room for meaningful work and life.
+    </p>
 
-    <h2>What Meish holds</h2>
+    <h2>What Meish offers now</h2>
     <ul>
-      <li><a href="/for-business"><strong>Meish for your business</strong></a> — a venture
-        portfolio built by <a href="/for-business/meish-treasure">Meish Treasure</a>, our
-        foundry (Meish Printed and more).</li>
-      <li><a href="/services"><strong>Meish for your space</strong></a> — Experience Audits and
-        Clara for hotels, events and journeys.</li>
-      <li><a href="/for-you"><strong>Meish for you</strong></a> — support for individuals.</li>
-      <li><a href="/tools"><strong>Meish tools</strong></a> — the methods behind the work.</li>
+      <li>
+        <a href="/for-business"><strong>Meish for Your Business</strong></a> — Fit Check, Possibility
+        Map, Build, Friction Removal, Human Experience Review, and deeper engagements.
+      </li>
+      <li>
+        <a href="/for-you"><strong>Meish for You</strong></a> — personal growth, decision support
+        and wellbeing.
+      </li>
+      <li>
+        <a href="/tools"><strong>Meish Tools</strong></a> — focused instruments when the right tool
+        already exists.
+      </li>
     </ul>
 
     <h2>What we believe</h2>
-    <p>Every experience is designed — on purpose or by accident. When you can measure the human
-      state without flattening it, you can protect what's precious and fix what quietly hurts —
-      and do it in a way that lightens the load on people, never polices them. Read the
-      <a href="/philosophy">philosophy</a> and our <a href="/privacy">boundaries</a>.</p>
+    <p>
+      Human experience is our North Star. Every experience is designed — on purpose or by
+      accident. When you can see what actually happens for the people inside an experience, you
+      can protect what works and fix what quietly hurts — without removing human choice.
+      Read our <a href="/privacy">privacy and boundaries</a>.
+    </p>
 
-    <p><small>Founder story, photo and the personal “ripple” section are
-      <strong>AWAITING_JENNI</strong> — kept short and warm here until then.</small></p>
+    <p>
+      <a class="button button--primary" href={fitCheckHref}>Book a Fit Check</a>
+      <a class="button button--ghost" href="/for-business">See business offers</a>
+    </p>
   </section>
 </Base>

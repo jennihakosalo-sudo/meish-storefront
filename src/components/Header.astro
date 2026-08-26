@@ -1,16 +1,12 @@
 ---
-import { orbitGroups } from '../data/meish-offers';
+import { hatchlingNav, fitCheckHref } from '../data/hatchling-nav';
 
 interface Props {
   universeHome?: boolean;
 }
 
 const { universeHome = false } = Astro.props;
-
-const links = orbitGroups.map((g) => ({
-  href: g.href,
-  label: g.shortLabel,
-}));
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
 
 <header class:list={['site-header', universeHome && 'site-header--universe']}>
@@ -20,17 +16,19 @@ const links = orbitGroups.map((g) => ({
     </a>
     <nav aria-label="Primary">
       <ul class="nav">
-        {links.map((l) => (
+        {hatchlingNav.map((l) => (
           <li>
-            <a href={l.href} class="nav__link">{l.label}</a>
+            <a
+              href={l.href}
+              class:list={['nav__link', path === l.href && 'nav__link--active']}
+            >
+              {l.label}
+            </a>
           </li>
         ))}
-        <li>
-          <a href="#products" class="nav__link">Offers</a>
-        </li>
       </ul>
     </nav>
-    <a href="mailto:jenni@meish.work?subject=Meish%20AI%20Fit%20Check" class="button button--primary header-cta">Fit Check</a>
+    <a href={fitCheckHref} class="button button--primary header-cta">Fit Check</a>
   </div>
 </header>
 
@@ -79,8 +77,12 @@ const links = orbitGroups.map((g) => ({
     font-size: var(--text-xs);
     font-weight: var(--weight-medium);
     color: var(--text-soft);
-    letter-spacing: 0.12em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
+  }
+
+  .nav__link--active {
+    color: var(--text);
   }
 
   .nav__link:hover {
@@ -93,10 +95,10 @@ const links = orbitGroups.map((g) => ({
     border: 1px solid rgba(251, 215, 159, 0.25);
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 768px) {
     .header-cta { display: none; }
     .bar { gap: var(--space-sm); min-height: 3.75rem; }
-    .nav { gap: var(--space-xs); }
-    .nav__link { font-size: 0.6rem; letter-spacing: 0.08em; }
+    .nav { gap: var(--space-xs); flex-wrap: wrap; justify-content: flex-end; }
+    .nav__link { font-size: 0.58rem; letter-spacing: 0.06em; }
   }
 </style>

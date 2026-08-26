@@ -1,26 +1,36 @@
 ---
 import Base from '../layouts/Base.astro';
+import { fitCheckHref, contactEmail } from '../data/hatchling-nav';
 ---
 <Base
   title="Contact — Meish"
-  description="Tell us about your property or event and what you'd like guests to feel. We'll suggest the smallest first step — usually a single Meish Experience Signal Audit."
+  description="Start with a free 20-minute Meish AI Fit Check. B2B entrepreneurs and decision-makers — jenni@meish.work."
 >
   <section class="section container">
     <p class="eyebrow">Contact</p>
     <h1>Start with one conversation.</h1>
-    <p class="lead">Tell us about your property or event and what you'd like guests to feel.
-      We'll suggest the smallest first step — usually a single Meish Experience Signal Audit.</p>
+    <p class="lead">
+      Not sure which offer fits? Begin with a free 20-minute Fit Check — no preparation required.
+      We find out whether there is something useful to do, and what should happen first.
+    </p>
 
-    <h2>Get in touch</h2>
-    <p><a class="button button--primary" href="mailto:moona.m@meish.work?subject=Meish%20enquiry">Email moona.m@meish.work</a></p>
+    <p>
+      <a class="button button--primary" href={fitCheckHref}>Book a Fit Check</a>
+    </p>
+
+    <h2>Email</h2>
+    <p>
+      <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+    </p>
     <p>When you write, it helps to include:</p>
     <ul>
-      <li>Your property or organisation</li>
-      <li>What you'd like guests to feel</li>
+      <li>Your business or organisation</li>
+      <li>What you are trying to improve or decide</li>
       <li>The best way to reach you</li>
     </ul>
 
-    <p><small>A dedicated <code>hello@meish.work</code> address and an online booking link are
-      coming soon.</small></p>
+    <p>
+      <a href="/for-business">See all Meish for Your Business offers →</a>
+    </p>
   </section>
 </Base>

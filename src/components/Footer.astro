@@ -1,5 +1,5 @@
 ---
-import { orbitGroups } from '../data/meish-offers';
+import { hatchlingNav, fitCheckHref, contactEmail } from '../data/hatchling-nav';
 
 const year = 2026;
 ---
@@ -10,21 +10,22 @@ const year = 2026;
       <p class="wordmark">Meish</p>
       <p class="blurb">Human experience is our North Star. We specialise in understanding it, reviewing it and making it better.</p>
     </div>
-    <nav aria-label="Offers">
-      <p class="col-title">Offers</p>
+    <nav aria-label="Site">
+      <p class="col-title">Meish</p>
       <ul>
-        {orbitGroups.map((g) => (
-          <li><a href={g.href}>{g.shortLabel}</a></li>
+        {hatchlingNav.map((l) => (
+          <li><a href={l.href}>{l.label}</a></li>
         ))}
-        <li><a href="/#products">All products</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/privacy">Privacy</a></li>
       </ul>
     </nav>
     <nav aria-label="Contact">
       <p class="col-title">Contact</p>
       <ul>
-        <li><a href="mailto:jenni@meish.work">jenni@meish.work</a></li>
-        <li><a href="mailto:jenni@meish.work?subject=Meish%20AI%20Fit%20Check">Free Fit Check</a></li>
-        <li><a href="/contact">Get in touch</a></li>
+        <li><a href={`mailto:${contactEmail}`}>{contactEmail}</a></li>
+        <li><a href={fitCheckHref}>Free Fit Check</a></li>
+        <li><a href="/for-business">Business offers</a></li>
       </ul>
     </nav>
   </div>

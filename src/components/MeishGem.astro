@@ -1,0 +1,18 @@
+---
+interface Props {
+  tint: 'navy' | 'lavender' | 'gold' | 'red';
+  size?: 'sm' | 'md';
+}
+
+const { tint, size = 'md' } = Astro.props;
+---
+
+<span class:list={['meish-gem', `meish-gem--${tint}`, `meish-gem--${size}`]} aria-hidden="true">
+  <svg viewBox="0 0 48 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <polygon class="meish-gem__facet meish-gem__facet--a" points="24,4 44,22 24,52 4,22" />
+    <polygon class="meish-gem__facet meish-gem__facet--b" points="24,4 44,22 24,28" />
+    <polygon class="meish-gem__facet meish-gem__facet--c" points="24,52 44,22 24,28" />
+    <polygon class="meish-gem__facet meish-gem__facet--d" points="24,52 4,22 24,28" />
+    <polygon class="meish-gem__facet meish-gem__facet--e" points="24,4 4,22 24,28" />
+  </svg>
+</span>

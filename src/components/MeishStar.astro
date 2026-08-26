@@ -1,19 +1,43 @@
 ---
-/** Official Meish Universe lockup — diamond + wordmark, brand asset only. */
+/** Central Meish diamond — SVG facets only. No lockup image, no rectangular asset box. */
 ---
 
-<div class="meish-star">
-  <div class="meish-star__radiance meish-star__radiance--lavender" aria-hidden="true" />
-  <div class="meish-star__radiance meish-star__radiance--gold" aria-hidden="true" />
-  <div class="meish-star__radiance meish-star__radiance--red" aria-hidden="true" />
+<div class="meish-diamond" aria-hidden="true">
+  <div class="meish-diamond__glow meish-diamond__glow--lavender" />
+  <div class="meish-diamond__glow meish-diamond__glow--gold" />
 
-  <img
-    src="/brand/meish-universe-lockup-cream.png"
-    alt="Meish Universe"
-    class="meish-star__lockup-hero"
-    width="472"
-    height="1024"
-    loading="eager"
-    decoding="async"
-  />
+  <svg class="meish-diamond__svg" viewBox="0 0 400 460" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="">
+    <defs>
+      <linearGradient id="d-navy" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#243078" /><stop offset="100%" stop-color="#020C59" />
+      </linearGradient>
+      <linearGradient id="d-lavender" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#958ce8" /><stop offset="100%" stop-color="#695EDB" />
+      </linearGradient>
+      <linearGradient id="d-gold" x1="0%" y1="100%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#d4a860" /><stop offset="100%" stop-color="#FBD79F" />
+      </linearGradient>
+      <linearGradient id="d-red" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#e83045" /><stop offset="100%" stop-color="#CD0316" />
+      </linearGradient>
+      <radialGradient id="d-core" cx="50%" cy="48%" r="36%">
+        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95" />
+        <stop offset="40%" stop-color="#dce4ff" stop-opacity="0.5" />
+        <stop offset="100%" stop-color="#695EDB" stop-opacity="0" />
+      </radialGradient>
+      <filter id="d-shadow" x="-25%" y="-25%" width="150%" height="150%">
+        <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#020C59" flood-opacity="0.28" />
+      </filter>
+    </defs>
+    <polygon points="200,420 60,280 200,230 340,280" fill="url(#d-red)" filter="url(#d-shadow)" />
+    <polygon points="200,420 340,280 200,230" fill="url(#d-gold)" filter="url(#d-shadow)" />
+    <polygon points="200,420 60,280 200,230" fill="url(#d-gold)" filter="url(#d-shadow)" opacity="0.92" />
+    <polygon points="200,40 60,180 200,230 340,180" fill="url(#d-navy)" filter="url(#d-shadow)" />
+    <polygon points="200,40 340,180 200,230" fill="url(#d-lavender)" filter="url(#d-shadow)" />
+    <polygon points="200,40 60,180 200,230" fill="url(#d-lavender)" filter="url(#d-shadow)" opacity="0.9" />
+    <ellipse cx="200" cy="230" rx="58" ry="68" fill="url(#d-core)" />
+    <polyline points="200,40 340,180 200,420 60,180 200,40" stroke="rgba(255,255,255,0.3)" stroke-width="1" fill="none" />
+    <polyline points="60,180 200,230 340,180" stroke="rgba(251,215,159,0.4)" stroke-width="0.75" fill="none" />
+    <polyline points="60,280 200,230 340,280" stroke="rgba(205,3,22,0.3)" stroke-width="0.75" fill="none" />
+  </svg>
 </div>

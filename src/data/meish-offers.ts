@@ -1,15 +1,16 @@
 /**
- * Approved PUBLIC Meish B2B offers — single source of truth for homepage & nav.
+ * Approved PUBLIC Meish B2B offers — single source of truth for homepage & Business.
  * Shop print catalogue lives in src/data/products.ts (MEI-18).
+ * Canonical prices: MEISH-AI-OFFERS.md · Hatchling commercial ladder.
  */
 
 export type OfferCategory =
   | 'START HERE'
-  | 'DISCOVER'
-  | 'BUILD'
-  | 'IMPROVE'
-  | 'CORE MEISH CAPABILITY'
-  | 'PREMIUM';
+  | "SEE WHAT'S POSSIBLE"
+  | 'BUILD SOMETHING USEFUL'
+  | 'REMOVE FRICTION'
+  | 'LOOK AT THE WHOLE EXPERIENCE'
+  | 'BRING MEISH IN';
 
 export type OrbitId = 'review' | 'improve' | 'build' | 'tools';
 
@@ -17,6 +18,7 @@ export interface MeishOffer {
   id: string;
   name: string;
   summary: string;
+  whoFor: string;
   price: string;
   priceNote?: string;
   duration?: string;
@@ -26,6 +28,8 @@ export interface MeishOffer {
   cta: string;
   ctaHref: string;
   includes: string[];
+  /** When true, priceNote should render “Gamma Test Phase” as a clickable control. */
+  gammaTestPhase?: boolean;
   lenses?: string[];
   applications?: string[];
 }
@@ -44,117 +48,122 @@ export const meishOffers: MeishOffer[] = [
   {
     id: 'fit-check',
     name: 'Meish AI Fit Check',
-    summary: 'A free 20-minute conversation to see whether Meish is the right partner — and which offer fits first.',
-    price: '€0',
+    summary:
+      '20 minutes. No preparation required. We find out whether there is something useful to do — and what should happen first.',
+    whoFor: 'B2B entrepreneur / decision-maker',
+    price: '0 €',
     duration: '20 min',
     category: 'START HERE',
     orbit: 'review',
     priority: 1,
-    cta: 'BOOK A FIT CHECK',
+    cta: 'Book a Fit Check',
     ctaHref: 'mailto:jenni@meish.work?subject=Meish%20AI%20Fit%20Check',
     includes: [
-      'Short discovery call about your situation and goals',
-      'Honest fit assessment — no pitch if we are not the right match',
-      'Clear recommendation for your first step with Meish',
+      'A quick conversation about your situation and goals',
+      'Whether there is a useful Meish / AI opportunity worth pursuing',
+      'A clear recommendation for the right first step',
     ],
   },
   {
     id: 'possibility-map',
     name: 'Meish Possibility Map',
-    summary: 'Structured discovery: your goals, assets and options mapped into a visible plan with three paths forward.',
-    price: '€590 + VAT 25.5%',
-    priceNote: 'Gamma Test launch price · normal €950 + VAT',
-    category: 'DISCOVER',
+    summary: 'See where AI can actually create value in your business — and leave with a concrete next path.',
+    whoFor: 'B2B entrepreneur / decision-maker',
+    price: '590 € + VAT',
+    priceNote: '· Gamma Test Phase\nRegular price 950 € + VAT',
+    duration: 'Delivered within five business days of the interview',
+    category: "SEE WHAT'S POSSIBLE",
     orbit: 'review',
     priority: 2,
-    cta: "SEE WHAT'S POSSIBLE",
+    cta: "See what's possible",
     ctaHref: 'mailto:jenni@meish.work?subject=Meish%20Possibility%20Map',
+    gammaTestPhase: true,
     includes: [
       '60-minute client interview',
-      'Clear summary of goals, skills, materials and opportunities',
-      'Visible Possibility Map',
-      'Three distinct progression options',
-      'Recommendation for the first implementation',
-      'Practical guidance for the next 30 days',
+      'Three concrete routes / possibilities',
+      'One clear recommendation for the first implementation',
+      'Practical actions for the next 30 days',
+      'Five practical guardrails — things to protect or avoid',
+      'Visible Possibility Map and written summary',
       'AI tools review — competitive edge, time saved, new business angles',
       '30-minute results walkthrough',
-      'Delivered within five business days of the interview',
     ],
   },
   {
     id: 'build-with-meish',
     name: 'Build with Meish',
-    summary: 'Hands-on session to build one useful AI solution, tool or operating model for your business.',
-    price: '€790 + VAT 25.5%',
+    summary: 'Turn one useful opportunity into something concrete — after you know what is worth building.',
+    whoFor: 'B2B entrepreneur / decision-maker with a clear opportunity ready to act on',
+    price: '790 € + VAT',
     duration: '3–4 hours',
-    category: 'BUILD',
+    category: 'BUILD SOMETHING USEFUL',
     orbit: 'build',
     priority: 3,
-    cta: 'BUILD SOMETHING USEFUL',
+    cta: 'Build something useful',
     ctaHref: 'mailto:jenni@meish.work?subject=Build%20with%20Meish',
     includes: [
-      'Joint working session with a clear goal and concrete outcome',
-      'One useful AI solution, tool or workflow built for your business',
+      'Joint working session with a clear goal',
+      'One selected AI / Meish solution designed and scoped',
+      'Ready for its next implementation step',
       'Documentation so you can continue independently',
     ],
   },
   {
     id: 'friction-removal',
     name: 'Meish Friction Removal',
-    summary: 'We map recurring friction in your workflows and deliver practical fixes that return time to your team.',
-    price: 'From €1,899 + VAT 25.5%',
-    category: 'IMPROVE',
+    summary: 'Find and remove unnecessary work — repeated tasks, unclear processes and avoidable friction.',
+    whoFor: 'Businesses where friction is consuming meaningful time',
+    price: 'From 1,899 € + VAT',
+    category: 'REMOVE FRICTION',
     orbit: 'improve',
     priority: 4,
-    cta: 'REMOVE FRICTION',
+    cta: 'Remove friction',
     ctaHref: 'mailto:jenni@meish.work?subject=Meish%20Friction%20Removal',
     includes: [
-      'Workflow and friction mapping across your operations',
-      '3–7 practical solutions or tools tailored to your business',
-      'Operating models built for your context',
-      'Clear rollout instructions',
+      'Friction map / assessment across your operations',
+      '3–7 concrete interventions or tools',
+      'Prioritized implementation',
+      'Focus on meaningful saved working time',
       'Target: recover at least five work hours per week',
     ],
   },
   {
     id: 'human-experience-review',
     name: 'Human Experience Review',
-    summary: 'A structured review of how your service, space or process actually feels — from the human inside it.',
-    price: 'Proposal / pilot',
-    priceNote: 'Scoped after Fit Check or discovery call',
-    category: 'CORE MEISH CAPABILITY',
+    summary: 'Understand how the experience actually feels — and what would make it better.',
+    whoFor: 'Hotels, venues, services, journeys, spaces and transitions where human experience matters',
+    price: 'Scope & price after a free Fit Check',
+    category: 'LOOK AT THE WHOLE EXPERIENCE',
     orbit: 'review',
     priority: 5,
-    cta: 'REVIEW THE EXPERIENCE',
+    cta: 'Review the experience',
     ctaHref: 'mailto:jenni@meish.work?subject=Human%20Experience%20Review',
     includes: [
       'Lived-experience review of your customer or team journey',
       'Friction made visible with realistic alternatives',
       'Prioritised improvements aligned with human agency',
     ],
-    lenses: [
-      'Clarity — can people understand, choose and complete?',
-      'Smoothness — where does unnecessary effort accumulate?',
-      'Agency — who keeps control, understanding and the final decision?',
-      'Wellbeing — does the experience create room for meaningful work and life?',
-    ],
     applications: [
-      'Customer journeys and service touchpoints',
-      'Workplace tools, onboarding and internal processes',
-      'Physical spaces, events and hybrid experiences',
-      'Digital products before major investment',
+      'Hotel',
+      'Venue',
+      'Service',
+      'Customer journey',
+      'Physical environment',
+      'Transition',
+      'Customer experience',
     ],
   },
   {
     id: 'week-with-meish',
     name: 'A Week with Meish',
-    summary: 'Meish embedded alongside your team for a week — building solutions in your real work, not in slides.',
-    price: '€7,500 + VAT 25.5%',
+    summary: 'Bring Meish into the real work for a week — not only a diagnosis or one small tool.',
+    whoFor: 'Teams that need Meish inside the actual work for a focused week',
+    price: 'From 7,500 € + VAT',
     duration: '1 week',
-    category: 'PREMIUM',
+    category: 'BRING MEISH IN',
     orbit: 'build',
     priority: 6,
-    cta: 'WORK WITH MEISH',
+    cta: 'Work with Meish',
     ctaHref: 'mailto:jenni@meish.work?subject=A%20Week%20with%20Meish',
     includes: [
       'One week of practical co-working inside your business',

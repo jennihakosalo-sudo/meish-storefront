@@ -1,0 +1,97 @@
+---
+import '../styles/candy-gothic.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Meish Experience Audit for Hotels',
+  description = 'On-site observation of the guest experience across your hotel — clear findings, prioritized recommendations, and respectful boundaries.',
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Meish" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL('/brand/meish-logo-384.jpg', Astro.site)} />
+
+    <meta name="theme-color" content="#1A1524" />
+    <link rel="icon" href="/brand/meish-logo-192.jpg" type="image/jpeg" />
+  </head>
+  <body class="candy-gothic">
+    <a class="cg-skip" href="#main">Skip to content</a>
+
+    <div class="cg-page">
+      <header class="cg-header">
+        <div class="cg-container--wide cg-header__bar">
+          <a href="/" class="cg-logo" aria-label="Meish — home">
+            <span class="cg-logo-mark cg-logo-mark--sm">
+              <img
+                src="/brand/meish-logo-192.jpg"
+                alt=""
+                width="40"
+                height="40"
+                loading="eager"
+                decoding="async"
+              />
+            </span>
+            <span class="cg-logo__word">Meish</span>
+          </a>
+          <nav aria-label="On this page" class="cg-nav">
+            <ul>
+              <li><a href="#problem">The gap</a></li>
+              <li><a href="#examines">What we examine</a></li>
+              <li><a href="#process">How we work</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </nav>
+          <a href="#contact" class="cg-btn">Book a conversation</a>
+        </div>
+      </header>
+
+      <main id="main">
+        <slot />
+      </main>
+
+      <footer class="cg-footer">
+        <div class="cg-container--wide">
+          <div class="cg-footer-brand">
+            <span class="cg-logo-mark cg-logo-mark--sm">
+              <img
+                src="/brand/meish-logo-192.jpg"
+                alt=""
+                width="36"
+                height="36"
+                loading="lazy"
+                decoding="async"
+              />
+            </span>
+            <p class="cg-logo__word">Meish</p>
+          </div>
+          <p>Experience Ops for hotels — making the human experience lighter, clearer and more enjoyable.</p>
+          <p>
+            <a href="mailto:moona.m@meish.work?subject=Meish%20Experience%20Audit%20enquiry">moona.m@meish.work</a>
+          </p>
+          <p class="cg-footer__baseline">© 2026 Meish. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

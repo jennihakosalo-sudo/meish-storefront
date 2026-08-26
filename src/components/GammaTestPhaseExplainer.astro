@@ -1,0 +1,223 @@
+---
+/**
+ * Clickable “Gamma Test Phase” explainer — shared by Business ladder & homepage catalog.
+ * Uses native <dialog> for accessibility and mobile.
+ */
+---
+
+<dialog id="gamma-test-phase-dialog" class="gamma-dialog" aria-labelledby="gamma-dialog-title">
+  <div class="gamma-dialog__panel">
+    <header class="gamma-dialog__header">
+      <h2 id="gamma-dialog-title">Gamma Test Phase</h2>
+      <button type="button" class="gamma-dialog__close" data-gamma-close aria-label="Close">
+        ×
+      </button>
+    </header>
+
+    <div class="gamma-dialog__body">
+      <p>
+        <strong>Gamma Test Phase</strong> means that the product is already ready to be used with
+        real customers, but Meish is still testing, refining and calibrating how it is delivered
+        before the established standard version.
+      </p>
+      <p>The customer receives the real Meish product and the promised deliverables.</p>
+
+      <p>During Gamma Test Phase, Meish may still refine things such as:</p>
+      <ul>
+        <li>which questions produce the most useful insights</li>
+        <li>which parts create the most value for the customer</li>
+        <li>what should be removed</li>
+        <li>how results should be presented</li>
+        <li>how quickly insight can become action</li>
+        <li>what should be improved before the established version</li>
+      </ul>
+
+      <h3>Why Gamma Test Phase?</h3>
+      <p>
+        We do not want to finish products based only on our own assumptions. We want to see how
+        they work with real businesses, real decisions and real situations.
+      </p>
+      <p>
+        Gamma Test Phase helps us make the product:
+        <em>clearer · more useful · faster · easier to buy · better in real use</em>.
+      </p>
+
+      <h3>What does it mean for the customer?</h3>
+      <p>
+        Gamma Test Phase customers receive the product at a lower test-phase price. In return,
+        Meish may ask for brief feedback such as:
+      </p>
+      <ul>
+        <li>What helped?</li>
+        <li>What was unclear?</li>
+        <li>What did you actually use?</li>
+        <li>What would have made this more useful?</li>
+      </ul>
+      <p>
+        The customer is <strong>not</strong> required to become part of a development project or
+        do significant extra work.
+      </p>
+
+      <h3>Is the product unfinished?</h3>
+      <p>
+        No. Gamma Test Phase does not mean that the customer receives half a product. The agreed
+        deliverables are still delivered. The test phase concerns primarily calibration, structure
+        and delivery.
+      </p>
+      <p>
+        After Gamma Test Phase, the content, structure or price may change based on what Meish
+        has learned.
+      </p>
+
+      <p class="gamma-dialog__definition">
+        <strong>Gamma Test Phase</strong> = a real product with real customers, in its final
+        learning and calibration phase before the established version.
+      </p>
+    </div>
+
+    <footer class="gamma-dialog__footer">
+      <button type="button" class="button button--primary" data-gamma-close>Close</button>
+    </footer>
+  </div>
+</dialog>
+
+<style>
+  .gamma-dialog {
+    max-width: min(36rem, calc(100vw - 2rem));
+    max-height: min(90vh, 40rem);
+    padding: 0;
+    border: 1px solid rgba(2, 12, 89, 0.12);
+    border-radius: 12px;
+    background: #fffbf5;
+    color: var(--color-navy, #020c59);
+    box-shadow: 0 24px 64px rgba(2, 12, 89, 0.18);
+  }
+
+  .gamma-dialog::backdrop {
+    background: rgba(2, 12, 89, 0.45);
+  }
+
+  .gamma-dialog__panel {
+    display: flex;
+    flex-direction: column;
+    max-height: min(90vh, 40rem);
+  }
+
+  .gamma-dialog__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem 1.25rem 0.75rem;
+    border-bottom: 1px solid rgba(2, 12, 89, 0.08);
+  }
+
+  .gamma-dialog__header h2 {
+    font-family: var(--font-display, Georgia, serif);
+    font-size: 1.35rem;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .gamma-dialog__close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    color: var(--color-navy, #020c59);
+    font-size: 1.75rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0.15rem 0.4rem;
+    opacity: 0.7;
+  }
+
+  .gamma-dialog__close:hover,
+  .gamma-dialog__close:focus-visible {
+    opacity: 1;
+  }
+
+  .gamma-dialog__body {
+    padding: 1rem 1.25rem;
+    overflow-y: auto;
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  .gamma-dialog__body h3 {
+    font-family: var(--font-display, Georgia, serif);
+    font-size: 1.05rem;
+    font-weight: 500;
+    margin: 1.25rem 0 0.4rem;
+  }
+
+  .gamma-dialog__body p {
+    margin: 0 0 0.75rem;
+    max-width: none;
+  }
+
+  .gamma-dialog__body ul {
+    margin: 0 0 0.75rem;
+    padding-left: 1.2rem;
+  }
+
+  .gamma-dialog__body li {
+    margin-bottom: 0.25rem;
+  }
+
+  .gamma-dialog__definition {
+    margin-top: 1rem !important;
+    padding: 0.85rem 1rem;
+    background: rgba(105, 94, 219, 0.08);
+    border-left: 3px solid var(--color-lavender, #695edb);
+    border-radius: 0 8px 8px 0;
+  }
+
+  .gamma-dialog__footer {
+    padding: 0.75rem 1.25rem 1.25rem;
+    border-top: 1px solid rgba(2, 12, 89, 0.08);
+  }
+
+  :global(button.gamma-phase-link) {
+    appearance: none;
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    font-weight: 600;
+    color: var(--color-lavender, #695edb);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+    cursor: pointer;
+  }
+
+  :global(button.gamma-phase-link:hover),
+  :global(button.gamma-phase-link:focus-visible) {
+    color: var(--color-navy, #020c59);
+  }
+</style>
+
+<script>
+  function setupGammaDialog() {
+    const dialog = document.getElementById('gamma-test-phase-dialog') as HTMLDialogElement | null;
+    if (!dialog) return;
+
+    document.querySelectorAll('[data-gamma-open]').forEach((el) => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        dialog.showModal();
+      });
+    });
+
+    dialog.querySelectorAll('[data-gamma-close]').forEach((el) => {
+      el.addEventListener('click', () => dialog.close());
+    });
+
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) dialog.close();
+    });
+  }
+
+  setupGammaDialog();
+  document.addEventListener('astro:page-load', setupGammaDialog);
+</script>

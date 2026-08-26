@@ -1,126 +1,69 @@
 ---
 import MeishStar from './MeishStar.astro';
+import MeishGem from './MeishGem.astro';
 import { orbitGroups } from '../data/meish-offers';
 
-const ORBIT_RADIUS = '26vmin';
-const ORBIT_DURATION = 160;
-
-const axisDiamonds = [
-  { angle: -45, tint: 'lavender' },
-  { angle: 45, tint: 'gold' },
-  { angle: 135, tint: 'red' },
-  { angle: -135, tint: 'navy' },
-];
+const placements: Record<string, string> = {
+  review: 'review',
+  improve: 'improve',
+  build: 'build',
+  tools: 'tools',
+};
 ---
 
 <section class="meish-universe" data-universe-scene aria-label="Meish Universe">
   <div class="meish-universe__sky" aria-hidden="true">
     <div class="meish-universe__vignette" />
-    <div class="meish-universe__aurora meish-universe__aurora--lavender" />
-    <div class="meish-universe__aurora meish-universe__aurora--gold" />
-    <div class="meish-universe__chart-lines" />
-    <div class="meish-universe__axes" />
+    <div class="meish-universe__ring meish-universe__ring--outer" />
+    <div class="meish-universe__ring meish-universe__ring--inner" />
   </div>
 
-  <div class="meish-universe__stage">
-    <div class="meish-universe__rings" aria-hidden="true">
-      <div class="orbit-ring orbit-ring--outer" />
-      <div class="orbit-ring orbit-ring--cardinal" />
-    </div>
+  <button type="button" id="motion-stop" class="motion-kill-switch" aria-pressed="false" title="Stop object motion">
+    <span class="motion-kill-switch__lamp" aria-hidden="true" />
+    <span class="motion-kill-switch__label">STOP OBJECT MOTION</span>
+  </button>
 
-    <div class="meish-universe__core">
-      <MeishStar />
-    </div>
+  <div class="universe-compass">
+    {orbitGroups.map((obj) => (
+      <a
+        href={obj.href}
+        class={`universe-node universe-node--${placements[obj.id]}`}
+        data-celestial={obj.id}
+      >
+        <MeishGem tint={obj.tint as 'navy' | 'lavender' | 'gold' | 'red'} />
+        <span class="universe-node__label">{obj.shortLabel.toUpperCase()}</span>
+        <span class="universe-node__tagline">{obj.tagline}</span>
+      </a>
+    ))}
 
-    <div class="axis-field" aria-hidden="true">
-      {axisDiamonds.map((d) => (
-        <span
-          class={`axis-diamond axis-diamond--${d.tint}`}
-          style={`--obj-angle: ${d.angle}deg; --obj-radius: ${ORBIT_RADIUS}`}
-        >
-          <img src="/brand/meish-logo-192.jpg" alt="" width="40" height="40" loading="lazy" />
-        </span>
-      ))}
-    </div>
+    <div class="universe-compass__center">
+      <div class="universe-compass__diamond" data-orbit-field>
+        <MeishStar />
+      </div>
 
-    <div class="celestial-field" data-orbit-field aria-label="Universe directions">
-      {orbitGroups.map((obj, i) => (
-        <a
-          href={obj.href}
-          class={`celestial-object celestial-object--${obj.tint}`}
-          data-celestial={obj.id}
-          style={`--obj-angle: ${obj.angle}deg; --obj-radius: ${ORBIT_RADIUS}; --obj-duration: ${ORBIT_DURATION}s; --obj-delay: ${-i * 40}s`}
-        >
-          <span class="celestial-object__track">
-            <span class="celestial-object__body">
-              <span class="celestial-object__gem-wrap">
-                <img
-                  src="/brand/meish-logo-384.jpg"
-                  alt=""
-                  class="celestial-object__gem"
-                  width="64"
-                  height="64"
-                  loading="lazy"
-                />
-                <span class="celestial-object__gem-glow" />
-              </span>
-              <span class="celestial-object__label">{obj.shortLabel}</span>
-            </span>
-          </span>
-
-          <aside class="museum-panel">
-            <div class="museum-panel__frame">
-              <p class="museum-panel__catalog">Meish · {obj.shortLabel}</p>
-              <h3 class="museum-panel__title">{obj.tagline}</h3>
-              <p class="museum-panel__text">{obj.placard}</p>
-              <span class="museum-panel__enter">View offers →</span>
-            </div>
-          </aside>
-        </a>
-      ))}
+      <div class="universe-identity">
+        <p class="universe-identity__wordmark">MEISH</p>
+        <p class="universe-identity__subline">Meish for Your Business</p>
+        <p class="universe-identity__north">Human experience is our North Star.</p>
+        <p class="universe-identity__support">
+          We specialise in human experience — understanding it, reviewing it and making it better.
+        </p>
+      </div>
     </div>
   </div>
-
-  <div class="meish-universe__copy">
-    <p class="meish-universe__what">
-      We specialise in human experience — understanding it, reviewing it and making it better.
-    </p>
-    <p class="meish-universe__north">Human experience is our North Star.</p>
-  </div>
-
-  <div class="meish-universe__controls">
-    <button type="button" id="motion-stop" class="motion-kill-switch" aria-pressed="false">
-      <span class="motion-kill-switch__lamp" aria-hidden="true" />
-      STOP OBJECT MOTION
-    </button>
-  </div>
-
-  <nav class="meish-universe__static" aria-label="Universe directions">
-    <ul>
-      {orbitGroups.map((obj) => (
-        <li><a href={obj.href}>{obj.shortLabel} — {obj.tagline}</a></li>
-      ))}
-    </ul>
-  </nav>
 </section>
 
 <script>
   const scene = document.querySelector('[data-universe-scene]');
   const stopBtn = document.getElementById('motion-stop');
+  const label = stopBtn?.querySelector('.motion-kill-switch__label');
   if (scene && stopBtn) {
     function setPaused(paused) {
       scene.classList.toggle('is-paused', paused);
       stopBtn.setAttribute('aria-pressed', String(paused));
-      stopBtn.textContent = paused ? 'RESUME MOTION' : 'STOP OBJECT MOTION';
-      window.dispatchEvent(new CustomEvent('meish:motion-pause', { detail: { paused } }));
+      if (label) label.textContent = paused ? 'RESUME MOTION' : 'STOP OBJECT MOTION';
     }
     stopBtn.addEventListener('click', () => setPaused(!scene.classList.contains('is-paused')));
-    scene.querySelectorAll('[data-celestial]').forEach((obj) => {
-      obj.addEventListener('mouseenter', () => obj.classList.add('is-near'));
-      obj.addEventListener('mouseleave', () => obj.classList.remove('is-near'));
-      obj.addEventListener('focusin', () => obj.classList.add('is-near'));
-      obj.addEventListener('focusout', () => obj.classList.remove('is-near'));
-    });
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) setPaused(true);
   }
 </script>

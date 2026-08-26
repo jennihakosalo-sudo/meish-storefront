@@ -1,103 +1,142 @@
 ---
-import {
-  getPublicOffers,
-  getOffersByOrbit,
-  orbitGroups,
-} from '../data/meish-offers';
+import { getPublicOffers } from '../data/meish-offers';
+import GammaTestPhaseExplainer from './GammaTestPhaseExplainer.astro';
 
-const allProducts = getPublicOffers();
-const featured = allProducts.filter((p) => p.priority <= 2);
+interface Props {
+  /** When true, show a fuller page intro (Business page). Homepage uses compact intro. */
+  pageIntro?: boolean;
+}
+
+const { pageIntro = false } = Astro.props;
+const offers = getPublicOffers();
+const fitCheck = offers.find((o) => o.id === 'fit-check');
 ---
 
 <section id="products" class="product-catalog section">
   <div class="container">
     <header class="product-catalog__intro">
       <p class="eyebrow">Meish for your business</p>
-      <h2>Start where it fits. Build from there.</h2>
-      <p class="lead">
-        Every offer serves human experience — understanding it, improving it, or building something useful around it.
-        Not sure? Begin with the free Fit Check.
-      </p>
+      {
+        pageIntro ? (
+          <>
+            <h1>Start with the least friction. Build from there.</h1>
+            <p class="lead">
+              Clear offers for B2B entrepreneurs and decision-makers. Each step answers what it is,
+              who it is for, what you leave with, and what it costs.
+            </p>
+          </>
+        ) : (
+          <>
+            <h2>Start where it fits. Build from there.</h2>
+            <p class="lead">
+              A low-friction progression — from a free Fit Check to concrete work inside your
+              business. Not sure? Begin with the free Fit Check.
+            </p>
+          </>
+        )
+      }
     </header>
 
-    <div class="product-catalog__featured">
-      {featured.map((product) => (
-        <article class={`product-card product-card--p${product.priority}`}>
-          <p class="product-card__category">{product.category}</p>
-          <h3>{product.name}</h3>
-          <p class="product-card__summary">{product.summary}</p>
-          <p class="product-card__price">
-            {product.price}
-            {product.duration && <span class="product-card__duration"> · {product.duration}</span>}
-          </p>
-          {product.priceNote && <p class="product-card__note">{product.priceNote}</p>}
-          <ul class="product-card__includes">
-            {product.includes.slice(0, 4).map((item) => <li>{item}</li>)}
-          </ul>
-          <a href={product.ctaHref} class="button button--primary">{product.cta}</a>
-        </article>
-      ))}
-    </div>
+    <ol class="product-ladder">
+      {
+        offers.map((product) => {
+          const isEntry = product.id === 'fit-check';
+          return (
+            <li
+              id={product.id}
+              class:list={[
+                'product-ladder__item',
+                `product-ladder__item--p${product.priority}`,
+                isEntry && 'product-ladder__item--entry',
+              ]}
+            >
+              <p class="product-card__category">{product.category}</p>
+              <h3 class="product-ladder__name">{product.name}</h3>
+              <p class="product-card__summary">{product.summary}</p>
 
-    {orbitGroups.map((group) => {
-      const featuredIds = new Set(featured.map((p) => p.id));
-      const groupProducts = getOffersByOrbit(group.id).filter((p) => !featuredIds.has(p.id));
-      if (groupProducts.length === 0) return null;
-      return (
-        <section id={group.id} class="product-group">
-          <header class="product-group__head">
-            <h3>{group.shortLabel}</h3>
-            <p>{group.tagline}</p>
-          </header>
-          <div class="product-group__grid">
-            {groupProducts.map((product) => (
-              <article class="product-card product-card--compact">
-                <p class="product-card__category">{product.category}</p>
-                <h4>{product.name}</h4>
-                <p class="product-card__summary">{product.summary}</p>
-                <p class="product-card__price">
-                  {product.price}
-                  {product.duration && <span> · {product.duration}</span>}
+              <dl class="product-meta">
+                <div>
+                  <dt>Who it is for</dt>
+                  <dd>{product.whoFor}</dd>
+                </div>
+                <div>
+                  <dt>What you leave with</dt>
+                  <dd>
+                    <ul class="product-card__includes">
+                      {product.includes.slice(0, isEntry ? 3 : 5).map((item) => (
+                        <li>{item}</li>
+                      ))}
+                    </ul>
+                  </dd>
+                </div>
+              </dl>
+
+              <p class="product-card__price">
+                {product.price}
+                {product.gammaTestPhase ? (
+                  <>
+                    {' '}
+                    <span aria-hidden="true">·</span>{' '}
+                    <button type="button" class="gamma-phase-link" data-gamma-open>
+                      Gamma Test Phase
+                    </button>
+                  </>
+                ) : (
+                  product.duration && (
+                    <span class="product-card__duration"> · {product.duration}</span>
+                  )
+                )}
+              </p>
+
+              {product.gammaTestPhase ? (
+                <p class="product-card__note">Regular price 950 € + VAT</p>
+              ) : (
+                product.priceNote && <p class="product-card__note">{product.priceNote}</p>
+              )}
+
+              {product.id === 'possibility-map' && product.duration && (
+                <p class="product-card__note product-card__note--soft">{product.duration}</p>
+              )}
+
+              {product.applications && (
+                <p class="product-card__apps">
+                  <span class="product-card__apps-label">Examples:</span>{' '}
+                  {product.applications.join(' · ')}
                 </p>
-                {product.lenses && (
-                  <details class="product-card__details">
-                    <summary>Lenses</summary>
-                    <ul>{product.lenses.map((l) => <li>{l}</li>)}</ul>
-                  </details>
-                )}
-                {product.applications && (
-                  <details class="product-card__details">
-                    <summary>Applications</summary>
-                    <ul>{product.applications.map((a) => <li>{a}</li>)}</ul>
-                  </details>
-                )}
-                <ul class="product-card__includes">
-                  {product.includes.map((item) => <li>{item}</li>)}
-                </ul>
-                <a href={product.ctaHref} class="button button--ghost">{product.cta}</a>
-              </article>
-            ))}
-          </div>
-        </section>
-      );
-    })}
+              )}
 
-    <section id="tools" class="product-group product-group--tools">
-      <header class="product-group__head">
-        <h3>Tools</h3>
-        <p>Use a focused Meish tool when the right instrument already exists.</p>
-      </header>
-      <p class="product-group__coming">
-        Focused Meish tools are in development. Contact us if you need a specific instrument for human experience work.
+              <a
+                href={product.ctaHref}
+                class:list={['button', isEntry ? 'button--primary' : 'button--ghost']}
+              >
+                {product.cta}
+              </a>
+            </li>
+          );
+        })
+      }
+    </ol>
+
+    <aside class="product-ladder__fallback" aria-label="Not sure which offer">
+      <p>
+        <strong>Not sure which one?</strong> Start with the 20-minute Fit Check.
       </p>
-      <a href="mailto:jenni@meish.work?subject=Meish%20Tools" class="button button--ghost">Ask about tools</a>
-    </section>
+      {
+        fitCheck && (
+          <a href={fitCheck.ctaHref} class="button button--primary">
+            Book a Fit Check
+          </a>
+        )
+      }
+    </aside>
   </div>
+
+  <GammaTestPhaseExplainer />
 </section>
 
 <style>
   .product-catalog {
-    background: #FFFBF5;
+    background: #fffbf5;
     border-top: 1px solid rgba(2, 12, 89, 0.1);
   }
 
@@ -106,33 +145,41 @@ const featured = allProducts.filter((p) => p.priority <= 2);
     margin-bottom: var(--space-2xl);
   }
 
+  .product-catalog__intro h1,
   .product-catalog__intro h2 {
     font-family: var(--font-display);
     font-size: var(--text-xl);
     margin: var(--space-sm) 0;
   }
 
-  .product-catalog__featured {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  .product-ladder {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
     gap: var(--space-lg);
-    margin-bottom: var(--space-3xl);
   }
 
-  .product-card {
+  .product-ladder__item {
+    position: relative;
     padding: var(--space-xl);
-    background: rgba(255, 253, 249, 0.85);
+    background: rgba(255, 253, 249, 0.9);
     border: 1px solid rgba(251, 215, 159, 0.35);
-    box-shadow: 0 12px 36px rgba(2, 12, 89, 0.06);
+    box-shadow: 0 12px 36px rgba(2, 12, 89, 0.05);
   }
 
-  .product-card--p1 {
-    border-color: rgba(105, 94, 219, 0.35);
-    background: linear-gradient(165deg, rgba(105, 94, 219, 0.06) 0%, rgba(255, 253, 249, 0.95) 100%);
+  .product-ladder__item--entry {
+    border-color: rgba(105, 94, 219, 0.4);
+    background: linear-gradient(
+      165deg,
+      rgba(105, 94, 219, 0.08) 0%,
+      rgba(255, 253, 249, 0.97) 55%
+    );
   }
 
-  .product-card--p2 {
-    border-color: rgba(2, 12, 89, 0.2);
+  .product-ladder__item--p2 {
+    border-color: rgba(2, 12, 89, 0.18);
   }
 
   .product-card__category {
@@ -144,7 +191,7 @@ const featured = allProducts.filter((p) => p.priority <= 2);
     max-width: none;
   }
 
-  .product-card h3, .product-card h4 {
+  .product-ladder__name {
     font-family: var(--font-display);
     font-size: var(--text-lg);
     margin-bottom: var(--space-sm);
@@ -154,7 +201,29 @@ const featured = allProducts.filter((p) => p.priority <= 2);
     font-size: var(--text-sm);
     color: var(--text-soft);
     margin-bottom: var(--space-md);
-    max-width: none;
+    max-width: 48ch;
+  }
+
+  .product-meta {
+    margin: 0 0 var(--space-md);
+  }
+
+  .product-meta > div {
+    margin-bottom: var(--space-sm);
+  }
+
+  .product-meta dt {
+    font-size: var(--text-xs);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.2rem;
+  }
+
+  .product-meta dd {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--text-soft);
   }
 
   .product-card__price {
@@ -172,63 +241,62 @@ const featured = allProducts.filter((p) => p.priority <= 2);
     max-width: none;
   }
 
+  .product-card__note--soft {
+    margin-top: -0.5rem;
+  }
+
   .product-card__includes {
-    margin: var(--space-md) 0 var(--space-lg);
+    margin: 0.25rem 0 0;
     padding-left: 1.15rem;
     font-size: var(--text-sm);
     color: var(--text-soft);
   }
 
-  .product-card__includes li { margin-bottom: 0.25rem; }
-
-  .product-card__details {
-    font-size: var(--text-sm);
-    color: var(--text-soft);
-    margin-bottom: var(--space-sm);
-  }
-
-  .product-card__details summary {
-    cursor: pointer;
-    font-weight: var(--weight-medium);
-    color: var(--text);
-    margin-bottom: var(--space-xs);
-  }
-
-  .product-group {
-    margin-bottom: var(--space-3xl);
-    padding-top: var(--space-xl);
-    border-top: 1px solid rgba(2, 12, 89, 0.08);
-  }
-
-  .product-group__head h3 {
-    font-family: var(--font-display);
-    font-size: var(--text-lg);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+  .product-card__includes li {
     margin-bottom: 0.25rem;
   }
 
-  .product-group__head p {
+  .product-card__apps {
+    font-size: var(--text-xs);
     color: var(--text-muted);
-    font-size: var(--text-sm);
-    margin-bottom: var(--space-lg);
+    margin: 0 0 var(--space-md);
     max-width: none;
   }
 
-  .product-group__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: var(--space-lg);
-  }
-
-  .product-group--tools .product-group__coming {
-    font-size: var(--text-sm);
+  .product-card__apps-label {
+    font-weight: var(--weight-medium);
     color: var(--text-soft);
-    max-width: 40ch;
-    margin-bottom: var(--space-lg);
   }
 
-  @media (max-width: 640px) {
-    .product-catalog__featured { grid-template-columns: 1fr; }
+  .product-ladder__fallback {
+    margin-top: var(--space-3xl);
+    padding: var(--space-xl);
+    text-align: center;
+    background: rgba(105, 94, 219, 0.07);
+    border: 1px solid rgba(105, 94, 219, 0.18);
+    border-radius: 12px;
+  }
+
+  .product-ladder__fallback p {
+    margin: 0 0 var(--space-md);
+    max-width: none;
+  }
+
+  @media (min-width: 900px) {
+    .product-ladder__item--entry,
+    .product-ladder__item--p2 {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      column-gap: var(--space-xl);
+      align-items: start;
+    }
+
+    .product-ladder__item--entry .button,
+    .product-ladder__item--p2 .button {
+      grid-column: 2;
+      grid-row: 1 / span 6;
+      align-self: center;
+      white-space: nowrap;
+    }
   }
 </style>

@@ -1,17 +1,21 @@
 ---
 import Base from '../layouts/Base.astro';
-import { fitCheckHref } from '../data/hatchling-nav';
+import DestinationMark from '../components/DestinationMark.astro';
+import { fitCallHref, fitCallLabel } from '../data/hatchling-nav';
 ---
 <Base
   title="Meish for You — support for individuals | Meish"
   description="Meish for You — personal growth, decision support, wellbeing and everyday guidance."
 >
   <section class="section container">
-    <p class="eyebrow">Meish for You</p>
+    <p class="eyebrow arrive">
+      <DestinationMark kind="you" size="page" />
+      Meish for You
+    </p>
     <h1>Meish for You</h1>
     <p class="lead">
-      Not everything Meish makes is for a business. Meish for You is the personal side — helping
-      individuals think, decide, and feel a little lighter.
+      You are in the personal side. The moon mark from the Universe is the same one as here.
+      Meish for You helps individuals think, decide, and feel a little lighter.
     </p>
 
     <h2>What lives here</h2>
@@ -26,8 +30,16 @@ import { fitCheckHref } from '../data/hatchling-nav';
     </p>
 
     <p>
-      <a class="button button--primary" href={fitCheckHref}>Book a Fit Check</a>
+      <a class="button button--primary" href={fitCallHref}>{fitCallLabel}</a>
       <a class="button button--ghost" href="/contact">Get in touch</a>
     </p>
   </section>
 </Base>
+
+<style>
+  .arrive {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+</style>

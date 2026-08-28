@@ -47,7 +47,7 @@ export interface OrbitGroup {
 export const meishOffers: MeishOffer[] = [
   {
     id: 'fit-check',
-    name: 'Meish AI Fit Check',
+    name: 'Should We Meish This?',
     summary:
       '20 minutes. No preparation required. We find out whether there is something useful to do — and what should happen first.',
     whoFor: 'B2B entrepreneur / decision-maker',
@@ -56,8 +56,8 @@ export const meishOffers: MeishOffer[] = [
     category: 'START HERE',
     orbit: 'review',
     priority: 1,
-    cta: 'Book a Fit Check',
-    ctaHref: 'mailto:jenni@meish.work?subject=Meish%20AI%20Fit%20Check',
+    cta: 'Should We Meish This?',
+    ctaHref: 'mailto:jenni@meish.work?subject=Should%20We%20Meish%20This%3F',
     includes: [
       'A quick conversation about your situation and goals',
       'Whether there is a useful Meish / AI opportunity worth pursuing',
@@ -132,7 +132,7 @@ export const meishOffers: MeishOffer[] = [
     name: 'Human Experience Review',
     summary: 'Understand how the experience actually feels — and what would make it better.',
     whoFor: 'Hotels, venues, services, journeys, spaces and transitions where human experience matters',
-    price: 'Scope & price after a free Fit Check',
+    price: 'Scope & price after Should We Meish This?',
     category: 'LOOK AT THE WHOLE EXPERIENCE',
     orbit: 'review',
     priority: 5,
@@ -179,7 +179,7 @@ export const orbitGroups: OrbitGroup[] = [
     id: 'review',
     shortLabel: 'Review',
     tagline: 'Understand what is actually happening',
-    placard: 'Start with clarity — Fit Check, Possibility Map and Human Experience Review.',
+    placard: 'Start with clarity — Should We Meish This?, Possibility Map and Human Experience Review.',
     href: '#review',
     angle: -90,
     tint: 'lavender',

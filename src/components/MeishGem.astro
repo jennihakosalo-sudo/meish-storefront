@@ -1,7 +1,7 @@
 ---
 interface Props {
   tint: 'navy' | 'lavender' | 'gold' | 'red';
-  size?: 'sm' | 'md';
+  size?: 'xs' | 'sm' | 'md';
 }
 
 const { tint, size = 'md' } = Astro.props;
@@ -16,3 +16,35 @@ const { tint, size = 'md' } = Astro.props;
     <polygon class="meish-gem__facet meish-gem__facet--e" points="24,4 4,22 24,28" />
   </svg>
 </span>
+
+<style>
+  .meish-gem {
+    display: block;
+    width: 2.1rem;
+    height: auto;
+    filter: drop-shadow(0 4px 12px rgba(251, 215, 159, 0.35));
+  }
+  .meish-gem--xs { width: 0.72rem; }
+  .meish-gem--sm { width: 1.35rem; }
+  .meish-gem svg { width: 100%; height: auto; display: block; }
+  .meish-gem--navy .meish-gem__facet--a { fill: #020C59; }
+  .meish-gem--navy .meish-gem__facet--b { fill: #695EDB; }
+  .meish-gem--navy .meish-gem__facet--c { fill: #FBD79F; }
+  .meish-gem--navy .meish-gem__facet--d { fill: #CD0316; }
+  .meish-gem--navy .meish-gem__facet--e { fill: #3a4aa0; }
+  .meish-gem--lavender .meish-gem__facet--a { fill: #695EDB; }
+  .meish-gem--lavender .meish-gem__facet--b { fill: #c4bef5; }
+  .meish-gem--lavender .meish-gem__facet--c { fill: #020C59; }
+  .meish-gem--lavender .meish-gem__facet--d { fill: #FBD79F; }
+  .meish-gem--lavender .meish-gem__facet--e { fill: #5248c4; }
+  .meish-gem--gold .meish-gem__facet--a { fill: #FBD79F; }
+  .meish-gem--gold .meish-gem__facet--b { fill: #fff6e4; }
+  .meish-gem--gold .meish-gem__facet--c { fill: #CD0316; }
+  .meish-gem--gold .meish-gem__facet--d { fill: #695EDB; }
+  .meish-gem--gold .meish-gem__facet--e { fill: #d4a860; }
+  .meish-gem--red .meish-gem__facet--a { fill: #CD0316; }
+  .meish-gem--red .meish-gem__facet--b { fill: #FBD79F; }
+  .meish-gem--red .meish-gem__facet--c { fill: #020C59; }
+  .meish-gem--red .meish-gem__facet--d { fill: #695EDB; }
+  .meish-gem--red .meish-gem__facet--e { fill: #8a0210; }
+</style>

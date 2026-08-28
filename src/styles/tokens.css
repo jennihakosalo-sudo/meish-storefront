@@ -1,6 +1,6 @@
 /* ==========================================================================
    Meish Universe — Brand Kit 2 (ELO26)
-   Palette locked. ATHENA pending — Georgia is temporary display fallback only.
+   Palette locked. ATHENA Condensed pending — Bodoni Moda is the display stand-in.
    ========================================================================== */
 
 :root {
@@ -35,8 +35,8 @@
   --accent-hover:  #5248c4;
   --accent-tint:   rgba(105, 94, 219, 0.12);
 
-  /* TEMPORARY until ATHENA files in public/fonts/ — do not treat as brand font */
-  --font-display: 'ATHENA', Georgia, 'Times New Roman', serif;
+  /* ATHENA Condensed is canon; Bodoni Moda stands in until files are in public/fonts/ */
+  --font-display: 'ATHENA Condensed', 'ATHENA', 'Bodoni Moda', Georgia, 'Times New Roman', serif;
   --font-body:    'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
 
   --text-xs:   0.6875rem;

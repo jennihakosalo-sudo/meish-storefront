@@ -27,10 +27,9 @@ const fitCheck = offers.find((o) => o.id === 'fit-check');
           </>
         ) : (
           <>
-            <h2>Start where it fits. Build from there.</h2>
+            <h2>For your business</h2>
             <p class="lead">
-              A low-friction progression — from a free Fit Check to concrete work inside your
-              business. Not sure? Begin with the free Fit Check.
+              A free 20-minute conversation if you are unsure. Possibility Map if you want a clear next path.
             </p>
           </>
         )
@@ -119,12 +118,12 @@ const fitCheck = offers.find((o) => o.id === 'fit-check');
 
     <aside class="product-ladder__fallback" aria-label="Not sure which offer">
       <p>
-        <strong>Not sure which one?</strong> Start with the 20-minute Fit Check.
+        <strong>Not sure which one?</strong> Start with Should We Meish This? — 20 min · free.
       </p>
       {
         fitCheck && (
           <a href={fitCheck.ctaHref} class="button button--primary">
-            Book a Fit Check
+            {fitCheck.cta}
           </a>
         )
       }

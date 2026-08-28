@@ -1,5 +1,5 @@
 ---
-import { hatchlingNav, fitCheckHref } from '../data/hatchling-nav';
+import { hatchlingNav, fitCallHref, fitCallLabel } from '../data/hatchling-nav';
 
 interface Props {
   universeHome?: boolean;
@@ -11,10 +11,8 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 
 <header class:list={['site-header', universeHome && 'site-header--universe']}>
   <div class="container container--wide bar">
-    <a href="/" class="wordmark" aria-label="Meish — home">
-      <img src="/brand/meish-universe-lockup-cream.png" alt="Meish" class="wordmark__img" width="140" height="36" />
-    </a>
-    <nav aria-label="Primary">
+    <a href="/" class="wordmark" aria-label="Meish — home">Meish</a>
+    <nav aria-label="Utility">
       <ul class="nav">
         {hatchlingNav.map((l) => (
           <li>
@@ -28,7 +26,9 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
         ))}
       </ul>
     </nav>
-    <a href={fitCheckHref} class="button button--primary header-cta">Fit Check</a>
+    {!universeHome && (
+      <a href={fitCallHref} class="header-cta">{fitCallLabel}</a>
+    )}
   </div>
 </header>
 
@@ -62,9 +62,12 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
     margin-right: auto;
     display: flex;
     align-items: center;
+    font-family: var(--font-display);
+    font-weight: var(--weight-black);
+    font-size: 1.15rem;
+    color: var(--color-navy);
   }
-  .wordmark:hover { text-decoration: none; }
-  .wordmark__img { height: 2.25rem; width: auto; }
+  .wordmark:hover { text-decoration: none; color: var(--color-navy); }
 
   .nav {
     display: flex;
@@ -90,13 +93,21 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
     text-decoration: none;
   }
 
-  .site-header--universe .header-cta {
-    background: #020C59;
-    border: 1px solid rgba(251, 215, 159, 0.25);
+  .header-cta {
+    font-size: var(--text-xs);
+    letter-spacing: 0.06em;
+    color: var(--color-navy);
+    text-transform: none;
+  }
+  .header-cta:hover { text-decoration: none; color: var(--color-navy); }
+
+  .site-header--universe .nav {
+    opacity: 0.72;
   }
 
   @media (max-width: 768px) {
     .header-cta { display: none; }
+    .site-header--universe .nav { display: none; }
     .bar { gap: var(--space-sm); min-height: 3.75rem; }
     .nav { gap: var(--space-xs); flex-wrap: wrap; justify-content: flex-end; }
     .nav__link { font-size: 0.58rem; letter-spacing: 0.06em; }

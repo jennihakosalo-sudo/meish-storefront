@@ -1,21 +1,25 @@
 ---
 import Base from '../layouts/Base.astro';
-import { fitCheckHref, contactEmail } from '../data/hatchling-nav';
+import DestinationMark from '../components/DestinationMark.astro';
+import { fitCallHref, fitCallLabel, contactEmail } from '../data/hatchling-nav';
 ---
 <Base
   title="Contact — Meish"
-  description="Start with a free 20-minute Meish AI Fit Check. B2B entrepreneurs and decision-makers — jenni@meish.work."
+  description="Write to Jenni. Should We Meish This? is 20 minutes and free. jenni@meish.work"
 >
   <section class="section container">
-    <p class="eyebrow">Contact</p>
+    <p class="eyebrow arrive">
+      <DestinationMark kind="contact" size="page" />
+      Contact
+    </p>
     <h1>Start with one conversation.</h1>
     <p class="lead">
-      Not sure which offer fits? Begin with a free 20-minute Fit Check — no preparation required.
-      We find out whether there is something useful to do, and what should happen first.
+      You are in Contact. The letter mark from the Universe is the same one as here.
+      If you are not sure which offer fits, begin with Should We Meish This? — 20 minutes, free.
     </p>
 
     <p>
-      <a class="button button--primary" href={fitCheckHref}>Book a Fit Check</a>
+      <a class="button button--primary" href={fitCallHref}>{fitCallLabel}</a>
     </p>
 
     <h2>Email</h2>
@@ -34,3 +38,11 @@ import { fitCheckHref, contactEmail } from '../data/hatchling-nav';
     </p>
   </section>
 </Base>
+
+<style>
+  .arrive {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+</style>

@@ -1,69 +1,366 @@
 ---
-import MeishStar from './MeishStar.astro';
-import MeishGem from './MeishGem.astro';
-import { orbitGroups } from '../data/meish-offers';
+import { fitCallHref, fitCallLabel, fitCallMeta } from '../data/hatchling-nav';
 
-const placements: Record<string, string> = {
-  review: 'review',
-  improve: 'improve',
-  build: 'build',
-  tools: 'tools',
-};
+const diamondSrc = '/brand/meish-diamond-universe.jpg';
+
+const dust = [
+  { x: '10%', y: '16%', z: '-380px', s: '0.34', rz: '-28deg', o: '0.38' },
+  { x: '88%', y: '12%', z: '-440px', s: '0.28', rz: '22deg', o: '0.32' },
+  { x: '7%', y: '58%', z: '-500px', s: '0.26', rz: '36deg', o: '0.28' },
+  { x: '93%', y: '48%', z: '-420px', s: '0.3', rz: '-18deg', o: '0.34' },
+  { x: '24%', y: '84%', z: '-360px', s: '0.32', rz: '-42deg', o: '0.36' },
+  { x: '76%', y: '86%', z: '-480px', s: '0.24', rz: '30deg', o: '0.3' },
+  { x: '48%', y: '8%', z: '-520px', s: '0.22', rz: '-12deg', o: '0.26' },
+  { x: '62%', y: '72%', z: '-340px', s: '0.28', rz: '16deg', o: '0.34' },
+];
+
+const destinations = [
+  {
+    href: '/for-business',
+    name: 'Meish for Your Business',
+    hint: 'Offers, including Possibility Map',
+    x: '16%',
+    y: '28%',
+    mx: '20%',
+    my: '18%',
+    z: '-80px',
+    s: '0.55',
+    rz: '-18deg',
+  },
+  {
+    href: '/for-you',
+    name: 'Meish for You',
+    hint: 'The personal side',
+    x: '84%',
+    y: '24%',
+    mx: '80%',
+    my: '16%',
+    z: '-160px',
+    s: '0.46',
+    rz: '24deg',
+  },
+  {
+    href: '/tools',
+    name: 'Meish Tools',
+    hint: 'One honest next step',
+    x: '82%',
+    y: '70%',
+    mx: '78%',
+    my: '78%',
+    z: '-40px',
+    s: '0.5',
+    rz: '-14deg',
+  },
+  {
+    href: '/gifts',
+    name: 'Gifts for You',
+    hint: 'Free downloads',
+    x: '18%',
+    y: '74%',
+    mx: '22%',
+    my: '84%',
+    z: '-200px',
+    s: '0.44',
+    rz: '28deg',
+  },
+];
 ---
 
-<section class="meish-universe" data-universe-scene aria-label="Meish Universe">
-  <div class="meish-universe__sky" aria-hidden="true">
-    <div class="meish-universe__vignette" />
-    <div class="meish-universe__ring meish-universe__ring--outer" />
-    <div class="meish-universe__ring meish-universe__ring--inner" />
+<section class="home" aria-label="Meish Universe">
+  <div class="sky" aria-hidden="true">
+    <div class="gas gas--gold"></div>
+    <div class="gas gas--lavender"></div>
+    <div class="gas gas--navy"></div>
+    <div class="stars"></div>
+    <svg class="chart" viewBox="0 0 100 100" preserveAspectRatio="none">
+      <ellipse cx="50" cy="48" rx="28" ry="22" />
+      <ellipse cx="50" cy="48" rx="40" ry="32" />
+      <line x1="50" y1="10" x2="50" y2="88" />
+      <line x1="12" y1="48" x2="88" y2="48" />
+    </svg>
   </div>
 
-  <button type="button" id="motion-stop" class="motion-kill-switch" aria-pressed="false" title="Stop object motion">
-    <span class="motion-kill-switch__lamp" aria-hidden="true" />
-    <span class="motion-kill-switch__label">STOP OBJECT MOTION</span>
-  </button>
-
-  <div class="universe-compass">
-    {orbitGroups.map((obj) => (
-      <a
-        href={obj.href}
-        class={`universe-node universe-node--${placements[obj.id]}`}
-        data-celestial={obj.id}
+  <div class="depth">
+    {dust.map((g) => (
+      <span
+        class="gem gem--dust"
+        style={`--x:${g.x};--y:${g.y};--z:${g.z};--s:${g.s};--rz:${g.rz};--o:${g.o}`}
       >
-        <MeishGem tint={obj.tint as 'navy' | 'lavender' | 'gold' | 'red'} />
-        <span class="universe-node__label">{obj.shortLabel.toUpperCase()}</span>
-        <span class="universe-node__tagline">{obj.tagline}</span>
-      </a>
+        <img class="gem__face" src={diamondSrc} alt="" width="360" height="540" />
+      </span>
     ))}
 
-    <div class="universe-compass__center">
-      <div class="universe-compass__diamond" data-orbit-field>
-        <MeishStar />
-      </div>
+    <nav class="orbit" aria-label="Universe destinations">
+      {destinations.map((d) => (
+        <a
+          class="gem gem--hit"
+          href={d.href}
+          style={`--x:${d.x};--y:${d.y};--mx:${d.mx};--my:${d.my};--z:${d.z};--s:${d.s};--rz:${d.rz}`}
+          aria-label={`${d.name}. ${d.hint}. Opens ${d.href}.`}
+        >
+          <img class="gem__face" src={diamondSrc} alt="" width="360" height="540" />
+          <span class="gem__label">
+            <strong>{d.name}</strong>
+          </span>
+        </a>
+      ))}
+    </nav>
 
-      <div class="universe-identity">
-        <p class="universe-identity__wordmark">MEISH</p>
-        <p class="universe-identity__subline">Meish for Your Business</p>
-        <p class="universe-identity__north">Human experience is our North Star.</p>
-        <p class="universe-identity__support">
-          We specialise in human experience — understanding it, reviewing it and making it better.
-        </p>
-      </div>
+    <div class="hero" style="--z:24px">
+      <img class="hero__diamond" src={diamondSrc} alt="" width="360" height="540" />
+      <p class="hero__name">Meish</p>
+      <span class="hero__rule" aria-hidden="true"></span>
+      <p class="hero__realm">Universe</p>
+      <p class="hero__north">Human experience is our North Star.</p>
+      <p class="hero__lead">
+        We specialise in human experience — understanding it, reviewing it and making it better.
+        AI is a means. It serves human experience; Meish does not serve AI.
+      </p>
     </div>
+  </div>
+
+  <div class="floor">
+    <a class="offer" href="/for-business">
+      <span class="offer__kicker">Example</span>
+      <strong>Meish Possibility Map</strong>
+      <span class="offer__meta">590 € + VAT · Gamma Test Phase</span>
+    </a>
+    <a class="offer offer--secondary" href={fitCallHref}>
+      <span class="offer__kicker">Start</span>
+      <strong>{fitCallLabel}</strong>
+      <span class="offer__meta">{fitCallMeta}</span>
+    </a>
   </div>
 </section>
 
-<script>
-  const scene = document.querySelector('[data-universe-scene]');
-  const stopBtn = document.getElementById('motion-stop');
-  const label = stopBtn?.querySelector('.motion-kill-switch__label');
-  if (scene && stopBtn) {
-    function setPaused(paused) {
-      scene.classList.toggle('is-paused', paused);
-      stopBtn.setAttribute('aria-pressed', String(paused));
-      if (label) label.textContent = paused ? 'RESUME MOTION' : 'STOP OBJECT MOTION';
-    }
-    stopBtn.addEventListener('click', () => setPaused(!scene.classList.contains('is-paused')));
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) setPaused(true);
+<style>
+  .home {
+    position: relative;
+    isolation: isolate;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow: hidden;
+    background: #fffbf5;
+    color: #020c59;
+    padding-bottom: 2.5rem;
   }
-</script>
+
+  .sky {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .gas {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(64px);
+  }
+  .gas--gold {
+    width: 70%;
+    height: 55%;
+    left: 18%;
+    top: 22%;
+    background: radial-gradient(circle, rgba(251, 215, 159, 0.55) 0%, transparent 70%);
+  }
+  .gas--lavender {
+    width: 58%;
+    height: 62%;
+    left: -10%;
+    top: 8%;
+    background: radial-gradient(circle, rgba(105, 94, 219, 0.18) 0%, transparent 72%);
+  }
+  .gas--navy {
+    width: 50%;
+    height: 48%;
+    right: -8%;
+    bottom: 6%;
+    background: radial-gradient(circle, rgba(2, 12, 89, 0.1) 0%, transparent 70%);
+  }
+
+  .stars {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(1.2px 1.2px at 12% 22%, rgba(2, 12, 89, 0.28), transparent),
+      radial-gradient(1px 1px at 28% 68%, rgba(2, 12, 89, 0.2), transparent),
+      radial-gradient(1.4px 1.4px at 41% 18%, rgba(251, 215, 159, 0.7), transparent),
+      radial-gradient(1px 1px at 61% 81%, rgba(2, 12, 89, 0.22), transparent),
+      radial-gradient(1.3px 1.3px at 74% 26%, rgba(251, 215, 159, 0.5), transparent),
+      radial-gradient(1px 1px at 91% 14%, rgba(2, 12, 89, 0.24), transparent),
+      radial-gradient(1.2px 1.2px at 8% 48%, rgba(251, 215, 159, 0.4), transparent);
+  }
+
+  .chart {
+    position: absolute;
+    inset: 8%;
+    width: 84%;
+    height: 84%;
+    fill: none;
+    stroke: rgba(2, 12, 89, 0.12);
+    stroke-width: 0.18;
+  }
+
+  .depth {
+    position: relative;
+    height: min(88dvh, 760px);
+    min-height: 560px;
+  }
+
+  .orbit {
+    position: absolute;
+    inset: 0;
+  }
+
+  .gem {
+    --rz: 0deg;
+    --s: 1;
+    --o: 1;
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: 4.6rem;
+    margin-left: -2.3rem;
+    margin-top: -2.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+  }
+  .gem__face {
+    display: block;
+    width: 100%;
+    height: auto;
+    transform: rotate(var(--rz)) scale(var(--s));
+    opacity: var(--o);
+    mix-blend-mode: multiply;
+  }
+  .hero__diamond {
+    display: block;
+    width: 100%;
+    height: auto;
+    mix-blend-mode: multiply;
+  }
+  .gem:hover { text-decoration: none; color: inherit; }
+
+  .gem--dust {
+    width: 3rem;
+    pointer-events: none;
+  }
+
+  .gem--hit:hover,
+  .gem--hit:focus-visible {
+    outline: none;
+  }
+
+  .gem__label {
+    margin-top: 0.3rem;
+    text-align: center;
+  }
+  .gem__label strong {
+    display: block;
+    font-size: 0.58rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #020c59;
+  }
+
+  .hero {
+    position: absolute;
+    left: 50%;
+    top: 14%;
+    width: min(28vw, 168px);
+    margin-left: calc(min(28vw, 168px) / -2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    pointer-events: none;
+  }
+  .hero__name {
+    margin-top: 0.45rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3.6vw, 2.8rem);
+    font-weight: 700;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    color: #020c59;
+    max-width: none;
+  }
+  .hero__rule {
+    display: block;
+    width: 4.2rem;
+    height: 1px;
+    margin: 0.45rem 0 0.35rem;
+    background: linear-gradient(90deg, transparent, #fbd79f 20%, #fbd79f 80%, transparent);
+  }
+  .hero__realm {
+    font-size: 0.62rem;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: #695edb;
+    max-width: none;
+  }
+  .hero__north {
+    margin-top: 0.85rem;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.95rem;
+    color: #020c59;
+    max-width: 28ch;
+  }
+  .hero__lead {
+    margin-top: 0.55rem;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: #2a3568;
+    max-width: 36ch;
+  }
+
+  .floor {
+    position: relative;
+    z-index: 4;
+    width: min(100% - 2.5rem, 720px);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .offer {
+    display: grid;
+    gap: 0.25rem;
+    padding-top: 0.85rem;
+    border-top: 1px solid rgba(2, 12, 89, 0.2);
+    text-decoration: none;
+    color: inherit;
+  }
+  .offer:hover { text-decoration: none; color: inherit; }
+  .offer__kicker {
+    font-size: 0.58rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #5a6294;
+  }
+  .offer strong {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+  .offer__meta { font-size: 0.78rem; color: #2a3568; }
+
+  @media (max-width: 860px) {
+    .gem--hit {
+      left: var(--mx);
+      top: var(--my);
+      width: 3.8rem;
+    }
+    .hero { width: min(42vw, 140px); }
+    .hero__lead { display: none; }
+    .floor { grid-template-columns: 1fr; width: min(100% - 2rem, 720px); }
+    .gem--dust { opacity: 0.22; }
+  }
+</style>

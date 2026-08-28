@@ -1,43 +1,136 @@
 ---
-/** Central Meish diamond — SVG facets only. No lockup image, no rectangular asset box. */
+/** Meish diamond — original vector facets. Not a photograph. */
+interface Props {
+  uid?: string;
+  tone?: 'canon' | 'business' | 'you' | 'tools' | 'contact';
+}
+
+const { uid = 'core', tone = 'canon' } = Astro.props;
+const id = (name: string) => `${name}-${uid}`;
+
+const palettes = {
+  canon: {
+    tl: ['#8EC4FF', '#2F5FE0', '#16308A'],
+    tr: ['#D0B4FF', '#5A58E6', '#2A2C9C'],
+    ml: ['#7A42C8', '#3A48C0'],
+    mr: ['#5EE8D0', '#3A78E0'],
+    ll: ['#F6B46A', '#FBD79F'],
+    lr: ['#E24A2E', '#F4A15C'],
+    bl: ['#F6C07A', '#CD0316'],
+    br: ['#FF6A28', '#8A040E'],
+    glint: ['#FFFFFF', '#C8F4FF', '#4B6EE8'],
+    edge: ['#FFF8EC', '#FBD79F'],
+  },
+  business: {
+    tl: ['#9BB0E8', '#020C59', '#020C59'],
+    tr: ['#C4BEF5', '#695EDB', '#020C59'],
+    ml: ['#695EDB', '#020C59'],
+    mr: ['#8AA0D8', '#3A4A9A'],
+    ll: ['#FBD79F', '#E8C78A'],
+    lr: ['#FBD79F', '#C9A050'],
+    bl: ['#FBD79F', '#8A6A28'],
+    br: ['#E8C78A', '#5A4818'],
+    glint: ['#FFFFFF', '#FBD79F', '#695EDB'],
+    edge: ['#FFF8EC', '#FBD79F'],
+  },
+  you: {
+    tl: ['#FFFBF5', '#EDE0F2', '#C4B8E8'],
+    tr: ['#F4EEFF', '#E4D7F4', '#695EDB'],
+    ml: ['#E8D4F0', '#9b93e4'],
+    mr: ['#D8EBE6', '#C4BEF5'],
+    ll: ['#F3E2C8', '#FBD79F'],
+    lr: ['#E4D7F4', '#F0D4C8'],
+    bl: ['#FBD79F', '#E8C4B0'],
+    br: ['#E4D7F4', '#695EDB'],
+    glint: ['#FFFFFF', '#FFFBF5', '#E4D7F4'],
+    edge: ['#FFF8EC', '#FBD79F'],
+  },
+  tools: {
+    tl: ['#FFF6E0', '#FBD79F', '#E8C48A'],
+    tr: ['#d4cef6', '#FBD79F', '#C9A66A'],
+    ml: ['#F7E4B8', '#E8C78A'],
+    mr: ['#d4cef6', '#FBD79F'],
+    ll: ['#FBD79F', '#E8C78A'],
+    lr: ['#F6C07A', '#C9A050'],
+    bl: ['#FBD79F', '#B8862A'],
+    br: ['#E8C78A', '#8A6A20'],
+    glint: ['#FFFFFF', '#FFF6E0', '#FBD79F'],
+    edge: ['#FFF8EC', '#FBD79F'],
+  },
+  contact: {
+    tl: ['#EEE8FF', '#695EDB', '#020C59'],
+    tr: ['#FFFBF5', '#A8A0E0', '#020C59'],
+    ml: ['#C4BEF5', '#695EDB'],
+    mr: ['#FFFBF5', '#695EDB'],
+    ll: ['#695EDB', '#3A3068'],
+    lr: ['#C4BEF5', '#020C59'],
+    bl: ['#695EDB', '#020C59'],
+    br: ['#A8A0E0', '#1A1450'],
+    glint: ['#FFFFFF', '#EEE8FF', '#695EDB'],
+    edge: ['#FFF8EC', '#C4BEF5'],
+  },
+} as const;
+
+const p = palettes[tone];
 ---
 
 <div class="meish-diamond" aria-hidden="true">
-  <div class="meish-diamond__glow meish-diamond__glow--lavender" />
-  <div class="meish-diamond__glow meish-diamond__glow--gold" />
-
-  <svg class="meish-diamond__svg" viewBox="0 0 400 460" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="">
+  <svg class="meish-diamond__svg" viewBox="0 0 220 340" fill="none" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <linearGradient id="d-navy" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#243078" /><stop offset="100%" stop-color="#020C59" />
+      <linearGradient id={id('tl')} x1="18%" y1="0%" x2="80%" y2="100%">
+        <stop offset="0%" stop-color={p.tl[0]} /><stop offset="55%" stop-color={p.tl[1]} /><stop offset="100%" stop-color={p.tl[2]} />
       </linearGradient>
-      <linearGradient id="d-lavender" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#958ce8" /><stop offset="100%" stop-color="#695EDB" />
+      <linearGradient id={id('tr')} x1="82%" y1="0%" x2="12%" y2="100%">
+        <stop offset="0%" stop-color={p.tr[0]} /><stop offset="40%" stop-color={p.tr[1]} /><stop offset="100%" stop-color={p.tr[2]} />
       </linearGradient>
-      <linearGradient id="d-gold" x1="0%" y1="100%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="#d4a860" /><stop offset="100%" stop-color="#FBD79F" />
+      <linearGradient id={id('ml')} x1="0%" y1="40%" x2="100%" y2="70%">
+        <stop offset="0%" stop-color={p.ml[0]} /><stop offset="100%" stop-color={p.ml[1]} />
       </linearGradient>
-      <linearGradient id="d-red" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#e83045" /><stop offset="100%" stop-color="#CD0316" />
+      <linearGradient id={id('mr')} x1="100%" y1="28%" x2="0%" y2="80%">
+        <stop offset="0%" stop-color={p.mr[0]} /><stop offset="100%" stop-color={p.mr[1]} />
       </linearGradient>
-      <radialGradient id="d-core" cx="50%" cy="48%" r="36%">
-        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95" />
-        <stop offset="40%" stop-color="#dce4ff" stop-opacity="0.5" />
-        <stop offset="100%" stop-color="#695EDB" stop-opacity="0" />
+      <linearGradient id={id('ll')} x1="0%" y1="100%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color={p.ll[0]} /><stop offset="100%" stop-color={p.ll[1]} />
+      </linearGradient>
+      <linearGradient id={id('lr')} x1="100%" y1="100%" x2="0%" y2="20%">
+        <stop offset="0%" stop-color={p.lr[0]} /><stop offset="100%" stop-color={p.lr[1]} />
+      </linearGradient>
+      <linearGradient id={id('bl')} x1="30%" y1="0%" x2="50%" y2="100%">
+        <stop offset="0%" stop-color={p.bl[0]} /><stop offset="100%" stop-color={p.bl[1]} />
+      </linearGradient>
+      <linearGradient id={id('br')} x1="70%" y1="0%" x2="50%" y2="100%">
+        <stop offset="0%" stop-color={p.br[0]} /><stop offset="100%" stop-color={p.br[1]} />
+      </linearGradient>
+      <radialGradient id={id('glint')} cx="48%" cy="40%" r="22%">
+        <stop offset="0%" stop-color={p.glint[0]} stop-opacity="0.96" />
+        <stop offset="38%" stop-color={p.glint[1]} stop-opacity="0.5" />
+        <stop offset="100%" stop-color={p.glint[2]} stop-opacity="0" />
       </radialGradient>
-      <filter id="d-shadow" x="-25%" y="-25%" width="150%" height="150%">
-        <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#020C59" flood-opacity="0.28" />
-      </filter>
+      <linearGradient id={id('edge')} x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color={p.edge[0]} /><stop offset="50%" stop-color={p.edge[1]} /><stop offset="100%" stop-color={p.edge[0]} />
+      </linearGradient>
     </defs>
-    <polygon points="200,420 60,280 200,230 340,280" fill="url(#d-red)" filter="url(#d-shadow)" />
-    <polygon points="200,420 340,280 200,230" fill="url(#d-gold)" filter="url(#d-shadow)" />
-    <polygon points="200,420 60,280 200,230" fill="url(#d-gold)" filter="url(#d-shadow)" opacity="0.92" />
-    <polygon points="200,40 60,180 200,230 340,180" fill="url(#d-navy)" filter="url(#d-shadow)" />
-    <polygon points="200,40 340,180 200,230" fill="url(#d-lavender)" filter="url(#d-shadow)" />
-    <polygon points="200,40 60,180 200,230" fill="url(#d-lavender)" filter="url(#d-shadow)" opacity="0.9" />
-    <ellipse cx="200" cy="230" rx="58" ry="68" fill="url(#d-core)" />
-    <polyline points="200,40 340,180 200,420 60,180 200,40" stroke="rgba(255,255,255,0.3)" stroke-width="1" fill="none" />
-    <polyline points="60,180 200,230 340,180" stroke="rgba(251,215,159,0.4)" stroke-width="0.75" fill="none" />
-    <polyline points="60,280 200,230 340,280" stroke="rgba(205,3,22,0.3)" stroke-width="0.75" fill="none" />
+
+    <polygon points="110,6 52,92 110,168" fill={`url(#${id('tl')})`} />
+    <polygon points="110,6 168,92 110,168" fill={`url(#${id('tr')})`} />
+    <polygon points="16,168 52,92 110,168" fill={`url(#${id('ml')})`} />
+    <polygon points="204,168 168,92 110,168" fill={`url(#${id('mr')})`} />
+    <polygon points="16,168 52,244 110,168" fill={`url(#${id('ll')})`} />
+    <polygon points="204,168 168,244 110,168" fill={`url(#${id('lr')})`} />
+    <polygon points="110,334 52,244 110,168" fill={`url(#${id('bl')})`} />
+    <polygon points="110,334 168,244 110,168" fill={`url(#${id('br')})`} />
+    <polygon points="110,6 110,168 88,128" fill={p.tl[0]} opacity="0.28" />
+    <polygon points="110,6 110,168 132,128" fill={p.tr[0]} opacity="0.22" />
+    <ellipse cx="110" cy="156" rx="20" ry="26" fill={`url(#${id('glint')})`} />
+
+    <polyline points="110,6 204,168 110,334 16,168 110,6" stroke={`url(#${id('edge')})`} stroke-width="1.4" fill="none" />
+    <polyline points="52,92 110,168 168,92" stroke="rgba(255,248,236,0.42)" stroke-width="0.55" fill="none" />
+    <polyline points="52,244 110,168 168,244" stroke="rgba(251,215,159,0.38)" stroke-width="0.55" fill="none" />
+    <line x1="110" y1="6" x2="110" y2="334" stroke="rgba(255,255,255,0.3)" stroke-width="0.5" />
   </svg>
 </div>
+
+<style>
+  .meish-diamond { display: block; }
+  .meish-diamond__svg { width: 100%; height: auto; display: block; }
+</style>

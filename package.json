@@ -7,6 +7,8 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
+    "check:brand": "node scripts/check-brand-assets.mjs",
+    "prebuild": "npm run check:brand",
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",

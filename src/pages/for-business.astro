@@ -1,11 +1,31 @@
 ---
 import Base from '../layouts/Base.astro';
 import ProductCatalog from '../components/ProductCatalog.astro';
+import DestinationMark from '../components/DestinationMark.astro';
 ---
 
 <Base
   title="Meish for Your Business — offers & pricing"
-  description="Meish for Your Business: Fit Check free · Possibility Map 590 € + VAT (Gamma Test Phase) · Build, Friction Removal, Human Experience Review, A Week with Meish."
+  description="Meish for Your Business: Should We Meish This? 20 min · free. Possibility Map 590 € + VAT (Gamma Test Phase)."
 >
+  <section class="arrive section container">
+    <p class="eyebrow">
+      <DestinationMark kind="business" size="page" />
+      Meish for Your Business
+    </p>
+    <h1>Offers and a clear first path</h1>
+    <p class="lead">
+      You are in the business side. The map mark from the Universe is the same one as here.
+    </p>
+  </section>
   <ProductCatalog pageIntro={true} />
 </Base>
+
+<style>
+  .arrive { padding-bottom: 0; }
+  .arrive .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+</style>

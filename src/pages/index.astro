@@ -1,41 +1,12 @@
 ---
 import Base from '../layouts/Base.astro';
 import MeishUniverseScene from '../components/MeishUniverseScene.astro';
-import PhilosophyFlap from '../components/PhilosophyFlap.astro';
-import ProductCatalog from '../components/ProductCatalog.astro';
 ---
 
 <Base
   title="Meish — human experience is our North Star"
-  description="Meish specialises in human experience — understanding it, reviewing it and making it better. Fit Check free · Possibility Map 590 € + VAT · Gamma Test Phase."
+  description="Meish specialises in human experience. Should We Meish This? 20 min · free. Possibility Map 590 € + VAT."
   universeHome={true}
 >
   <MeishUniverseScene />
-
-  <section class="philosophy-zone section" aria-label="Meish philosophy">
-    <div class="container philosophy-zone__inner">
-      <PhilosophyFlap />
-    </div>
-  </section>
-
-  <ProductCatalog />
 </Base>
-
-<style>
-  .philosophy-zone {
-    background:
-      linear-gradient(180deg, rgba(243, 236, 226, 0.5) 0%, #FFFBF5 100%);
-    border-top: 1px solid rgba(2, 12, 89, 0.08);
-    border-bottom: 1px solid rgba(2, 12, 89, 0.08);
-    padding-block: var(--space-2xl);
-  }
-
-  .philosophy-zone__inner {
-    max-width: 36rem;
-    margin-inline: auto;
-    padding: var(--space-lg);
-    background: rgba(2, 12, 89, 0.03);
-    border: 1px solid rgba(251, 215, 159, 0.25);
-    box-shadow: 0 20px 48px rgba(2, 12, 89, 0.08);
-  }
-</style>

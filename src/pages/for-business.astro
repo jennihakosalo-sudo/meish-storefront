@@ -6,26 +6,27 @@ import DestinationMark from '../components/DestinationMark.astro';
 
 <Base
   title="Meish for Your Business — offers & pricing"
-  description="Meish for Your Business: Should We Meish This? 20 min · free. Possibility Map 590 € + VAT (Gamma Test Phase)."
+  description="Meish for Your Business: 20-minute Fit Check, free. Possibility Map 590 € + VAT (Gamma Test Phase)."
 >
-  <section class="arrive section container">
-    <p class="eyebrow">
-      <DestinationMark kind="business" size="page" />
-      Meish for Your Business
+  <section class="section container door-page">
+    <p class="eyebrow arrive">
+      <DestinationMark size="page" />
+      For Your Business
     </p>
-    <h1>Offers and a clear first path</h1>
+    <h1>Clear offers. A clear first path.</h1>
     <p class="lead">
-      You are in the business side. The map mark from the Universe is the same one as here.
+      Possibility Map is 590 € + VAT. If you want to see whether Meish is useful,
+      start with a 20-minute Fit Check — free.
     </p>
   </section>
-  <ProductCatalog pageIntro={true} />
+  <ProductCatalog />
 </Base>
 
 <style>
-  .arrive { padding-bottom: 0; }
-  .arrive .eyebrow {
+  .arrive {
     display: flex;
     align-items: center;
     gap: 0.55rem;
   }
+  .door-page { padding-bottom: var(--space-md); }
 </style>

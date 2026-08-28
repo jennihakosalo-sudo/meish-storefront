@@ -5,20 +5,20 @@ import { fitCallHref, fitCallLabel, contactEmail } from '../data/hatchling-nav';
 ---
 <Base
   title="Contact — Meish"
-  description="Write to Jenni. Should We Meish This? is 20 minutes and free. jenni@meish.work"
+  description="Write to Jenni. 20-minute Fit Check is free. jenni@meish.work"
 >
-  <section class="section container">
+  <section class="section container door-page">
     <p class="eyebrow arrive">
-      <DestinationMark kind="contact" size="page" />
+      <DestinationMark size="page" />
       Contact
     </p>
-    <h1>Start with one conversation.</h1>
+    <h1>Start with one conversation</h1>
     <p class="lead">
-      You are in Contact. The letter mark from the Universe is the same one as here.
-      If you are not sure which offer fits, begin with Should We Meish This? — 20 minutes, free.
+      If you are not sure which offer fits, book a 20-minute Fit Check — free.
+      Or write to Jenni.
     </p>
 
-    <p>
+    <p class="actions">
       <a class="button button--primary" href={fitCallHref}>{fitCallLabel}</a>
     </p>
 
@@ -32,10 +32,6 @@ import { fitCallHref, fitCallLabel, contactEmail } from '../data/hatchling-nav';
       <li>What you are trying to improve or decide</li>
       <li>The best way to reach you</li>
     </ul>
-
-    <p>
-      <a href="/for-business">See all Meish for Your Business offers →</a>
-    </p>
   </section>
 </Base>
 

@@ -4,31 +4,30 @@ import DestinationMark from '../components/DestinationMark.astro';
 import { fitCallHref, fitCallLabel } from '../data/hatchling-nav';
 ---
 <Base
-  title="Meish Tools — start here | Meish"
-  description="Meish Tools — focused instruments. Should We Meish This? 20 min · free, or Meish for Your Business offers."
+  title="Meish Tools — Meish"
+  description="Meish Tools. Start with a 20-minute Fit Check, or see Meish for Your Business offers."
 >
-  <section class="section container">
+  <section class="section container door-page">
     <p class="eyebrow arrive">
-      <DestinationMark kind="tools" size="page" />
-      Meish Tools
+      <DestinationMark size="page" />
+      Tools
     </p>
-    <h1>Start with one honest step</h1>
+    <h1>One honest next step</h1>
     <p class="lead">
-      You are in Tools. The instrument mark from the Universe is the same one as here.
-      Each tool is made to improve your own, your team's, or your customers' experience.
+      Tools exist to improve your own, your team’s, or your customers’ experience.
+      Begin with a Fit Check, or go to the business offers.
     </p>
 
-    <h2>Available now</h2>
     <ul>
       <li>
-        <strong>Should We Meish This?</strong> — 20 minutes, free. Find the right first step.
+        <strong>20-minute Fit Check</strong> — free. See whether there is something useful to do.
       </li>
       <li>
         <a href="/for-business"><strong>Meish for Your Business</strong></a> — Possibility Map and the other offers.
       </li>
     </ul>
 
-    <p>
+    <p class="actions">
       <a class="button button--primary" href={fitCallHref}>{fitCallLabel}</a>
       <a class="button button--ghost" href="/for-business">See business offers</a>
     </p>

@@ -1,29 +1,36 @@
 ---
 import Base from '../layouts/Base.astro';
+import DestinationMark from '../components/DestinationMark.astro';
 import { fitCallHref, fitCallLabel, contactEmail } from '../data/hatchling-nav';
 ---
 
 <Base
   title="Gifts for You — Meish"
-  description="Meish Gifts for You: free downloads. Paid downloads include their own OST instructions in the product description."
+  description="Meish Gifts for You: free downloads. None are published on this site yet."
 >
-  <section class="section container">
-    <p class="eyebrow">Gifts for You</p>
+  <section class="section container door-page">
+    <p class="eyebrow arrive">
+      <DestinationMark size="page" />
+      Gifts for You
+    </p>
     <h1>Free downloads</h1>
     <p class="lead">
-      Gifts for You are free files you can download. Paid downloads, when they exist,
-      include their own OST instructions in the product description.
+      Gifts for You are free files you can take with you. None are published here yet.
     </p>
     <p>
-      No free downloads are published on this site yet. Nothing is invented here
-      while the files are still being prepared.
+      When paid downloads exist, their own OST instructions sit in the product description.
     </p>
-    <p>
-      This is not the print shop. Printed products stay off the public Hatchling site.
-    </p>
-    <p>
+    <p class="actions">
       <a class="button button--primary" href={fitCallHref}>{fitCallLabel}</a>
       <a class="button button--ghost" href={`mailto:${contactEmail}`}>Write to Jenni</a>
     </p>
   </section>
 </Base>
+
+<style>
+  .arrive {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+</style>

@@ -4,34 +4,29 @@ import DestinationMark from '../components/DestinationMark.astro';
 import { fitCallHref, fitCallLabel } from '../data/hatchling-nav';
 ---
 <Base
-  title="Meish for You — support for individuals | Meish"
+  title="Meish for You — Meish"
   description="Meish for You — personal growth, decision support, wellbeing and everyday guidance."
 >
-  <section class="section container">
+  <section class="section container door-page">
     <p class="eyebrow arrive">
-      <DestinationMark kind="you" size="page" />
-      Meish for You
+      <DestinationMark size="page" />
+      For You
     </p>
     <h1>Meish for You</h1>
     <p class="lead">
-      You are in the personal side. The moon mark from the Universe is the same one as here.
-      Meish for You helps individuals think, decide, and feel a little lighter.
+      Personal work: thinking, decisions, and a little more ease in ordinary days.
+      More will be published here. The simplest way in is a conversation.
     </p>
 
-    <h2>What lives here</h2>
     <ul>
       <li>Personal growth and reflection</li>
       <li>Decision support for hard choices</li>
       <li>Wellbeing and everyday guidance</li>
     </ul>
 
-    <p>
-      More is coming. For now, the simplest way in is a conversation.
-    </p>
-
-    <p>
+    <p class="actions">
       <a class="button button--primary" href={fitCallHref}>{fitCallLabel}</a>
-      <a class="button button--ghost" href="/contact">Get in touch</a>
+      <a class="button button--ghost" href="/contact">Write to Jenni</a>
     </p>
   </section>
 </Base>

@@ -1,5 +1,5 @@
 ---
-import { hatchlingNav, fitCheckHref, contactEmail } from '../data/hatchling-nav';
+import { hatchlingNav, fitCheckHref, fitCallLabel, contactEmail } from '../data/hatchling-nav';
 
 const year = 2026;
 ---
@@ -25,7 +25,7 @@ const year = 2026;
       <p class="col-title">Contact</p>
       <ul>
         <li><a href={`mailto:${contactEmail}`}>{contactEmail}</a></li>
-        <li><a href={fitCheckHref}>Should We Meish This? · 20 min · free</a></li>
+        <li><a href={fitCheckHref}>{fitCallLabel}</a></li>
         <li><a href="/for-business">Business offers</a></li>
       </ul>
     </nav>

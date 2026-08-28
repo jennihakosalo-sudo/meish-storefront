@@ -121,14 +121,13 @@ const destinations = [
 
   <div class="floor">
     <a class="offer" href="/for-business">
-      <span class="offer__kicker">Example</span>
+      <span class="offer__kicker">For Your Business</span>
       <strong>Meish Possibility Map</strong>
       <span class="offer__meta">590 € + VAT · Gamma Test Phase</span>
     </a>
     <a class="offer offer--secondary" href={fitCallHref}>
-      <span class="offer__kicker">Start</span>
-      <strong>{fitCallLabel}</strong>
-      <span class="offer__meta">{fitCallMeta}</span>
+      <span class="offer__kicker">{fitCallLabel}</span>
+      <strong>{fitCallMeta}</strong>
     </a>
   </div>
 </section>
@@ -349,6 +348,13 @@ const destinations = [
     font-family: var(--font-display);
     font-size: 1.05rem;
     font-weight: 600;
+    line-height: 1.25;
+    max-width: 22ch;
+  }
+  .offer--secondary strong {
+    font-size: 0.98rem;
+    font-weight: 500;
+    max-width: 28ch;
   }
   .offer__meta { font-size: 0.78rem; color: #2a3568; }
 

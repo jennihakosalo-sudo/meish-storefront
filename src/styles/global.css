@@ -74,6 +74,17 @@ img, picture, svg, video { display: block; max-width: 100%; height: auto; }
 
 .section { padding-block: var(--space-3xl); }
 
+.door-page h1 { margin-top: 0.35rem; }
+.door-page .lead { margin-top: 0.7rem; }
+.door-page ul { margin: 1.2rem 0; padding-left: 1.15rem; }
+.door-page .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.6rem;
+}
+.door-page .actions .button { text-decoration: none; }
+
 .button {
   display: inline-flex;
   align-items: center;

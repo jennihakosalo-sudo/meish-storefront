@@ -1,8 +1,16 @@
 /**
- * Approved PUBLIC Meish B2B offers — single source of truth for homepage & Business.
- * Shop print catalogue lives in src/data/products.ts (MEI-18).
- * Canonical prices: MEISH-AI-OFFERS.md · Hatchling commercial ladder.
+ * Public Meish offers — single source of truth for Business & landing.
+ * Prices verified against MEISH-AI-OFFERS / commercial canon.
  */
+import { meishMailto } from '../lib/meish-mailto';
+
+export type PricingState =
+  | 'free'
+  | 'fixed'
+  | 'from'
+  | 'gamma'
+  | 'request-quote'
+  | 'after-fit-check';
 
 export type OfferCategory =
   | 'START HERE'
@@ -17,9 +25,15 @@ export type OrbitId = 'review' | 'improve' | 'build' | 'tools';
 export interface MeishOffer {
   id: string;
   name: string;
+  type: string;
   summary: string;
   whoFor: string;
+  whenUseful: string;
+  benefit: string;
+  customerInput: string;
+  meishInput: string;
   price: string;
+  pricingState: PricingState;
   priceNote?: string;
   duration?: string;
   category: OfferCategory;
@@ -28,9 +42,11 @@ export interface MeishOffer {
   cta: string;
   ctaHref: string;
   includes: string[];
-  /** When true, priceNote should render “Gamma Test Phase” as a clickable control. */
+  /** Gamma is a STATUS, not part of the product name. */
   gammaTestPhase?: boolean;
-  lenses?: string[];
+  /** Purchasable ladder vs free Fit Check (shown only as fallback). */
+  ladder?: boolean;
+  showOnLanding?: boolean;
   applications?: string[];
 }
 
@@ -44,100 +60,124 @@ export interface OrbitGroup {
   tint: 'lavender' | 'gold' | 'navy' | 'red';
 }
 
+function offerMailto(product: string, cta: string) {
+  return meishMailto({
+    product,
+    page: 'For Your Business',
+    section: 'Offers',
+    cta,
+  });
+}
+
 export const meishOffers: MeishOffer[] = [
   {
-    id: 'fit-check',
-    name: '20-minute Fit Check',
-    summary:
-      'How can we make things better for you or your business? 20 minutes. No preparation required.',
-    whoFor: 'B2B entrepreneur / decision-maker',
-    price: '0 €',
-    duration: '20 min',
-    category: 'START HERE',
-    orbit: 'review',
-    priority: 1,
-    cta: '20-minute Fit Check',
-    ctaHref: 'mailto:jenni@meish.work?subject=20-minute%20Fit%20Check',
-    includes: [
-      'A quick conversation about your situation and goals',
-      'Whether there is a useful Meish / AI opportunity worth pursuing',
-      'A clear recommendation for the right first step',
-    ],
-  },
-  {
     id: 'possibility-map',
-    name: 'Meish Possibility Map',
-    summary: 'See where AI can actually create value in your business — and leave with a concrete next path.',
-    whoFor: 'B2B entrepreneur / decision-maker',
-    price: '590 € + VAT',
-    priceNote: '· Gamma Test Phase\nRegular price 950 € + VAT',
+    name: 'Possibility Map',
+    type: 'Product',
+    summary:
+      'See where AI and Meish can actually create value in your business — three concrete routes, one recommendation, and 30-day actions.',
+    whoFor: 'B2B entrepreneurs and decision-makers',
+    whenUseful: 'You need a clear direction before building or buying more tools.',
+    benefit:
+      'You leave with three routes, one clear recommendation, 30-day actions, and practical guardrails.',
+    customerInput: 'About 60 minutes for the interview; review time for the walkthrough.',
+    meishInput: 'Human interview, synthesis and recommendation; AI supports mapping and review.',
+    price: '€590 + VAT 25.5%',
+    pricingState: 'gamma',
+    priceNote: 'Regular price €950 + VAT 25.5%',
     duration: 'Delivered within five business days of the interview',
     category: "SEE WHAT'S POSSIBLE",
     orbit: 'review',
-    priority: 2,
-    cta: "See what's possible",
-    ctaHref: 'mailto:jenni@meish.work?subject=Meish%20Possibility%20Map',
+    priority: 1,
+    cta: 'Ask about Possibility Map',
+    ctaHref: offerMailto('Possibility Map', 'Ask about Possibility Map'),
     gammaTestPhase: true,
+    ladder: true,
+    showOnLanding: true,
     includes: [
       '60-minute client interview',
-      'Three concrete routes / possibilities',
-      'One clear recommendation for the first implementation',
-      'Practical actions for the next 30 days',
-      'Five practical guardrails — things to protect or avoid',
-      'Visible Possibility Map and written summary',
-      'AI tools review — competitive edge, time saved, new business angles',
+      'Visible Possibility Map',
+      'Three distinct progression options',
+      'Recommendation for the first implementation',
+      'Practical guidance for the next 30 days',
+      'AI tools review — edge, time saved, new business angles',
       '30-minute results walkthrough',
     ],
   },
   {
     id: 'build-with-meish',
     name: 'Build with Meish',
-    summary: 'Turn one useful opportunity into something concrete — after you know what is worth building.',
-    whoFor: 'B2B entrepreneur / decision-maker with a clear opportunity ready to act on',
-    price: '790 € + VAT',
+    type: 'Service',
+    summary: 'Turn one useful opportunity into something concrete in a focused working session.',
+    whoFor: 'Decision-makers who already know what is worth building',
+    whenUseful: 'After you know the opportunity — and need it made.',
+    benefit: 'One selected AI / Meish solution designed, scoped and ready for its next step.',
+    customerInput: '3–4 hour joint working session with a clear goal.',
+    meishInput: 'Human-led build with AI where it saves time without removing understanding.',
+    price: '€790 + VAT 25.5%',
+    pricingState: 'fixed',
     duration: '3–4 hours',
     category: 'BUILD SOMETHING USEFUL',
     orbit: 'build',
-    priority: 3,
-    cta: 'Build something useful',
-    ctaHref: 'mailto:jenni@meish.work?subject=Build%20with%20Meish',
+    priority: 2,
+    cta: 'Ask about Build with Meish',
+    ctaHref: offerMailto('Build with Meish', 'Ask about Build with Meish'),
+    ladder: true,
+    showOnLanding: true,
     includes: [
-      'Joint working session with a clear goal',
-      'One selected AI / Meish solution designed and scoped',
-      'Ready for its next implementation step',
+      'Joint working session with a clear goal and concrete outcome',
+      'One useful AI solution, tool or workflow for your business',
       'Documentation so you can continue independently',
     ],
   },
   {
     id: 'friction-removal',
     name: 'Meish Friction Removal',
+    type: 'Service',
     summary: 'Find and remove unnecessary work — repeated tasks, unclear processes and avoidable friction.',
     whoFor: 'Businesses where friction is consuming meaningful time',
-    price: 'From 1,899 € + VAT',
+    whenUseful: 'Something is slowing the team down, but you do not yet know where.',
+    benefit: 'Friction map, 3–7 concrete interventions, prioritised implementation.',
+    customerInput: 'Participation across assessment and rollout conversations.',
+    meishInput: 'Human assessment and design; tools where they reduce friction.',
+    price: 'from €1,899 + VAT 25.5%',
+    pricingState: 'from',
+    duration: 'Scoped after assessment',
     category: 'REMOVE FRICTION',
     orbit: 'improve',
-    priority: 4,
-    cta: 'Remove friction',
-    ctaHref: 'mailto:jenni@meish.work?subject=Meish%20Friction%20Removal',
+    priority: 3,
+    cta: 'Ask about Friction Removal',
+    ctaHref: offerMailto('Friction Removal', 'Ask about Friction Removal'),
+    ladder: true,
+    showOnLanding: true,
     includes: [
-      'Friction map / assessment across your operations',
-      '3–7 concrete interventions or tools',
-      'Prioritized implementation',
-      'Focus on meaningful saved working time',
-      'Target: recover at least five work hours per week',
+      'Workflow and friction mapping',
+      '3–7 practical solutions or tools',
+      'Operating models for your context',
+      'Clear rollout instructions',
+      'Target: recover at least five work hours per week where realistic',
     ],
   },
   {
     id: 'human-experience-review',
     name: 'Human Experience Review',
-    summary: 'Understand how the experience actually feels — and what would make it better.',
-    whoFor: 'Hotels, venues, services, journeys, spaces and transitions where human experience matters',
-    price: 'Scope & price after a 20-minute Fit Check',
+    type: 'Service',
+    summary:
+      'Understand how the experience actually feels — and what would make it better.',
+    whoFor: 'Hotels, venues, services, journeys and spaces where human experience matters',
+    whenUseful: 'You need the lived experience — not only process metrics.',
+    benefit: 'Friction made visible with realistic alternatives you can act on.',
+    customerInput: 'Access to the place or journey; follow-up conversation.',
+    meishInput: 'Human review from within the experience.',
+    price: 'Scope & price after a free Fit Check',
+    pricingState: 'after-fit-check',
     category: 'LOOK AT THE WHOLE EXPERIENCE',
     orbit: 'review',
-    priority: 5,
-    cta: 'Review the experience',
-    ctaHref: 'mailto:jenni@meish.work?subject=Human%20Experience%20Review',
+    priority: 4,
+    cta: 'Ask about Human Experience Review',
+    ctaHref: offerMailto('Human Experience Review', 'Ask about Human Experience Review'),
+    ladder: true,
+    showOnLanding: false,
     includes: [
       'Lived-experience review of your customer or team journey',
       'Friction made visible with realistic alternatives',
@@ -156,20 +196,60 @@ export const meishOffers: MeishOffer[] = [
   {
     id: 'week-with-meish',
     name: 'A Week with Meish',
-    summary: 'Bring Meish into the real work for a week — not only a diagnosis or one small tool.',
+    type: 'Service',
+    summary: 'Bring Meish into the real work for a week — hands-on, not only diagnosis.',
     whoFor: 'Teams that need Meish inside the actual work for a focused week',
-    price: 'From 7,500 € + VAT',
-    duration: '1 week',
+    whenUseful: 'A map or one tool is not enough — you need Meish working alongside you.',
+    benefit: 'Built solutions, operating models, and follow-up so the change continues.',
+    customerInput: 'Availability across the week for co-working and decisions.',
+    meishInput: 'Full human presence for the week; AI where it accelerates delivery.',
+    price: 'from €7,500 + VAT 25.5%',
+    pricingState: 'from',
+    duration: '1 week + 2 × 45 min follow-up',
     category: 'BRING MEISH IN',
     orbit: 'build',
-    priority: 6,
-    cta: 'Work with Meish',
-    ctaHref: 'mailto:jenni@meish.work?subject=A%20Week%20with%20Meish',
+    priority: 5,
+    cta: 'Ask about A Week with Meish',
+    ctaHref: offerMailto('A Week with Meish', 'Ask about A Week with Meish'),
+    ladder: true,
+    showOnLanding: true,
     includes: [
       'One week of practical co-working inside your business',
       'Built solutions and operating models for your actual work',
       'Written continuation guidance',
-      'Two 45-minute follow-up conversations, timed when they matter',
+      'Two 45-minute follow-up conversations',
+    ],
+  },
+  {
+    id: 'fit-check',
+    name: '20-minute Fit Check',
+    type: 'Service',
+    summary:
+      'A quick conversation to see whether there is a useful Meish / AI opportunity — and what should happen first.',
+    whoFor: 'B2B entrepreneurs and decision-makers when the next step is still unclear',
+    whenUseful: 'You are not sure which offer fits — or whether Meish is useful here.',
+    benefit: 'Find the right first step. No preparation required.',
+    customerInput: '20 minutes. No preparation required.',
+    meishInput: 'Human conversation. AI may support notes only.',
+    price: '€0',
+    pricingState: 'free',
+    duration: '20 min',
+    category: 'START HERE',
+    orbit: 'review',
+    priority: 90,
+    cta: 'Book a Fit Check',
+    ctaHref: meishMailto({
+      product: '20-minute Fit Check',
+      page: 'For Your Business',
+      section: 'Fit Check fallback',
+      cta: 'Book a Fit Check',
+    }),
+    ladder: false,
+    showOnLanding: false,
+    includes: [
+      'Conversation about your situation and goals',
+      'Whether there is a useful Meish opportunity',
+      'A clear recommendation for the right first step',
     ],
   },
 ];
@@ -179,8 +259,8 @@ export const orbitGroups: OrbitGroup[] = [
     id: 'review',
     shortLabel: 'Review',
     tagline: 'Understand what is actually happening',
-    placard: 'Start with clarity — 20-minute Fit Check, Possibility Map and Human Experience Review.',
-    href: '#review',
+    placard: 'Possibility Map and Human Experience Review — clarity before big builds.',
+    href: '#products',
     angle: -90,
     tint: 'lavender',
   },
@@ -189,7 +269,7 @@ export const orbitGroups: OrbitGroup[] = [
     shortLabel: 'Improve',
     tagline: 'Make the experience or work better',
     placard: 'Remove recurring friction and return time to the humans doing the work.',
-    href: '#improve',
+    href: '#products',
     angle: 0,
     tint: 'gold',
   },
@@ -198,7 +278,7 @@ export const orbitGroups: OrbitGroup[] = [
     shortLabel: 'Build',
     tagline: 'Create something useful with Meish',
     placard: 'Build with Meish or embed us for a week — concrete outcomes, not theory.',
-    href: '#build',
+    href: '#products',
     angle: 90,
     tint: 'navy',
   },
@@ -206,8 +286,8 @@ export const orbitGroups: OrbitGroup[] = [
     id: 'tools',
     shortLabel: 'Tools',
     tagline: 'Use a focused Meish tool',
-    placard: 'Focused instruments when the right tool already exists — ask if you need one now.',
-    href: '#tools',
+    placard: 'Focused instruments when the right tool already exists.',
+    href: '/tools',
     angle: 180,
     tint: 'red',
   },
@@ -217,6 +297,19 @@ export function getPublicOffers(): MeishOffer[] {
   return [...meishOffers].sort((a, b) => a.priority - b.priority);
 }
 
+/** Purchasable / quote ladder — excludes free Fit Check. */
+export function getLadderOffers(): MeishOffer[] {
+  return getPublicOffers().filter((o) => o.ladder !== false && o.id !== 'fit-check');
+}
+
+export function getLandingOffers(): MeishOffer[] {
+  return getPublicOffers().filter((o) => o.showOnLanding === true);
+}
+
 export function getOffersByOrbit(orbitId: OrbitId): MeishOffer[] {
   return getPublicOffers().filter((o) => o.orbit === orbitId);
+}
+
+export function getFitCheckOffer(): MeishOffer | undefined {
+  return meishOffers.find((o) => o.id === 'fit-check');
 }

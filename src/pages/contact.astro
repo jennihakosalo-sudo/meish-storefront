@@ -1,31 +1,57 @@
 ---
 import Base from '../layouts/Base.astro';
 import DestinationMark from '../components/DestinationMark.astro';
-import { fitCallHref, fitCallLabel, contactEmail } from '../data/hatchling-nav';
+import {
+  fitCallHref,
+  fitCallLabel,
+  contactEmail,
+  contactMeishHref,
+  contactMeishLabel,
+} from '../data/hatchling-nav';
+import { meishMailto } from '../lib/meish-mailto';
+
+const phone = '044 343 4003';
+const phoneTel = '+358443434003';
+const contactMail = meishMailto({
+  product: 'Contact',
+  page: 'Contact',
+  section: 'Email',
+  cta: 'Contact Meish',
+});
 ---
+
 <Base
   title="Contact — Meish"
-  description="Write to Jenni. 20-minute Fit Check is free. jenni@meish.work"
+  description="Contact Meish at moona.m@meish.work. We work in English and Finnish. Possibility Map and Fit Check available."
 >
   <section class="section container door-page">
     <p class="eyebrow arrive">
       <DestinationMark size="page" />
       Contact
     </p>
-    <h1>Start with one conversation</h1>
+    <h1>Contact Meish</h1>
     <p class="lead">
-      If you are not sure which offer fits, book a 20-minute Fit Check — free.
-      Or write to Jenni.
+      Tell us what should become better. We work in English and Finnish. Palvelemme myös suomeksi.
     </p>
 
     <p class="actions">
-      <a class="button button--primary" href={fitCallHref}>{fitCallLabel}</a>
+      <a class="button button--primary" href={contactMeishHref}>{contactMeishLabel}</a>
+      <a class="button button--ghost" href={fitCallHref}>{fitCallLabel}</a>
     </p>
 
     <h2>Email</h2>
     <p>
-      <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+      <a href={contactMail}>{contactEmail}</a>
     </p>
+
+    <h2>Phone</h2>
+    <details class="phone-reveal">
+      <summary>Show phone number</summary>
+      <p>
+        <a href={`tel:${phoneTel}`}>{phone}</a>
+      </p>
+    </details>
+
     <p>When you write, it helps to include:</p>
     <ul>
       <li>Your business or organisation</li>
@@ -40,5 +66,23 @@ import { fitCallHref, fitCallLabel, contactEmail } from '../data/hatchling-nav';
     display: flex;
     align-items: center;
     gap: 0.55rem;
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+  }
+  .phone-reveal {
+    margin: var(--space-sm) 0 var(--space-lg);
+    max-width: 28rem;
+  }
+  .phone-reveal summary {
+    cursor: pointer;
+    color: var(--color-lavender);
+    font-size: var(--text-sm);
+  }
+  .phone-reveal p {
+    margin-top: var(--space-sm);
   }
 </style>

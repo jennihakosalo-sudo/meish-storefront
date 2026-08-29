@@ -1,4 +1,6 @@
-/** Hatchling v1 — public navigation and the shared Fit Check CTA. */
+/** Public navigation and shared contact CTAs for meish.work */
+import { CONTACT_EMAIL, meishMailto } from '../lib/meish-mailto';
+
 export const hatchlingNav = [
   { href: '/for-business', label: 'For Your Business' },
   { href: '/for-you', label: 'For You' },
@@ -6,14 +8,28 @@ export const hatchlingNav = [
   { href: '/gifts', label: 'Gifts for You' },
 ] as const;
 
-export const fitCallHref =
-  'mailto:jenni@meish.work?subject=20-minute%20Fit%20Check';
+/** Alias — same public nav. */
+export const publicNav = hatchlingNav;
 
-/** Same destination as fitCallHref. Kept so existing imports keep working. */
-export const fitCheckHref = fitCallHref;
+export const contactEmail = CONTACT_EMAIL;
 
+export const contactMeishLabel = 'Contact Meish';
+export const contactMeishHref = meishMailto({
+  product: 'Contact',
+  page: 'Site',
+  section: 'Header',
+  cta: 'Contact Meish',
+});
+
+/** Secondary free conversation — not the primary sales CTA. */
 export const fitCallLabel = '20-minute Fit Check';
-export const fitCallMeta =
-  'how can we make things better for you or your business?';
+export const fitCallMeta = '20 min · free';
+export const fitCallHref = meishMailto({
+  product: '20-minute Fit Check',
+  page: 'Site',
+  section: 'Fit Check',
+  cta: 'Fit Check',
+});
 
-export const contactEmail = 'jenni@meish.work';
+/** Same destination as fitCallHref (legacy import name). */
+export const fitCheckHref = fitCallHref;

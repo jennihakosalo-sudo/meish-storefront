@@ -1,9 +1,8 @@
 import { defineMiddleware } from 'astro:middleware';
 
 /**
- * Hatchling v1 — hide unfinished routes locally (pages stay in the repo).
- * Production uses vercel.json. Future public route (not live): /elements
- * “Explore the Elements”.
+ * Hide unfinished routes locally (pages stay in the repo).
+ * Production uses vercel.json. /elements is reserved — not public yet.
  */
 const exact: Record<string, string> = {
   '/cart': '/',
@@ -13,6 +12,7 @@ const exact: Record<string, string> = {
   '/shop': '/',
   '/services': '/contact',
   '/reserve': '/contact',
+  '/elements': '/',
   '/for-business/meish-treasure': '/for-business',
 };
 

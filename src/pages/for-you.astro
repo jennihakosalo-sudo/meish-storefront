@@ -1,11 +1,12 @@
 ---
 import Base from '../layouts/Base.astro';
 import DestinationMark from '../components/DestinationMark.astro';
-import { fitCallHref, fitCallLabel } from '../data/hatchling-nav';
+import { contactMeishHref, contactMeishLabel, fitCallHref, fitCallLabel } from '../data/hatchling-nav';
 ---
+
 <Base
   title="Meish for You — Meish"
-  description="Meish for You — personal growth, decision support, wellbeing and everyday guidance."
+  description="Meish for You — personal growth, decision support, wellbeing and everyday guidance. We work in English and Finnish."
 >
   <section class="section container door-page">
     <p class="eyebrow arrive">
@@ -14,19 +15,20 @@ import { fitCallHref, fitCallLabel } from '../data/hatchling-nav';
     </p>
     <h1>Meish for You</h1>
     <p class="lead">
-      Personal work: thinking, decisions, and a little more ease in ordinary days.
-      More will be published here. The simplest way in is a conversation.
+      Personal work: thinking, decisions, resilience, transitions, and a little more ease in
+      ordinary days. Technology should support you — without asking you to become more machine-like.
     </p>
+    <p class="langs">We work in English and Finnish. · Palvelemme myös suomeksi.</p>
 
     <ul>
-      <li>Personal growth and reflection</li>
-      <li>Decision support for hard choices</li>
-      <li>Wellbeing and everyday guidance</li>
+      <li>Thinking and decision support</li>
+      <li>Everyday friction and family life</li>
+      <li>Personal AI assistants and practical tools</li>
     </ul>
 
     <p class="actions">
-      <a class="button button--primary" href={fitCallHref}>{fitCallLabel}</a>
-      <a class="button button--ghost" href="/contact">Write to Jenni</a>
+      <a class="button button--primary" href={contactMeishHref}>{contactMeishLabel}</a>
+      <a class="button button--ghost" href={fitCallHref}>{fitCallLabel}</a>
     </p>
   </section>
 </Base>
@@ -36,5 +38,16 @@ import { fitCallHref, fitCallLabel } from '../data/hatchling-nav';
     display: flex;
     align-items: center;
     gap: 0.55rem;
+  }
+  .langs {
+    margin: var(--space-sm) 0 var(--space-md);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
   }
 </style>

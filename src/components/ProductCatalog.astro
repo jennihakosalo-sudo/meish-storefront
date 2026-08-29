@@ -1,10 +1,9 @@
 ---
-import { getPublicOffers } from '../data/meish-offers';
+import { getLadderOffers, getFitCheckOffer } from '../data/meish-offers';
 import GammaTestPhaseExplainer from './GammaTestPhaseExplainer.astro';
-import { fitCallLabel } from '../data/hatchling-nav';
 
-const offers = getPublicOffers();
-const fitCheck = offers.find((o) => o.id === 'fit-check');
+const offers = getLadderOffers();
+const fitCheck = getFitCheckOffer();
 ---
 
 <section id="products" class="product-catalog section">
@@ -12,14 +11,14 @@ const fitCheck = offers.find((o) => o.id === 'fit-check');
     <ol class="product-ladder">
       {
         offers.map((product) => {
-          const isEntry = product.id === 'fit-check';
+          const isPrimary = product.id === 'possibility-map';
           return (
             <li
               id={product.id}
               class:list={[
                 'product-ladder__item',
                 `product-ladder__item--p${product.priority}`,
-                isEntry && 'product-ladder__item--entry',
+                isPrimary && 'product-ladder__item--primary',
               ]}
             >
               <p class="product-card__category">{product.category}</p>
@@ -35,7 +34,7 @@ const fitCheck = offers.find((o) => o.id === 'fit-check');
                   <dt>What you leave with</dt>
                   <dd>
                     <ul class="product-card__includes">
-                      {product.includes.slice(0, isEntry ? 3 : 5).map((item) => (
+                      {product.includes.slice(0, 5).map((item) => (
                         <li>{item}</li>
                       ))}
                     </ul>
@@ -60,11 +59,7 @@ const fitCheck = offers.find((o) => o.id === 'fit-check');
                 )}
               </p>
 
-              {product.gammaTestPhase ? (
-                <p class="product-card__note">Regular price 950 € + VAT</p>
-              ) : (
-                product.priceNote && <p class="product-card__note">{product.priceNote}</p>
-              )}
+              {product.priceNote && <p class="product-card__note">{product.priceNote}</p>}
 
               {product.id === 'possibility-map' && product.duration && (
                 <p class="product-card__note product-card__note--soft">{product.duration}</p>
@@ -79,9 +74,9 @@ const fitCheck = offers.find((o) => o.id === 'fit-check');
 
               <a
                 href={product.ctaHref}
-                class:list={['button', isEntry ? 'button--primary' : 'button--ghost']}
+                class:list={['button', isPrimary ? 'button--primary' : 'button--ghost']}
               >
-                {isEntry ? fitCallLabel : product.cta}
+                {product.cta}
               </a>
             </li>
           );
@@ -91,11 +86,11 @@ const fitCheck = offers.find((o) => o.id === 'fit-check');
 
     <aside class="product-ladder__fallback" aria-label="Not sure which offer">
       <p>
-        <strong>Not sure which one?</strong> Start with a 20-minute Fit Check — free.
+        <strong>Not sure which one?</strong> Start with the 20-minute Fit Check — free.
       </p>
       {
         fitCheck && (
-          <a href={fitCheck.ctaHref} class="button button--primary">
+          <a href={fitCheck.ctaHref} class="button button--ghost">
             {fitCheck.cta}
           </a>
         )
@@ -130,16 +125,16 @@ const fitCheck = offers.find((o) => o.id === 'fit-check');
     box-shadow: 0 12px 36px rgba(2, 12, 89, 0.05);
   }
 
-  .product-ladder__item--entry {
-    border-color: rgba(105, 94, 219, 0.4);
+  .product-ladder__item--primary {
+    border-color: rgba(2, 12, 89, 0.22);
     background: linear-gradient(
       165deg,
-      rgba(105, 94, 219, 0.08) 0%,
+      rgba(251, 215, 159, 0.22) 0%,
       rgba(255, 253, 249, 0.97) 55%
     );
   }
 
-  .product-ladder__item--p2 {
+  .product-ladder__item--p1 {
     border-color: rgba(2, 12, 89, 0.18);
   }
 

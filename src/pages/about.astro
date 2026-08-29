@@ -1,10 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
-import { fitCallHref, fitCallLabel } from '../data/hatchling-nav';
+import { contactMeishHref, contactMeishLabel, fitCallHref, fitCallLabel } from '../data/hatchling-nav';
 ---
+
 <Base
   title="About Meish"
-  description="Meish specialises in human experience — understanding it, reviewing it and making it better. North Star: human experience."
+  description="Meish specialises in human experience — understanding it, reviewing it and making it better. North Star: human experience. We work in English and Finnish."
 >
   <section class="section container door-page">
     <p class="eyebrow">About</p>
@@ -14,12 +15,13 @@ import { fitCallHref, fitCallLabel } from '../data/hatchling-nav';
       better. We build the tools when the right ones do not exist yet. Technology is not the
       goal; it should create more room for meaningful work and life.
     </p>
+    <p class="langs">We work in English and Finnish. · Palvelemme myös suomeksi.</p>
 
     <h2>What Meish offers now</h2>
     <ul>
       <li>
-        <a href="/for-business"><strong>Meish for Your Business</strong></a> — 20-minute Fit Check,
-        Possibility Map, Build, Friction Removal, Human Experience Review, and deeper engagements.
+        <a href="/for-business"><strong>Meish for Your Business</strong></a> — Possibility Map,
+        Build, Friction Removal, Human Experience Review, and deeper engagements.
       </li>
       <li>
         <a href="/for-you"><strong>Meish for You</strong></a> — personal growth, decision support
@@ -30,7 +32,7 @@ import { fitCallHref, fitCallLabel } from '../data/hatchling-nav';
         already exists.
       </li>
       <li>
-        <a href="/gifts"><strong>Gifts for You</strong></a> — free downloads, when they are ready.
+        <a href="/gifts"><strong>Gifts for You</strong></a> — free, useful starters.
       </li>
     </ul>
 
@@ -43,8 +45,23 @@ import { fitCallHref, fitCallLabel } from '../data/hatchling-nav';
     </p>
 
     <p class="actions">
-      <a class="button button--primary" href={fitCallHref}>{fitCallLabel}</a>
+      <a class="button button--primary" href={contactMeishHref}>{contactMeishLabel}</a>
       <a class="button button--ghost" href="/for-business">See business offers</a>
+      <a class="button button--ghost" href={fitCallHref}>{fitCallLabel}</a>
     </p>
   </section>
 </Base>
+
+<style>
+  .langs {
+    margin: var(--space-sm) 0 var(--space-lg);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+  }
+</style>

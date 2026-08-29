@@ -13,6 +13,7 @@
     { "source": "/reserve", "destination": "/contact", "permanent": false },
     { "source": "/reserve/:path*", "destination": "/contact", "permanent": false },
     { "source": "/philosophy", "destination": "/about", "permanent": false },
+    { "source": "/elements", "destination": "/", "permanent": false },
     { "source": "/style", "destination": "/", "permanent": false },
     { "source": "/success", "destination": "/", "permanent": false }
   ]

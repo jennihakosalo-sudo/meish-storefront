@@ -6,7 +6,7 @@ import DestinationMark from '../components/DestinationMark.astro';
 
 <Base
   title="Meish for Your Business — offers & pricing"
-  description="Meish for Your Business: 20-minute Fit Check, free. Possibility Map 590 € + VAT (Gamma Test Phase)."
+  description="Meish for Your Business: Possibility Map €590 + VAT (Gamma Test Phase). Build, Friction Removal, Human Experience Review, A Week with Meish."
 >
   <section class="section container door-page">
     <p class="eyebrow arrive">
@@ -15,9 +15,10 @@ import DestinationMark from '../components/DestinationMark.astro';
     </p>
     <h1>Clear offers. A clear first path.</h1>
     <p class="lead">
-      Possibility Map is 590 € + VAT. If you want to see whether Meish is useful,
-      start with a 20-minute Fit Check — free.
+      Possibility Map is <strong>€590 + VAT</strong> (Gamma Test Phase). Purchasable offers first.
+      If you are not sure which one fits, the free 20-minute Fit Check is at the bottom.
     </p>
+    <p class="langs">We work in English and Finnish. · Palvelemme myös suomeksi.</p>
   </section>
   <ProductCatalog />
 </Base>
@@ -28,5 +29,12 @@ import DestinationMark from '../components/DestinationMark.astro';
     align-items: center;
     gap: 0.55rem;
   }
-  .door-page { padding-bottom: var(--space-md); }
+  .door-page {
+    padding-bottom: var(--space-md);
+  }
+  .langs {
+    margin-top: var(--space-sm);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
 </style>

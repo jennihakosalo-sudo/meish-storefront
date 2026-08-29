@@ -1,12 +1,210 @@
 ---
 import Base from '../layouts/Base.astro';
 import MeishUniverseScene from '../components/MeishUniverseScene.astro';
+import {
+  contactMeishHref,
+  contactMeishLabel,
+  fitCallHref,
+  fitCallLabel,
+} from '../data/hatchling-nav';
+import { meishMailto } from '../lib/meish-mailto';
+
+const mapMail = meishMailto({
+  product: 'Possibility Map',
+  page: 'Homepage',
+  section: 'Offers',
+  cta: 'Ask about Possibility Map',
+});
+
+const betterMail = meishMailto({
+  product: 'What to make better',
+  page: 'Homepage',
+  section: 'Self-selection',
+  cta: 'Write to Meish',
+});
 ---
 
 <Base
   title="Meish — human experience is our North Star"
-  description="Meish specialises in human experience. 20-minute Fit Check, free. Possibility Map 590 € + VAT."
+  description="Meish makes work, services and experiences better for the humans inside them. Possibility Map €590 + VAT. We work in English and Finnish."
   universeHome={true}
 >
   <MeishUniverseScene />
+
+  <section class="home-body section" aria-label="About Meish">
+    <div class="container home-body__grid">
+      <div>
+        <h2>What is Meish?</h2>
+        <p>
+          Meish works with human experience — customer experience, employee experience, friction
+          removal, practical tools, AI-assisted systems, and custom concepts when the right ones do
+          not exist yet.
+        </p>
+        <p>
+          We do not begin by asking “Where can we put AI?” We begin by asking
+          <strong> what should become better here?</strong>
+        </p>
+      </div>
+
+      <div>
+        <h2>Creating &amp; clearing</h2>
+        <p>
+          <em>Create what deserves to exist. Clear what doesn’t.</em> Meish may create, remove,
+          simplify, automate, connect, make visible — or leave something alone. The first
+          conversation helps decide how actively we should participate.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-body section home-body--doors" aria-label="Where to begin">
+    <div class="container">
+      <h2>Where would you like to begin?</h2>
+      <div class="door-row">
+        <a class="door-card" href="/for-business">
+          <strong>Meish for Your Business</strong>
+          <span>Clear offers for founders and teams — including Possibility Map.</span>
+        </a>
+        <a class="door-card" href="/for-you">
+          <strong>Meish for You</strong>
+          <span>Personal clarity, decisions, and everyday ease.</span>
+        </a>
+        <a class="door-card" href="/tools">
+          <strong>Meish Tools</strong>
+          <span>Focused instruments when you need one honest next step.</span>
+        </a>
+        <a class="door-card" href="/gifts">
+          <strong>Gifts for You</strong>
+          <span>Free, useful starters — not a generic lead funnel.</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-body section" aria-label="Public offers">
+    <div class="container offer-strip">
+      <h2>What you can get</h2>
+      <article class="offer-strip__card">
+        <p class="eyebrow">See what’s possible</p>
+        <h3>Possibility Map</h3>
+        <p>
+          Three concrete routes, one recommendation, 30-day actions.
+          <strong> €590 + VAT 25.5%</strong> · Gamma Test Phase
+          (regular €950 + VAT 25.5%).
+        </p>
+        <p class="actions">
+          <a class="button button--primary" href={mapMail}>Ask about Possibility Map</a>
+          <a class="button button--ghost" href="/for-business#possibility-map">See all business offers</a>
+        </p>
+      </article>
+      <p class="offer-strip__note">
+        Not sure which one? <a href={fitCallHref}>{fitCallLabel}</a> — free, 20 minutes.
+      </p>
+    </div>
+  </section>
+
+  <section class="home-body section home-body--better" aria-label="What to make better">
+    <div class="container">
+      <h2>What would you like to make better?</h2>
+      <p class="lead">
+        Mark what matters and write to us. No questionnaire required —
+        <a href={betterMail}>open a prefilled email</a>.
+      </p>
+      <ul class="better-list">
+        <li>Fewer tasks I dislike</li>
+        <li>More time with my family</li>
+        <li>More peace in my workday</li>
+        <li>Help using AI</li>
+        <li>Better customer experience</li>
+        <li>How my business works</li>
+      </ul>
+      <p class="actions">
+        <a class="button button--primary" href={contactMeishHref}>{contactMeishLabel}</a>
+      </p>
+    </div>
+  </section>
 </Base>
+
+<style>
+  .home-body {
+    background: #fffbf5;
+    color: #020c59;
+  }
+  .home-body__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+  }
+  .home-body h2 {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-sm);
+  }
+  .home-body p {
+    color: var(--text-soft);
+    max-width: 48ch;
+  }
+  .door-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+  }
+  .door-card {
+    display: grid;
+    gap: 0.4rem;
+    padding: var(--space-lg);
+    border: 1px solid rgba(2, 12, 89, 0.12);
+    background: rgba(255, 253, 249, 0.9);
+    text-decoration: none;
+    color: inherit;
+  }
+  .door-card:hover {
+    text-decoration: none;
+    border-color: rgba(105, 94, 219, 0.45);
+  }
+  .door-card strong {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+  }
+  .door-card span {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+  .offer-strip__card {
+    margin-top: var(--space-md);
+    padding: var(--space-xl);
+    border: 1px solid rgba(251, 215, 159, 0.55);
+    background: linear-gradient(165deg, rgba(251, 215, 159, 0.2), rgba(255, 253, 249, 0.96));
+  }
+  .offer-strip__card h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-sm);
+  }
+  .offer-strip__note {
+    margin-top: var(--space-md);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+  .better-list {
+    columns: 2;
+    max-width: 40rem;
+    margin: var(--space-md) 0 var(--space-lg);
+    color: var(--text-soft);
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+  @media (max-width: 900px) {
+    .home-body__grid,
+    .door-row {
+      grid-template-columns: 1fr;
+    }
+    .better-list {
+      columns: 1;
+    }
+  }
+</style>

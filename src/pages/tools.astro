@@ -1,11 +1,12 @@
 ---
 import Base from '../layouts/Base.astro';
 import DestinationMark from '../components/DestinationMark.astro';
-import { fitCallHref, fitCallLabel } from '../data/hatchling-nav';
+import { contactMeishHref, contactMeishLabel, fitCallHref, fitCallLabel } from '../data/hatchling-nav';
 ---
+
 <Base
   title="Meish Tools — Meish"
-  description="Meish Tools. Start with a 20-minute Fit Check, or see Meish for Your Business offers."
+  description="Meish Tools — focused instruments. See Meish for Your Business offers, or start with a free Fit Check."
 >
   <section class="section container door-page">
     <p class="eyebrow arrive">
@@ -14,22 +15,27 @@ import { fitCallHref, fitCallLabel } from '../data/hatchling-nav';
     </p>
     <h1>One honest next step</h1>
     <p class="lead">
-      Tools exist to improve your own, your team’s, or your customers’ experience.
-      Begin with a Fit Check, or go to the business offers.
+      Tools exist to improve your own, your team’s, or your customers’ experience. Start with a
+      business offer — or a short Fit Check if you are not sure.
     </p>
 
     <ul>
       <li>
-        <strong>20-minute Fit Check</strong> — free. See whether there is something useful to do.
+        <a href="/for-business"><strong>Meish for Your Business</strong></a> — Possibility Map and
+        the other offers.
       </li>
       <li>
-        <a href="/for-business"><strong>Meish for Your Business</strong></a> — Possibility Map and the other offers.
+        <a href="/gifts"><strong>Gifts for You</strong></a> — free starter downloads.
+      </li>
+      <li>
+        <strong>20-minute Fit Check</strong> — free, when the next step is still unclear.
       </li>
     </ul>
 
     <p class="actions">
-      <a class="button button--primary" href={fitCallHref}>{fitCallLabel}</a>
-      <a class="button button--ghost" href="/for-business">See business offers</a>
+      <a class="button button--primary" href="/for-business">See business offers</a>
+      <a class="button button--ghost" href={fitCallHref}>{fitCallLabel}</a>
+      <a class="button button--ghost" href={contactMeishHref}>{contactMeishLabel}</a>
     </p>
   </section>
 </Base>
@@ -39,5 +45,11 @@ import { fitCallHref, fitCallLabel } from '../data/hatchling-nav';
     display: flex;
     align-items: center;
     gap: 0.55rem;
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
   }
 </style>

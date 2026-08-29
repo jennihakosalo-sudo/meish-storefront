@@ -1,28 +1,47 @@
 ---
 import Base from '../layouts/Base.astro';
 import DestinationMark from '../components/DestinationMark.astro';
-import { fitCallHref, fitCallLabel, contactEmail } from '../data/hatchling-nav';
+import { contactMeishHref, contactMeishLabel, contactEmail } from '../data/hatchling-nav';
+import { meishMailto } from '../lib/meish-mailto';
+
+const giftMail = meishMailto({
+  product: 'Gifts for You',
+  page: 'Gifts',
+  section: 'Ask for starter',
+  cta: 'Write to Meish',
+});
 ---
 
 <Base
   title="Gifts for You — Meish"
-  description="Meish Gifts for You: free downloads. None are published on this site yet."
+  description="Free Meish starters: a short clarity prompt you can use today. We work in English and Finnish."
 >
   <section class="section container door-page">
     <p class="eyebrow arrive">
       <DestinationMark size="page" />
       Gifts for You
     </p>
-    <h1>Free downloads</h1>
+    <h1>Free, useful starters</h1>
     <p class="lead">
-      Gifts for You are free files you can take with you. None are published here yet.
+      Small Meish gifts — practical, not a generic lead magnet. Take one with you today.
     </p>
-    <p>
-      When paid downloads exist, their own OST instructions sit in the product description.
-    </p>
-    <p class="actions">
-      <a class="button button--primary" href={fitCallHref}>{fitCallLabel}</a>
-      <a class="button button--ghost" href={`mailto:${contactEmail}`}>Write to Jenni</a>
+
+    <article class="gift-card">
+      <h2>Meish Clarity Starter</h2>
+      <p>
+        Five questions to see what should become better — before you add tools, AI, or more work.
+      </p>
+      <p class="actions">
+        <a class="button button--primary" href="/gifts/meish-clarity-starter.txt" download>
+          Download the starter
+        </a>
+        <a class="button button--ghost" href={giftMail}>Ask Moona for another gift</a>
+      </p>
+    </article>
+
+    <p class="langs">
+      We work in English and Finnish. · Palvelemme myös suomeksi. ·
+      <a href={contactMeishHref}>{contactMeishLabel}</a> · {contactEmail}
     </p>
   </section>
 </Base>
@@ -32,5 +51,27 @@ import { fitCallHref, fitCallLabel, contactEmail } from '../data/hatchling-nav';
     display: flex;
     align-items: center;
     gap: 0.55rem;
+  }
+  .gift-card {
+    margin-top: var(--space-lg);
+    padding: var(--space-xl);
+    border: 1px solid rgba(2, 12, 89, 0.12);
+    background: rgba(255, 253, 249, 0.95);
+  }
+  .gift-card h2 {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-sm);
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+  }
+  .langs {
+    margin-top: var(--space-xl);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
   }
 </style>

@@ -1,5 +1,5 @@
 ---
-import { hatchlingNav, fitCallHref, fitCallLabel } from '../data/hatchling-nav';
+import { hatchlingNav, contactMeishHref, contactMeishLabel } from '../data/hatchling-nav';
 
 interface Props {
   universeHome?: boolean;
@@ -27,7 +27,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
       </ul>
     </nav>
     {!universeHome && (
-      <a href={fitCallHref} class="header-cta">{fitCallLabel}</a>
+      <a href={contactMeishHref} class="header-cta">{contactMeishLabel}</a>
     )}
   </div>
 </header>
@@ -67,7 +67,10 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
     font-size: 1.15rem;
     color: var(--color-navy);
   }
-  .wordmark:hover { text-decoration: none; color: var(--color-navy); }
+  .wordmark:hover {
+    text-decoration: none;
+    color: var(--color-navy);
+  }
 
   .nav {
     display: flex;
@@ -75,7 +78,6 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
     list-style: none;
     padding: 0;
   }
-
   .nav__link {
     font-size: var(--text-xs);
     font-weight: var(--weight-medium);
@@ -83,11 +85,9 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
-
   .nav__link--active {
     color: var(--text);
   }
-
   .nav__link:hover {
     color: var(--text);
     text-decoration: none;
@@ -99,17 +99,32 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
     color: var(--color-navy);
     text-transform: none;
   }
-  .header-cta:hover { text-decoration: none; color: var(--color-navy); }
+  .header-cta:hover {
+    text-decoration: none;
+    color: var(--color-navy);
+  }
 
   .site-header--universe .nav {
     opacity: 0.72;
   }
 
   @media (max-width: 768px) {
-    .header-cta { display: none; }
-    .site-header--universe .nav { display: none; }
-    .bar { gap: var(--space-sm); min-height: 3.75rem; }
-    .nav { gap: var(--space-xs); flex-wrap: wrap; justify-content: flex-end; }
-    .nav__link { font-size: 0.58rem; letter-spacing: 0.06em; }
+    .header-cta,
+    .site-header--universe .nav {
+      display: none;
+    }
+    .bar {
+      gap: var(--space-sm);
+      min-height: 3.75rem;
+    }
+    .nav {
+      gap: var(--space-xs);
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .nav__link {
+      font-size: 0.58rem;
+      letter-spacing: 0.06em;
+    }
   }
 </style>

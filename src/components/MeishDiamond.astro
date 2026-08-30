@@ -1,0 +1,265 @@
+---
+/**
+ * Meish Diamond — 7-facet board geometry (visual match to brand board).
+ * Wireframe: top 1|2|3, center 7, bottom 4|5|6.
+ * Default colours sampled from board dark / light / transparent panels.
+ */
+type Variant = 'primary' | 'dark' | 'light' | 'transparent' | 'nav';
+type Family = 'F1' | 'F2' | 'F3' | 'F4' | 'F5' | 'F6' | 'F7';
+
+interface Props {
+  variant?: Variant;
+  uid?: string;
+  activeFamilies?: Family[];
+  size?: string;
+  class?: string;
+}
+
+const {
+  variant = 'primary',
+  uid = 'md',
+  activeFamilies,
+  size,
+  class: className,
+} = Astro.props;
+
+const id = (name: string) => `${name}-${uid}`;
+const v = variant === 'primary' ? 'dark' : variant;
+
+const boardDark: Record<number, [string, string, string]> = {
+  1: ['#d8a0e8', '#8a4eb8', '#4a2878'], // top-left violet
+  2: ['#6a78a8', '#2a3458', '#121828'], // top-center shadowed
+  3: ['#ffe0a0', '#f0a830', '#c86818'], // top-right amber
+  7: ['#fff0c8', '#e8b050', '#3ec8c0'], // center kite — teal↔gold (glass via opacity)
+  4: ['#80f0e8', '#20b8b0', '#0a6868'], // bottom-left teal
+  5: ['#5878c8', '#203868', '#101828'], // bottom-center
+  6: ['#ff90c8', '#e04090', '#901850'], // bottom-right magenta
+};
+
+const boardLight: Record<number, [string, string, string]> = {
+  1: ['#f4eefc', '#c8b8e8', '#9a8cc8'],
+  2: ['#fffdf8', '#f0ebe0', '#d8d0c4'],
+  3: ['#ffe8d0', '#f0c090', '#e09860'],
+  7: ['#fff8e8', '#e8d8b0', '#b8d8d0'],
+  4: ['#d0f4f0', '#50c8c0', '#289898'],
+  5: ['#c8d8f0', '#5878c0', '#304888'],
+  6: ['#f8d0e8', '#d070b0', '#904070'],
+};
+
+const boardGlass: Record<number, [string, string, string]> = {
+  1: ['rgba(232,160,216,0.55)', 'rgba(155,95,191,0.35)', 'rgba(90,58,138,0.2)'],
+  2: ['rgba(200,220,255,0.45)', 'rgba(100,120,180,0.28)', 'rgba(40,50,90,0.15)'],
+  3: ['rgba(255,208,128,0.5)', 'rgba(240,160,64,0.3)', 'rgba(200,100,40,0.18)'],
+  7: ['rgba(255,248,230,0.45)', 'rgba(232,168,72,0.28)', 'rgba(43,184,176,0.22)'],
+  4: ['rgba(126,240,232,0.5)', 'rgba(43,184,176,0.3)', 'rgba(26,122,120,0.18)'],
+  5: ['rgba(120,150,220,0.4)', 'rgba(50,70,150,0.25)', 'rgba(20,30,70,0.15)'],
+  6: ['rgba(255,158,200,0.5)', 'rgba(216,90,154,0.3)', 'rgba(138,40,96,0.18)'],
+};
+
+const familyHex: Record<Family, string> = {
+  F1: '#e8783a',
+  F2: '#e8c04a',
+  F3: '#2bb8b0',
+  F4: '#d85a9a',
+  F5: '#7a5fb0',
+  F6: '#8b2232',
+  F7: '#1b2a5e',
+};
+
+const glassStops: [string, string, string] =
+  v === 'light'
+    ? ['rgba(255,252,248,0.75)', 'rgba(236,232,224,0.45)', 'rgba(210,205,198,0.3)']
+    : ['rgba(255,255,255,0.22)', 'rgba(255,255,255,0.1)', 'rgba(255,255,255,0.04)'];
+
+function resolveFamily(facet: number): Family | 'glass' | 'board' {
+  if (activeFamilies && activeFamilies.length > 0) {
+    const order = [1, 7, 3, 4, 2, 5, 6];
+    const idx = order.indexOf(facet);
+    if (idx >= 0 && idx < activeFamilies.length) return activeFamilies[idx];
+    return 'glass';
+  }
+  return 'board';
+}
+
+function stopsFor(facet: number): [string, string, string] {
+  const fam = resolveFamily(facet);
+  if (fam === 'glass') return glassStops;
+  if (fam !== 'board') {
+    const hex = familyHex[fam];
+    if (v === 'light') {
+      return [
+        `color-mix(in srgb, ${hex} 25%, white)`,
+        `color-mix(in srgb, ${hex} 45%, white)`,
+        `color-mix(in srgb, ${hex} 65%, white)`,
+      ];
+    }
+    if (v === 'transparent') {
+      return [
+        `color-mix(in srgb, ${hex} 55%, transparent)`,
+        `color-mix(in srgb, ${hex} 40%, transparent)`,
+        `color-mix(in srgb, ${hex} 25%, transparent)`,
+      ];
+    }
+    return [`color-mix(in srgb, ${hex} 40%, white)`, hex, `color-mix(in srgb, ${hex} 55%, #0b1020)`];
+  }
+  if (v === 'light') return boardLight[facet];
+  if (v === 'transparent') return boardGlass[facet];
+  return boardDark[facet];
+}
+
+const edge = v === 'light' ? 'rgba(40, 36, 64, 0.22)' : 'rgba(255, 248, 240, 0.78)';
+const edgeInner = v === 'light' ? 'rgba(40, 36, 64, 0.12)' : 'rgba(255, 255, 255, 0.35)';
+const op = v === 'transparent' ? { a: 0.85, b: 0.7, c: 0.55 } : { a: 1, b: 0.95, c: 0.88 };
+const styleSize = size ? `--md-size: ${size}` : undefined;
+
+const s1 = stopsFor(1);
+const s2 = stopsFor(2);
+const s3 = stopsFor(3);
+const s7 = stopsFor(7);
+const s4 = stopsFor(4);
+const s5 = stopsFor(5);
+const s6 = stopsFor(6);
+---
+
+<div
+  class:list={['meish-d', `meish-d--${v}`, className]}
+  style={styleSize}
+  aria-hidden="true"
+>
+  <!--
+    Board wireframe (dark/light panels):
+    Outer rhombus T–R–B–L. Center kite CT–CR–CB–CL (facet 7).
+    Top: 1 = T–L–CL–CT, 2 = T–CT–CR, 3 = T–R–CR–CT
+    Bottom: 4 = L–CL–CB–B, 5 = CL–CR–B, 6 = R–CR–CB–B
+  -->
+  <svg class="meish-d__svg" viewBox="0 0 200 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id={id('g1')} x1="10%" y1="0%" x2="90%" y2="100%">
+        <stop offset="0%" stop-color={s1[0]} stop-opacity={op.a} />
+        <stop offset="50%" stop-color={s1[1]} stop-opacity={op.b} />
+        <stop offset="100%" stop-color={s1[2]} stop-opacity={op.c} />
+      </linearGradient>
+      <linearGradient id={id('g2')} x1="50%" y1="0%" x2="50%" y2="100%">
+        <stop offset="0%" stop-color={s2[0]} stop-opacity={op.a * 0.7} />
+        <stop offset="60%" stop-color={s2[1]} stop-opacity={op.b * 0.55} />
+        <stop offset="100%" stop-color={s2[2]} stop-opacity={op.c * 0.4} />
+      </linearGradient>
+      <linearGradient id={id('g3')} x1="90%" y1="0%" x2="10%" y2="100%">
+        <stop offset="0%" stop-color={s3[0]} stop-opacity={op.a} />
+        <stop offset="50%" stop-color={s3[1]} stop-opacity={op.b} />
+        <stop offset="100%" stop-color={s3[2]} stop-opacity={op.c} />
+      </linearGradient>
+      <linearGradient id={id('g7')} x1="0%" y1="30%" x2="100%" y2="70%">
+        <stop offset="0%" stop-color={s7[2]} stop-opacity={op.b} />
+        <stop offset="40%" stop-color={s7[0]} stop-opacity={op.a} />
+        <stop offset="100%" stop-color={s7[1]} stop-opacity={op.b} />
+      </linearGradient>
+      <linearGradient id={id('g4')} x1="0%" y1="100%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color={s4[2]} stop-opacity={op.c} />
+        <stop offset="45%" stop-color={s4[1]} stop-opacity={op.b} />
+        <stop offset="100%" stop-color={s4[0]} stop-opacity={op.a} />
+      </linearGradient>
+      <linearGradient id={id('g5')} x1="50%" y1="0%" x2="50%" y2="100%">
+        <stop offset="0%" stop-color={s5[0]} stop-opacity={op.b * 0.7} />
+        <stop offset="100%" stop-color={s5[2]} stop-opacity={op.a} />
+      </linearGradient>
+      <linearGradient id={id('g6')} x1="100%" y1="100%" x2="0%" y2="0%">
+        <stop offset="0%" stop-color={s6[2]} stop-opacity={op.c} />
+        <stop offset="45%" stop-color={s6[1]} stop-opacity={op.b} />
+        <stop offset="100%" stop-color={s6[0]} stop-opacity={op.a} />
+      </linearGradient>
+      <radialGradient id={id('core')} cx="48%" cy="45%" r="32%">
+        <stop offset="0%" stop-color="#ffffff" stop-opacity={v === 'light' ? 0.7 : 0.42} />
+        <stop offset="50%" stop-color="#fff4d8" stop-opacity={v === 'light' ? 0.2 : 0.12} />
+        <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+      </radialGradient>
+      <radialGradient id={id('apex')} cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#ffffff" stop-opacity="1" />
+        <stop offset="35%" stop-color="#ffe8c8" stop-opacity="0.65" />
+        <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+      </radialGradient>
+    </defs>
+
+    <g class="meish-d__facets">
+      <polygon points="58,160 142,160 100,310" fill={`url(#${id('g5')})`} />
+      <polygon points="100,10 100,100 142,160 58,160" fill={`url(#${id('g2')})`} />
+      <polygon points="100,10 18,160 58,160 100,100" fill={`url(#${id('g1')})`} />
+      <polygon points="100,10 182,160 142,160 100,100" fill={`url(#${id('g3')})`} />
+      <polygon points="100,100 142,160 100,220 58,160" fill={`url(#${id('g7')})`} opacity={v === 'dark' || v === 'nav' ? 0.72 : 1} />
+      <polygon points="18,160 58,160 100,220 100,310" fill={`url(#${id('g4')})`} />
+      <polygon points="182,160 142,160 100,220 100,310" fill={`url(#${id('g6')})`} />
+    </g>
+
+    <ellipse cx="100" cy="158" rx="26" ry="34" fill={`url(#${id('core')})`} />
+
+    <!-- Four-point apex star (board) -->
+    <g opacity={v === 'transparent' ? 0.75 : 1}>
+      <ellipse cx="100" cy="10" rx="14" ry="14" fill={`url(#${id('apex')})`} />
+      <path
+        d="M100 2 L102.1 8.2 L109 8.5 L103.5 12.2 L105.5 19 L100 15.2 L94.5 19 L96.5 12.2 L91 8.5 L97.9 8.2 Z"
+        fill="#ffffff"
+        opacity={v === 'light' ? 0.55 : 0.9}
+      />
+    </g>
+
+    <polyline
+      points="100,10 182,160 100,310 18,160 100,10"
+      stroke={edge}
+      stroke-width={v === 'nav' ? 1.9 : 1.25}
+      fill="none"
+      opacity="0.95"
+    />
+    <polygon
+      points="100,100 142,160 100,220 58,160"
+      stroke={v === 'light' ? edgeInner : 'rgba(200,240,255,0.55)'}
+      stroke-width="0.8"
+      fill="none"
+      opacity="0.95"
+    />
+    <line x1="100" y1="10" x2="100" y2="100" stroke={edgeInner} stroke-width="0.55" opacity="0.55" />
+    <line x1="100" y1="220" x2="100" y2="310" stroke={edgeInner} stroke-width="0.5" opacity="0.45" />
+    <!-- luminous edge accents -->
+    <polyline
+      points="100,10 18,160"
+      stroke={v === 'light' ? 'rgba(180,160,220,0.35)' : 'rgba(200,160,255,0.45)'}
+      stroke-width="0.7"
+      fill="none"
+    />
+    <polyline
+      points="100,10 182,160"
+      stroke={v === 'light' ? 'rgba(240,180,100,0.4)' : 'rgba(255,200,120,0.5)'}
+      stroke-width="0.7"
+      fill="none"
+    />
+    <polyline
+      points="18,160 100,310"
+      stroke={v === 'light' ? 'rgba(80,180,180,0.4)' : 'rgba(100,240,230,0.45)'}
+      stroke-width="0.7"
+      fill="none"
+    />
+    <polyline
+      points="182,160 100,310"
+      stroke={v === 'light' ? 'rgba(200,100,160,0.35)' : 'rgba(255,120,180,0.45)'}
+      stroke-width="0.7"
+      fill="none"
+    />
+  </svg>
+</div>
+
+<style>
+  .meish-d {
+    display: block;
+    width: var(--md-size, 100%);
+    max-width: 100%;
+    line-height: 0;
+  }
+  .meish-d__svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    overflow: visible;
+  }
+  .meish-d--transparent {
+    filter: contrast(1.04) saturate(1.1);
+  }
+</style>

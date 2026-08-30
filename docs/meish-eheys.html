@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8" />
+  <title>Meish Eheys — prosessi</title>
+  <style>
+    @page { size: A4; margin: 22mm 20mm 22mm 20mm; }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      background: #FFFBF5;
+      color: #020C59;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 11.5pt;
+      line-height: 1.45;
+    }
+    h1 {
+      font-size: 22pt;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0 0 0.2em;
+      line-height: 1.1;
+    }
+    .kicker {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 8.5pt;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #695EDB;
+      margin: 0 0 0.6em;
+    }
+    .lead {
+      font-style: italic;
+      font-size: 12.5pt;
+      margin: 0 0 1.4em;
+      max-width: 38em;
+    }
+    h2 {
+      font-size: 13pt;
+      margin: 1.35em 0 0.4em;
+    }
+    h3 {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 9.5pt;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin: 1em 0 0.25em;
+      color: #2a3568;
+    }
+    p, li { max-width: 42em; }
+    p { margin: 0 0 0.7em; }
+    ol { padding-left: 1.25em; margin: 0.3em 0 0.8em; }
+    li { margin: 0.35em 0; }
+    .rule {
+      border: 0;
+      border-top: 1px solid #FBD79F;
+      width: 5.5rem;
+      margin: 0 0 1.2em;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 9.5pt;
+      margin: 0.4em 0 1em;
+    }
+    th, td {
+      text-align: left;
+      vertical-align: top;
+      padding: 0.45em 0.55em 0.45em 0;
+      border-bottom: 1px solid rgba(2, 12, 89, 0.12);
+    }
+    th { color: #5a6294; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; font-size: 8pt; }
+    .foot {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 8.5pt;
+      color: #5a6294;
+      margin-top: 1.8em;
+    }
+  </style>
+</head>
+<body>
+  <p class="kicker">Meish · suunnitteluprosessi</p>
+  <h1>Meish Eheys</h1>
+  <hr class="rule" />
+  <p class="lead">Näin sivuista tehdään fiksut, eheät, toimivat ja loogiset — ilman että visuaali ja käyttö irtoavat toisistaan.</p>
+
+  <p>Sanallinen muoto, jota voi käyttää ääneen ja asiakkaalle:</p>
+  <p><strong>Meish Eheys</strong> on tapa suunnitella ohjelmisto niin, että ihminen ymmärtää missä on, mitä voi tehdä ja mitä tapahtuu seuraavaksi — ja visuaali kantaa saman tiedon.</p>
+  <p>Se yhdistää käyttäjäystävällisyyden ja innovatiivisen ohjelmistosuunnittelun. Innovaatio ei ole uusi temppu. Se on se, että oikea toiminto on oikeassa paikassa ja tuntuu luontevalta.</p>
+
+  <h2>Mitä referenssistä otetaan</h2>
+  <p>Kuva ei ole kopioitava sivu. Se on ohje. Siitä irrotetaan osat:</p>
+  <table>
+    <tr><th>Osa</th><th>Mitä se on</th><th>Mitä ei kopioida</th></tr>
+    <tr><td>Rakenne</td><td>Vasen identiteetti, keskeinen timantti, radat, oikea tuki</td><td>Vanhat nimet kuten Review / Improve</td></tr>
+    <tr><td>Kieli</td><td>Serif otsikolle, sans nimikkeille, tilaa tekstin ympärillä</td><td>Kuvan fonttitiedosto, jos sitä ei ole</td></tr>
+    <tr><td>Esineet</td><td>Timantti, radat, solmut — vektorina, riittävällä tarkkuudella</td><td>Valokuva timantista taustoineen</td></tr>
+    <tr><td>Toiminta</td><td>Klikattava kohde on sekä näkymä että reitti</td><td>Koriste joka ei vie minnekään</td></tr>
+    <tr><td>Tila</td><td>Kaikki elää samassa tähtisumussa</td><td>Erillinen SaaS-korttiruutu sumun alla</td></tr>
+  </table>
+
+  <h2>Kuuden askeleen prosessi</h2>
+  <ol>
+    <li><strong>Irrota osat.</strong> Katso referenssiä kuin karttaa: mikä on paikka, mikä on esine, mikä on teko. Älä liitä kuvaa sivulle.</li>
+    <li><strong>Toisinna nykyiseen kaanoniin.</strong> Sama rakenne, nykyiset nimet ja reitit. Variaatio on sallittu. Väärä taksonomia ei.</li>
+    <li><strong>Upota klikkaus.</strong> Kohde näyttää minne se vie jo ennen klikkausta. Se on linkki, ei pelkkä kuva. Näppäimistö ja ruudunlukija pääsevät samaan paikkaan.</li>
+    <li><strong>Pidä yksi tila.</strong> Identiteetti, timantti, radat ja tuki elävät tähtisumun sisällä. Älä pudota käyttäjää toiseen maailmaan kesken ensimmäisen ruudun.</li>
+    <li><strong>Tarkista eheys.</strong> Käy lista läpi ennen kuin näytät sivun. Jos yksi kohta pettää, korjaa se. Älä selitä puutetta.</li>
+    <li><strong>Koe sisältä.</strong> Avaa sivu. Klikkaa. Tabulaattorilla eteen. Pienennä ruutu. Kysy miltä se tuntuu, ei vain miltä se näyttää.</li>
+  </ol>
+
+  <h2>Eheystarkistus — ennen kuin sivu näytetään</h2>
+  <table>
+    <tr><th></th><th>Kysymys</th><th>Hylkäys</th></tr>
+    <tr><td>1</td><td>Tietääkö ihminen heti missä on?</td><td>Pelkkä koriste, ei paikkaa</td></tr>
+    <tr><td>2</td><td>Onko yksi selkeä seuraava teko?</td><td>Viisi samanlaista korttia kilpailee</td></tr>
+    <tr><td>3</td><td>Vievätkö klikattavat kohteet oikeisiin, olemassa oleviin reitteihin?</td><td>Katkennut linkki tai keksitty alue</td></tr>
+    <tr><td>4</td><td>Toimiiko sivu ilman liikettä ja hiirtä?</td><td>Tieto vain hoverissa tai animaatiossa</td></tr>
+    <tr><td>5</td><td>Pysyykö merkitys samana puhelimessa?</td><td>Työpöytä puristettuna kapeaan pylvääseen</td></tr>
+    <tr><td>6</td><td>Onko lupaus, hinta ja reitti rehellisiä?</td><td>Väärä tuotenimi tai piilotettu hinta</td></tr>
+    <tr><td>7</td><td>Onko ratkaisu tarpeeseen nähden oikean kokoinen?</td><td>Teknologia teknologian vuoksi</td></tr>
+  </table>
+
+  <h2>Nykyiset standardit, lyhyesti</h2>
+  <p>Sivu on fiksusti tehty, kun se täyttää nämä ilman erillistä “saavutettavuusprojektia”:</p>
+  <ul>
+    <li>Oikeat HTML-linkit ja otsikkohierarkia, ei pelkkiä klikattavia div-elementtejä.</li>
+    <li>Näkyvä kohdistus, riittävä kontrasti, pause-valinta liikkeelle.</li>
+    <li>Teksti ei katkea merkillisiin riveihin. Painikkeet ovat tarpeeksi suuria sormelle.</li>
+    <li>Sivu toimii ilman uutta kirjastoa, jos olemassa oleva riittää.</li>
+  </ul>
+
+  <h2>Miten tästä puhutaan</h2>
+  <p>Lyhyt versio:</p>
+  <p>“Me otamme referenssistä osat, toisinnetaan ne Meishin nykyisiin reitteihin ja upotetaan teot tähtisumun sisään. Sitten tarkistetaan, että sivu on ehea käyttää — ei vain kaunis katsoa.”</p>
+  <p>Vielä lyhyempi:</p>
+  <p><strong>Osat. Toisinnot. Upotus. Eheystarkistus.</strong></p>
+
+  <p class="foot">Meish · 27.8.2026 · Työväline sivuston ja työkalujen suunnitteluun. Ei korvaa tuotteen kaanonia.</p>
+</body>
+</html>

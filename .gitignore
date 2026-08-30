@@ -27,3 +27,5 @@ secrets/
 # macOS / editor
 .DS_Store
 *.log
+.vercel
+.env*

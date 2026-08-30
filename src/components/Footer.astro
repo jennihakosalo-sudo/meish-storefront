@@ -9,6 +9,12 @@ import {
 } from '../data/hatchling-nav';
 import { meishMailto } from '../lib/meish-mailto';
 
+interface Props {
+  universeHome?: boolean;
+}
+
+const { universeHome = false } = Astro.props;
+
 const year = 2026;
 const footerMail = meishMailto({
   product: 'Contact',
@@ -18,7 +24,7 @@ const footerMail = meishMailto({
 });
 ---
 
-<footer class="site-footer">
+<footer class:list={['site-footer', universeHome && 'site-footer--universe']}>
   <div class="container container--wide grid">
     <div>
       <p class="wordmark">Meish</p>
@@ -60,6 +66,24 @@ const footerMail = meishMailto({
     background: var(--bg-alt);
     border-top: var(--border-hair);
     padding-block: var(--space-2xl) var(--space-xl);
+  }
+  .site-footer--universe {
+    margin-top: 0;
+    background: #0b1020;
+    border-top: 1px solid rgba(234, 246, 255, 0.12);
+    color: #eaf6ff;
+  }
+  .site-footer--universe .wordmark,
+  .site-footer--universe .col-title,
+  .site-footer--universe a {
+    color: #eaf6ff;
+  }
+  .site-footer--universe .blurb,
+  .site-footer--universe .baseline {
+    color: #6f87a8;
+  }
+  .site-footer--universe a:hover {
+    color: #00c3d6;
   }
   .grid {
     display: grid;

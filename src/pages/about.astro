@@ -1,22 +1,22 @@
 ---
 import Base from '../layouts/Base.astro';
+import DoorUniverseBand from '../components/DoorUniverseBand.astro';
 import { contactMeishHref, contactMeishLabel, fitCallHref, fitCallLabel } from '../data/hatchling-nav';
 ---
 
 <Base
-  title="About Meish"
-  description="Meish specialises in human experience — understanding it, reviewing it and making it better. North Star: human experience. We work in English and Finnish."
+  title="About Meish — human experience & useful tools"
+  description="Meish specialises in human experience — understanding it, reviewing it and making it better. Human-centered tools when the right ones do not exist yet. English and Finnish."
 >
-  <section class="section container door-page">
-    <p class="eyebrow">About</p>
-    <h1>About Meish</h1>
-    <p class="lead">
-      Meish specialises in human experience — understanding it, reviewing it and making it
-      better. We build the tools when the right ones do not exist yet. Technology is not the
-      goal; it should create more room for meaningful work and life.
-    </p>
-    <p class="langs">We work in English and Finnish. · Palvelemme myös suomeksi.</p>
+  <DoorUniverseBand
+    eyebrow="About"
+    title="About Meish"
+    lead="We specialise in human experience — understanding it, reviewing it and making it better. Technology should create more room for meaningful work and life."
+  >
+    <p class="door-band-langs">We work in English and Finnish. · Palvelemme myös suomeksi.</p>
+  </DoorUniverseBand>
 
+  <section class="section container door-body">
     <h2>What Meish offers now</h2>
     <ul>
       <li>
@@ -32,7 +32,7 @@ import { contactMeishHref, contactMeishLabel, fitCallHref, fitCallLabel } from '
         already exists.
       </li>
       <li>
-        <a href="/gifts"><strong>Gifts for You</strong></a> — free, useful starters.
+        <a href="/gifts"><strong>Gifts for You</strong></a> — free PDF starters.
       </li>
     </ul>
 
@@ -53,10 +53,23 @@ import { contactMeishHref, contactMeishLabel, fitCallHref, fitCallLabel } from '
 </Base>
 
 <style>
-  .langs {
-    margin: var(--space-sm) 0 var(--space-lg);
-    font-size: var(--text-sm);
-    color: var(--text-muted);
+  .door-band-langs {
+    margin: 0.75rem auto 0;
+    font-size: 0.78rem;
+    color: #6f87a8;
+    max-width: none;
+  }
+  .door-body {
+    padding-top: var(--space-xl);
+  }
+  .door-body h2 {
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-sm);
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+  }
+  .door-body h2:first-child {
+    margin-top: 0;
   }
   .actions {
     display: flex;

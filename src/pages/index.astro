@@ -16,44 +16,70 @@ const mapMail = meishMailto({
   cta: 'Ask about Possibility Map',
 });
 
-const betterMail = meishMailto({
-  product: 'What to make better',
+const shouldMeishMail = meishMailto({
+  product: 'Should we Meish this',
   page: 'Homepage',
-  section: 'Self-selection',
-  cta: 'Write to Meish',
+  section: 'CTA',
+  cta: 'Should we Meish this',
 });
 ---
 
 <Base
   title="Meish — human experience is our North Star"
-  description="Meish makes work, services and experiences better for the humans inside them. Possibility Map €590 + VAT. We work in English and Finnish."
+  description="Meish notices what is happening in human experience — then makes useful tools, maps and changes. Possibility Map €590 + VAT. Fit Check free. English and Finnish."
   universeHome={true}
 >
   <MeishUniverseScene />
 
-  <section class="home-body section" aria-label="About Meish">
-    <div class="container home-body__grid">
-      <div>
-        <h2>What is Meish?</h2>
-        <p>
-          Meish works with human experience — customer experience, employee experience, friction
-          removal, practical tools, AI-assisted systems, and custom concepts when the right ones do
-          not exist yet.
-        </p>
-        <p>
-          We do not begin by asking “Where can we put AI?” We begin by asking
-          <strong> what should become better here?</strong>
-        </p>
-      </div>
+  <section class="home-body section" aria-label="What Meish does">
+    <div class="container">
+      <h2>What does Meish do?</h2>
+      <p class="home-lead">
+        We notice things. Then we make useful things out of what we notice.
+      </p>
+      <ul class="do-list">
+        <li>
+          <strong>Notice</strong>
+          Find what is easy to miss from inside a business, service or situation.
+        </li>
+        <li>
+          <strong>Understand</strong>
+          Make human experience, friction, expectations and possibilities visible.
+        </li>
+        <li>
+          <strong>Make</strong>
+          Turn interviews and observations into tools, maps, content and practical solutions.
+        </li>
+        <li>
+          <strong>Test</strong>
+          Try small ideas before they become large projects.
+        </li>
+        <li>
+          <strong>Use AI where it helps</strong>
+          Find useful AI opportunities — not AI for its own sake.
+        </li>
+      </ul>
+      <p class="home-note">
+        More about how we work: <a href="/about">About Meish</a>.
+      </p>
+    </div>
+  </section>
 
-      <div>
-        <h2>Creating &amp; clearing</h2>
-        <p>
-          <em>Create what deserves to exist. Clear what doesn’t.</em> Meish may create, remove,
-          simplify, automate, connect, make visible — or leave something alone. The first
-          conversation helps decide how actively we should participate.
-        </p>
-      </div>
+  <section class="home-body section" aria-label="What you can get">
+    <div class="container">
+      <h2>What can you get from Meish?</h2>
+      <ul class="get-list">
+        <li>A fresh pair of eyes</li>
+        <li>A clearer picture</li>
+        <li>A small useful tool</li>
+        <li>A custom tool from your knowledge</li>
+        <li>A human experience review</li>
+        <li>An AI possibility map</li>
+        <li>Something we have not made yet</li>
+      </ul>
+      <p class="home-note">
+        A Meish strength: interview → understand → a sellable or usable product.
+      </p>
     </div>
   </section>
 
@@ -62,64 +88,67 @@ const betterMail = meishMailto({
       <h2>Where would you like to begin?</h2>
       <div class="door-row">
         <a class="door-card" href="/for-business">
-          <strong>Meish for Your Business</strong>
-          <span>Clear offers for founders and teams — including Possibility Map.</span>
+          <strong>For Your Business</strong>
+          <span>Outside view, friction, AI where it helps, tools from your expertise.</span>
         </a>
         <a class="door-card" href="/for-you">
-          <strong>Meish for You</strong>
-          <span>Personal clarity, decisions, and everyday ease.</span>
+          <strong>For You</strong>
+          <span>Useful things for being a human — decisions, transitions, everyday ease.</span>
         </a>
         <a class="door-card" href="/tools">
-          <strong>Meish Tools</strong>
-          <span>Focused instruments when you need one honest next step.</span>
+          <strong>Tools</strong>
+          <span>Things you can use — including without us.</span>
         </a>
         <a class="door-card" href="/gifts">
           <strong>Gifts for You</strong>
-          <span>Free, useful starters — not a generic lead funnel.</span>
+          <span>Take something useful with you. Free. No signup.</span>
         </a>
       </div>
     </div>
   </section>
 
-  <section class="home-body section" aria-label="Public offers">
+  <section class="home-body section" aria-label="Paid example" id="possibility-map-example">
     <div class="container offer-strip">
-      <h2>What you can get</h2>
+      <h2>One concrete example</h2>
       <article class="offer-strip__card">
-        <p class="eyebrow">See what’s possible</p>
+        <p class="eyebrow">For Your Business · paid</p>
         <h3>Possibility Map</h3>
+        <p class="offer-meta">Gamma Test Phase · <strong>€590 + VAT</strong> (regular €950 + VAT)</p>
         <p>
-          Three concrete routes, one recommendation, 30-day actions.
-          <strong> €590 + VAT 25.5%</strong> · Gamma Test Phase
-          (regular €950 + VAT 25.5%).
+          You bring the situation. We map what could be possible — three routes, one recommendation,
+          30-day actions. Delivered within five business days of the interview.
         </p>
+        <ul class="offer-includes">
+          <li>60-minute interview</li>
+          <li>Visible Possibility Map + three progression options</li>
+          <li>Recommendation + next 30 days</li>
+          <li>AI review where it creates edge or saves time</li>
+          <li>30-minute results walkthrough</li>
+        </ul>
         <p class="actions">
           <a class="button button--primary" href={mapMail}>Ask about Possibility Map</a>
-          <a class="button button--ghost" href="/for-business#possibility-map">See all business offers</a>
+          <a class="button button--ghost" href="/for-business#possibility-map">Full business offers</a>
         </p>
       </article>
       <p class="offer-strip__note">
-        Not sure which one? <a href={fitCallHref}>{fitCallLabel}</a> — free, 20 minutes.
+        Not sure if Meish fits?
+        <a href={fitCallHref}>{fitCallLabel}</a>
+        — free. Meish &amp; you / Meish &amp; your business. Not a health check.
       </p>
     </div>
   </section>
 
-  <section class="home-body section home-body--better" aria-label="What to make better">
+  <section class="home-body section home-body--better" aria-label="Start">
     <div class="container">
-      <h2>What would you like to make better?</h2>
+      <h2>Should we Meish this?</h2>
       <p class="lead">
-        Mark what matters and write to us. No questionnaire required —
-        <a href={betterMail}>open a prefilled email</a>.
+        You can come with the situation. You do not have to come with the answer.
       </p>
-      <ul class="better-list">
-        <li>Fewer tasks I dislike</li>
-        <li>More time with my family</li>
-        <li>More peace in my workday</li>
-        <li>Help using AI</li>
-        <li>Better customer experience</li>
-        <li>How my business works</li>
-      </ul>
       <p class="actions">
-        <a class="button button--primary" href={contactMeishHref}>{contactMeishLabel}</a>
+        <a class="button button--primary" href={shouldMeishMail}>Should we Meish this?</a>
+        <a class="button button--ghost" href={fitCallHref}>{fitCallLabel}</a>
+        <a class="button button--ghost" href={contactMeishHref}>{contactMeishLabel}</a>
+        <a class="button button--ghost" href="/gifts">Take a free gift</a>
       </p>
     </div>
   </section>
@@ -130,19 +159,47 @@ const betterMail = meishMailto({
     background: #fffbf5;
     color: #020c59;
   }
-  .home-body__grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-2xl);
-  }
   .home-body h2 {
     font-family: var(--font-display);
     font-size: var(--text-xl);
     margin-bottom: var(--space-sm);
   }
-  .home-body p {
+  .home-lead,
+  .lead {
     color: var(--text-soft);
     max-width: 48ch;
+    font-size: var(--text-md);
+    margin-bottom: var(--space-md);
+  }
+  .home-note,
+  .offer-strip__note {
+    margin-top: var(--space-md);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    max-width: 52ch;
+  }
+  .do-list,
+  .get-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-sm);
+    max-width: 52ch;
+  }
+  .do-list li,
+  .get-list li {
+    color: var(--text-soft);
+  }
+  .do-list strong {
+    display: block;
+    font-family: var(--font-display);
+    color: var(--color-navy);
+    margin-bottom: 0.15rem;
+  }
+  .get-list {
+    columns: 2;
+    max-width: 40rem;
   }
   .door-row {
     display: grid;
@@ -180,18 +237,18 @@ const betterMail = meishMailto({
   .offer-strip__card h3 {
     font-family: var(--font-display);
     font-size: var(--text-lg);
-    margin-bottom: var(--space-sm);
+    margin-bottom: var(--space-xs);
   }
-  .offer-strip__note {
-    margin-top: var(--space-md);
+  .offer-meta {
     font-size: var(--text-sm);
     color: var(--text-muted);
+    margin-bottom: var(--space-sm);
   }
-  .better-list {
-    columns: 2;
-    max-width: 40rem;
-    margin: var(--space-md) 0 var(--space-lg);
+  .offer-includes {
+    margin: var(--space-sm) 0 var(--space-md);
+    padding-left: 1.2rem;
     color: var(--text-soft);
+    max-width: 48ch;
   }
   .actions {
     display: flex;
@@ -199,11 +256,9 @@ const betterMail = meishMailto({
     gap: var(--space-sm);
   }
   @media (max-width: 900px) {
-    .home-body__grid,
-    .door-row {
+    .door-row,
+    .get-list {
       grid-template-columns: 1fr;
-    }
-    .better-list {
       columns: 1;
     }
   }

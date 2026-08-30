@@ -1,0 +1,74 @@
+---
+/** @deprecated Prefer MeishDiamond.astro (7-facet board system). Unused on live pages. */
+/** Pearlescent Meish diamond — vector facets, paler nacre. Not a photograph. */
+interface Props {
+  uid?: string;
+}
+const { uid = 'pearl' } = Astro.props;
+const p = (name: string) => `${name}-${uid}`;
+---
+
+<div class="pearl" aria-hidden="true">
+  <svg class="pearl__svg" viewBox="0 0 400 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id={p('nacre-tl')} x1="20%" y1="0%" x2="80%" y2="100%">
+        <stop offset="0%" stop-color="#F7FBFF" />
+        <stop offset="45%" stop-color="#D9E8F4" />
+        <stop offset="100%" stop-color="#C5B8E8" />
+      </linearGradient>
+      <linearGradient id={p('nacre-tr')} x1="80%" y1="0%" x2="20%" y2="100%">
+        <stop offset="0%" stop-color="#FFF9F2" />
+        <stop offset="40%" stop-color="#E8D4F0" />
+        <stop offset="100%" stop-color="#B7D6E8" />
+      </linearGradient>
+      <linearGradient id={p('nacre-bl')} x1="0%" y1="100%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#F8D7C8" />
+        <stop offset="55%" stop-color="#F3E4C0" />
+        <stop offset="100%" stop-color="#E9C4B8" />
+      </linearGradient>
+      <linearGradient id={p('nacre-br')} x1="100%" y1="100%" x2="0%" y2="0%">
+        <stop offset="0%" stop-color="#E8B4A4" />
+        <stop offset="50%" stop-color="#F6D9A8" />
+        <stop offset="100%" stop-color="#F3EDE0" />
+      </linearGradient>
+      <linearGradient id={p('nacre-mid-l')} x1="0%" y1="50%" x2="100%" y2="50%">
+        <stop offset="0%" stop-color="#D6EFEA" />
+        <stop offset="100%" stop-color="#F4EEFF" />
+      </linearGradient>
+      <linearGradient id={p('nacre-mid-r')} x1="100%" y1="40%" x2="0%" y2="80%">
+        <stop offset="0%" stop-color="#FDE8D2" />
+        <stop offset="100%" stop-color="#D2E4F6" />
+      </linearGradient>
+      <radialGradient id={p('core')} cx="50%" cy="46%" r="28%">
+        <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95" />
+        <stop offset="35%" stop-color="#F4FBFF" stop-opacity="0.55" />
+        <stop offset="100%" stop-color="#E4D7F4" stop-opacity="0" />
+      </radialGradient>
+      <linearGradient id={p('edge')} x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#FFF8EC" />
+        <stop offset="50%" stop-color="#FBD79F" />
+        <stop offset="100%" stop-color="#F4E6C8" />
+      </linearGradient>
+    </defs>
+
+    <polygon points="200,18 88,168 200,248" fill={`url(#${p('nacre-tl')})`} />
+    <polygon points="200,18 312,168 200,248" fill={`url(#${p('nacre-tr')})`} />
+    <polygon points="88,168 200,248 88,312" fill={`url(#${p('nacre-mid-l')})`} />
+    <polygon points="312,168 200,248 312,312" fill={`url(#${p('nacre-mid-r')})`} />
+    <polygon points="88,312 200,248 200,502" fill={`url(#${p('nacre-bl')})`} />
+    <polygon points="312,312 200,248 200,502" fill={`url(#${p('nacre-br')})`} />
+    <polygon points="88,168 88,312 200,248" fill="#EEF6F8" opacity="0.35" />
+    <polygon points="312,168 312,312 200,248" fill="#F7EFE4" opacity="0.28" />
+    <ellipse cx="200" cy="248" rx="42" ry="52" fill={`url(#${p('core')})`} />
+
+    <polyline points="200,18 312,168 200,502 88,168 200,18" stroke={`url(#${p('edge')})`} stroke-width="1.4" fill="none" />
+    <polyline points="88,168 200,248 312,168" stroke="rgba(255,248,236,0.7)" stroke-width="0.8" fill="none" />
+    <polyline points="88,312 200,248 312,312" stroke="rgba(251,215,159,0.45)" stroke-width="0.7" fill="none" />
+    <line x1="200" y1="18" x2="200" y2="502" stroke="rgba(255,255,255,0.35)" stroke-width="0.6" />
+  </svg>
+</div>
+
+<style>
+  .pearl { position: relative; }
+  .pearl__svg { width: 100%; height: auto; display: block; }
+</style>

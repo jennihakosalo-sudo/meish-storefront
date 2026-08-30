@@ -1,36 +1,12 @@
 ---
 /**
- * Meish Universe homepage — full-viewport astronomical atlas composition.
- * Diamonds: ONLY public/brand/meish-diamond-universe.jpg (Brand Kit lock).
- * No new geometry. No SaaS hero CTAs.
+ * Meish Universe homepage — Intensive Brand Guide style.
+ * Diamonds: ONLY public/brand/meish-diamond-intensive.png
+ * Always upright (no tilt). Deep Space field + mineral palette.
  */
 import { contactMeishHref, contactMeishLabel } from '../data/hatchling-nav';
 
-const diamondSrc = '/brand/meish-diamond-universe.jpg';
-
-/** Many small repetitions of the approved diamond at different depths. */
-const dust = [
-  { x: '6%', y: '12%', z: '-520px', s: '0.22', rz: '-18deg', o: '0.28' },
-  { x: '14%', y: '22%', z: '-400px', s: '0.3', rz: '12deg', o: '0.34' },
-  { x: '22%', y: '8%', z: '-560px', s: '0.18', rz: '-8deg', o: '0.24' },
-  { x: '31%', y: '78%', z: '-380px', s: '0.26', rz: '22deg', o: '0.3' },
-  { x: '8%', y: '62%', z: '-480px', s: '0.24', rz: '-32deg', o: '0.26' },
-  { x: '18%', y: '48%', z: '-340px', s: '0.2', rz: '16deg', o: '0.22' },
-  { x: '38%', y: '14%', z: '-500px', s: '0.16', rz: '-24deg', o: '0.2' },
-  { x: '44%', y: '86%', z: '-420px', s: '0.28', rz: '10deg', o: '0.32' },
-  { x: '52%', y: '6%', z: '-540px', s: '0.2', rz: '-14deg', o: '0.26' },
-  { x: '58%', y: '72%', z: '-360px', s: '0.22', rz: '28deg', o: '0.28' },
-  { x: '68%', y: '18%', z: '-460px', s: '0.26', rz: '-20deg', o: '0.3' },
-  { x: '74%', y: '58%', z: '-320px', s: '0.18', rz: '8deg', o: '0.24' },
-  { x: '82%', y: '10%', z: '-500px', s: '0.24', rz: '18deg', o: '0.28' },
-  { x: '88%', y: '38%', z: '-440px', s: '0.3', rz: '-12deg', o: '0.34' },
-  { x: '92%', y: '68%', z: '-380px', s: '0.22', rz: '24deg', o: '0.26' },
-  { x: '78%', y: '84%', z: '-480px', s: '0.2', rz: '-28deg', o: '0.24' },
-  { x: '64%', y: '42%', z: '-560px', s: '0.14', rz: '6deg', o: '0.18' },
-  { x: '26%', y: '34%', z: '-580px', s: '0.15', rz: '-16deg', o: '0.18' },
-  { x: '48%', y: '52%', z: '-600px', s: '0.12', rz: '20deg', o: '0.16' },
-  { x: '12%', y: '88%', z: '-360px', s: '0.26', rz: '-10deg', o: '0.3' },
-];
+const diamondSrc = '/brand/meish-diamond-intensive-720.png';
 
 const destinations = [
   {
@@ -41,9 +17,6 @@ const destinations = [
     y: '30%',
     mx: '18%',
     my: '16%',
-    z: '-60px',
-    s: '0.58',
-    rz: '-14deg',
   },
   {
     href: '/for-you',
@@ -53,9 +26,6 @@ const destinations = [
     y: '26%',
     mx: '82%',
     my: '14%',
-    z: '-120px',
-    s: '0.5',
-    rz: '16deg',
   },
   {
     href: '/tools',
@@ -65,9 +35,6 @@ const destinations = [
     y: '72%',
     mx: '80%',
     my: '78%',
-    z: '-40px',
-    s: '0.52',
-    rz: '-12deg',
   },
   {
     href: '/gifts',
@@ -77,51 +44,34 @@ const destinations = [
     y: '74%',
     mx: '20%',
     my: '84%',
-    z: '-160px',
-    s: '0.48',
-    rz: '20deg',
   },
 ];
 ---
 
 <section class="home" aria-label="Meish Universe">
   <div class="sky" aria-hidden="true">
+    <div class="gas gas--amethyst"></div>
+    <div class="gas gas--fluorite"></div>
     <div class="gas gas--gold"></div>
-    <div class="gas gas--lavender"></div>
-    <div class="gas gas--navy"></div>
-    <div class="gas gas--core"></div>
+    <div class="gas gas--coral"></div>
     <div class="stars"></div>
-    <svg class="chart" viewBox="0 0 100 100" preserveAspectRatio="none">
-      <ellipse cx="50" cy="46" rx="22" ry="17" />
-      <ellipse cx="50" cy="46" rx="34" ry="26" />
-      <ellipse cx="50" cy="46" rx="46" ry="36" />
-      <line x1="50" y1="4" x2="50" y2="92" />
-      <line x1="6" y1="46" x2="94" y2="46" />
-      <line x1="18" y1="14" x2="82" y2="78" />
-      <line x1="82" y1="14" x2="18" y2="78" />
-      <circle cx="50" cy="46" r="1.1" fill="rgba(2,12,89,0.2)" stroke="none" />
+    <svg class="orbits" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+      <ellipse cx="50" cy="42" rx="18" ry="14" />
+      <ellipse cx="50" cy="42" rx="28" ry="21" />
+      <ellipse cx="50" cy="42" rx="38" ry="29" />
     </svg>
   </div>
 
   <div class="depth">
-    {dust.map((g) => (
-      <span
-        class="gem gem--dust"
-        style={`--x:${g.x};--y:${g.y};--z:${g.z};--s:${g.s};--rz:${g.rz};--o:${g.o}`}
-      >
-        <img class="gem__face" src={diamondSrc} alt="" width="360" height="540" />
-      </span>
-    ))}
-
     <nav class="orbit" aria-label="Universe destinations">
       {destinations.map((d) => (
         <a
           class="gem gem--hit"
           href={d.href}
-          style={`--x:${d.x};--y:${d.y};--mx:${d.mx};--my:${d.my};--z:${d.z};--s:${d.s};--rz:${d.rz}`}
+          style={`--x:${d.x};--y:${d.y};--mx:${d.mx};--my:${d.my}`}
           aria-label={`${d.name}. ${d.hint}. Opens ${d.href}.`}
         >
-          <img class="gem__face" src={diamondSrc} alt="" width="360" height="540" />
+          <img class="gem__face" src={diamondSrc} alt="" width="434" height="720" loading="lazy" decoding="async" />
           <span class="gem__label">
             <strong>{d.name}</strong>
           </span>
@@ -129,26 +79,31 @@ const destinations = [
       ))}
     </nav>
 
-    <div class="hero" style="--z:32px">
-      <img
-        class="hero__diamond"
-        src={diamondSrc}
-        alt=""
-        width="360"
-        height="540"
-      />
-      <p class="hero__name">Meish</p>
+    <div class="hero">
+      <div class="hero__crystal" aria-hidden="true">
+        <img
+          class="hero__diamond"
+          src={diamondSrc}
+          alt=""
+          width="434"
+          height="720"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </div>
+      <h1 class="hero__name">Meish</h1>
       <span class="hero__rule" aria-hidden="true"></span>
       <p class="hero__realm">Universe</p>
       <p class="hero__north">Human experience is our North Star.</p>
       <p class="hero__langs">We work in English and Finnish. · Palvelemme myös suomeksi.</p>
       <p class="hero__lead">
-        We specialise in human experience — understanding it, reviewing it and making it better.
-        AI is a means. It serves human experience; Meish does not serve AI.
+        We notice things. Then we make useful things out of what we notice —
+        tools, maps, reviews and changes for work and everyday life.
       </p>
       <p class="hero__ctas">
-        <a class="hero__cta hero__cta--primary" href={contactMeishHref}>{contactMeishLabel}</a>
-        <a class="hero__cta hero__cta--ghost" href="/for-business">Explore Meish</a>
+        <a class="hero__cta hero__cta--primary" href="/for-business">For Your Business</a>
+        <a class="hero__cta hero__cta--ghost" href="/for-you">For You</a>
+        <a class="hero__cta hero__cta--ghost" href={contactMeishHref}>{contactMeishLabel}</a>
       </p>
     </div>
   </div>
@@ -174,8 +129,8 @@ const destinations = [
     min-height: 100vh;
     min-height: 100dvh;
     overflow: hidden;
-    background: #fffbf5;
-    color: #020c59;
+    background: #0b1020;
+    color: #eaf6ff;
     padding-bottom: 2.75rem;
   }
 
@@ -190,69 +145,67 @@ const destinations = [
   .gas {
     position: absolute;
     border-radius: 50%;
-    filter: blur(72px);
+    filter: blur(80px);
+  }
+  .gas--amethyst {
+    width: 55%;
+    height: 50%;
+    left: -8%;
+    top: 5%;
+    background: radial-gradient(circle, rgba(106, 90, 205, 0.35) 0%, transparent 70%);
+  }
+  .gas--fluorite {
+    width: 50%;
+    height: 48%;
+    right: -10%;
+    top: 20%;
+    background: radial-gradient(circle, rgba(0, 195, 214, 0.22) 0%, transparent 72%);
   }
   .gas--gold {
-    width: 78%;
-    height: 62%;
-    left: 12%;
-    top: 18%;
-    background: radial-gradient(circle, rgba(251, 215, 159, 0.62) 0%, transparent 68%);
+    width: 45%;
+    height: 40%;
+    left: 28%;
+    top: 35%;
+    background: radial-gradient(circle, rgba(247, 200, 115, 0.18) 0%, transparent 68%);
   }
-  .gas--lavender {
-    width: 64%;
-    height: 70%;
-    left: -14%;
-    top: 2%;
-    background: radial-gradient(circle, rgba(105, 94, 219, 0.22) 0%, transparent 72%);
-  }
-  .gas--navy {
-    width: 56%;
-    height: 54%;
-    right: -12%;
-    bottom: 2%;
-    background: radial-gradient(circle, rgba(2, 12, 89, 0.14) 0%, transparent 70%);
-  }
-  .gas--core {
-    width: 42%;
-    height: 42%;
-    left: 29%;
-    top: 28%;
-    filter: blur(90px);
-    background: radial-gradient(circle, rgba(251, 215, 159, 0.35) 0%, rgba(105, 94, 219, 0.12) 45%, transparent 70%);
+  .gas--coral {
+    width: 40%;
+    height: 36%;
+    left: 35%;
+    bottom: 8%;
+    background: radial-gradient(circle, rgba(255, 107, 107, 0.16) 0%, transparent 70%);
   }
 
   .stars {
     position: absolute;
     inset: 0;
     background-image:
-      radial-gradient(1.2px 1.2px at 12% 22%, rgba(2, 12, 89, 0.32), transparent),
-      radial-gradient(1px 1px at 28% 68%, rgba(2, 12, 89, 0.22), transparent),
-      radial-gradient(1.4px 1.4px at 41% 18%, rgba(251, 215, 159, 0.75), transparent),
-      radial-gradient(1px 1px at 61% 81%, rgba(2, 12, 89, 0.24), transparent),
-      radial-gradient(1.3px 1.3px at 74% 26%, rgba(251, 215, 159, 0.55), transparent),
-      radial-gradient(1px 1px at 91% 14%, rgba(2, 12, 89, 0.26), transparent),
-      radial-gradient(1.2px 1.2px at 8% 48%, rgba(251, 215, 159, 0.45), transparent),
-      radial-gradient(1px 1px at 53% 44%, rgba(2, 12, 89, 0.18), transparent),
-      radial-gradient(1.1px 1.1px at 36% 56%, rgba(251, 215, 159, 0.4), transparent),
-      radial-gradient(0.9px 0.9px at 69% 61%, rgba(2, 12, 89, 0.2), transparent);
+      radial-gradient(1.2px 1.2px at 12% 22%, rgba(234, 246, 255, 0.55), transparent),
+      radial-gradient(1px 1px at 28% 68%, rgba(234, 246, 255, 0.35), transparent),
+      radial-gradient(1.4px 1.4px at 41% 18%, rgba(247, 200, 115, 0.7), transparent),
+      radial-gradient(1px 1px at 61% 81%, rgba(234, 246, 255, 0.3), transparent),
+      radial-gradient(1.3px 1.3px at 74% 26%, rgba(0, 195, 214, 0.55), transparent),
+      radial-gradient(1px 1px at 91% 14%, rgba(234, 246, 255, 0.4), transparent),
+      radial-gradient(1.2px 1.2px at 8% 48%, rgba(246, 184, 224, 0.45), transparent),
+      radial-gradient(1px 1px at 53% 44%, rgba(234, 246, 255, 0.25), transparent);
   }
 
-  .chart {
+  .orbits {
     position: absolute;
-    inset: 5%;
-    width: 90%;
-    height: 90%;
+    left: 50%;
+    top: 8%;
+    width: min(70vw, 520px);
+    height: min(70vw, 520px);
+    margin-left: calc(min(70vw, 520px) / -2);
     fill: none;
-    stroke: rgba(2, 12, 89, 0.11);
-    stroke-width: 0.14;
+    stroke: rgba(234, 246, 255, 0.14);
+    stroke-width: 0.35;
   }
 
   .depth {
     position: relative;
     height: min(90dvh, 820px);
     min-height: 580px;
-    perspective: 1200px;
   }
 
   .orbit {
@@ -261,10 +214,6 @@ const destinations = [
   }
 
   .gem {
-    --rz: 0deg;
-    --s: 1;
-    --o: 1;
-    --z: 0px;
     position: absolute;
     left: var(--x);
     top: var(--y);
@@ -276,41 +225,33 @@ const destinations = [
     align-items: center;
     text-decoration: none;
     color: inherit;
-    transform: translateZ(var(--z));
   }
   .gem__face {
     display: block;
     width: 100%;
     height: auto;
-    transform: rotate(var(--rz)) scale(var(--s));
-    opacity: var(--o);
-    mix-blend-mode: multiply;
-  }
-  .hero__diamond {
-    display: block;
-    width: 100%;
-    height: auto;
-    mix-blend-mode: multiply;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    /* Always upright — never rotate diamonds */
+    transform: none;
+    filter: drop-shadow(0 8px 24px rgba(0, 195, 214, 0.25));
   }
   .gem:hover { text-decoration: none; color: inherit; }
 
-  .gem--dust {
-    width: 2.6rem;
-    pointer-events: none;
-  }
-
   .gem--hit {
     width: 5.2rem;
-    transition: filter 280ms cubic-bezier(0.4, 0, 0.15, 1);
+    transition: filter 280ms cubic-bezier(0.4, 0, 0.15, 1), transform 280ms ease;
   }
   .gem--hit:hover,
   .gem--hit:focus-visible {
     outline: none;
-    filter: brightness(1.06);
+    filter: brightness(1.12);
+    transform: scale(1.06);
   }
 
   .gem__label {
-    margin-top: 0.35rem;
+    margin-top: 0.4rem;
     text-align: center;
   }
   .gem__label strong {
@@ -319,31 +260,47 @@ const destinations = [
     font-weight: 500;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: #020c59;
+    color: #eaf6ff;
     max-width: 14ch;
+    text-shadow: 0 1px 8px rgba(11, 16, 32, 0.9);
   }
 
   .hero {
     position: absolute;
     left: 50%;
-    top: 10%;
-    width: min(32vw, 200px);
-    margin-left: calc(min(32vw, 200px) / -2);
+    top: 6%;
+    width: min(36vw, 220px);
+    margin-left: calc(min(36vw, 220px) / -2);
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     pointer-events: none;
-    transform: translateZ(var(--z));
+    z-index: 2;
+  }
+  .hero__crystal {
+    width: 100%;
+    position: relative;
+  }
+  .hero__diamond {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    transform: none;
+    filter: drop-shadow(0 0 28px rgba(106, 90, 205, 0.45))
+      drop-shadow(0 12px 40px rgba(255, 107, 107, 0.25));
   }
   .hero__name {
-    margin-top: 0.5rem;
+    margin: 0.65rem 0 0;
     font-family: var(--font-display);
     font-size: clamp(2.4rem, 5vw, 4rem);
     font-weight: 700;
     line-height: 0.9;
     letter-spacing: -0.03em;
-    color: #020c59;
+    color: #eaf6ff;
     max-width: none;
   }
   .hero__rule {
@@ -351,13 +308,13 @@ const destinations = [
     width: 5rem;
     height: 1px;
     margin: 0.55rem 0 0.4rem;
-    background: linear-gradient(90deg, transparent, #fbd79f 18%, #fbd79f 82%, transparent);
+    background: linear-gradient(90deg, transparent, #f7c873 18%, #f7c873 82%, transparent);
   }
   .hero__realm {
     font-size: 0.68rem;
     letter-spacing: 0.46em;
     text-transform: uppercase;
-    color: #695edb;
+    color: #00c3d6;
     max-width: none;
   }
   .hero__north {
@@ -365,7 +322,7 @@ const destinations = [
     font-family: var(--font-display);
     font-style: italic;
     font-size: clamp(1rem, 1.6vw, 1.25rem);
-    color: #020c59;
+    color: #eaf6ff;
     max-width: 28ch;
   }
   .hero__lead {
@@ -374,14 +331,14 @@ const destinations = [
     font-size: 0.9rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #2a3568;
+    color: rgba(234, 246, 255, 0.78);
     max-width: 38ch;
   }
   .hero__langs {
     margin-top: 0.55rem;
     font-size: 0.72rem;
     letter-spacing: 0.04em;
-    color: #5a6294;
+    color: #6f87a8;
     max-width: 42ch;
   }
   .hero__ctas {
@@ -390,6 +347,7 @@ const destinations = [
     flex-wrap: wrap;
     gap: 0.65rem;
     justify-content: center;
+    pointer-events: auto;
   }
   .hero__cta {
     display: inline-flex;
@@ -404,23 +362,23 @@ const destinations = [
     font-weight: 500;
   }
   .hero__cta--primary {
-    background: #020c59;
-    color: #fffbf5;
+    background: #6a5acd;
+    color: #eaf6ff;
   }
   .hero__cta--primary:hover {
     text-decoration: none;
-    color: #fffbf5;
+    color: #eaf6ff;
     opacity: 0.92;
   }
   .hero__cta--ghost {
-    border: 1px solid rgba(2, 12, 89, 0.25);
-    color: #020c59;
-    background: rgba(255, 251, 245, 0.65);
+    border: 1px solid rgba(234, 246, 255, 0.35);
+    color: #eaf6ff;
+    background: rgba(11, 16, 32, 0.45);
   }
   .hero__cta--ghost:hover {
     text-decoration: none;
-    color: #020c59;
-    border-color: #695edb;
+    color: #eaf6ff;
+    border-color: #00c3d6;
   }
 
   .floor {
@@ -436,17 +394,17 @@ const destinations = [
     display: grid;
     gap: 0.28rem;
     padding-top: 0.9rem;
-    border-top: 1px solid rgba(2, 12, 89, 0.18);
+    border-top: 1px solid rgba(234, 246, 255, 0.18);
     text-decoration: none;
     color: inherit;
   }
   .offer:hover { text-decoration: none; color: inherit; }
-  .offer:hover strong { color: #695edb; }
+  .offer:hover strong { color: #00c3d6; }
   .offer__kicker {
     font-size: 0.58rem;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: #5a6294;
+    color: #6f87a8;
   }
   .offer strong {
     font-family: var(--font-display);
@@ -454,6 +412,7 @@ const destinations = [
     font-weight: 600;
     line-height: 1.25;
     max-width: 24ch;
+    color: #eaf6ff;
     transition: color 200ms ease;
   }
   .offer--secondary strong {
@@ -465,7 +424,7 @@ const destinations = [
     font-family: var(--font-body);
     font-size: 0.8rem;
     font-weight: 400;
-    color: #2a3568;
+    color: rgba(234, 246, 255, 0.72);
   }
 
   @media (max-width: 860px) {
@@ -483,9 +442,9 @@ const destinations = [
       max-width: 12ch;
     }
     .hero {
-      width: min(46vw, 150px);
-      margin-left: calc(min(46vw, 150px) / -2);
-      top: 12%;
+      width: min(52vw, 170px);
+      margin-left: calc(min(52vw, 170px) / -2);
+      top: 8%;
     }
     .hero__name {
       font-size: clamp(2rem, 9vw, 2.6rem);
@@ -496,7 +455,6 @@ const destinations = [
       gap: 1.25rem;
       width: min(100% - 2rem, 720px);
     }
-    .gem--dust { opacity: 0.2; }
   }
 
   @media (prefers-reduced-motion: reduce) {

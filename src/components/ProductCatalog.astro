@@ -8,6 +8,7 @@ const fitCheck = getFitCheckOffer();
 
 <section id="products" class="product-catalog section">
   <div class="container">
+    <h2 class="product-catalog__heading">Business offers</h2>
     <ol class="product-ladder">
       {
         offers.map((product) => {
@@ -24,6 +25,12 @@ const fitCheck = getFitCheckOffer();
               <p class="product-card__category">{product.category}</p>
               <h3 class="product-ladder__name">{product.name}</h3>
               <p class="product-card__summary">{product.summary}</p>
+              {product.whenUseful && (
+                <p class="product-card__example">
+                  <span class="product-card__example-label">Example situation:</span>{' '}
+                  {product.whenUseful}
+                </p>
+              )}
 
               <dl class="product-meta">
                 <div>
@@ -34,7 +41,7 @@ const fitCheck = getFitCheckOffer();
                   <dt>What you leave with</dt>
                   <dd>
                     <ul class="product-card__includes">
-                      {product.includes.slice(0, 5).map((item) => (
+                      {(isPrimary ? product.includes : product.includes.slice(0, 5)).map((item) => (
                         <li>{item}</li>
                       ))}
                     </ul>
@@ -103,9 +110,16 @@ const fitCheck = getFitCheckOffer();
 
 <style>
   .product-catalog {
-    background: #fffbf5;
-    border-top: 1px solid rgba(2, 12, 89, 0.1);
+    background: var(--color-opal);
+    border-top: 1px solid rgba(11, 16, 32, 0.1);
     padding-top: var(--space-lg);
+  }
+
+  .product-catalog__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-lg);
+    color: var(--color-navy);
   }
 
   .product-ladder {
@@ -120,29 +134,29 @@ const fitCheck = getFitCheckOffer();
   .product-ladder__item {
     position: relative;
     padding: var(--space-xl);
-    background: rgba(255, 253, 249, 0.9);
-    border: 1px solid rgba(251, 215, 159, 0.35);
-    box-shadow: 0 12px 36px rgba(2, 12, 89, 0.05);
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(11, 16, 32, 0.1);
+    box-shadow: 0 12px 36px rgba(11, 16, 32, 0.06);
   }
 
   .product-ladder__item--primary {
-    border-color: rgba(2, 12, 89, 0.22);
+    border-color: rgba(106, 90, 205, 0.35);
     background: linear-gradient(
       165deg,
-      rgba(251, 215, 159, 0.22) 0%,
-      rgba(255, 253, 249, 0.97) 55%
+      rgba(106, 90, 205, 0.1) 0%,
+      rgba(255, 255, 255, 0.92) 55%
     );
   }
 
   .product-ladder__item--p1 {
-    border-color: rgba(2, 12, 89, 0.18);
+    border-color: rgba(0, 195, 214, 0.28);
   }
 
   .product-card__category {
     font-size: var(--text-xs);
     letter-spacing: var(--tracking-wide);
     text-transform: uppercase;
-    color: var(--color-lavender);
+    color: var(--color-amethyst);
     margin-bottom: var(--space-xs);
     max-width: none;
   }
@@ -158,6 +172,18 @@ const fitCheck = getFitCheckOffer();
     color: var(--text-soft);
     margin-bottom: var(--space-md);
     max-width: 48ch;
+  }
+
+  .product-card__example {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin: calc(var(--space-md) * -0.5) 0 var(--space-md);
+    max-width: 48ch;
+  }
+
+  .product-card__example-label {
+    font-weight: var(--weight-medium);
+    color: var(--color-navy);
   }
 
   .product-meta {

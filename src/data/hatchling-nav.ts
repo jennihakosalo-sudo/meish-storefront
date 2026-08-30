@@ -13,17 +13,17 @@ export const publicNav = hatchlingNav;
 
 export const contactEmail = CONTACT_EMAIL;
 
-export const contactMeishLabel = 'Contact Meish';
+export const contactMeishLabel = 'Should we Meish this?';
 export const contactMeishHref = meishMailto({
-  product: 'Contact',
+  product: 'Should we Meish this',
   page: 'Site',
   section: 'Header',
-  cta: 'Contact Meish',
+  cta: 'Should we Meish this',
 });
 
-/** Secondary free conversation — not the primary sales CTA. */
+/** Secondary free conversation — Meish & you / Meish & your business. Not a health check. */
 export const fitCallLabel = '20-minute Fit Check';
-export const fitCallMeta = '20 min · free';
+export const fitCallMeta = '20 min · free · Meish & you';
 export const fitCallHref = meishMailto({
   product: '20-minute Fit Check',
   page: 'Site',

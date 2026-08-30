@@ -225,7 +225,7 @@ export const meishOffers: MeishOffer[] = [
     name: '20-minute Fit Check',
     type: 'Service',
     summary:
-      'A quick conversation to see whether there is a useful Meish / AI opportunity — and what should happen first.',
+      'A quick conversation to see whether Meish and your situation fit — and what should happen first. Not a health or fitness check.',
     whoFor: 'B2B entrepreneurs and decision-makers when the next step is still unclear',
     whenUseful: 'You are not sure which offer fits — or whether Meish is useful here.',
     benefit: 'Find the right first step. No preparation required.',

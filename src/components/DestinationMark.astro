@@ -1,5 +1,8 @@
 ---
-/** Same canonical diamond as the homepage doors. Size only. */
+/**
+ * Intensive upright diamond — Deep Space surfaces only.
+ * Transparent RGBA PNG. Never use on cream pages as a boxed mark.
+ */
 interface Props {
   size?: 'node' | 'page';
 }
@@ -8,17 +11,22 @@ const { size = 'page' } = Astro.props;
 
 <img
   class:list={['mark', `mark--${size}`]}
-  src="/brand/meish-diamond-universe.jpg"
+  src="/brand/meish-diamond-intensive-720.png"
   alt=""
-  width="360"
-  height="540"
+  width="434"
+  height="720"
+  loading="lazy"
+  decoding="async"
 />
 
 <style>
   .mark {
     display: block;
     height: auto;
-    mix-blend-mode: multiply;
+    transform: none;
+    background: transparent;
+    border: 0;
+    padding: 0;
   }
   .mark--node { width: 1.55rem; }
   .mark--page { width: 2.4rem; }

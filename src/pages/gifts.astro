@@ -1,67 +1,76 @@
 ---
 import Base from '../layouts/Base.astro';
-import DestinationMark from '../components/DestinationMark.astro';
+import DoorUniverseBand from '../components/DoorUniverseBand.astro';
 import { contactMeishHref, contactMeishLabel, contactEmail } from '../data/hatchling-nav';
-import { meishMailto } from '../lib/meish-mailto';
-
-const giftMail = meishMailto({
-  product: 'Gifts for You',
-  page: 'Gifts',
-  section: 'Ask for starter',
-  cta: 'Write to Meish',
-});
 ---
 
 <Base
-  title="Gifts for You — Meish"
-  description="Free Meish starters: a short clarity prompt you can use today. We work in English and Finnish."
+  title="Gifts for You — free Meish starters"
+  description="Free Meish Clarity Starter PDF — a one-page worksheet. Keep it, no signup. We work in English and Finnish."
 >
-  <section class="section container door-page">
-    <p class="eyebrow arrive">
-      <DestinationMark size="page" />
-      Gifts for You
-    </p>
-    <h1>Free, useful starters</h1>
-    <p class="lead">
-      Small Meish gifts — practical, not a generic lead magnet. Take one with you today.
-    </p>
+  <DoorUniverseBand
+    eyebrow="Gifts for You"
+    title="Gifts for You"
+    lead="A free Meish gift you can use today — keep it, no signup."
+  >
+    <p class="door-band-langs">We work in English and Finnish. · Palvelemme myös suomeksi.</p>
+  </DoorUniverseBand>
 
-    <article class="gift-card">
+  <section class="section container door-body">
+    <article class="gift-card" id="clarity-starter">
+      <p class="eyebrow">Free gift · PDF worksheet</p>
       <h2>Meish Clarity Starter</h2>
       <p>
-        Five questions to see what should become better — before you add tools, AI, or more work.
+        One page. Five questions. One next move for this week. Download, print, write by hand —
+        about 10 quiet minutes.
       </p>
+      <ol class="gift-how">
+        <li>Download the PDF.</li>
+        <li>Print it (or write on a blank page).</li>
+        <li>Answer each question in one short line.</li>
+        <li>Circle one next move — that is enough for now.</li>
+      </ol>
       <p class="actions">
-        <a class="button button--primary" href="/gifts/meish-clarity-starter.txt" download>
-          Download the starter
+        <a class="button button--primary" href="/gifts/meish-clarity-starter.pdf" download>
+          Download your free gift (PDF)
         </a>
-        <a class="button button--ghost" href={giftMail}>Ask Moona for another gift</a>
+        <a class="button button--ghost" href={contactMeishHref}>{contactMeishLabel}</a>
       </p>
     </article>
 
     <p class="langs">
-      We work in English and Finnish. · Palvelemme myös suomeksi. ·
-      <a href={contactMeishHref}>{contactMeishLabel}</a> · {contactEmail}
+      Optional help with the next step: <a href={contactMeishHref}>{contactMeishLabel}</a> ·
+      {contactEmail}
     </p>
   </section>
 </Base>
 
 <style>
-  .arrive {
-    display: flex;
-    align-items: center;
-    gap: 0.55rem;
+  .door-band-langs {
+    margin: 0.75rem auto 0;
+    font-size: 0.78rem;
+    color: #6f87a8;
+    max-width: none;
+  }
+  .door-body {
+    padding-top: var(--space-xl);
   }
   .gift-card {
-    margin-top: var(--space-lg);
     padding: var(--space-xl);
-    border: 1px solid rgba(2, 12, 89, 0.12);
-    background: rgba(255, 253, 249, 0.95);
+    border: 1px solid rgba(11, 16, 32, 0.12);
+    background: linear-gradient(165deg, rgba(234, 246, 255, 0.95), rgba(255, 255, 255, 0.9));
+    border-radius: var(--radius-md);
   }
   .gift-card h2 {
     font-family: var(--font-display);
     font-size: var(--text-lg);
-    margin-bottom: var(--space-sm);
+    margin: var(--space-xs) 0 var(--space-sm);
+  }
+  .gift-how {
+    margin: var(--space-md) 0;
+    padding-left: 1.2rem;
+    color: var(--text-soft);
+    max-width: 40ch;
   }
   .actions {
     display: flex;

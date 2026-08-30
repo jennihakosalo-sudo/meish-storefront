@@ -1,48 +1,78 @@
 ---
 import Base from '../layouts/Base.astro';
-import DestinationMark from '../components/DestinationMark.astro';
+import DoorUniverseBand from '../components/DoorUniverseBand.astro';
 import { contactMeishHref, contactMeishLabel, fitCallHref, fitCallLabel } from '../data/hatchling-nav';
 ---
 
 <Base
-  title="Meish for You — Meish"
-  description="Meish for You — personal growth, decision support, wellbeing and everyday guidance. We work in English and Finnish."
+  title="Meish for You — useful things for being a human"
+  description="Useful things for being a human: noticing, decisions, transitions, less unnecessary friction. Free gift and Fit Check. English and Finnish."
 >
-  <section class="section container door-page">
-    <p class="eyebrow arrive">
-      <DestinationMark size="page" />
-      For You
-    </p>
-    <h1>Meish for You</h1>
-    <p class="lead">
-      Personal work: thinking, decisions, resilience, transitions, and a little more ease in
-      ordinary days. Technology should support you — without asking you to become more machine-like.
-    </p>
-    <p class="langs">We work in English and Finnish. · Palvelemme myös suomeksi.</p>
+  <DoorUniverseBand
+    eyebrow="For You"
+    title="Meish for You"
+    lead="Useful things for being a human being — practical, curious, slightly strange. Not a wellness clinic."
+  >
+    <p class="door-band-langs">We work in English and Finnish. · Palvelemme myös suomeksi.</p>
+  </DoorUniverseBand>
 
+  <section class="section container door-body">
+    <h2>What this door is for</h2>
     <ul>
-      <li>Thinking and decision support</li>
-      <li>Everyday friction and family life</li>
-      <li>Personal AI assistants and practical tools</li>
+      <li>Noticing what is actually happening in your week</li>
+      <li>Thinking and decisions with less fog</li>
+      <li>Transitions and everyday friction</li>
+      <li>Small useful questions and tools</li>
+      <li>Perspective — without therapy framing</li>
     </ul>
 
+    <h2>Use something now</h2>
+    <p>
+      <a href="/gifts#clarity-starter"><strong>Clarity Starter (PDF)</strong></a>
+      — a free one-page gift. Download, print, write by hand.
+    </p>
+    <p>
+      Or a free <a href={fitCallHref}>{fitCallLabel}</a> — Meish &amp; you. Not a fitness test.
+    </p>
+
+    <h2>If this is also about work</h2>
+    <p>
+      Continue to
+      <a href="/for-business">For Your Business</a>
+      — especially
+      <a href="/for-business#possibility-map">Possibility Map</a>.
+    </p>
+
     <p class="actions">
-      <a class="button button--primary" href={contactMeishHref}>{contactMeishLabel}</a>
+      <a class="button button--primary" href="/gifts">Take a free gift</a>
       <a class="button button--ghost" href={fitCallHref}>{fitCallLabel}</a>
+      <a class="button button--ghost" href={contactMeishHref}>{contactMeishLabel}</a>
     </p>
   </section>
 </Base>
 
 <style>
-  .arrive {
-    display: flex;
-    align-items: center;
-    gap: 0.55rem;
+  .door-band-langs {
+    margin: 0.75rem auto 0;
+    font-size: 0.78rem;
+    color: #6f87a8;
+    max-width: none;
   }
-  .langs {
-    margin: var(--space-sm) 0 var(--space-md);
-    font-size: var(--text-sm);
-    color: var(--text-muted);
+  .door-body {
+    padding-top: var(--space-xl);
+  }
+  .door-body h2 {
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-sm);
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+  }
+  .door-body h2:first-child {
+    margin-top: 0;
+  }
+  .door-body ul {
+    max-width: 48ch;
+    color: var(--text-soft);
   }
   .actions {
     display: flex;

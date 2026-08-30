@@ -46,9 +46,23 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
     position: absolute;
     left: 0;
     right: 0;
-    background: linear-gradient(180deg, rgba(255, 251, 245, 0.92) 0%, rgba(255, 251, 245, 0.45) 70%, transparent 100%);
+    background: linear-gradient(
+      180deg,
+      rgba(11, 16, 32, 0.88) 0%,
+      rgba(11, 16, 32, 0.35) 70%,
+      transparent 100%
+    );
     backdrop-filter: blur(8px);
     border-bottom: none;
+  }
+  .site-header--universe .wordmark,
+  .site-header--universe .nav__link {
+    color: #eaf6ff;
+  }
+  .site-header--universe .wordmark:hover,
+  .site-header--universe .nav__link:hover,
+  .site-header--universe .nav__link--active {
+    color: #00c3d6;
   }
 
   .bar {

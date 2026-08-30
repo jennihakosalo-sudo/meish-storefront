@@ -1,50 +1,78 @@
 ---
 import Base from '../layouts/Base.astro';
-import DestinationMark from '../components/DestinationMark.astro';
+import DoorUniverseBand from '../components/DoorUniverseBand.astro';
 import { contactMeishHref, contactMeishLabel, fitCallHref, fitCallLabel } from '../data/hatchling-nav';
 ---
 
 <Base
-  title="Meish Tools — Meish"
-  description="Meish Tools — focused instruments. See Meish for Your Business offers, or start with a free Fit Check."
+  title="Meish Tools — useful things you can use"
+  description="Useful Meish tools you can use — including without us. Start with Clarity Starter PDF or a free Fit Check. English and Finnish."
 >
-  <section class="section container door-page">
-    <p class="eyebrow arrive">
-      <DestinationMark size="page" />
-      Tools
-    </p>
-    <h1>One honest next step</h1>
-    <p class="lead">
-      Tools exist to improve your own, your team’s, or your customers’ experience. Start with a
-      business offer — or a short Fit Check if you are not sure.
-    </p>
+  <DoorUniverseBand
+    eyebrow="Tools"
+    title="Meish Tools"
+    lead="Useful things you can use — including without us. Work with Meish when you want company; use a tool when you want to start alone."
+  >
+    <p class="door-band-langs">We work in English and Finnish. · Palvelemme myös suomeksi.</p>
+  </DoorUniverseBand>
 
+  <section class="section container door-body">
+    <h2>Use without us</h2>
     <ul>
       <li>
-        <a href="/for-business"><strong>Meish for Your Business</strong></a> — Possibility Map and
-        the other offers.
-      </li>
-      <li>
-        <a href="/gifts"><strong>Gifts for You</strong></a> — free starter downloads.
-      </li>
-      <li>
-        <strong>20-minute Fit Check</strong> — free, when the next step is still unclear.
+        <a href="/gifts#clarity-starter"><strong>Meish Clarity Starter (PDF)</strong></a>
+        — five questions, one next move. Free gift.
       </li>
     </ul>
 
+    <h2>Work with Meish</h2>
+    <ul>
+      <li>
+        <a href={fitCallHref}><strong>{fitCallLabel}</strong></a>
+        — free, 20 minutes. Should we Meish this?
+      </li>
+      <li>
+        <a href="/for-business#possibility-map"><strong>Possibility Map</strong></a>
+        — €590 + VAT. Three routes, one recommendation, 30 days.
+      </li>
+    </ul>
+
+    <p class="tools-note">
+      More tools will appear here when they are ready to use. We do not publish empty shelves.
+    </p>
+
     <p class="actions">
-      <a class="button button--primary" href="/for-business">See business offers</a>
-      <a class="button button--ghost" href={fitCallHref}>{fitCallLabel}</a>
+      <a class="button button--primary" href="/gifts">Open Gifts for You</a>
+      <a class="button button--ghost" href="/for-business">Business offers</a>
       <a class="button button--ghost" href={contactMeishHref}>{contactMeishLabel}</a>
     </p>
   </section>
 </Base>
 
 <style>
-  .arrive {
-    display: flex;
-    align-items: center;
-    gap: 0.55rem;
+  .door-band-langs {
+    margin: 0.75rem auto 0;
+    font-size: 0.78rem;
+    color: #6f87a8;
+    max-width: none;
+  }
+  .door-body {
+    padding-top: var(--space-xl);
+  }
+  .door-body h2 {
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-sm);
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+  }
+  .door-body h2:first-child {
+    margin-top: 0;
+  }
+  .tools-note {
+    margin-top: var(--space-lg);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    max-width: 48ch;
   }
   .actions {
     display: flex;

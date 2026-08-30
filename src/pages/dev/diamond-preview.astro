@@ -1,0 +1,458 @@
+---
+/**
+ * Internal preview — 7-facet Meish Diamond vs brand board.
+ * Not linked in public nav. noindex.
+ */
+import Base from '../../layouts/Base.astro';
+import MeishDiamond from '../../components/MeishDiamond.astro';
+import MeishDiamondLockup from '../../components/MeishDiamondLockup.astro';
+
+const families = [
+  { id: 'F1', label: 'Released Soon', meaning: 'Vision, emergence' },
+  { id: 'F2', label: 'Awaiting Launch', meaning: 'Preparation, potential' },
+  { id: 'F3', label: 'Being Piloted', meaning: 'Exploration, learning' },
+  { id: 'F4', label: 'To Be Gifted', meaning: 'Generosity, sharing' },
+  { id: 'F5', label: 'Human Approval', meaning: 'Trust, resonance' },
+  { id: 'F6', label: 'Source Missing', meaning: 'Insight needed' },
+  { id: 'F7', label: 'Do Not Use', meaning: 'Not aligned' },
+] as const;
+
+const combos: { label: string; families: Array<'F1' | 'F2' | 'F3' | 'F4' | 'F5'> }[] = [
+  { label: 'F1 + F2 + F5', families: ['F1', 'F2', 'F5'] },
+  { label: 'F3 + F4', families: ['F3', 'F4'] },
+  { label: 'F1 + F3 + F5', families: ['F1', 'F3', 'F5'] },
+  { label: 'F2 + F5', families: ['F2', 'F5'] },
+  { label: 'F4 + F5', families: ['F4', 'F5'] },
+  { label: 'F1 + F2 + F3', families: ['F1', 'F2', 'F3'] },
+];
+---
+
+<Base
+  title="Diamond preview — Meish (dev)"
+  description="Internal 7-facet Meish Diamond preview. Not for public indexing."
+  noindex={true}
+>
+  <main class="dp">
+    <header class="dp__intro container">
+      <p class="eyebrow">Dev only · noindex</p>
+      <h1>7-facet Meish Diamond</h1>
+      <p class="lead">
+        Board as design authority. Live Intensive PNG unchanged until approval.
+      </p>
+    </header>
+
+    <section class="dp__section container">
+      <h2>Brand board reference</h2>
+      <img
+        class="dp__board"
+        src="/brand/reference/meish-visual-system-board.jpg"
+        alt="Meish Visual System brand board"
+        width="1080"
+        height="720"
+        loading="lazy"
+      />
+    </section>
+
+    <section class="dp__section">
+      <div class="container">
+        <h2>Board panels vs SVG lockups</h2>
+        <p class="dp__hint">Left = board crop · Right = MeishDiamond SVG</p>
+      </div>
+      <div class="dp__match">
+        <div class="dp__match-row">
+          <figure class="dp__match-fig">
+            <img src="/brand/reference/board-panel-dark.png" alt="Board dark panel" width="540" height="360" />
+            <figcaption>Board — dark</figcaption>
+          </figure>
+          <div class="dp__panel dp__panel--dark">
+            <p class="dp__label">SVG dark</p>
+            <MeishDiamondLockup mode="dark" uid="lk-dark" />
+          </div>
+        </div>
+        <div class="dp__match-row">
+          <figure class="dp__match-fig dp__match-fig--light">
+            <img src="/brand/reference/board-panel-light.png" alt="Board light panel" width="540" height="360" />
+            <figcaption>Board — light</figcaption>
+          </figure>
+          <div class="dp__panel dp__panel--light">
+            <p class="dp__label">SVG light</p>
+            <MeishDiamondLockup mode="light" uid="lk-light" />
+          </div>
+        </div>
+        <div class="dp__match-row">
+          <figure class="dp__match-fig">
+            <img src="/brand/reference/board-panel-transparent.png" alt="Board transparent panel" width="540" height="360" />
+            <figcaption>Board — transparent</figcaption>
+          </figure>
+          <div class="dp__panel dp__panel--bokeh">
+            <p class="dp__label">SVG transparent</p>
+            <MeishDiamondLockup mode="transparent" uid="lk-tr" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="dp__section container">
+      <h2>Side-by-side vs current Intensive</h2>
+      <div class="dp__compare">
+        <figure class="dp__fig dp__fig--dark">
+          <img
+            src="/brand/meish-diamond-intensive-720.png"
+            alt="Current Intensive PNG"
+            width="220"
+            height="360"
+          />
+          <figcaption>Current live Intensive (many-facet PNG)</figcaption>
+        </figure>
+        <figure class="dp__fig dp__fig--dark">
+          <div class="dp__fig-gem">
+            <MeishDiamond variant="dark" uid="cmp-dark" size="11rem" />
+          </div>
+          <figcaption>New 7-facet SVG — dark</figcaption>
+        </figure>
+        <figure class="dp__fig dp__fig--light">
+          <div class="dp__fig-gem">
+            <MeishDiamond variant="light" uid="cmp-light" size="11rem" />
+          </div>
+          <figcaption>New 7-facet SVG — light</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="dp__section container">
+      <h2>Scales (E / F / G)</h2>
+      <div class="dp__scales">
+        <div class="dp__scale dp__scale--dark">
+          <p class="dp__label">Nav (~28px)</p>
+          <MeishDiamond variant="nav" uid="sc-nav" size="1.75rem" />
+        </div>
+        <div class="dp__scale dp__scale--dark">
+          <p class="dp__label">Card (~72px)</p>
+          <MeishDiamond variant="dark" uid="sc-card" size="4.5rem" />
+        </div>
+        <div class="dp__scale dp__scale--dark">
+          <p class="dp__label">Hero (~180px)</p>
+          <MeishDiamond variant="dark" uid="sc-hero" size="11.25rem" />
+        </div>
+      </div>
+    </section>
+
+    <section class="dp__section container">
+      <h2>Transparent over gradient &amp; photo (C / D)</h2>
+      <div class="dp__adapt">
+        <div class="dp__adapt-panel dp__adapt-panel--grad">
+          <MeishDiamond variant="transparent" uid="ad-grad" size="8rem" />
+        </div>
+        <div class="dp__adapt-panel dp__adapt-panel--photo">
+          <MeishDiamond variant="transparent" uid="ad-photo" size="8rem" />
+        </div>
+      </div>
+    </section>
+
+    <section class="dp__section container">
+      <h2>F1–F7 colour orbs (draft HEX)</h2>
+      <ul class="dp__orbs">
+        {
+          families.map((f) => (
+            <li class="dp__orb">
+              <span class="dp__orb-swatch" style={`background: var(--${f.id.toLowerCase()})`} />
+              <span class="dp__orb-id">{f.id}</span>
+              <span class="dp__orb-label">{f.label}</span>
+              <span class="dp__orb-mean">{f.meaning}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="dp__section container">
+      <h2>Example combinations (manual)</h2>
+      <div class="dp__combos">
+        {
+          combos.map((c, i) => (
+            <figure class="dp__combo">
+              <div class="dp__combo-gem">
+                <MeishDiamond
+                  variant="dark"
+                  uid={`combo-${i}`}
+                  size="5.5rem"
+                  activeFamilies={c.families}
+                />
+              </div>
+              <figcaption>{c.label}</figcaption>
+            </figure>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="dp__section container dp__stop">
+      <h2>Stop for approval</h2>
+      <p>
+        Live hero, DoorUniverseBand, Header, and brand-lock hashes are unchanged.
+        Approve or revise before any public swap.
+      </p>
+    </section>
+  </main>
+</Base>
+
+<style>
+  .dp {
+    padding-bottom: var(--space-3xl);
+  }
+  .dp__intro {
+    padding-top: var(--space-2xl);
+    padding-bottom: var(--space-lg);
+  }
+  .dp__section {
+    margin-top: var(--space-2xl);
+  }
+  .dp__section h2 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-md);
+  }
+  .dp__board {
+    width: 100%;
+    max-width: 720px;
+    height: auto;
+    border-radius: var(--radius-md);
+    border: var(--border-hair);
+  }
+
+  .dp__hint {
+    margin: -0.5rem 0 1rem;
+    font-size: var(--text-sm);
+    opacity: 0.7;
+  }
+  .dp__match {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    padding: 0 var(--gutter);
+  }
+  .dp__match-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm);
+    align-items: stretch;
+  }
+  @media (max-width: 800px) {
+    .dp__match-row {
+      grid-template-columns: 1fr;
+    }
+  }
+  .dp__match-fig {
+    margin: 0;
+    background: #0b1020;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .dp__match-fig--light {
+    background: #f4f0ea;
+  }
+  .dp__match-fig img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .dp__match-fig figcaption {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    color: #eaf6ff;
+  }
+  .dp__match-fig--light figcaption {
+    color: #0b1020;
+  }
+  .dp__panel {
+    min-height: 22rem;
+    position: relative;
+  }
+  .dp__panel--dark {
+    background: #0b1020;
+  }
+  .dp__panel--light {
+    background: #f4f0ea;
+  }
+  .dp__panel--bokeh {
+    background:
+      radial-gradient(circle at 20% 30%, rgba(232, 120, 58, 0.55), transparent 28%),
+      radial-gradient(circle at 70% 40%, rgba(43, 184, 176, 0.5), transparent 32%),
+      radial-gradient(circle at 45% 75%, rgba(216, 90, 154, 0.45), transparent 30%),
+      radial-gradient(circle at 85% 70%, rgba(122, 95, 176, 0.4), transparent 28%),
+      #0b1020;
+  }
+  .dp__label {
+    position: absolute;
+    top: 0.75rem;
+    left: 1rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.65;
+    margin: 0;
+  }
+  .dp__panel--dark .dp__label,
+  .dp__panel--bokeh .dp__label {
+    color: #eaf6ff;
+  }
+  .dp__panel--light .dp__label {
+    color: #0b1020;
+  }
+
+  .dp__compare {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-md);
+  }
+  @media (max-width: 800px) {
+    .dp__compare {
+      grid-template-columns: 1fr;
+    }
+  }
+  .dp__fig {
+    margin: 0;
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    border-radius: var(--radius-md);
+  }
+  .dp__fig--dark {
+    background: #0b1020;
+    color: #eaf6ff;
+  }
+  .dp__fig--light {
+    background: #f4f0ea;
+    color: #0b1020;
+  }
+  .dp__fig img {
+    width: 11rem;
+    height: auto;
+    background: transparent;
+  }
+  .dp__fig-gem {
+    width: 11rem;
+  }
+  .dp__fig figcaption {
+    font-size: var(--text-sm);
+    text-align: center;
+    opacity: 0.8;
+  }
+
+  .dp__scales {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-lg);
+    align-items: flex-end;
+  }
+  .dp__scale {
+    padding: 1.25rem;
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .dp__scale--dark {
+    background: #0b1020;
+    color: #eaf6ff;
+  }
+
+  .dp__adapt {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+  }
+  @media (max-width: 700px) {
+    .dp__adapt {
+      grid-template-columns: 1fr;
+    }
+  }
+  .dp__adapt-panel {
+    min-height: 16rem;
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius-md);
+  }
+  .dp__adapt-panel--grad {
+    background: linear-gradient(135deg, #0b1020 0%, #2bb8b0 40%, #d85a9a 70%, #e8783a 100%);
+  }
+  .dp__adapt-panel--photo {
+    background:
+      radial-gradient(ellipse at 30% 40%, rgba(255, 200, 120, 0.35), transparent 50%),
+      radial-gradient(ellipse at 70% 60%, rgba(80, 140, 200, 0.4), transparent 45%),
+      url('/brand/meish-diamond-universe.jpg') center / cover;
+  }
+
+  .dp__orbs {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+    gap: var(--space-md);
+  }
+  .dp__orb {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    text-align: center;
+    font-size: var(--text-sm);
+  }
+  .dp__orb-swatch {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.35),
+      0 4px 16px rgba(11, 16, 32, 0.2);
+  }
+  .dp__orb-id {
+    font-weight: var(--weight-semibold);
+  }
+  .dp__orb-label {
+    opacity: 0.85;
+  }
+  .dp__orb-mean {
+    opacity: 0.6;
+    font-size: 0.75rem;
+  }
+
+  .dp__combos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+    gap: var(--space-md);
+  }
+  .dp__combo {
+    margin: 0;
+    padding: 1rem;
+    background: #0b1020;
+    border-radius: var(--radius-md);
+    color: #eaf6ff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .dp__combo-gem {
+    width: 5.5rem;
+  }
+  .dp__combo figcaption {
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    opacity: 0.8;
+  }
+
+  .dp__stop {
+    padding: var(--space-xl);
+    background: color-mix(in srgb, var(--accent) 8%, var(--bg));
+    border-radius: var(--radius-md);
+  }
+</style>

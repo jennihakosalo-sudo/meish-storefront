@@ -8,26 +8,55 @@ interface Props {
   title?: string;
   description?: string;
   universeHome?: boolean;
+  /** Absolute path under public/, default social card */
+  ogImage?: string;
+  /** Extra schema.org objects (Organization + WebSite always included) */
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+  noindex?: boolean;
 }
 
 const {
   title = 'Meish — human experience is our North Star',
   description =
-    'Meish makes work, services and experiences better for the humans inside them. Possibility Map from €590 + VAT. We work in English and Finnish.',
+    'Meish makes work, services and experiences clearer for the humans inside them. Human-centered AI and business improvement. Possibility Map from €590 + VAT. We work in English and Finnish.',
   universeHome = false,
+  ogImage = '/og/meish-share.jpg',
+  schema,
+  noindex = false,
 } = Astro.props;
 
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const canonical = new URL(path === '/' ? '/' : path + '/', SITE_ORIGIN).href;
+const ogImageUrl = new URL(ogImage, SITE_ORIGIN).href;
 
 const orgSchema = {
-  '@context': 'https://schema.org',
   '@type': 'Organization',
+  '@id': `${SITE_ORIGIN}/#organization`,
   name: 'Meish',
   url: SITE_ORIGIN,
   email: 'moona.m@meish.work',
   description:
-    'Meish specialises in human experience — understanding it, reviewing it and making it better.',
+    'Meish specialises in human experience — understanding it, reviewing it and making it better. We work in English and Finnish.',
+  logo: `${SITE_ORIGIN}/favicon.svg`,
+  image: ogImageUrl,
+  knowsLanguage: ['en', 'fi'],
+};
+
+const websiteSchema = {
+  '@type': 'WebSite',
+  '@id': `${SITE_ORIGIN}/#website`,
+  name: 'Meish',
+  url: SITE_ORIGIN,
+  description:
+    'Meish — human experience is our North Star. Business offers, personal support, tools and gifts. English and Finnish.',
+  inLanguage: ['en', 'fi'],
+  publisher: { '@id': `${SITE_ORIGIN}/#organization` },
+};
+
+const extra = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [orgSchema, websiteSchema, ...extra],
 };
 ---
 
@@ -41,6 +70,7 @@ const orgSchema = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -52,15 +82,21 @@ const orgSchema = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="en_GB" />
+    <meta property="og:locale:alternate" content="fi_FI" />
+
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
 
-    <meta name="theme-color" content="#FFFBF5" />
+    <meta name="theme-color" content={universeHome ? '#0B1020' : '#EAF6FF'} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
-    <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body class:list={universeHome && 'is-universe-home'}>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -68,7 +104,7 @@ const orgSchema = {
     <main id="main">
       <slot />
     </main>
-    <Footer />
+    <Footer universeHome={universeHome} />
 
     <script>
       import '../scripts/cart';
@@ -89,7 +125,7 @@ const orgSchema = {
       .skip-link:focus { top: var(--space-md); color: var(--bg); }
 
       body.is-universe-home {
-        background: var(--color-cream);
+        background: var(--color-deep-space);
       }
     </style>
   </body>

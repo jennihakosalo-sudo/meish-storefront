@@ -1,40 +1,91 @@
 ---
 import Base from '../layouts/Base.astro';
 import ProductCatalog from '../components/ProductCatalog.astro';
-import DestinationMark from '../components/DestinationMark.astro';
+import DoorUniverseBand from '../components/DoorUniverseBand.astro';
+import { fitCallHref, fitCallLabel, contactMeishHref, contactMeishLabel } from '../data/hatchling-nav';
+import { SITE_ORIGIN } from '../lib/meish-mailto';
+
+const possibilityMapSchema = {
+  '@type': 'Service',
+  '@id': `${SITE_ORIGIN}/for-business/#possibility-map`,
+  name: 'Possibility Map',
+  description:
+    'Business diagnostic for human experience, workflow and AI opportunities: three concrete routes, one recommendation, and 30-day actions. Delivered within five business days of the interview.',
+  provider: { '@id': `${SITE_ORIGIN}/#organization` },
+  url: `${SITE_ORIGIN}/for-business/#possibility-map`,
+  areaServed: 'Finland',
+  availableLanguage: ['en', 'fi'],
+  offers: {
+    '@type': 'Offer',
+    price: '590.00',
+    priceCurrency: 'EUR',
+    category: 'Gamma Test Phase',
+    description: '€590 + VAT 25.5%. Regular price €950 + VAT 25.5%.',
+    url: `${SITE_ORIGIN}/for-business/#possibility-map`,
+  },
+};
 ---
 
 <Base
-  title="Meish for Your Business — offers & pricing"
-  description="Meish for Your Business: Possibility Map €590 + VAT (Gamma Test Phase). Build, Friction Removal, Human Experience Review, A Week with Meish."
+  title="Meish for Your Business — Possibility Map & offers"
+  description="Outside view, friction removal, interview-to-product work and human-centered AI. Possibility Map €590 + VAT. Free Fit Check. English and Finnish."
+  schema={possibilityMapSchema}
 >
-  <section class="section container door-page">
-    <p class="eyebrow arrive">
-      <DestinationMark size="page" />
-      For Your Business
+  <DoorUniverseBand
+    eyebrow="For Your Business"
+    title="Meish for Your Business"
+    lead="When something could work better — but you cannot yet see exactly what. Clear offers. Concrete outputs."
+  >
+    <p class="door-band-langs">We work in English and Finnish. · Palvelemme myös suomeksi.</p>
+  </DoorUniverseBand>
+
+  <section class="section container door-body">
+    <h2>When Meish may be useful</h2>
+    <ul class="situations">
+      <li>You know something could work better, but you cannot yet see exactly what.</li>
+      <li>You want an outside view before investing in a larger solution.</li>
+      <li>You want to understand what customers or employees actually experience.</li>
+      <li>You have valuable expertise that could become a product or tool.</li>
+      <li>You want to see where AI could genuinely help.</li>
+      <li>You need a small custom tool rather than another large project.</li>
+      <li>You want to remove unnecessary friction — or test an idea quickly.</li>
+    </ul>
+
+    <h2>Start here</h2>
+    <p>
+      Free <a href={fitCallHref}>{fitCallLabel}</a> — Meish &amp; your business. Not a health check.
+      Or go straight to
+      <a href="#possibility-map">Possibility Map</a> (€590 + VAT).
+      Prefer email? <a href={contactMeishHref}>{contactMeishLabel}</a>.
     </p>
-    <h1>Clear offers. A clear first path.</h1>
-    <p class="lead">
-      Possibility Map is <strong>€590 + VAT</strong> (Gamma Test Phase). Purchasable offers first.
-      If you are not sure which one fits, the free 20-minute Fit Check is at the bottom.
-    </p>
-    <p class="langs">We work in English and Finnish. · Palvelemme myös suomeksi.</p>
   </section>
   <ProductCatalog />
 </Base>
 
 <style>
-  .arrive {
-    display: flex;
-    align-items: center;
-    gap: 0.55rem;
+  .door-band-langs {
+    margin: 0.75rem auto 0;
+    font-size: 0.78rem;
+    color: #6f87a8;
+    max-width: none;
   }
-  .door-page {
+  .door-body {
+    padding-top: var(--space-xl);
     padding-bottom: var(--space-md);
   }
-  .langs {
-    margin-top: var(--space-sm);
-    font-size: var(--text-sm);
-    color: var(--text-muted);
+  .door-body h2 {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    margin: var(--space-lg) 0 var(--space-sm);
+  }
+  .door-body h2:first-child {
+    margin-top: 0;
+  }
+  .situations {
+    max-width: 58ch;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.45rem;
+    color: var(--text-soft);
   }
 </style>

@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import DestinationMark from '../components/DestinationMark.astro';
+import DoorUniverseBand from '../components/DoorUniverseBand.astro';
 import {
   fitCallHref,
   fitCallLabel,
@@ -12,36 +12,43 @@ import { meishMailto } from '../lib/meish-mailto';
 
 const phone = '044 343 4003';
 const phoneTel = '+358443434003';
-const contactMail = meishMailto({
-  product: 'Contact',
+const shouldMeishMail = meishMailto({
+  product: 'Should we Meish this',
   page: 'Contact',
-  section: 'Email',
-  cta: 'Contact Meish',
+  section: 'Primary',
+  cta: 'Should we Meish this',
 });
 ---
 
 <Base
-  title="Contact — Meish"
-  description="Contact Meish at moona.m@meish.work. We work in English and Finnish. Possibility Map and Fit Check available."
+  title="Contact Meish — Should we Meish this?"
+  description="Contact Meish. You can come with the situation — you do not need the answer. Free Fit Check or Possibility Map. English and Finnish."
 >
-  <section class="section container door-page">
-    <p class="eyebrow arrive">
-      <DestinationMark size="page" />
-      Contact
-    </p>
-    <h1>Contact Meish</h1>
+  <DoorUniverseBand
+    eyebrow="Contact"
+    title="Should we Meish this?"
+    lead="You can come with the situation. You do not have to come with the answer."
+  >
+    <p class="door-band-langs">We work in English and Finnish. · Palvelemme myös suomeksi.</p>
+  </DoorUniverseBand>
+
+  <section class="section container door-body">
     <p class="lead">
-      Tell us what should become better. We work in English and Finnish. Palvelemme myös suomeksi.
+      An idea, an irritation, an opportunity, a question — or something you cannot quite name yet —
+      is enough to start.
     </p>
 
     <p class="actions">
-      <a class="button button--primary" href={contactMeishHref}>{contactMeishLabel}</a>
+      <a class="button button--primary" href={shouldMeishMail}>Should we Meish this?</a>
       <a class="button button--ghost" href={fitCallHref}>{fitCallLabel}</a>
+    </p>
+    <p class="fit-note">
+      {fitCallLabel}: Meish &amp; you / Meish &amp; your business. Free. Not a health or fitness check.
     </p>
 
     <h2>Email</h2>
     <p>
-      <a href={contactMail}>{contactEmail}</a>
+      <a href={contactMeishHref}>{contactEmail}</a>
     </p>
 
     <h2>Phone</h2>
@@ -52,37 +59,56 @@ const contactMail = meishMailto({
       </p>
     </details>
 
-    <p>When you write, it helps to include:</p>
+    <h2>When you write, it helps to include</h2>
     <ul>
-      <li>Your business or organisation</li>
-      <li>What you are trying to improve or decide</li>
-      <li>The best way to reach you</li>
+      <li>Your name</li>
+      <li>Email (if not obvious from the message)</li>
+      <li>What you are thinking about — even roughly</li>
+      <li>Optional: this is for me / my business / something else</li>
     </ul>
+
+    <p class="actions">
+      <a class="button button--ghost" href="/for-business">For Your Business</a>
+      <a class="button button--ghost" href="/for-you">For You</a>
+      <a class="button button--ghost" href="/gifts">Free gift</a>
+    </p>
   </section>
 </Base>
 
 <style>
-  .arrive {
-    display: flex;
-    align-items: center;
-    gap: 0.55rem;
+  .door-band-langs {
+    margin: 0.75rem auto 0;
+    font-size: 0.78rem;
+    color: #6f87a8;
+    max-width: none;
+  }
+  .door-body {
+    padding-top: var(--space-xl);
+  }
+  .lead {
+    max-width: 48ch;
+    color: var(--text-soft);
+    font-size: var(--text-md);
+  }
+  .fit-note {
+    margin-top: var(--space-sm);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    max-width: 48ch;
+  }
+  .door-body h2 {
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-sm);
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
   }
   .actions {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-sm);
-    margin-bottom: var(--space-lg);
+    margin-top: var(--space-md);
   }
   .phone-reveal {
-    margin: var(--space-sm) 0 var(--space-lg);
-    max-width: 28rem;
-  }
-  .phone-reveal summary {
-    cursor: pointer;
-    color: var(--color-lavender);
-    font-size: var(--text-sm);
-  }
-  .phone-reveal p {
     margin-top: var(--space-sm);
   }
 </style>

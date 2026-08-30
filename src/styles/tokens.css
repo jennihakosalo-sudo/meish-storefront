@@ -1,39 +1,50 @@
 /* ==========================================================================
-   Meish Universe — Brand Kit 2 (ELO26)
-   Palette locked. ATHENA Condensed pending — Bodoni Moda is the display stand-in.
+   Meish Universe — Brand colours (Intensive / mineral palette)
+   Source: Meish Universe Brand Guide — Intensive Version
+   ATHENA Condensed pending — Bodoni Moda is the display stand-in.
    ========================================================================== */
 
 :root {
-  --color-cream:    #FFFBF5;
-  --color-navy:     #020C59;
-  --color-lavender: #695EDB;
-  --color-gold:     #FBD79F;
-  --color-red:      #CD0316;
+  /* Universe mineral palette */
+  --color-deep-space:  #0B1020;
+  --color-amethyst:    #6A5ACD;
+  --color-fluorite:    #00C3D6;
+  --color-larvikite:   #6F87A8;
+  --color-gold:        #F7C873;
+  --color-coral:       #FF6B6B;
+  --color-pink-quartz: #F6B8E0;
+  --color-opal:        #EAF6FF;
 
-  --color-paper:        var(--color-cream);
-  --color-paper-sunk:   #f3ece2;
-  --color-paper-raised: #fffdf9;
+  /* Semantic aliases (site shell — light content surfaces) */
+  --color-cream:    var(--color-opal);
+  --color-navy:     var(--color-deep-space);
+  --color-lavender: var(--color-amethyst);
+  --color-red:      var(--color-coral);
+
+  --color-paper:        var(--color-opal);
+  --color-paper-sunk:   #dce8f2;
+  --color-paper-raised: #ffffff;
   --color-clay:         #b4552d;
   --color-clay-deep:    #8f4021;
   --color-clay-tint:    #f0e2d6;
   --color-sage:         #5c6b57;
 
-  --color-ink:          var(--color-navy);
-  --color-ink-soft:     #2a3568;
-  --color-ink-muted:    #5a6294;
-  --color-line:         rgba(2, 12, 89, 0.14);
-  --color-line-strong:  rgba(2, 12, 89, 0.28);
+  --color-ink:          var(--color-deep-space);
+  --color-ink-soft:     #1a2438;
+  --color-ink-muted:    var(--color-larvikite);
+  --color-line:         rgba(11, 16, 32, 0.14);
+  --color-line-strong:  rgba(11, 16, 32, 0.28);
 
-  --bg:            var(--color-cream);
+  --bg:            var(--color-opal);
   --bg-alt:        var(--color-paper-sunk);
-  --surface:       rgba(255, 253, 249, 0.72);
-  --text:          var(--color-navy);
+  --surface:       rgba(255, 255, 255, 0.78);
+  --text:          var(--color-deep-space);
   --text-soft:     var(--color-ink-soft);
-  --text-muted:    var(--color-ink-muted);
+  --text-muted:    var(--color-larvikite);
   --border:        var(--color-line);
-  --accent:        var(--color-lavender);
-  --accent-hover:  #5248c4;
-  --accent-tint:   rgba(105, 94, 219, 0.12);
+  --accent:        var(--color-amethyst);
+  --accent-hover:  #5748b8;
+  --accent-tint:   rgba(106, 90, 205, 0.12);
 
   /* ATHENA Condensed is canon; Bodoni Moda stands in until files are in public/fonts/ */
   --font-display: 'ATHENA Condensed', 'ATHENA', 'Bodoni Moda', Georgia, 'Times New Roman', serif;
@@ -81,9 +92,9 @@
   --radius-pill: 999px;
   --border-hair: 1px solid var(--border);
 
-  --shadow-sm: 0 2px 8px rgba(2, 12, 89, 0.08);
-  --shadow-md: 0 16px 40px rgba(2, 12, 89, 0.14);
-  --shadow-lg: 0 32px 80px rgba(2, 12, 89, 0.2);
+  --shadow-sm: 0 2px 8px rgba(11, 16, 32, 0.08);
+  --shadow-md: 0 16px 40px rgba(11, 16, 32, 0.14);
+  --shadow-lg: 0 32px 80px rgba(11, 16, 32, 0.2);
 
   --ease: cubic-bezier(0.4, 0, 0.15, 1);
   --dur-fast: 140ms;

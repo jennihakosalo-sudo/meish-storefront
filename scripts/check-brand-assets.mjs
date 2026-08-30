@@ -8,8 +8,8 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
 const locked = [
   {
-    path: 'public/brand/meish-diamond-universe.jpg',
-    sha256: '28bf91e24fafaeb806be789d87b849f0f7376adba9186e5983b5b4785c2faffb',
+    path: 'public/brand/meish-diamond-intensive.png',
+    sha256: '3ec3ac4e57f54cc0530cb384d41225907ac74d4fc11250ccd139c11df861ba01',
   },
   {
     path: 'public/brand/meish-universe-lockup-cream.png',

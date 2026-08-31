@@ -42,8 +42,8 @@ const shouldMeishMail = meishMailto({
 
     <p class="actions">
       <a class="button button--primary" href={shouldMeishMail}>Should we Meish this?</a>
-      <a class="button button--ghost" href={fitYouHref}>{fitYouLabel}</a>
-      <a class="button button--ghost" href={fitBusinessHref}>{fitBusinessLabel}</a>
+      <a class="button button--ghost" id="fit-you" href={fitYouHref}>{fitYouLabel}</a>
+      <a class="button button--ghost" id="fit-business" href={fitBusinessHref}>{fitBusinessLabel}</a>
     </p>
     <p class="fit-note">
       Free. Evaluates whether Meish is useful. Not a health or fitness check.
@@ -79,12 +79,6 @@ const shouldMeishMail = meishMailto({
 </Base>
 
 <style>
-  .door-band-langs {
-    margin: 0.75rem auto 0;
-    font-size: 0.78rem;
-    color: #6f87a8;
-    max-width: none;
-  }
   .door-body {
     padding-top: var(--space-xl);
   }

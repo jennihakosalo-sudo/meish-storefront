@@ -95,10 +95,13 @@ function isActive(href: string) {
     padding: 0;
   }
   .nav__link {
-    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    font-size: 1.0625rem;
     font-weight: var(--weight-medium);
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    text-transform: none;
     color: var(--color-navy);
   }
   .nav__link--active,
@@ -113,7 +116,7 @@ function isActive(href: string) {
     align-items: center;
     min-height: 2.75rem;
     padding: 0.45rem 0.95rem;
-    font-size: 1rem;
+    font-size: 1.0625rem;
     color: #fff;
     background: var(--color-navy);
     border: 1px solid var(--color-navy);

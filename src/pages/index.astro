@@ -14,7 +14,7 @@ const mapMail = meishMailto({
 
 <Base
   title="Meish — human experience is our North Star"
-  description="Meish notices what needs to become better and turns it into useful products, tools and ways of working. Possibility Map €590 + VAT. English and Finnish."
+  description="Meish notices what is actually happening for people — then turns observation into a clearer process, a map, a tool or a next step. Possibility Map €590 + VAT. English and Finnish."
   universeHome={true}
 >
   <LightHero />
@@ -79,6 +79,35 @@ const mapMail = meishMailto({
     </div>
   </section>
 
+  <section class="block" aria-labelledby="happen-title">
+    <div class="container">
+      <h2 id="happen-title">What happens when we work</h2>
+      <p class="intro">The shape of the work, not a rigid method for every case.</p>
+      <ol class="happen">
+        <li>
+          <strong>You bring</strong>
+          a problem, idea, awkward thing, opportunity or question.
+        </li>
+        <li>
+          <strong>We notice</strong>
+          what is actually happening — and what it feels like for the people inside it.
+        </li>
+        <li>
+          <strong>We make sense of it</strong>
+          patterns, friction, what already works, what does not need to exist.
+        </li>
+        <li>
+          <strong>We make something useful</strong>
+          a map, a tool, a process, material, an improvement — or a clear next step.
+        </li>
+        <li>
+          <strong>You leave with</strong>
+          something understandable you can use. If time is freed, it may stay free.
+        </li>
+      </ol>
+    </div>
+  </section>
+
   <section class="block" aria-labelledby="diff-title">
     <div class="container narrow">
       <h2 id="diff-title">What is different</h2>
@@ -91,9 +120,11 @@ const mapMail = meishMailto({
         with a human, or given to a tool. Better does not necessarily mean more.
       </p>
       <p>
-        From an interview we can turn messy knowledge into something usable — a clearer process, a
-        product, a journey, or sales material. In a tightly scoped situation this can happen
-        quickly. We do not promise that every idea becomes a business in one day.
+        From an interview we can turn messy knowledge into something usable. Expertise can become
+        sellable products. Friction can become a clearer process. An idea can become an offer.
+        An experience — a hotel stay, a journey, a service — can become less confusing and more
+        memorable. In a tightly scoped situation this can happen quickly. We do not promise that
+        every idea becomes a business in one day.
       </p>
       <p>
         If the work frees time, we do not immediately fill it. Sometimes the useful next step is
@@ -141,6 +172,10 @@ const mapMail = meishMailto({
           do. One interview. Then a visible map: three different routes, one recommendation, and
           practical next steps for 30 days. Delivered within five business days.
         </p>
+        <p>
+          You receive the map, the three routes, the recommendation and the 30-day guide. Next:
+          email us, or start with a free Fit Check if you are still deciding.
+        </p>
         <p class="offer__price"><strong>€590 + VAT 25.5%</strong> · Regular €950 + VAT 25.5%</p>
         <p>
           <a class="button button--primary" href={mapMail}>Ask about Possibility Map</a>
@@ -154,9 +189,9 @@ const mapMail = meishMailto({
         </p>
         <p class="offer__price"><strong>€0</strong></p>
         <p class="offer__routes">
-          <a href="/contact">Meish &amp; You Fit Check</a>
+          <a href="/contact#fit-you">Meish &amp; You Fit Check</a>
           ·
-          <a href="/contact">Meish &amp; Your Business Fit Check</a>
+          <a href="/contact#fit-business">Meish &amp; Your Business Fit Check</a>
         </p>
       </article>
       <p class="more">
@@ -220,6 +255,26 @@ const mapMail = meishMailto({
     max-width: 40rem;
     font-size: 1.2rem;
     line-height: 1.55;
+  }
+  .happen {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 1.35rem;
+    max-width: 40rem;
+  }
+  .happen li {
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+  .happen strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: var(--color-navy);
   }
   .paths {
     list-style: none;

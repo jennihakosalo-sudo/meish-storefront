@@ -1,7 +1,7 @@
 ---
 /**
- * Subpage intro band — Brand Guide left (Light) + right (Transparent) diamonds
- * on Deep Space. Homepage keeps Intensive (middle) only.
+ * Inner-page intro — same light editorial world as the homepage.
+ * One Diamond. No starfield, no dual gems, no leftover Universe theatre.
  */
 interface Props {
   eyebrow: string;
@@ -12,122 +12,85 @@ const { eyebrow, title, lead } = Astro.props;
 ---
 
 <header class="door-band">
-  <div class="door-band__sky" aria-hidden="true">
-    <div class="door-band__gas door-band__gas--amethyst"></div>
-    <div class="door-band__gas door-band__gas--fluorite"></div>
-  </div>
-  <img
-    class="door-band__gem door-band__gem--left"
-    src="/brand/meish-diamond-light.png"
-    alt=""
-    width="257"
-    height="640"
-    decoding="async"
-  />
-  <img
-    class="door-band__gem door-band__gem--right"
-    src="/brand/meish-diamond-transparent.png"
-    alt=""
-    width="285"
-    height="640"
-    decoding="async"
-  />
-  <div class="door-band__copy container">
-    <p class="door-band__eyebrow">{eyebrow}</p>
-    <h1 class="door-band__title">{title}</h1>
-    {lead && <p class="door-band__lead">{lead}</p>}
-    <slot />
+  <div class="door-band__inner container">
+    <img
+      class="door-band__gem"
+      src="/brand/meish-diamond-light.png"
+      alt=""
+      width="257"
+      height="640"
+      decoding="async"
+    />
+    <div class="door-band__copy">
+      <p class="door-band__eyebrow">{eyebrow}</p>
+      <h1 class="door-band__title">{title}</h1>
+      {lead && <p class="door-band__lead">{lead}</p>}
+      <slot />
+    </div>
   </div>
 </header>
 
 <style>
   .door-band {
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
-    background: #0b1020;
-    color: #eaf6ff;
-    padding: clamp(3.5rem, 8vw, 5.5rem) 0 clamp(2.5rem, 5vw, 3.5rem);
+    background: var(--color-ivory);
+    color: var(--color-navy);
+    padding: clamp(3rem, 7vw, 5.5rem) 0 clamp(2.25rem, 5vw, 3.5rem);
   }
-  .door-band__sky {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-  }
-  .door-band__gas {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(70px);
-  }
-  .door-band__gas--amethyst {
-    width: 42%;
-    height: 70%;
-    left: -8%;
-    top: -20%;
-    background: radial-gradient(circle, rgba(106, 90, 205, 0.35), transparent 70%);
-  }
-  .door-band__gas--fluorite {
-    width: 40%;
-    height: 65%;
-    right: -10%;
-    bottom: -25%;
-    background: radial-gradient(circle, rgba(0, 195, 214, 0.22), transparent 72%);
+  .door-band__inner {
+    display: grid;
+    grid-template-columns: auto minmax(0, 40rem);
+    gap: clamp(1.25rem, 3vw, 2.5rem);
+    align-items: center;
+    min-width: 0;
   }
   .door-band__gem {
-    position: absolute;
-    z-index: 1;
-    top: 50%;
-    width: clamp(4.5rem, 11vw, 7.5rem);
+    width: min(5.5rem, 18vw);
     height: auto;
-    transform: translateY(-50%);
-    pointer-events: none;
     background: transparent;
-    border: 0;
-    filter: drop-shadow(0 8px 28px rgba(0, 195, 214, 0.22));
-  }
-  .door-band__gem--left {
-    left: clamp(0.5rem, 3vw, 2.5rem);
-  }
-  .door-band__gem--right {
-    right: clamp(0.5rem, 3vw, 2.5rem);
-  }
-  .door-band__copy {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    max-width: 44rem;
   }
   .door-band__eyebrow {
+    margin: 0;
     font-size: var(--text-xs);
     font-weight: 500;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #00c3d6;
-    margin: 0;
+    color: var(--color-ink-muted);
   }
   .door-band__title {
-    margin: 0.55rem 0 0;
+    margin: 0.4rem 0 0;
     font-family: var(--font-display);
-    font-size: clamp(2rem, 4.5vw, 2.85rem);
-    font-weight: 700;
-    line-height: 1.05;
-    color: #eaf6ff;
+    font-size: clamp(2.625rem, 5vw, 3.75rem);
+    font-weight: 600;
+    font-style: normal;
+    line-height: 1.12;
+    color: var(--color-navy);
+    max-width: 16ch;
+    overflow-wrap: break-word;
+  }
+  .door-band__copy {
+    min-width: 0;
   }
   .door-band__lead {
-    margin: 0.85rem auto 0;
-    max-width: 42ch;
-    font-size: 1.05rem;
+    margin: 0.9rem 0 0;
+    max-width: 36rem;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: var(--color-navy);
+    overflow-wrap: break-word;
+  }
+  :global(.door-band-langs) {
+    margin: 0.85rem 0 0;
+    font-size: 1.0625rem;
     line-height: 1.5;
-    color: rgba(234, 246, 255, 0.82);
+    color: var(--color-ink-muted);
+    max-width: none;
   }
   @media (max-width: 700px) {
-    .door-band__gem {
-      width: 3.4rem;
-      opacity: 0.85;
+    .door-band__inner {
+      grid-template-columns: 1fr;
     }
-    .door-band__copy {
-      padding-inline: 3.5rem;
+    .door-band__gem {
+      width: min(4.5rem, 22vw);
     }
   }
 </style>

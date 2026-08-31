@@ -19,41 +19,86 @@ const mapMail = meishMailto({
 >
   <LightHero />
 
-  <section class="block" id="pathways" aria-labelledby="pathways-title">
+  <section class="block" aria-labelledby="arrive-title">
     <div class="container">
-      <h2 id="pathways-title">Where Meish can help</h2>
+      <h2 id="arrive-title">Come with the situation</h2>
+      <p class="intro">
+        Meish starts by noticing. You can arrive with something unfinished — we do not expect you
+        to name the service first.
+      </p>
+      <ul class="arrive">
+        <li>“This is annoying.”</li>
+        <li>“This takes too much time.”</li>
+        <li>“Our customers keep getting confused here.”</li>
+        <li>“I know a lot about this, but I don’t know how to sell it.”</li>
+        <li>“We have an idea but no product.”</li>
+        <li>“I don’t know what I need.”</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block block--soft" id="pathways" aria-labelledby="pathways-title">
+    <div class="container">
+      <h2 id="pathways-title">How Meish works</h2>
+      <p class="intro">
+        Recognition before creation. Review before build. AI only after we know it should do the
+        work at all.
+      </p>
       <ol class="paths">
         <li id="review">
           <a href="/for-business#human-experience-review">
             <strong>Review</strong>
-            <span>See what is actually happening — in a service, a process or a situation.</span>
+            <span>Understand what is actually happening — and what it feels like for the person moving through it.</span>
           </a>
         </li>
         <li id="improve">
           <a href="/for-business#friction-removal">
             <strong>Improve</strong>
-            <span>Remove unnecessary friction so work and experience become easier.</span>
+            <span>Make something clearer, easier or less friction-heavy. Sometimes by removing it.</span>
           </a>
         </li>
         <li id="build">
           <a href="/for-business#build-with-meish">
             <strong>Build</strong>
-            <span>Turn one useful opportunity into something concrete you can use.</span>
+            <span>Create something useful only when something genuinely needs to exist.</span>
           </a>
         </li>
         <li>
           <a href="/tools">
             <strong>Tools</strong>
-            <span>Use a focused instrument — including without us.</span>
+            <span>Use a focused tool when a full project is unnecessary.</span>
           </a>
         </li>
         <li>
           <a href="#offers">
             <strong>Offers</strong>
-            <span>Named work with a clear price, scope and next step.</span>
+            <span>Choose something already packaged — with a price, a scope and a next step.</span>
           </a>
         </li>
       </ol>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="diff-title">
+    <div class="container narrow">
+      <h2 id="diff-title">What is different</h2>
+      <p>
+        Meish is not generic consulting or “AI services”. We look at the lived experience first —
+        what it is actually like for the person moving through the work, the service or the day.
+      </p>
+      <p>
+        Before we build, we ask whether something should be removed, simplified, reordered, left
+        with a human, or given to a tool. Better does not necessarily mean more.
+      </p>
+      <p>
+        From an interview we can turn messy knowledge into something usable — a clearer process, a
+        product, a journey, or sales material. In a tightly scoped situation this can happen
+        quickly. We do not promise that every idea becomes a business in one day.
+      </p>
+      <p>
+        If the work frees time, we do not immediately fill it. Sometimes the useful next step is
+        to enjoy doing nothing for a while.
+      </p>
     </div>
   </section>
 
@@ -92,8 +137,9 @@ const mapMail = meishMailto({
         <p class="eyebrow">Meish &amp; Your Business · Gamma Test Phase</p>
         <h3>Possibility Map</h3>
         <p>
-          A focused interview followed by a clear map of what could be improved, built, removed or
-          tested next. Three routes, one recommendation, and practical next steps for 30 days.
+          For a decision-maker who can see that something could work better — but not yet what to
+          do. One interview. Then a visible map: three different routes, one recommendation, and
+          practical next steps for 30 days. Delivered within five business days.
         </p>
         <p class="offer__price"><strong>€590 + VAT 25.5%</strong> · Regular €950 + VAT 25.5%</p>
         <p>
@@ -103,8 +149,8 @@ const mapMail = meishMailto({
       <article class="offer offer--quiet">
         <h3>20-minute Meish Fit Check</h3>
         <p>
-          Is Meish useful for what you are trying to do? Let’s find out. Not a physical fitness
-          assessment.
+          A short conversation to see whether Meish work would be useful in your situation. Not a
+          physical fitness assessment.
         </p>
         <p class="offer__price"><strong>€0</strong></p>
         <p class="offer__routes">
@@ -129,16 +175,6 @@ const mapMail = meishMailto({
       </p>
       <p>
         <a class="button button--ghost" href="/gifts/meish-clarity-starter.pdf">Download the PDF</a>
-      </p>
-    </div>
-  </section>
-
-  <section class="block" aria-labelledby="note-title">
-    <div class="container narrow">
-      <h2 id="note-title">How Meish thinks</h2>
-      <p>Notice the friction. Remove the friction. Better does not necessarily mean more.</p>
-      <p>
-        Sometimes the answer is to simplify it, change the order, make it visible — or leave it alone.
       </p>
     </div>
   </section>
@@ -168,6 +204,22 @@ const mapMail = meishMailto({
   h2 {
     margin: 0 0 1.75rem;
     max-width: 18ch;
+  }
+  .intro {
+    margin: -0.5rem 0 2rem;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    max-width: 46rem;
+  }
+  .arrive {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.65rem;
+    max-width: 40rem;
+    font-size: 1.2rem;
+    line-height: 1.55;
   }
   .paths {
     list-style: none;
@@ -267,8 +319,12 @@ const mapMail = meishMailto({
     margin-top: 2.25rem;
     font-size: 1.125rem;
   }
+  .narrow p {
+    font-size: 1.2rem;
+    line-height: 1.65;
+  }
   .narrow p + p {
-    margin-top: 1rem;
+    margin-top: 1.15rem;
   }
   .block--end .hero__actions,
   .hero__actions {

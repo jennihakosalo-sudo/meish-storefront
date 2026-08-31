@@ -1,463 +1,246 @@
 ---
 /**
- * Meish Universe homepage — Intensive Brand Guide style.
- * Diamonds: ONLY public/brand/meish-diamond-intensive.png
- * Always upright (no tilt). Deep Space field + mineral palette.
+ * Homepage hero. One board-center Intensive crystal (web 720).
+ * Visual language from 7-facet boards. No F1–F7 / family labels.
  */
-import { contactMeishHref, contactMeishLabel } from '../data/hatchling-nav';
+const diamondSrc = '/brand/meish-diamond-board-hero-720.png';
 
-const diamondSrc = '/brand/meish-diamond-intensive-720.png';
-
-const destinations = [
-  {
-    href: '/for-business',
-    name: 'Meish for Your Business',
-    hint: 'Offers and Possibility Map',
-    x: '15%',
-    y: '30%',
-    mx: '18%',
-    my: '16%',
-  },
-  {
-    href: '/for-you',
-    name: 'Meish for You',
-    hint: 'The personal side',
-    x: '85%',
-    y: '26%',
-    mx: '82%',
-    my: '14%',
-  },
-  {
-    href: '/tools',
-    name: 'Meish Tools',
-    hint: 'Focused instruments',
-    x: '84%',
-    y: '72%',
-    mx: '80%',
-    my: '78%',
-  },
-  {
-    href: '/gifts',
-    name: 'Gifts for You',
-    hint: 'Free downloads',
-    x: '16%',
-    y: '74%',
-    mx: '20%',
-    my: '84%',
-  },
+const doors = [
+  { href: '/for-business', name: 'Meish for Your Business', hint: 'Offers that start with your situation' },
+  { href: '/for-you', name: 'Meish for You', hint: 'Useful things for being human' },
+  { href: '/tools', name: 'Tools', hint: 'Things you can use' },
+  { href: '/gifts', name: 'Gifts for You', hint: 'Free. No signup.' },
 ];
 ---
 
-<section class="home" aria-label="Meish Universe">
-  <div class="sky" aria-hidden="true">
-    <div class="gas gas--amethyst"></div>
-    <div class="gas gas--fluorite"></div>
-    <div class="gas gas--gold"></div>
-    <div class="gas gas--coral"></div>
-    <div class="stars"></div>
-    <svg class="orbits" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
-      <ellipse cx="50" cy="42" rx="18" ry="14" />
-      <ellipse cx="50" cy="42" rx="28" ry="21" />
-      <ellipse cx="50" cy="42" rx="38" ry="29" />
+<section class="hero" aria-label="Meish Universe">
+  <div class="hero__field" aria-hidden="true">
+    <div class="hero__wash hero__wash--indigo"></div>
+    <div class="hero__wash hero__wash--mint"></div>
+    <svg class="hero__orbits" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+      <ellipse cx="50" cy="44" rx="14" ry="10.5" />
+      <ellipse cx="50" cy="44" rx="22" ry="16.5" />
+      <ellipse cx="50" cy="44" rx="30" ry="22.5" />
+      <line x1="50" y1="20" x2="50" y2="68" />
     </svg>
   </div>
 
-  <div class="depth">
-    <nav class="orbit" aria-label="Universe destinations">
-      {destinations.map((d) => (
-        <a
-          class="gem gem--hit"
-          href={d.href}
-          style={`--x:${d.x};--y:${d.y};--mx:${d.mx};--my:${d.my}`}
-          aria-label={`${d.name}. ${d.hint}. Opens ${d.href}.`}
-        >
-          <img class="gem__face" src={diamondSrc} alt="" width="434" height="720" loading="lazy" decoding="async" />
-          <span class="gem__label">
-            <strong>{d.name}</strong>
-          </span>
-        </a>
-      ))}
-    </nav>
-
-    <div class="hero">
-      <div class="hero__crystal" aria-hidden="true">
-        <img
-          class="hero__diamond"
-          src={diamondSrc}
-          alt=""
-          width="434"
-          height="720"
-          fetchpriority="high"
-          decoding="async"
-        />
-      </div>
-      <h1 class="hero__name">Meish</h1>
-      <span class="hero__rule" aria-hidden="true"></span>
-      <p class="hero__realm">Universe</p>
-      <p class="hero__north">Human experience is our North Star.</p>
-      <p class="hero__langs">We work in English and Finnish. · Palvelemme myös suomeksi.</p>
-      <p class="hero__lead">
-        We notice things. Then we make useful things out of what we notice —
-        tools, maps, reviews and changes for work and everyday life.
-      </p>
-      <p class="hero__ctas">
-        <a class="hero__cta hero__cta--primary" href="/for-business">For Your Business</a>
-        <a class="hero__cta hero__cta--ghost" href="/for-you">For You</a>
-        <a class="hero__cta hero__cta--ghost" href={contactMeishHref}>{contactMeishLabel}</a>
-      </p>
-    </div>
+  <div class="hero__core">
+    <img
+      class="hero__diamond"
+      src={diamondSrc}
+      alt=""
+      width="218"
+      height="360"
+      fetchpriority="high"
+      decoding="async"
+    />
+    <p class="hero__mark">Meish</p>
+    <h1 class="hero__universe">Universe</h1>
+    <p class="hero__north">Human experience is our North Star.</p>
+    <p class="hero__lead">
+      We notice what is happening in human experience — then make useful tools, maps and changes.
+    </p>
+    <p class="hero__langs">
+      We work in English and Finnish.<br />
+      Palvelemme myös suomeksi.
+    </p>
   </div>
 
-  <div class="floor">
-    <a class="offer" href="/for-business#possibility-map">
-      <span class="offer__kicker">For Your Business</span>
-      <strong>Possibility Map</strong>
-      <span class="offer__meta">€590 + VAT 25.5% · Gamma Test Phase</span>
-    </a>
-    <a class="offer offer--secondary" href={contactMeishHref}>
-      <span class="offer__kicker">{contactMeishLabel}</span>
-      <strong>moona.m@meish.work</strong>
-      <span class="offer__meta">Tell us what should become better</span>
-    </a>
-  </div>
+  <nav class="hero__doors" aria-label="Public doors">
+    {doors.map((d) => (
+      <a class="hero__door" href={d.href}>
+        <span class="hero__signal" aria-hidden="true"></span>
+        <strong>{d.name}</strong>
+        <span>{d.hint}</span>
+      </a>
+    ))}
+  </nav>
 </section>
 
 <style>
-  .home {
+  .hero {
     position: relative;
     isolation: isolate;
-    min-height: 100vh;
-    min-height: 100dvh;
-    overflow: hidden;
-    background: #0b1020;
+    background: #081020;
     color: #eaf6ff;
-    padding-bottom: 2.75rem;
+    padding: clamp(5.5rem, 10vw, 7rem) 1.25rem 3.25rem;
+    overflow: hidden;
   }
 
-  .sky {
+  .hero__field {
     position: absolute;
     inset: 0;
     z-index: 0;
     pointer-events: none;
-    overflow: hidden;
   }
 
-  .gas {
+  .hero__wash {
     position: absolute;
     border-radius: 50%;
-    filter: blur(80px);
+    filter: blur(88px);
+    opacity: 0.28;
   }
-  .gas--amethyst {
-    width: 55%;
-    height: 50%;
-    left: -8%;
-    top: 5%;
-    background: radial-gradient(circle, rgba(106, 90, 205, 0.35) 0%, transparent 70%);
-  }
-  .gas--fluorite {
-    width: 50%;
-    height: 48%;
-    right: -10%;
-    top: 20%;
-    background: radial-gradient(circle, rgba(0, 195, 214, 0.22) 0%, transparent 72%);
-  }
-  .gas--gold {
-    width: 45%;
-    height: 40%;
-    left: 28%;
-    top: 35%;
-    background: radial-gradient(circle, rgba(247, 200, 115, 0.18) 0%, transparent 68%);
-  }
-  .gas--coral {
-    width: 40%;
-    height: 36%;
-    left: 35%;
-    bottom: 8%;
-    background: radial-gradient(circle, rgba(255, 107, 107, 0.16) 0%, transparent 70%);
-  }
-
-  .stars {
-    position: absolute;
-    inset: 0;
-    background-image:
-      radial-gradient(1.2px 1.2px at 12% 22%, rgba(234, 246, 255, 0.55), transparent),
-      radial-gradient(1px 1px at 28% 68%, rgba(234, 246, 255, 0.35), transparent),
-      radial-gradient(1.4px 1.4px at 41% 18%, rgba(247, 200, 115, 0.7), transparent),
-      radial-gradient(1px 1px at 61% 81%, rgba(234, 246, 255, 0.3), transparent),
-      radial-gradient(1.3px 1.3px at 74% 26%, rgba(0, 195, 214, 0.55), transparent),
-      radial-gradient(1px 1px at 91% 14%, rgba(234, 246, 255, 0.4), transparent),
-      radial-gradient(1.2px 1.2px at 8% 48%, rgba(246, 184, 224, 0.45), transparent),
-      radial-gradient(1px 1px at 53% 44%, rgba(234, 246, 255, 0.25), transparent);
-  }
-
-  .orbits {
-    position: absolute;
+  .hero__wash--indigo {
+    width: min(48vw, 400px);
+    height: min(48vw, 400px);
     left: 50%;
     top: 8%;
-    width: min(70vw, 520px);
-    height: min(70vw, 520px);
-    margin-left: calc(min(70vw, 520px) / -2);
-    fill: none;
-    stroke: rgba(234, 246, 255, 0.14);
-    stroke-width: 0.35;
+    transform: translateX(-58%);
+    background: radial-gradient(circle, rgba(106, 90, 205, 0.35) 0%, transparent 72%);
+  }
+  .hero__wash--mint {
+    width: min(32vw, 260px);
+    height: min(32vw, 260px);
+    left: 50%;
+    top: 24%;
+    transform: translateX(-6%);
+    background: radial-gradient(circle, rgba(0, 195, 214, 0.12) 0%, transparent 74%);
   }
 
-  .depth {
-    position: relative;
-    height: min(90dvh, 820px);
-    min-height: 580px;
-  }
-
-  .orbit {
-    position: absolute;
-    inset: 0;
-  }
-
-  .gem {
-    position: absolute;
-    left: var(--x);
-    top: var(--y);
-    width: 4.8rem;
-    margin-left: -2.4rem;
-    margin-top: -2.9rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    color: inherit;
-  }
-  .gem__face {
-    display: block;
-    width: 100%;
-    height: auto;
-    background: transparent;
-    border: 0;
-    padding: 0;
-    /* Always upright — never rotate diamonds */
-    transform: none;
-    filter: drop-shadow(0 8px 24px rgba(0, 195, 214, 0.25));
-  }
-  .gem:hover { text-decoration: none; color: inherit; }
-
-  .gem--hit {
-    width: 5.2rem;
-    transition: filter 280ms cubic-bezier(0.4, 0, 0.15, 1), transform 280ms ease;
-  }
-  .gem--hit:hover,
-  .gem--hit:focus-visible {
-    outline: none;
-    filter: brightness(1.12);
-    transform: scale(1.06);
-  }
-
-  .gem__label {
-    margin-top: 0.4rem;
-    text-align: center;
-  }
-  .gem__label strong {
-    display: block;
-    font-size: 0.62rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #eaf6ff;
-    max-width: 14ch;
-    text-shadow: 0 1px 8px rgba(11, 16, 32, 0.9);
-  }
-
-  .hero {
+  .hero__orbits {
     position: absolute;
     left: 50%;
-    top: 6%;
-    width: min(36vw, 220px);
-    margin-left: calc(min(36vw, 220px) / -2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    pointer-events: none;
-    z-index: 2;
+    top: 7%;
+    width: min(48vw, 380px);
+    height: min(48vw, 380px);
+    margin-left: calc(min(48vw, 380px) / -2);
+    fill: none;
+    stroke: rgba(234, 246, 255, 0.07);
+    stroke-width: 0.11;
   }
-  .hero__crystal {
-    width: 100%;
+
+  .hero__core {
     position: relative;
+    z-index: 1;
+    max-width: 34rem;
+    margin: 0 auto;
+    text-align: center;
   }
+
   .hero__diamond {
     display: block;
-    width: 100%;
+    width: min(24vw, 136px);
     height: auto;
+    margin: 0 auto 1.15rem;
     background: transparent;
-    border: 0;
-    padding: 0;
-    transform: none;
-    filter: drop-shadow(0 0 28px rgba(106, 90, 205, 0.45))
-      drop-shadow(0 12px 40px rgba(255, 107, 107, 0.25));
+    filter: drop-shadow(0 0 10px rgba(106, 90, 205, 0.16));
   }
-  .hero__name {
-    margin: 0.65rem 0 0;
+
+  .hero__mark {
+    margin: 0;
     font-family: var(--font-display);
-    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-size: clamp(3.1rem, 8vw, 5rem);
     font-weight: 700;
+    font-style: normal;
     line-height: 0.9;
     letter-spacing: -0.03em;
     color: #eaf6ff;
-    max-width: none;
-  }
-  .hero__rule {
-    display: block;
-    width: 5rem;
-    height: 1px;
-    margin: 0.55rem 0 0.4rem;
-    background: linear-gradient(90deg, transparent, #f7c873 18%, #f7c873 82%, transparent);
-  }
-  .hero__realm {
-    font-size: 0.68rem;
-    letter-spacing: 0.46em;
-    text-transform: uppercase;
-    color: #00c3d6;
-    max-width: none;
-  }
-  .hero__north {
-    margin-top: 1rem;
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: clamp(1rem, 1.6vw, 1.25rem);
-    color: #eaf6ff;
-    max-width: 28ch;
-  }
-  .hero__lead {
-    margin-top: 0.65rem;
-    font-family: var(--font-body);
-    font-size: 0.9rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: rgba(234, 246, 255, 0.78);
-    max-width: 38ch;
-  }
-  .hero__langs {
-    margin-top: 0.55rem;
-    font-size: 0.72rem;
-    letter-spacing: 0.04em;
-    color: #6f87a8;
-    max-width: 42ch;
-  }
-  .hero__ctas {
-    margin-top: 1.1rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.65rem;
-    justify-content: center;
-    pointer-events: auto;
-  }
-  .hero__cta {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.55rem 1rem;
-    border-radius: 999px;
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    text-decoration: none;
-    font-weight: 500;
-  }
-  .hero__cta--primary {
-    background: #6a5acd;
-    color: #eaf6ff;
-  }
-  .hero__cta--primary:hover {
-    text-decoration: none;
-    color: #eaf6ff;
-    opacity: 0.92;
-  }
-  .hero__cta--ghost {
-    border: 1px solid rgba(234, 246, 255, 0.35);
-    color: #eaf6ff;
-    background: rgba(11, 16, 32, 0.45);
-  }
-  .hero__cta--ghost:hover {
-    text-decoration: none;
-    color: #eaf6ff;
-    border-color: #00c3d6;
   }
 
-  .floor {
-    position: relative;
-    z-index: 4;
-    width: min(100% - 2.5rem, 760px);
-    margin: 0.5rem auto 0;
-    display: grid;
-    grid-template-columns: 1.15fr 0.85fr;
-    gap: 2rem;
+  .hero__universe {
+    margin: 0.45rem 0 0;
+    font-family: var(--font-body);
+    font-size: clamp(0.78rem, 1.4vw, 0.88rem);
+    font-weight: 500;
+    letter-spacing: 0.46em;
+    text-transform: uppercase;
+    color: rgba(234, 246, 255, 0.5);
   }
-  .offer {
+
+  .hero__north {
+    margin: 1.45rem auto 0;
+    font-family: var(--font-body);
+    font-style: normal;
+    font-size: clamp(1.2rem, 2.3vw, 1.5rem);
+    font-weight: 500;
+    line-height: 1.3;
+    color: #eaf6ff;
+    max-width: 22ch;
+  }
+
+  .hero__lead {
+    margin: 0.9rem auto 0;
+    font-family: var(--font-body);
+    font-size: clamp(1.08rem, 1.9vw, 1.22rem);
+    line-height: 1.45;
+    color: rgba(234, 246, 255, 0.82);
+    max-width: 36ch;
+  }
+
+  .hero__langs {
+    margin: 1rem auto 0;
+    font-size: 1.02rem;
+    line-height: 1.5;
+    color: rgba(234, 246, 255, 0.58);
+  }
+
+  .hero__doors {
+    position: relative;
+    z-index: 1;
     display: grid;
-    gap: 0.28rem;
-    padding-top: 0.9rem;
-    border-top: 1px solid rgba(234, 246, 255, 0.18);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.4rem 1.6rem;
+    max-width: 58rem;
+    margin: 3rem auto 0;
+    padding-top: 1.85rem;
+    border-top: 1px solid rgba(234, 246, 255, 0.08);
+  }
+
+  .hero__door {
+    display: grid;
+    justify-items: start;
+    gap: 0.35rem;
     text-decoration: none;
     color: inherit;
   }
-  .offer:hover { text-decoration: none; color: inherit; }
-  .offer:hover strong { color: #00c3d6; }
-  .offer__kicker {
-    font-size: 0.58rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: #6f87a8;
+  .hero__door:hover {
+    text-decoration: none;
+    color: inherit;
   }
-  .offer strong {
-    font-family: var(--font-display);
-    font-size: 1.15rem;
-    font-weight: 600;
-    line-height: 1.25;
-    max-width: 24ch;
-    color: #eaf6ff;
-    transition: color 200ms ease;
-  }
-  .offer--secondary strong {
-    font-size: 1rem;
-    font-weight: 500;
-    max-width: 26ch;
-  }
-  .offer__meta {
-    font-family: var(--font-body);
-    font-size: 0.8rem;
-    font-weight: 400;
-    color: rgba(234, 246, 255, 0.72);
+  .hero__door:hover strong {
+    color: #00c3d6;
   }
 
-  @media (max-width: 860px) {
-    .depth {
-      min-height: 520px;
-      height: min(78dvh, 640px);
+  .hero__signal {
+    width: 0.38rem;
+    height: 0.38rem;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #eaf6ff 0%, #6a5acd 70%);
+    box-shadow: 0 0 6px rgba(0, 195, 214, 0.22);
+    margin-bottom: 0.2rem;
+  }
+
+  .hero__door strong {
+    font-family: var(--font-display);
+    font-style: normal;
+    font-size: clamp(1.08rem, 1.7vw, 1.28rem);
+    font-weight: 600;
+    line-height: 1.2;
+    color: #eaf6ff;
+  }
+
+  .hero__door span {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.35;
+    color: rgba(234, 246, 255, 0.6);
+    max-width: 20ch;
+  }
+
+  @media (max-width: 800px) {
+    .hero__doors {
+      grid-template-columns: 1fr 1fr;
     }
-    .gem--hit {
-      left: var(--mx);
-      top: var(--my);
-      width: 4rem;
-    }
-    .gem__label strong {
-      font-size: 0.52rem;
-      max-width: 12ch;
-    }
-    .hero {
-      width: min(52vw, 170px);
-      margin-left: calc(min(52vw, 170px) / -2);
-      top: 8%;
-    }
-    .hero__name {
-      font-size: clamp(2rem, 9vw, 2.6rem);
-    }
-    .hero__lead { display: none; }
-    .floor {
-      grid-template-columns: 1fr;
-      gap: 1.25rem;
-      width: min(100% - 2rem, 720px);
+    .hero__diamond {
+      width: min(36vw, 120px);
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .gem--hit { transition: none; }
+    .hero__wash {
+      filter: blur(40px);
+      opacity: 0.2;
+    }
   }
 </style>

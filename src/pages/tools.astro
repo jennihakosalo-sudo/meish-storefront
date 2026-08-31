@@ -1,12 +1,12 @@
 ---
 import Base from '../layouts/Base.astro';
 import DoorUniverseBand from '../components/DoorUniverseBand.astro';
-import { contactMeishHref, contactMeishLabel, fitCallHref, fitCallLabel } from '../data/hatchling-nav';
+import { contactMeishHref, contactMeishLabel, fitYouHref, fitYouLabel, fitBusinessHref, fitBusinessLabel } from '../data/hatchling-nav';
 ---
 
 <Base
   title="Meish Tools — useful things you can use"
-  description="Useful Meish tools you can use — including without us. Start with Clarity Starter PDF or a free Fit Check. English and Finnish."
+  description="Useful Meish tools you can use — including without us. Start with Clarity Starter PDF or a 20-minute Meish & You or Meish & Your Business Fit Check. English and Finnish."
 >
   <DoorUniverseBand
     eyebrow="Tools"
@@ -28,8 +28,10 @@ import { contactMeishHref, contactMeishLabel, fitCallHref, fitCallLabel } from '
     <h2>Work with Meish</h2>
     <ul>
       <li>
-        <a href={fitCallHref}><strong>{fitCallLabel}</strong></a>
-        — free, 20 minutes. Should we Meish this?
+        <a href={fitYouHref}><strong>{fitYouLabel}</strong></a>
+        or
+        <a href={fitBusinessHref}><strong>{fitBusinessLabel}</strong></a>
+        — free. Should we Meish this?
       </li>
       <li>
         <a href="/for-business#possibility-map"><strong>Possibility Map</strong></a>

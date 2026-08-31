@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import DoorUniverseBand from '../components/DoorUniverseBand.astro';
-import { contactMeishHref, contactMeishLabel, fitCallHref, fitCallLabel } from '../data/hatchling-nav';
+import { contactMeishHref, contactMeishLabel, fitYouHref, fitYouLabel, fitBusinessHref, fitBusinessLabel } from '../data/hatchling-nav';
 ---
 
 <Base
@@ -20,12 +20,12 @@ import { contactMeishHref, contactMeishLabel, fitCallHref, fitCallLabel } from '
     <h2>What Meish offers now</h2>
     <ul>
       <li>
-        <a href="/for-business"><strong>Meish for Your Business</strong></a> — Possibility Map,
+        <a href="/for-business"><strong>Meish &amp; Your Business</strong></a> — Possibility Map,
         Build, Friction Removal, Human Experience Review, and deeper engagements.
       </li>
       <li>
-        <a href="/for-you"><strong>Meish for You</strong></a> — personal growth, decision support
-        and wellbeing.
+        <a href="/for-you"><strong>Meish &amp; You</strong></a> — personal growth, decision support
+        and everyday usefulness.
       </li>
       <li>
         <a href="/tools"><strong>Meish Tools</strong></a> — focused instruments when the right tool
@@ -47,7 +47,8 @@ import { contactMeishHref, contactMeishLabel, fitCallHref, fitCallLabel } from '
     <p class="actions">
       <a class="button button--primary" href={contactMeishHref}>{contactMeishLabel}</a>
       <a class="button button--ghost" href="/for-business">See business offers</a>
-      <a class="button button--ghost" href={fitCallHref}>{fitCallLabel}</a>
+      <a class="button button--ghost" href={fitYouHref}>{fitYouLabel}</a>
+      <a class="button button--ghost" href={fitBusinessHref}>{fitBusinessLabel}</a>
     </p>
   </section>
 </Base>

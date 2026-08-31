@@ -1,12 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import MeishUniverseScene from '../components/MeishUniverseScene.astro';
-import {
-  contactMeishHref,
-  contactMeishLabel,
-  fitCallHref,
-  fitCallLabel,
-} from '../data/hatchling-nav';
+import { fitBusinessHref, fitBusinessLabel } from '../data/hatchling-nav';
 import { meishMailto } from '../lib/meish-mailto';
 
 const mapMail = meishMailto({
@@ -85,7 +80,7 @@ const shouldMeishMail = meishMailto({
       <h2 class="band__display band__display--sm">Offers</h2>
 
       <article class="offer offer--feature" id="possibility-map-example">
-        <p class="offer__eyebrow">For Your Business · Gamma Test Phase</p>
+        <p class="offer__eyebrow">Meish & Your Business · Gamma Test Phase</p>
         <h3 class="offer__name">Possibility Map</h3>
         <p class="offer__hook">You bring the situation. We map what could be possible.</p>
         <p class="offer__note">
@@ -109,7 +104,7 @@ const shouldMeishMail = meishMailto({
 
       <div class="offer-rail" role="list">
         <article class="offer" role="listitem">
-          <p class="offer__eyebrow">For Your Business</p>
+          <p class="offer__eyebrow">Meish & Your Business</p>
           <h3 class="offer__name">Friction Removal</h3>
           <p class="offer__hook">
             Find and remove unnecessary work — repeated tasks, unclear processes, avoidable friction.
@@ -121,7 +116,7 @@ const shouldMeishMail = meishMailto({
         </article>
 
         <article class="offer" role="listitem">
-          <p class="offer__eyebrow">For Your Business</p>
+          <p class="offer__eyebrow">Meish & Your Business</p>
           <h3 class="offer__name">Human Experience Review</h3>
           <p class="offer__hook">
             Outside view on how a service, journey, place or experience actually feels.
@@ -134,13 +129,13 @@ const shouldMeishMail = meishMailto({
       </div>
 
       <p class="band__more">
-        More on <a href="/for-business">Meish for Your Business</a>
+        More on <a href="/for-business">Meish & Your Business</a>
         · <a href="/tools">Meish Tools</a>
         · <a href="/gifts">Gifts for You</a>
       </p>
       <p class="band__fit">
         Not sure which offer fits?
-        <a href={fitCallHref}>{fitCallLabel}</a>
+        <a href={fitBusinessHref}>{fitBusinessLabel}</a>
         — free, 20 minutes. Optional.
       </p>
     </div>
@@ -180,11 +175,11 @@ const shouldMeishMail = meishMailto({
       <h2 class="pearl__title">Where would you like to begin?</h2>
       <div class="door-row">
         <a class="door" href="/for-business">
-          <strong>Meish for Your Business</strong>
+          <strong>Meish & Your Business</strong>
           <span>Outside view, friction, AI where it helps, tools from your expertise.</span>
         </a>
         <a class="door" href="/for-you">
-          <strong>Meish for You</strong>
+          <strong>Meish & You</strong>
           <span>Useful things for being a human — decisions, transitions, everyday ease.</span>
         </a>
         <a class="door" href="/tools">
@@ -205,7 +200,6 @@ const shouldMeishMail = meishMailto({
       <p class="pearl__sub">You can come with the situation. You do not have to come with the answer.</p>
       <p class="pearl__actions">
         <a class="cta cta--ink" href={shouldMeishMail}>Should we Meish this?</a>
-        <a class="cta cta--ink" href={contactMeishHref}>{contactMeishLabel}</a>
         <a class="cta cta--ink" href="/gifts">Take a free gift</a>
       </p>
     </div>

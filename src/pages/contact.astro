@@ -2,8 +2,10 @@
 import Base from '../layouts/Base.astro';
 import DoorUniverseBand from '../components/DoorUniverseBand.astro';
 import {
-  fitCallHref,
-  fitCallLabel,
+  fitYouHref,
+  fitYouLabel,
+  fitBusinessHref,
+  fitBusinessLabel,
   contactEmail,
   contactMeishHref,
   contactMeishLabel,
@@ -22,7 +24,7 @@ const shouldMeishMail = meishMailto({
 
 <Base
   title="Contact Meish — Should we Meish this?"
-  description="Contact Meish. You can come with the situation — you do not need the answer. Free Fit Check or Possibility Map. English and Finnish."
+  description="Contact Meish. You can come with the situation — you do not need the answer. Meish & You or Meish & Your Business Fit Check, or Possibility Map. English and Finnish."
 >
   <DoorUniverseBand
     eyebrow="Contact"
@@ -40,10 +42,11 @@ const shouldMeishMail = meishMailto({
 
     <p class="actions">
       <a class="button button--primary" href={shouldMeishMail}>Should we Meish this?</a>
-      <a class="button button--ghost" href={fitCallHref}>{fitCallLabel}</a>
+      <a class="button button--ghost" href={fitYouHref}>{fitYouLabel}</a>
+      <a class="button button--ghost" href={fitBusinessHref}>{fitBusinessLabel}</a>
     </p>
     <p class="fit-note">
-      {fitCallLabel}: Meish &amp; you / Meish &amp; your business. Free. Not a health or fitness check.
+      Free. Evaluates whether Meish is useful. Not a health or fitness check.
     </p>
 
     <h2>Email</h2>
@@ -68,8 +71,8 @@ const shouldMeishMail = meishMailto({
     </ul>
 
     <p class="actions">
-      <a class="button button--ghost" href="/for-business">For Your Business</a>
-      <a class="button button--ghost" href="/for-you">For You</a>
+      <a class="button button--ghost" href="/for-business">Meish &amp; Your Business</a>
+      <a class="button button--ghost" href="/for-you">Meish &amp; You</a>
       <a class="button button--ghost" href="/gifts">Free gift</a>
     </p>
   </section>

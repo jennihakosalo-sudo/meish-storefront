@@ -1,16 +1,16 @@
 ---
 import Base from '../layouts/Base.astro';
 import DoorUniverseBand from '../components/DoorUniverseBand.astro';
-import { contactMeishHref, contactMeishLabel, fitCallHref, fitCallLabel } from '../data/hatchling-nav';
+import { contactMeishHref, contactMeishLabel, fitYouHref, fitYouLabel } from '../data/hatchling-nav';
 ---
 
 <Base
-  title="Meish for You — useful things for being a human"
-  description="Useful things for being a human: noticing, decisions, transitions, less unnecessary friction. Free gift and Fit Check. English and Finnish."
+  title="Meish & You — useful things for being a human"
+  description="Useful things for being a human: noticing, decisions, transitions, less unnecessary friction. Free gift and 20-minute Meish & You Fit Check. English and Finnish."
 >
   <DoorUniverseBand
-    eyebrow="For You"
-    title="Meish for You"
+    eyebrow="Meish & You"
+    title="Meish & You"
     lead="Useful things for being a human being — practical, curious, slightly strange. Not a wellness clinic."
   >
     <p class="door-band-langs">We work in English and Finnish. · Palvelemme myös suomeksi.</p>
@@ -32,20 +32,20 @@ import { contactMeishHref, contactMeishLabel, fitCallHref, fitCallLabel } from '
       — a free one-page gift. Download, print, write by hand.
     </p>
     <p>
-      Or a free <a href={fitCallHref}>{fitCallLabel}</a> — Meish &amp; you. Not a fitness test.
+      Or a free <a href={fitYouHref}>{fitYouLabel}</a>. Not a fitness test.
     </p>
 
     <h2>If this is also about work</h2>
     <p>
       Continue to
-      <a href="/for-business">For Your Business</a>
+      <a href="/for-business">Meish &amp; Your Business</a>
       — especially
       <a href="/for-business#possibility-map">Possibility Map</a>.
     </p>
 
     <p class="actions">
       <a class="button button--primary" href="/gifts">Take a free gift</a>
-      <a class="button button--ghost" href={fitCallHref}>{fitCallLabel}</a>
+      <a class="button button--ghost" href={fitYouHref}>{fitYouLabel}</a>
       <a class="button button--ghost" href={contactMeishHref}>{contactMeishLabel}</a>
     </p>
   </section>

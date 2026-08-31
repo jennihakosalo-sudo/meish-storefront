@@ -6,8 +6,8 @@
 const diamondSrc = '/brand/meish-diamond-board-hero-720.png';
 
 const doors = [
-  { href: '/for-business', name: 'Meish for Your Business', hint: 'Offers that start with your situation' },
-  { href: '/for-you', name: 'Meish for You', hint: 'Useful things for being human' },
+  { href: '/for-business',     name: 'Meish & Your Business', hint: 'Offers that start with your situation' },
+  { href: '/for-you', name: 'Meish & You', hint: 'Useful things for being human' },
   { href: '/tools', name: 'Tools', hint: 'Things you can use' },
   { href: '/gifts', name: 'Gifts for You', hint: 'Free. No signup.' },
 ];
@@ -229,11 +229,12 @@ const doors = [
   }
 
   @media (max-width: 800px) {
-    .hero__doors {
-      grid-template-columns: 1fr 1fr;
-    }
     .hero__diamond {
       width: min(36vw, 120px);
+    }
+    .hero__doors {
+      grid-template-columns: 1fr;
+      gap: 1.15rem;
     }
   }
 

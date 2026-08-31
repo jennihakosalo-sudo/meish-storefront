@@ -63,7 +63,7 @@ export interface OrbitGroup {
 function offerMailto(product: string, cta: string) {
   return meishMailto({
     product,
-    page: 'For Your Business',
+    page: 'Meish & Your Business',
     section: 'Offers',
     cta,
   });
@@ -169,7 +169,7 @@ export const meishOffers: MeishOffer[] = [
     benefit: 'Friction made visible with realistic alternatives you can act on.',
     customerInput: 'Access to the place or journey; follow-up conversation.',
     meishInput: 'Human review from within the experience.',
-    price: 'Scope & price after a free Fit Check',
+    price: 'Scope & price after a 20-minute Meish & Your Business Fit Check',
     pricingState: 'after-fit-check',
     category: 'LOOK AT THE WHOLE EXPERIENCE',
     orbit: 'review',
@@ -222,7 +222,7 @@ export const meishOffers: MeishOffer[] = [
   },
   {
     id: 'fit-check',
-    name: '20-minute Fit Check',
+    name: '20-minute Meish & Your Business Fit Check',
     type: 'Service',
     summary:
       'A quick conversation to see whether Meish and your situation fit — and what should happen first. Not a health or fitness check.',
@@ -237,12 +237,12 @@ export const meishOffers: MeishOffer[] = [
     category: 'START HERE',
     orbit: 'review',
     priority: 90,
-    cta: 'Book a Fit Check',
+    cta: 'Book a Meish & Your Business Fit Check',
     ctaHref: meishMailto({
-      product: '20-minute Fit Check',
-      page: 'For Your Business',
+      product: '20-minute Meish & Your Business Fit Check',
+      page: 'Meish & Your Business',
       section: 'Fit Check fallback',
-      cta: 'Book a Fit Check',
+      cta: 'Book a Meish & Your Business Fit Check',
     }),
     ladder: false,
     showOnLanding: false,

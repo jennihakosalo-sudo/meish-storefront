@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import ProductCatalog from '../components/ProductCatalog.astro';
 import DoorUniverseBand from '../components/DoorUniverseBand.astro';
-import { fitCallHref, fitCallLabel, contactMeishHref, contactMeishLabel } from '../data/hatchling-nav';
+import { fitBusinessHref, fitBusinessLabel, contactMeishHref, contactMeishLabel } from '../data/hatchling-nav';
 import { SITE_ORIGIN } from '../lib/meish-mailto';
 
 const possibilityMapSchema = {
@@ -27,13 +27,13 @@ const possibilityMapSchema = {
 ---
 
 <Base
-  title="Meish for Your Business — Possibility Map & offers"
-  description="Outside view, friction removal, interview-to-product work and human-centered AI. Possibility Map €590 + VAT. Free Fit Check. English and Finnish."
+  title="Meish & Your Business — Possibility Map & offers"
+  description="Outside view, friction removal, interview-to-product work and useful AI where it helps. Possibility Map €590 + VAT. Optional 20-minute Meish & Your Business Fit Check. English and Finnish."
   schema={possibilityMapSchema}
 >
   <DoorUniverseBand
-    eyebrow="For Your Business"
-    title="Meish for Your Business"
+    eyebrow="Meish & Your Business"
+    title="Meish & Your Business"
     lead="When something could work better — but you cannot yet see exactly what. Clear offers. Concrete outputs."
   >
     <p class="door-band-langs">We work in English and Finnish. · Palvelemme myös suomeksi.</p>
@@ -53,7 +53,7 @@ const possibilityMapSchema = {
 
     <h2>Start here</h2>
     <p>
-      Free <a href={fitCallHref}>{fitCallLabel}</a> — Meish &amp; your business. Not a health check.
+      Optional <a href={fitBusinessHref}>{fitBusinessLabel}</a>. Not a health check.
       Or go straight to
       <a href="#possibility-map">Possibility Map</a> (€590 + VAT).
       Prefer email? <a href={contactMeishHref}>{contactMeishLabel}</a>.

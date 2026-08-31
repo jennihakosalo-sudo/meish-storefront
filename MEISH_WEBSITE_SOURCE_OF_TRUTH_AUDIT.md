@@ -361,4 +361,25 @@ Already answered in sections 1–18 above.
 
 ---
 
-*End of audit. No website files were redesigned for this document.*
+*End of original audit. No website files were redesigned for that document.*
+
+---
+
+## Public lock — 2026-08-31 (release manager)
+
+Applied on `meish-work-public` only. Not production.
+
+**Public doors:** Meish & Your Business · Meish & You · Tools · Gifts for You
+
+**Fit Check names (never generic “20-minute Fit Check”):**
+- 20-minute Meish & You Fit Check
+- 20-minute Meish & Your Business Fit Check
+
+**Public symbol name:** MEISH DIAMOND (not “7-facet Meish Diamond”).
+
+**Typography:** 2 families, 3 roles. No romantic italic on homepage. New webfont = Jenni visual approval.
+
+**Do not build for launch:** Meish Table of Elements as a public product.
+
+**Still needs Jenni (visual):** which rendered MEISH DIAMOND asset is public canon. Do not treat filenames as authority.
+

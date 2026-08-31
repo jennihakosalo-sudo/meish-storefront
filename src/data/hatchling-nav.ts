@@ -2,8 +2,8 @@
 import { CONTACT_EMAIL, meishMailto } from '../lib/meish-mailto';
 
 export const hatchlingNav = [
-  { href: '/for-business', label: 'For Your Business' },
-  { href: '/for-you', label: 'For You' },
+  { href: '/for-business', label: 'Meish & Your Business' },
+  { href: '/for-you', label: 'Meish & You' },
   { href: '/tools', label: 'Tools' },
   { href: '/gifts', label: 'Gifts for You' },
 ] as const;
@@ -21,15 +21,24 @@ export const contactMeishHref = meishMailto({
   cta: 'Should we Meish this',
 });
 
-/** Secondary free conversation — Meish & you / Meish & your business. Not a health check. */
-export const fitCallLabel = '20-minute Fit Check';
-export const fitCallMeta = '20 min · free · Meish & you';
-export const fitCallHref = meishMailto({
-  product: '20-minute Fit Check',
+export const fitYouLabel = '20-minute Meish & You Fit Check';
+export const fitYouHref = meishMailto({
+  product: '20-minute Meish & You Fit Check',
   page: 'Site',
-  section: 'Fit Check',
-  cta: 'Fit Check',
+  section: 'Meish & You Fit Check',
+  cta: 'Meish & You Fit Check',
 });
 
-/** Same destination as fitCallHref (legacy import name). */
-export const fitCheckHref = fitCallHref;
+export const fitBusinessLabel = '20-minute Meish & Your Business Fit Check';
+export const fitBusinessHref = meishMailto({
+  product: '20-minute Meish & Your Business Fit Check',
+  page: 'Site',
+  section: 'Meish & Your Business Fit Check',
+  cta: 'Meish & Your Business Fit Check',
+});
+
+/** @deprecated Do not show this string. Use fitYouLabel or fitBusinessLabel. */
+export const fitCallLabel = fitBusinessLabel;
+export const fitCallMeta = '20 min · free · Meish & Your Business';
+export const fitCallHref = fitBusinessHref;
+export const fitCheckHref = fitBusinessHref;

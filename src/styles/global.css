@@ -47,6 +47,12 @@ a {
   transition: color var(--dur-fast) var(--ease);
 }
 a:hover { color: var(--accent-hover); text-decoration: underline; }
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--color-navy);
+  outline-offset: 3px;
+}
 
 img, picture, svg, video { display: block; max-width: 100%; height: auto; }
 
@@ -91,17 +97,18 @@ img, picture, svg, video { display: block; max-width: 100%; height: auto; }
   align-items: center;
   justify-content: center;
   gap: var(--space-xs);
+  min-height: 2.75rem;
   font-family: var(--font-body);
-  font-size: var(--text-sm);
-  font-weight: var(--weight-semibold);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 0.85em 1.6em;
-  border-radius: var(--radius-pill);
+  font-size: 1.0625rem;
+  font-weight: var(--weight-medium);
+  letter-spacing: 0.01em;
+  text-transform: none;
+  padding: 0.7em 1.35em;
+  border-radius: var(--radius-sm);
   border: 1px solid transparent;
   cursor: pointer;
   transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease),
-              border-color var(--dur) var(--ease), transform var(--dur-fast) var(--ease);
+              border-color var(--dur) var(--ease);
 }
 .button:hover { transform: translateY(-1px); text-decoration: none; }
 

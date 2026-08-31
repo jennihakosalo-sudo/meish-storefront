@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
-import MeishUniverseScene from '../components/MeishUniverseScene.astro';
-import { fitBusinessHref, fitBusinessLabel } from '../data/hatchling-nav';
+import LightHero from '../components/LightHero.astro';
+import { becomeBetterHref, becomeBetterLabel } from '../data/hatchling-nav';
 import { meishMailto } from '../lib/meish-mailto';
 
 const mapMail = meishMailto({
@@ -10,533 +10,272 @@ const mapMail = meishMailto({
   section: 'Offers',
   cta: 'Ask about Possibility Map',
 });
-
-const frictionMail = meishMailto({
-  product: 'Friction Removal',
-  page: 'Homepage',
-  section: 'Offers',
-  cta: 'Ask about Friction Removal',
-});
-
-const reviewMail = meishMailto({
-  product: 'Human Experience Review',
-  page: 'Homepage',
-  section: 'Offers',
-  cta: 'Ask about a Review',
-});
-
-const shouldMeishMail = meishMailto({
-  product: 'Should we Meish this',
-  page: 'Homepage',
-  section: 'CTA',
-  cta: 'Should we Meish this',
-});
 ---
 
 <Base
   title="Meish — human experience is our North Star"
-  description="Meish notices what is happening in human experience — then makes useful tools, maps and changes. Possibility Map €590 + VAT. English and Finnish."
+  description="Meish notices what needs to become better and turns it into useful products, tools and ways of working. Possibility Map €590 + VAT. English and Finnish."
   universeHome={true}
 >
-  <MeishUniverseScene />
+  <LightHero />
 
-  <!-- Strong hook — dark band, editorial, not SaaS cards -->
-  <section class="band band--dark" aria-label="Call Meish">
-    <div class="container band__inner">
-      <p class="band__kicker">Start</p>
-      <h2 class="band__display">Call Meish.<br />Get something useful.</h2>
-      <p class="band__lead">
-        Tell us what makes work unnecessarily difficult.
-      </p>
-      <p class="band__body">
-        We build something useful, make sure it works, and make sure you know how to use it.
-      </p>
-      <p class="band__fi" lang="fi">
-        Kerro mikä työssäsi vie turhaan aikaa, energiaa tai hermoja. Meish tekee siihen toimivan
-        ratkaisun, varmistaa että se toimii — ja opettaa sinut käyttämään sitä.
-      </p>
-
-      <ol class="steps">
-        <li>
-          <span class="steps__n">1</span>
-          <strong>Tell us what is hard</strong>
+  <section class="block" id="pathways" aria-labelledby="pathways-title">
+    <div class="container">
+      <h2 id="pathways-title">Where Meish can help</h2>
+      <ol class="paths">
+        <li id="review">
+          <a href="/for-business#human-experience-review">
+            <strong>Review</strong>
+            <span>See what is actually happening — in a service, a process or a situation.</span>
+          </a>
+        </li>
+        <li id="improve">
+          <a href="/for-business#friction-removal">
+            <strong>Improve</strong>
+            <span>Remove unnecessary friction so work and experience become easier.</span>
+          </a>
+        </li>
+        <li id="build">
+          <a href="/for-business#build-with-meish">
+            <strong>Build</strong>
+            <span>Turn one useful opportunity into something concrete you can use.</span>
+          </a>
         </li>
         <li>
-          <span class="steps__n">2</span>
-          <strong>We build something useful</strong>
+          <a href="/tools">
+            <strong>Tools</strong>
+            <span>Use a focused instrument — including without us.</span>
+          </a>
         </li>
         <li>
-          <span class="steps__n">3</span>
-          <strong>You leave with a solution you can actually use</strong>
+          <a href="#offers">
+            <strong>Offers</strong>
+            <span>Named work with a clear price, scope and next step.</span>
+          </a>
         </li>
       </ol>
     </div>
   </section>
 
-  <!-- Products immediately -->
-  <section class="band band--dark band--offers" id="work-with-meish" aria-label="Work with Meish">
+  <section class="block block--soft" aria-labelledby="who-title">
     <div class="container">
-      <p class="band__kicker">Work with Meish</p>
-      <h2 class="band__display band__display--sm">Offers</h2>
+      <h2 id="who-title">Who it is for</h2>
+      <div class="who">
+        <a href="/for-business">
+          <strong>Meish &amp; Your Business</strong>
+          <p>
+            Something is awkward, inefficient, unclear or simply not working as well as it could?
+            Bring it to us.
+          </p>
+          <p class="who__meta">
+            Customer experience · processes · products · services · communication · practical AI ·
+            new business ideas
+          </p>
+          <span class="who__cta">Explore Meish &amp; Your Business →</span>
+        </a>
+        <a href="/for-you">
+          <strong>Meish &amp; You</strong>
+          <p>Something in your life, work or thinking could become clearer, easier or more useful?</p>
+          <p class="who__meta">
+            Decisions · transitions · self-guidance · family life · thinking tools · everyday friction
+          </p>
+          <span class="who__cta">Explore Meish &amp; You →</span>
+        </a>
+      </div>
+    </div>
+  </section>
 
-      <article class="offer offer--feature" id="possibility-map-example">
-        <p class="offer__eyebrow">Meish & Your Business · Gamma Test Phase</p>
-        <h3 class="offer__name">Possibility Map</h3>
-        <p class="offer__hook">You bring the situation. We map what could be possible.</p>
-        <p class="offer__note">
-          A clear map of meaningful possibilities — three routes, one recommendation, and practical
-          next steps for 30 days.
+  <section class="block" id="offers" aria-labelledby="offers-title">
+    <div class="container">
+      <h2 id="offers-title">What you can get</h2>
+      <article class="offer">
+        <p class="eyebrow">Meish &amp; Your Business · Gamma Test Phase</p>
+        <h3>Possibility Map</h3>
+        <p>
+          A focused interview followed by a clear map of what could be improved, built, removed or
+          tested next. Three routes, one recommendation, and practical next steps for 30 days.
         </p>
-        <ul class="offer__list">
-          <li>For B2B entrepreneurs and decision-makers</li>
-          <li>60-minute interview</li>
-          <li>Visible map, three routes, recommendation</li>
-          <li>Delivered within five business days</li>
-        </ul>
-        <p class="offer__meta">
-          <strong>€590 + VAT 25.5%</strong>
-          <span> · Regular €950 + VAT 25.5%</span>
-        </p>
-        <p class="offer__actions">
-          <a class="cta cta--primary" href={mapMail}>Ask about Possibility Map</a>
+        <p class="offer__price"><strong>€590 + VAT 25.5%</strong> · Regular €950 + VAT 25.5%</p>
+        <p>
+          <a class="button button--primary" href={mapMail}>Ask about Possibility Map</a>
         </p>
       </article>
-
-      <div class="offer-rail" role="list">
-        <article class="offer" role="listitem">
-          <p class="offer__eyebrow">Meish & Your Business</p>
-          <h3 class="offer__name">Friction Removal</h3>
-          <p class="offer__hook">
-            Find and remove unnecessary work — repeated tasks, unclear processes, avoidable friction.
-          </p>
-          <p class="offer__meta"><strong>From €1,899 + VAT 25.5%</strong></p>
-          <p class="offer__actions">
-            <a class="cta" href={frictionMail}>Ask about Friction Removal</a>
-          </p>
-        </article>
-
-        <article class="offer" role="listitem">
-          <p class="offer__eyebrow">Meish & Your Business</p>
-          <h3 class="offer__name">Human Experience Review</h3>
-          <p class="offer__hook">
-            Outside view on how a service, journey, place or experience actually feels.
-          </p>
-          <p class="offer__meta">Scope and price after a conversation</p>
-          <p class="offer__actions">
-            <a class="cta" href={reviewMail}>Ask about a Review</a>
-          </p>
-        </article>
-      </div>
-
-      <p class="band__more">
-        More on <a href="/for-business">Meish & Your Business</a>
-        · <a href="/tools">Meish Tools</a>
-        · <a href="/gifts">Gifts for You</a>
-      </p>
-      <p class="band__fit">
-        Not sure which offer fits?
-        <a href={fitBusinessHref}>{fitBusinessLabel}</a>
-        — free, 20 minutes. Optional.
+      <article class="offer offer--quiet">
+        <h3>20-minute Meish Fit Check</h3>
+        <p>
+          Is Meish useful for what you are trying to do? Let’s find out. Not a physical fitness
+          assessment.
+        </p>
+        <p class="offer__price"><strong>€0</strong></p>
+        <p class="offer__routes">
+          <a href="/contact">Meish &amp; You Fit Check</a>
+          ·
+          <a href="/contact">Meish &amp; Your Business Fit Check</a>
+        </p>
+      </article>
+      <p class="more">
+        More named work lives on
+        <a href="/for-business">Meish &amp; Your Business</a>.
       </p>
     </div>
   </section>
 
-  <section class="band band--pearl" aria-label="What Meish does">
+  <section class="block block--soft" aria-labelledby="gifts-title">
     <div class="container">
-      <h2 class="pearl__title">What does Meish do?</h2>
-      <p class="pearl__sub">We notice things. Then we make useful things out of what we notice.</p>
-      <ul class="pearl__list">
-        <li><strong>Notice</strong> Find what is easy to miss from inside a business or situation.</li>
-        <li><strong>Understand</strong> Make human experience, friction and possibilities visible.</li>
-        <li><strong>Make</strong> Turn observation into tools, maps, content and practical solutions.</li>
-        <li><strong>Test</strong> Try small ideas before they become large projects.</li>
-        <li><strong>Use AI where it helps</strong> Not AI for its own sake.</li>
-      </ul>
+      <h2 id="gifts-title">Useful things you can use without us</h2>
+      <p>
+        <a href="/gifts#clarity-starter"><strong>Meish Clarity Starter (PDF)</strong></a>
+        — one page, five questions, one next move. Free. No signup.
+      </p>
+      <p>
+        <a class="button button--ghost" href="/gifts/meish-clarity-starter.pdf">Download the PDF</a>
+      </p>
     </div>
   </section>
 
-  <section class="band band--pearl band--alt" aria-label="What you can get">
-    <div class="container">
-      <h2 class="pearl__title">What can you get from Meish?</h2>
-      <ul class="pearl__get">
-        <li>A fresh pair of eyes</li>
-        <li>A clearer picture</li>
-        <li>A small useful tool</li>
-        <li>A custom tool from your knowledge</li>
-        <li>A human experience review</li>
-        <li>An AI possibility map</li>
-        <li>Something we have not made yet</li>
-      </ul>
+  <section class="block" aria-labelledby="note-title">
+    <div class="container narrow">
+      <h2 id="note-title">How Meish thinks</h2>
+      <p>Notice the friction. Remove the friction. Better does not necessarily mean more.</p>
+      <p>
+        Sometimes the answer is to simplify it, change the order, make it visible — or leave it alone.
+      </p>
     </div>
   </section>
 
-  <section class="band band--pearl" aria-label="Where to begin">
+  <section class="block block--end" aria-labelledby="end-title">
     <div class="container">
-      <h2 class="pearl__title">Where would you like to begin?</h2>
-      <div class="door-row">
-        <a class="door" href="/for-business">
-          <strong>Meish & Your Business</strong>
-          <span>Outside view, friction, AI where it helps, tools from your expertise.</span>
-        </a>
-        <a class="door" href="/for-you">
-          <strong>Meish & You</strong>
-          <span>Useful things for being a human — decisions, transitions, everyday ease.</span>
-        </a>
-        <a class="door" href="/tools">
-          <strong>Tools</strong>
-          <span>Things you can use — including without us.</span>
-        </a>
-        <a class="door" href="/gifts">
-          <strong>Gifts for You</strong>
-          <span>Take something useful with you. Free. No signup.</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section class="band band--pearl" aria-label="Contact">
-    <div class="container">
-      <h2 class="pearl__title">Should we Meish this?</h2>
-      <p class="pearl__sub">You can come with the situation. You do not have to come with the answer.</p>
-      <p class="pearl__actions">
-        <a class="cta cta--ink" href={shouldMeishMail}>Should we Meish this?</a>
-        <a class="cta cta--ink" href="/gifts">Take a free gift</a>
+      <h2 id="end-title">Should we Meish this?</h2>
+      <p>You can come with the situation. You do not have to come with the answer.</p>
+      <p class="hero__actions">
+        <a class="button button--primary" href={becomeBetterHref}>{becomeBetterLabel}</a>
+        <a class="button button--ghost" href="/contact">20-min Meish Fit Check →</a>
       </p>
     </div>
   </section>
 </Base>
 
 <style>
-  .band {
-    padding: clamp(3rem, 7vw, 5rem) 0;
+  .block {
+    padding: clamp(3.75rem, 8vw, 6.5rem) 0;
   }
-  .band--dark {
-    background: #050510;
-    color: #e8eef8;
+  .block--soft {
+    background: var(--color-cream);
   }
-  .band--offers {
-    border-top: 1px solid rgba(232, 238, 248, 0.08);
+  .block--end {
+    padding-bottom: clamp(5rem, 10vw, 8rem);
   }
-  .pearl__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-top: 0.5rem;
-  }
-  .cta--ink {
-    border-color: rgba(11, 16, 32, 0.28);
-    color: #0b1020;
-  }
-  .cta--ink:hover {
-    color: #0b1020;
-    border-color: #4a48b8;
-  }
-  .band--pearl {
-    background: #f7f3ea;
-    color: #0b1020;
-  }
-  .band--alt {
-    background: #efe9dc;
-  }
-
-  .band__inner {
-    max-width: 42rem;
-  }
-
-  .band__kicker {
-    margin: 0 0 0.5rem;
-    font-size: 0.78rem;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: rgba(126, 215, 227, 0.85);
-  }
-
-  .band__display {
-    margin: 0 0 1rem;
-    font-family: var(--font-display);
-    font-size: clamp(2.4rem, 5.5vw, 3.6rem);
-    font-weight: 600;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    color: #f4f7fc;
-    max-width: 14ch;
-  }
-  .band__display--sm {
-    font-size: clamp(2rem, 4vw, 2.75rem);
-    max-width: 20ch;
-  }
-
-  .band__lead {
-    margin: 0 0 0.65rem;
-    font-size: clamp(1.2rem, 2.2vw, 1.45rem);
-    line-height: 1.4;
-    color: rgba(244, 247, 252, 0.9);
-    max-width: 36ch;
-  }
-
-  .band__body {
-    margin: 0 0 1rem;
-    font-size: clamp(1.05rem, 1.8vw, 1.2rem);
-    line-height: 1.45;
-    color: rgba(232, 238, 248, 0.78);
-    max-width: 42ch;
-  }
-
-  .band__fi {
-    margin: 0 0 2rem;
-    font-size: 1.05rem;
-    line-height: 1.45;
-    color: rgba(232, 238, 248, 0.58);
-    max-width: 44ch;
-  }
-
-  .steps {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: 1.15rem;
-    border-top: 1px solid rgba(232, 238, 248, 0.12);
-    padding-top: 1.5rem;
-  }
-  .steps li {
-    display: grid;
-    grid-template-columns: 2rem 1fr;
-    gap: 0.85rem;
-    align-items: start;
-  }
-  .steps__n {
-    font-family: var(--font-body);
-    font-size: 0.85rem;
-    letter-spacing: 0.08em;
-    color: #f7c873;
-    padding-top: 0.2rem;
-  }
-  .steps strong {
-    font-family: var(--font-display);
-    font-size: clamp(1.2rem, 2vw, 1.45rem);
-    font-weight: 600;
-    line-height: 1.25;
-    color: #f4f7fc;
-  }
-
-  .offer--feature {
-    margin: 1.75rem 0 2.25rem;
-    padding: 1.75rem 0 2rem;
-    border-top: 1px solid rgba(232, 238, 248, 0.14);
-    border-bottom: 1px solid rgba(232, 238, 248, 0.14);
-  }
-
-  .offer__eyebrow {
-    margin: 0 0 0.4rem;
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(126, 215, 227, 0.8);
-  }
-
-  .offer__name {
-    margin: 0 0 0.55rem;
-    font-family: var(--font-display);
-    font-size: clamp(1.85rem, 3.5vw, 2.5rem);
-    font-weight: 600;
-    line-height: 1.1;
-    color: #f4f7fc;
-  }
-
-  .offer__hook {
-    margin: 0 0 0.65rem;
-    font-size: clamp(1.15rem, 2vw, 1.35rem);
-    line-height: 1.4;
-    color: rgba(244, 247, 252, 0.88);
-    max-width: 44ch;
-  }
-
-  .offer__note {
-    margin: 0 0 1rem;
-    font-size: 1rem;
-    color: rgba(232, 238, 248, 0.55);
-  }
-
-  .offer__list {
-    margin: 0 0 1.25rem;
-    padding: 0;
-    list-style: none;
-    display: grid;
-    gap: 0.4rem;
-    max-width: 36ch;
-  }
-  .offer__list li {
-    position: relative;
-    padding-left: 1rem;
-    font-size: 1.05rem;
-    line-height: 1.4;
-    color: rgba(232, 238, 248, 0.78);
-  }
-  .offer__list li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.55em;
-    width: 0.28rem;
-    height: 0.28rem;
-    border-radius: 50%;
-    background: #7ed7e3;
-  }
-
-  .offer__meta {
-    margin: 0 0 0.35rem;
-    font-size: 1.05rem;
-    color: rgba(232, 238, 248, 0.7);
-  }
-  .offer__meta strong {
-    color: #f4f7fc;
-  }
-
-  .offer__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-top: 1rem;
-  }
-
-  .offer-rail {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.75rem 2rem;
-    padding-top: 0.5rem;
-  }
-  .offer-rail .offer {
-    padding-top: 1.25rem;
-    border-top: 1px solid rgba(232, 238, 248, 0.12);
-  }
-  .offer-rail .offer__name {
-    font-size: clamp(1.4rem, 2.2vw, 1.75rem);
-  }
-  .offer-rail .offer__hook {
-    font-size: clamp(1.05rem, 1.6vw, 1.15rem);
-  }
-
-  .cta {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.7rem 1.1rem;
-    border: 1px solid rgba(232, 238, 248, 0.28);
-    background: transparent;
-    color: #f4f7fc;
-    font-size: 0.95rem;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    text-decoration: none;
-  }
-  .cta:hover {
-    text-decoration: none;
-    color: #f4f7fc;
-    border-color: #7ed7e3;
-  }
-  .cta--primary {
-    background: rgba(106, 90, 205, 0.35);
-    border-color: rgba(106, 90, 205, 0.65);
-  }
-
-  .band__more,
-  .band__fit {
-    margin: 1.75rem 0 0;
-    font-size: 1.05rem;
-    line-height: 1.45;
-    color: rgba(232, 238, 248, 0.62);
-    max-width: 48ch;
-  }
-  .band__more a,
-  .band__fit a {
-    color: #7ed7e3;
-  }
-
-  .pearl__title {
-    margin: 0 0 0.55rem;
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 4vw, 2.75rem);
-    font-weight: 600;
-    line-height: 1.12;
-    color: #0b1020;
-    max-width: 22ch;
-  }
-  .pearl__sub {
+  h2 {
     margin: 0 0 1.75rem;
-    font-size: clamp(1.2rem, 2.2vw, 1.4rem);
-    line-height: 1.4;
-    color: #2a3568;
-    max-width: 40ch;
+    max-width: 18ch;
   }
-  .pearl__list {
+  .paths {
     list-style: none;
-    margin: 0;
     padding: 0;
+    margin: 0;
     display: grid;
-    gap: 1.15rem;
-    max-width: 48ch;
+    gap: 1.75rem 3rem;
   }
-  .pearl__list li {
-    font-size: 1.12rem;
-    line-height: 1.45;
-    color: #2a3568;
+  @media (min-width: 800px) {
+    .paths {
+      grid-template-columns: 1fr 1fr;
+    }
   }
-  .pearl__list strong {
+  .paths a {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+  }
+  .paths a:hover strong {
+    color: var(--accent);
+  }
+  .paths strong {
     display: block;
     font-family: var(--font-display);
-    font-size: 1.35rem;
-    color: #0b1020;
-    margin-bottom: 0.15rem;
-  }
-  .pearl__get {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: 0.75rem;
-    max-width: 36ch;
-  }
-  .pearl__get li {
-    font-size: 1.2rem;
-    line-height: 1.35;
-    color: #0b1020;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid rgba(11, 16, 32, 0.12);
-  }
-
-  .door-row {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1.5rem;
-    margin-top: 1.5rem;
-  }
-  .door {
-    display: grid;
-    gap: 0.5rem;
-    padding-top: 1rem;
-    border-top: 1px solid rgba(11, 16, 32, 0.16);
-    text-decoration: none;
-    color: inherit;
-  }
-  .door:hover {
-    text-decoration: none;
-  }
-  .door strong {
-    font-family: var(--font-display);
-    font-size: 1.35rem;
+    font-size: clamp(1.5rem, 2.4vw, 1.85rem);
     font-weight: 600;
-    color: #0b1020;
+    color: var(--color-navy);
+    margin-bottom: 0.4rem;
   }
-  .door span {
-    font-size: 1.08rem;
-    line-height: 1.4;
-    color: #2a3568;
+  .paths span {
+    display: block;
+    max-width: 36ch;
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--color-ink-soft);
   }
-
-  @media (max-width: 900px) {
-    .offer-rail,
-    .door-row {
-      grid-template-columns: 1fr;
+  .who {
+    display: grid;
+    gap: 2.5rem;
+  }
+  @media (min-width: 800px) {
+    .who {
+      grid-template-columns: 1fr 1fr;
+      gap: 3.5rem;
     }
+  }
+  .who a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .who strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 2.6vw, 2rem);
+    margin-bottom: 0.7rem;
+    color: var(--color-navy);
+  }
+  .who p {
+    margin: 0 0 0.85rem;
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+  .who__meta {
+    color: var(--color-ink-soft);
+    font-size: 1.0625rem;
+  }
+  .who__cta {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    font-size: 1.0625rem;
+    color: var(--color-navy);
+  }
+  .offer {
+    max-width: 40rem;
+  }
+  .offer h3 {
+    margin: 0.4rem 0 0.8rem;
+    font-size: clamp(1.6rem, 2.4vw, 2rem);
+  }
+  .offer p {
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+  .offer__price {
+    margin: 1rem 0 1.25rem;
+  }
+  .offer--quiet {
+    margin-top: 3rem;
+  }
+  .offer__routes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.75rem;
+  }
+  .more {
+    margin-top: 2.25rem;
+    font-size: 1.125rem;
+  }
+  .narrow p + p {
+    margin-top: 1rem;
+  }
+  .block--end .hero__actions,
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem 1.1rem;
+    margin-top: 1.5rem;
+    max-width: none;
   }
 </style>

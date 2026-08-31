@@ -1,9 +1,9 @@
 ---
 /**
- * Homepage hero. One board-center Intensive crystal (web 720).
- * Visual language from 7-facet boards. No F1–F7 / family labels.
+ * Homepage hero. One locked Intensive diamond on Deep Space.
+ * Asset: BRAND_ASSET_LOCK.md — meish-diamond-intensive-720.png
  */
-const diamondSrc = '/brand/meish-diamond-board-hero-720.png';
+const diamondSrc = '/brand/meish-diamond-intensive-720.png';
 
 const doors = [
   { href: '/for-business',     name: 'Meish & Your Business', hint: 'Offers that start with your situation' },
@@ -13,18 +13,7 @@ const doors = [
 ];
 ---
 
-<section class="hero" aria-label="Meish Universe">
-  <div class="hero__field" aria-hidden="true">
-    <div class="hero__wash hero__wash--indigo"></div>
-    <div class="hero__wash hero__wash--mint"></div>
-    <svg class="hero__orbits" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
-      <ellipse cx="50" cy="44" rx="14" ry="10.5" />
-      <ellipse cx="50" cy="44" rx="22" ry="16.5" />
-      <ellipse cx="50" cy="44" rx="30" ry="22.5" />
-      <line x1="50" y1="20" x2="50" y2="68" />
-    </svg>
-  </div>
-
+<section class="hero" aria-label="Meish">
   <div class="hero__core">
     <img
       class="hero__diamond"
@@ -62,52 +51,10 @@ const doors = [
   .hero {
     position: relative;
     isolation: isolate;
-    background: #081020;
+    background: #0b1020;
     color: #eaf6ff;
     padding: clamp(5.5rem, 10vw, 7rem) 1.25rem 3.25rem;
     overflow: hidden;
-  }
-
-  .hero__field {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  .hero__wash {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(88px);
-    opacity: 0.28;
-  }
-  .hero__wash--indigo {
-    width: min(48vw, 400px);
-    height: min(48vw, 400px);
-    left: 50%;
-    top: 8%;
-    transform: translateX(-58%);
-    background: radial-gradient(circle, rgba(106, 90, 205, 0.35) 0%, transparent 72%);
-  }
-  .hero__wash--mint {
-    width: min(32vw, 260px);
-    height: min(32vw, 260px);
-    left: 50%;
-    top: 24%;
-    transform: translateX(-6%);
-    background: radial-gradient(circle, rgba(0, 195, 214, 0.12) 0%, transparent 74%);
-  }
-
-  .hero__orbits {
-    position: absolute;
-    left: 50%;
-    top: 7%;
-    width: min(48vw, 380px);
-    height: min(48vw, 380px);
-    margin-left: calc(min(48vw, 380px) / -2);
-    fill: none;
-    stroke: rgba(234, 246, 255, 0.07);
-    stroke-width: 0.11;
   }
 
   .hero__core {
@@ -124,7 +71,7 @@ const doors = [
     height: auto;
     margin: 0 auto 1.15rem;
     background: transparent;
-    filter: drop-shadow(0 0 10px rgba(106, 90, 205, 0.16));
+    filter: drop-shadow(0 8px 18px rgba(11, 16, 32, 0.45));
   }
 
   .hero__mark {
@@ -238,10 +185,4 @@ const doors = [
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .hero__wash {
-      filter: blur(40px);
-      opacity: 0.2;
-    }
-  }
 </style>

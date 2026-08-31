@@ -1,0 +1,132 @@
+---
+/**
+ * Light / editorial homepage hero.
+ * Diamond: working light selection — /brand/meish-diamond-light.png (RGBA).
+ * Display type: ATHENA Condensed when present; Bodoni is temporary fallback only.
+ */
+import { becomeBetterHref, becomeBetterLabel } from '../data/hatchling-nav';
+
+const diamondSrc = '/brand/meish-diamond-light.png';
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero__grid container">
+    <div class="hero__gem">
+      <img
+        src={diamondSrc}
+        alt="Meish Diamond"
+        width="257"
+        height="640"
+        fetchpriority="high"
+        decoding="async"
+      />
+    </div>
+    <div class="hero__copy">
+      <p class="hero__mark" id="hero-title">Meish</p>
+      <h1>Human experience is our North Star.</h1>
+      <p class="hero__lead">
+        We notice what needs to become better — and turn it into something useful.
+      </p>
+      <p class="hero__body">
+        Products, tools, clearer processes, better experiences and practical ways of working.
+      </p>
+      <p class="hero__for">
+        For people and businesses.<br />
+        <span lang="fi">Palvelemme myös suomeksi.</span>
+      </p>
+      <p class="hero__actions">
+        <a class="button button--primary" href={becomeBetterHref}>{becomeBetterLabel}</a>
+        <a class="button button--ghost" href="#offers">See what we can do →</a>
+        <a class="hero__fit" href="/contact">20-min Meish Fit Check →</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding: clamp(3.5rem, 8vw, 6.5rem) 0 clamp(4rem, 8vw, 7rem);
+    background: var(--color-ivory);
+  }
+
+  .hero__grid {
+    display: grid;
+    grid-template-columns: minmax(8rem, 15rem) minmax(0, 38rem);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero__gem img {
+    width: min(100%, 13.5rem);
+    height: auto;
+    margin-inline: auto;
+    background: transparent;
+  }
+
+  .hero__mark {
+    margin: 0 0 0.85rem;
+    font-family: var(--font-display);
+    font-size: var(--text-meish);
+    font-weight: 700;
+    font-style: normal;
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    color: var(--color-navy);
+    max-width: none;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(2.5rem, 5vw, 4.25rem);
+    font-weight: 600;
+    font-style: normal;
+    line-height: 1.12;
+    max-width: 16ch;
+  }
+
+  .hero__lead,
+  .hero__body,
+  .hero__for {
+    margin: 1.15rem 0 0;
+    font-size: clamp(1.125rem, 1.6vw, 1.25rem);
+    line-height: 1.6;
+    color: var(--color-navy);
+  }
+
+  .hero__lead {
+    font-weight: 500;
+  }
+
+  .hero__for {
+    color: var(--color-ink-soft);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.85rem 1.1rem;
+    margin-top: 1.85rem;
+    max-width: none;
+  }
+
+  .hero__fit {
+    font-size: 1.0625rem;
+    color: var(--color-navy);
+    min-height: 2.75rem;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  @media (max-width: 800px) {
+    .hero__grid {
+      grid-template-columns: 1fr;
+      text-align: left;
+    }
+    .hero__gem img {
+      width: min(42vw, 9.5rem);
+      margin: 0;
+    }
+  }
+</style>

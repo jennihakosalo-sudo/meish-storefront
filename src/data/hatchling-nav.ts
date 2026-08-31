@@ -1,6 +1,16 @@
 /** Public navigation and shared contact CTAs for meish.work */
 import { CONTACT_EMAIL, meishMailto } from '../lib/meish-mailto';
 
+/** Header pathways — approved first-release logic. */
+export const pathwayNav = [
+  { href: '/#review', label: 'Review' },
+  { href: '/#improve', label: 'Improve' },
+  { href: '/#build', label: 'Build' },
+  { href: '/tools', label: 'Tools' },
+  { href: '/#offers', label: 'Offers' },
+] as const;
+
+/** Audience doors — footer and in-page routes, not header pathways. */
 export const hatchlingNav = [
   { href: '/for-business', label: 'Meish & Your Business' },
   { href: '/for-you', label: 'Meish & You' },
@@ -8,18 +18,21 @@ export const hatchlingNav = [
   { href: '/gifts', label: 'Gifts for You' },
 ] as const;
 
-/** Alias — same public nav. */
+/** Alias — audience doors. */
 export const publicNav = hatchlingNav;
 
 export const contactEmail = CONTACT_EMAIL;
 
-export const contactMeishLabel = 'Should we Meish this?';
-export const contactMeishHref = meishMailto({
-  product: 'Should we Meish this',
+export const becomeBetterLabel = 'What should become better?';
+export const becomeBetterHref = meishMailto({
+  product: 'What should become better',
   page: 'Site',
   section: 'Header',
-  cta: 'Should we Meish this',
+  cta: 'What should become better',
 });
+
+export const contactMeishLabel = becomeBetterLabel;
+export const contactMeishHref = becomeBetterHref;
 
 export const fitYouLabel = '20-minute Meish & You Fit Check';
 export const fitYouHref = meishMailto({

@@ -4,7 +4,7 @@ import Base from '../layouts/Base.astro';
 // confirm + return the captured order (reconciling from Stripe if the webhook
 // hasn't landed yet). The cart is cleared once payment is confirmed.
 ---
-<Base title="Thank you — Meish Printed">
+<Base title="Thank you — Meish Printed" noindex={true}>
   <section class="section container">
     <p class="eyebrow">Order confirmed</p>
     <h1 data-order-heading>Thank you — we’re on it</h1>

@@ -8,7 +8,7 @@ import { categories, products, productsByCategory } from '../data/products';
 const activeCategories = categories.filter((cat) => productsByCategory(cat.id).length > 0);
 ---
 
-<Base title="Shop — Meish Printed" description="Custom quote prints, wall décor, tin plates and single-use restaurant pieces. Start from a template and make it yours in the browser.">
+<Base title="Shop — Meish Printed" description="Custom quote prints, wall décor, tin plates and single-use restaurant pieces. Start from a template and make it yours in the browser." noindex={true}>
   <section class="section container container--wide">
     <header class="shop-head">
       <p class="eyebrow">The shop</p>

@@ -9,6 +9,22 @@ Disallow: /brand/reference
 Disallow: /brand/reference/
 Disallow: /brand/archive
 Disallow: /brand/archive/
+Disallow: /shop
+Disallow: /shop/
+Disallow: /cart
+Disallow: /cart/
+Disallow: /reserve
+Disallow: /reserve/
+Disallow: /success
+Disallow: /universe
+Disallow: /universe/
+Disallow: /services
+Disallow: /services/
+Disallow: /philosophy
+Disallow: /style
+Disallow: /elements
+Disallow: /for-business/meish-treasure
+Disallow: /for-business/meish-treasure/
 
 # Canonical public site
 Sitemap: https://www.meish.work/sitemap.xml

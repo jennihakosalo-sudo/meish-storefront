@@ -1,0 +1,281 @@
+---
+/**
+ * Meish Treasure — things already found.
+ *
+ * Presented as a small register of findings rather than a card catalogue:
+ * a coordinate, a name, a state. The state column is the honest part — some
+ * of these are ready to hand over and some are still only a direction, and
+ * saying which is which is what makes the page trustworthy.
+ *
+ * Only concepts with real source material in this project appear here.
+ * "Quinted" and "Paint Trails" are named in the brief but have no description
+ * anywhere in the repository, so they are deliberately not published with an
+ * invented one. Add them here once their descriptions exist.
+ */
+import Base from '../layouts/Base.astro';
+import { fitCheckHref } from '../data/navigation';
+
+type State = 'Ready for a next person' | 'Ready to test' | 'In use';
+
+interface Find {
+  mark: string;
+  name: string;
+  kind: string;
+  what: string;
+  state: State;
+  accent: string;
+  href?: string;
+}
+
+const finds: Find[] = [
+  {
+    mark: 'T·01',
+    name: 'Business Factory',
+    kind: 'Venture concept',
+    what: 'A way of building realistic business directions out of the skills, resources and life someone actually has — rather than from a market gap they do not care about.',
+    state: 'Ready to test',
+    accent: 'var(--orbit-ember)',
+    href: '/for-business#business-factory',
+  },
+  {
+    mark: 'T·02',
+    name: 'Remanifest Your Business',
+    kind: 'Format',
+    what: 'For a company that works but has lost the thread of why it was started. Finds the original intent and checks what still deserves to be carried forward.',
+    state: 'Ready to test',
+    accent: 'var(--alignment-gold)',
+    href: '/for-business#business-factory',
+  },
+  {
+    mark: 'T·03',
+    name: 'Meish Tools',
+    kind: 'Tool family',
+    what: 'Small, specific instruments for one situation each. Made to be used and then put down again.',
+    state: 'In use',
+    accent: 'var(--lucent-teal)',
+    href: '/tools',
+  },
+  {
+    mark: 'T·04',
+    name: 'Leadership Tool Sets',
+    kind: 'Tool family',
+    what: 'Three tools per set, one leadership skill per set: clarity, flow, human signals.',
+    state: 'Ready for a next person',
+    accent: 'var(--resonance-violet)',
+    href: '/tools#leadership-tool-sets',
+  },
+];
+---
+
+<Base
+  title="Meish Treasure — things already found"
+  description="Business concepts, formats and tools that already exist at Meish and are ready for a next person or a next test."
+>
+  <section class="head">
+    <div class="container">
+      <p class="head__eyebrow">Meish Treasure</p>
+      <h1>Things already found.</h1>
+      <p class="head__lead">
+        Not everything is made to order. Some of it was discovered along the way — a concept, a
+        format, a tool — and is now sitting here waiting for the right person or the right test.
+      </p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="container">
+      <ol class="finds">
+        {
+          finds.map((f) => (
+            <li class="find" style={`--accent-node: ${f.accent}`}>
+              <p class="find__mark">
+                <span class="find__node" aria-hidden="true" />
+                {f.mark}
+              </p>
+              <div class="find__body">
+                <h2 class="find__name">
+                  {f.href ? <a href={f.href}>{f.name}</a> : f.name}
+                </h2>
+                <p class="find__kind">{f.kind}</p>
+                <p class="find__what">{f.what}</p>
+              </div>
+              <p class="find__state">{f.state}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="band band--soft" aria-labelledby="more-title">
+    <div class="container">
+      <h2 id="more-title">The register is not finished.</h2>
+      <p class="band__intro">
+        More has been found than is written down here. Things move onto this page when they can be
+        described honestly — what it is, what state it is in, and what it would take to pick it up.
+      </p>
+      <p class="band__action">
+        <a class="button button--primary" href={fitCheckHref}>Ask about something here — €0</a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .head {
+    padding-block: clamp(2.75rem, 6vw, 4.5rem) clamp(1.5rem, 3vw, 2.25rem);
+    background: var(--color-ivory);
+  }
+  .head__eyebrow {
+    margin: 0 0 0.8rem;
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+  }
+  .head h1 {
+    margin: 0;
+    font-weight: 400;
+    max-width: 16ch;
+  }
+  .head__lead {
+    margin: 1.15rem 0 0;
+    font-family: var(--font-body);
+    font-size: clamp(1.125rem, 1.6vw, 1.25rem);
+    line-height: 1.6;
+    max-width: 48ch;
+    color: var(--color-ink-soft);
+  }
+
+  .band {
+    padding-block: clamp(2.5rem, 5vw, 4rem);
+  }
+  .band--soft {
+    background: var(--color-cream);
+  }
+  .band h2 {
+    font-weight: 400;
+  }
+  .band__intro {
+    margin: 1.1rem 0 0;
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.64;
+    max-width: 52ch;
+    color: var(--color-ink-soft);
+  }
+  .band__action {
+    margin: 1.75rem 0 0;
+    max-width: none;
+  }
+
+  .finds {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Three columns: coordinate, finding, state. The state sits right-aligned so
+     the eye can run down it on its own — that column is the answer to "can I
+     have this?". */
+  .find {
+    display: grid;
+    grid-template-columns: 5rem minmax(0, 1fr) 12rem;
+    gap: 0 2rem;
+    padding-block: 1.6rem;
+    border-top: 1px solid var(--color-line);
+    align-items: start;
+  }
+  .find:last-child {
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .find__mark {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    padding-top: 0.35em;
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--color-ink-muted);
+    font-variant-numeric: tabular-nums;
+    max-width: none;
+  }
+  .find__node {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-node);
+    flex: none;
+  }
+
+  .find__name {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.3125rem;
+    font-weight: 400;
+    line-height: 1.26;
+    letter-spacing: 0;
+  }
+  .find__name a {
+    color: var(--color-navy);
+    text-decoration: underline;
+    text-decoration-color: var(--color-line-strong);
+    text-underline-offset: 0.2em;
+  }
+  .find__name a:hover {
+    color: var(--accent);
+  }
+  .find__kind {
+    margin: 0.35rem 0 0;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+  }
+  .find__what {
+    margin: 0.6rem 0 0;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-ink-soft);
+    max-width: 46ch;
+  }
+
+  .find__state {
+    margin: 0;
+    padding-top: 0.35em;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    text-align: right;
+    color: var(--color-ink-muted);
+    max-width: none;
+  }
+
+  @media (max-width: 56rem) {
+    .find {
+      grid-template-columns: 1fr;
+      gap: 0.55rem;
+      padding-block: 1.5rem;
+    }
+    .find__mark,
+    .find__state {
+      padding-top: 0;
+    }
+    .find__state {
+      text-align: left;
+    }
+    /* On a phone the state reads as a caption under the finding rather than a
+       column, so it needs its own marker to stay distinguishable. */
+    .find__state::before {
+      content: 'State: ';
+      color: var(--color-ink-muted);
+    }
+  }
+</style>

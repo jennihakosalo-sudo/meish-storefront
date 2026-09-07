@@ -1,32 +1,192 @@
 ---
+/**
+ * For Your Business.
+ *
+ * Opens with recognition, then goes straight to what can be bought. The
+ * themes come after the products, not before: a decision-maker scanning this
+ * page wants to know what exists and what it costs, and will read the
+ * reasoning only once something has caught their attention.
+ */
 import Base from '../layouts/Base.astro';
-import ProductCatalog from '../components/ProductCatalog.astro';
-import DestinationMark from '../components/DestinationMark.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { productsFor } from '../data/meish-products';
+import { fitCheckHref } from '../data/navigation';
+
+const products = productsFor('business');
+const lead = products.find((p) => p.slug === 'recognition-sprint');
+const rest = products.filter((p) => p.slug !== 'recognition-sprint');
+
+const themes = [
+  ['Clarity', 'Knowing what is actually being decided, and by whom.'],
+  ['Flow', 'A week that runs without friction everyone stopped noticing years ago.'],
+  ['Human experience', 'What it is genuinely like to be a customer, or an employee, here.'],
+  ['Decision-making', 'Fewer decisions carried around unmade.'],
+  ['Useful AI', 'What should be automated, what should stay human, what should be removed.'],
+  ['Business direction', 'Which of the possible next moves deserves the first test.'],
+];
 ---
 
 <Base
-  title="Meish for Your Business — offers & pricing"
-  description="Meish for Your Business: 20-minute Fit Check, free. Possibility Map 590 € + VAT (Gamma Test Phase)."
+  title="Meish for Your Business — recognition, then the first useful test"
+  description="Find the strongest next direction and define the first test. Recognition Sprint from €590 + VAT, Human Experience Review from €950 + VAT, Leadership Tool Sets from €49. 20-minute Fit Check €0."
 >
-  <section class="section container door-page">
-    <p class="eyebrow arrive">
-      <DestinationMark size="page" />
-      For Your Business
-    </p>
-    <h1>Clear offers. A clear first path.</h1>
-    <p class="lead">
-      Possibility Map is 590 € + VAT. If you want to see whether Meish is useful,
-      start with a 20-minute Fit Check — free.
-    </p>
+  <section class="head">
+    <div class="container">
+      <p class="head__eyebrow">
+        This may interest you if you are an entrepreneur, CEO or team lead.
+      </p>
+      <h1>The hard part is rarely a lack of options.</h1>
+      <p class="head__lead">
+        It is knowing which one deserves to move, and what the first honest test of it would be.
+        That is the work.
+      </p>
+    </div>
   </section>
-  <ProductCatalog />
+
+  <section class="band" aria-labelledby="offers-title">
+    <div class="container">
+      <h2 id="offers-title">What we can do together</h2>
+      <div class="products">
+        {lead && <ProductCard product={lead} featured />}
+        {rest.map((p) => <ProductCard product={p} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--soft" aria-labelledby="themes-title">
+    <div class="container">
+      <h2 id="themes-title">What tends to come up</h2>
+      <dl class="themes">
+        {
+          themes.map(([name, note]) => (
+            <div class="themes__row">
+              <dt>{name}</dt>
+              <dd>{note}</dd>
+            </div>
+          ))
+        }
+      </dl>
+      <p class="band__intro">
+        None of this is generic business consulting. We do not arrive with a framework and look
+        for somewhere to apply it. We look at what is actually there first.
+      </p>
+    </div>
+  </section>
+
+  <section class="band band--ink on-dark" aria-labelledby="start-title">
+    <div class="container">
+      <h2 id="start-title">Not sure which one?</h2>
+      <p class="band__intro">
+        Twenty free minutes is usually enough to tell whether any of this is useful in your
+        situation — and which one to start with if it is.
+      </p>
+      <p class="band__action">
+        <a class="button button--primary" href={fitCheckHref}>Book a Fit Check — €0</a>
+      </p>
+    </div>
+  </section>
 </Base>
 
 <style>
-  .arrive {
-    display: flex;
-    align-items: center;
-    gap: 0.55rem;
+  .head {
+    padding-block: clamp(2.75rem, 6vw, 4.5rem) clamp(1.5rem, 3vw, 2.25rem);
+    background: var(--color-ivory);
   }
-  .door-page { padding-bottom: var(--space-md); }
+  .head__eyebrow {
+    margin: 0 0 0.9rem;
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    color: var(--color-ink-muted);
+    max-width: 46ch;
+  }
+  .head h1 {
+    margin: 0;
+    font-size: var(--text-page);
+    font-weight: 400;
+    max-width: 20ch;
+  }
+  .head__lead {
+    margin: 1.15rem 0 0;
+    font-family: var(--font-body);
+    font-size: clamp(1.125rem, 1.6vw, 1.25rem);
+    line-height: 1.6;
+    max-width: 48ch;
+    color: var(--color-ink-soft);
+  }
+
+  .band {
+    padding-block: clamp(2.75rem, 6vw, 4.5rem);
+  }
+  .band--soft {
+    background: var(--color-cream);
+  }
+  .band--ink {
+    background: var(--meish-navy);
+    color: var(--meish-ivory);
+  }
+  .band--ink :global(h2) {
+    color: var(--meish-ivory);
+  }
+  .band h2 {
+    font-weight: 400;
+  }
+  .band__intro {
+    margin: 1.6rem 0 0;
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.64;
+    max-width: 52ch;
+    color: var(--color-ink-soft);
+  }
+  .band--ink .band__intro {
+    color: rgba(244, 239, 232, 0.86);
+  }
+  .band__action {
+    margin: 1.75rem 0 0;
+    max-width: none;
+  }
+
+  .products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    gap: clamp(1.75rem, 3vw, 2.5rem);
+    margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
+  }
+  .products > :global(.product--featured) {
+    grid-column: 1 / -1;
+  }
+
+  .themes {
+    margin: clamp(1.5rem, 3vw, 2.25rem) 0 0;
+  }
+  .themes__row {
+    display: grid;
+    grid-template-columns: minmax(0, 12rem) minmax(0, 38rem);
+    gap: 0.3rem 2.5rem;
+    padding-block: 0.95rem;
+    border-top: 1px solid var(--color-line);
+  }
+  .themes__row:last-child {
+    border-bottom: 1px solid var(--color-line);
+  }
+  .themes dt {
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+    font-weight: 400;
+  }
+  .themes dd {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-ink-soft);
+  }
+
+  @media (max-width: 48rem) {
+    .themes__row {
+      grid-template-columns: 1fr;
+      gap: 0.3rem;
+      padding-block: 1rem;
+    }
+  }
 </style>

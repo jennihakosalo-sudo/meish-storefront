@@ -1,0 +1,34 @@
+/* ==========================================================================
+   Meish Diamond — F1–F7 colour system (DRAFT from Visual System board)
+   Exact HEX may still be refined. Do not treat as final brand lock.
+   Source: public/brand/reference/meish-visual-system-board.jpg
+   ========================================================================== */
+
+:root {
+  /* Lifecycle / status orbs (board) */
+  --f1: #e8783a; /* Released Soon — vision, emergence */
+  --f2: #e8c04a; /* Awaiting Launch — preparation, potential */
+  --f3: #2bb8b0; /* Being Piloted — exploration, learning */
+  --f4: #d85a9a; /* To Be Gifted — generosity, sharing */
+  --f5: #7a5fb0; /* Human Approval — trust, resonance */
+  --f6: #8b2232; /* Source Missing — insight needed */
+  --f7: #1b2a5e; /* Do Not Use — not aligned / out of scope */
+
+  /* Soft tints for glass refraction */
+  --f1-soft: rgba(232, 120, 58, 0.55);
+  --f2-soft: rgba(232, 192, 74, 0.55);
+  --f3-soft: rgba(43, 184, 176, 0.5);
+  --f4-soft: rgba(216, 90, 154, 0.5);
+  --f5-soft: rgba(122, 95, 176, 0.5);
+  --f6-soft: rgba(139, 34, 50, 0.45);
+  --f7-soft: rgba(27, 42, 94, 0.55);
+
+  /* Clear / pearl crystal (unused facets) */
+  --diamond-glass: rgba(255, 255, 255, 0.14);
+  --diamond-glass-strong: rgba(255, 255, 255, 0.28);
+  --diamond-pearl: #f4f0ea;
+  --diamond-pearl-cool: #e8f0f6;
+  --diamond-edge: rgba(255, 248, 240, 0.85);
+  --diamond-edge-soft: rgba(255, 255, 255, 0.45);
+  --diamond-ink-edge: rgba(27, 42, 94, 0.22);
+}

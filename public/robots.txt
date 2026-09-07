@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Brand working files, not part of the public site.
+Disallow: /brand/reference
+Disallow: /brand/reference/
+Disallow: /brand/archive
+Disallow: /brand/archive/
+
+Sitemap: https://www.meish.work/sitemap.xml

@@ -2,20 +2,60 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { SITE_ORIGIN } from '../lib/meish-mailto';
 
 interface Props {
   title?: string;
   description?: string;
-  universeHome?: boolean;
+  /** Absolute path under public/, default social card */
+  ogImage?: string;
+  /** Extra schema.org objects (Organization + WebSite always included) */
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+  noindex?: boolean;
 }
 
 const {
-  title = 'Meish — human experience is our North Star',
-  description = 'Meish specialises in human experience — for business, spaces, gifts and custom tools. Possibility Map from 590 € + VAT.',
-  universeHome = false,
+  title = 'Meish — designed around being human',
+  description =
+    'We notice what matters, compare what could come next and turn the right direction into something useful. For people and businesses, in English and Finnish.',
+  ogImage = '/og/meish-share.jpg',
+  schema,
+  noindex = false,
 } = Astro.props;
 
-const canonical = new URL(Astro.url.pathname, Astro.site);
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const canonical = new URL(path === '/' ? '/' : path + '/', SITE_ORIGIN).href;
+const ogImageUrl = new URL(ogImage, SITE_ORIGIN).href;
+
+const orgSchema = {
+  '@type': 'Organization',
+  '@id': `${SITE_ORIGIN}/#organization`,
+  name: 'Meish',
+  url: SITE_ORIGIN,
+  email: 'moona.m@meish.work',
+  description:
+    'Meish specialises in human experience — understanding it, reviewing it and making it better. We work in English and Finnish.',
+  logo: `${SITE_ORIGIN}/favicon.svg`,
+  image: ogImageUrl,
+  knowsLanguage: ['en', 'fi'],
+};
+
+const websiteSchema = {
+  '@type': 'WebSite',
+  '@id': `${SITE_ORIGIN}/#website`,
+  name: 'Meish',
+  url: SITE_ORIGIN,
+  description:
+    'Meish — designed around being human Business offers, personal support, tools and gifts. English and Finnish.',
+  inLanguage: ['en', 'fi'],
+  publisher: { '@id': `${SITE_ORIGIN}/#organization` },
+};
+
+const extra = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [orgSchema, websiteSchema, ...extra],
+};
 ---
 
 <!doctype html>
@@ -28,24 +68,45 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- Roboto = body. ATHENA Condensed pending in public/fonts/. Bodoni Moda is the temporary display stand-in. -->
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,600;0,6..96,700;1,6..96,400&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" />
+    {/* Both faces are served from this origin, so there is no third-party
+        font request to preconnect to — and none to declare in the privacy
+        page. Only the two faces above the fold are preloaded; the rest arrive
+        with the stylesheet. */}
+    <link
+      rel="preload"
+      href="/fonts/libre-baskerville-400-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="preload" href="/fonts/satoshi-400.woff2" as="font" type="font/woff2" crossorigin />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Meish" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:locale:alternate" content="fi_FI" />
 
-    <meta name="theme-color" content="#FFFBF5" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <meta name="theme-color" content="#f6f1e8" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
-  <body class:list={universeHome && 'is-universe-home'}>
+  <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <Header universeHome={universeHome} />
+    <Header />
     <main id="main">
       <slot />
     </main>
@@ -59,19 +120,18 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       .skip-link {
         position: absolute;
         left: var(--space-md);
-        top: -3rem;
+        /* -3rem left a dark sliver of this visible above the header, which read
+           as a rendering fault. The link is ~3.05rem tall. */
+        top: -5rem;
         z-index: var(--z-overlay);
         background: var(--text);
         color: var(--bg);
-        padding: var(--space-xs) var(--space-md);
+        padding: 0.7rem 1rem;
+        font-size: 1.0625rem;
         border-radius: var(--radius-sm);
         transition: top var(--dur) var(--ease);
       }
       .skip-link:focus { top: var(--space-md); color: var(--bg); }
-
-      body.is-universe-home {
-        background: var(--color-cream);
-      }
     </style>
   </body>
 </html>

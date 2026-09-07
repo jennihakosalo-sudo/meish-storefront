@@ -24,6 +24,12 @@ secrets/
 .vercel/
 .netlify/
 
+# local QA screenshots and audit scripts
+.tmp-qa/
+.qa/
+
 # macOS / editor
 .DS_Store
 *.log
+.vercel
+.env*

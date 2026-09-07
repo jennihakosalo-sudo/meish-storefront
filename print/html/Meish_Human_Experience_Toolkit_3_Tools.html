@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Meish Human Experience Toolkit</title>
+<meta name="viewport" content="width=794">
+<style>
+@font-face{font-family:'Satoshi';src:url('/public/fonts/satoshi-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:block}
+@font-face{font-family:'Satoshi';src:url('/public/fonts/satoshi-400-italic.woff2') format('woff2');font-weight:400;font-style:italic;font-display:block}
+@font-face{font-family:'Satoshi';src:url('/public/fonts/satoshi-500.woff2') format('woff2');font-weight:500;font-style:normal;font-display:block}
+@font-face{font-family:'Satoshi';src:url('/public/fonts/satoshi-700.woff2') format('woff2');font-weight:700;font-style:normal;font-display:block}
+
+@font-face{font-family:'Playfair Display';src:url('/public/fonts/playfair-display-latin.woff2') format('woff2');font-weight:500 700;font-style:normal;font-display:block;unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Playfair Display';src:url('/public/fonts/playfair-display-latin-ext.woff2') format('woff2');font-weight:500 700;font-style:normal;font-display:block;unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+
+@font-face{font-family:'IBM Plex Serif';src:url('/public/fonts/ibm-plex-serif-400-latin.woff2') format('woff2');font-weight:400;font-style:normal;font-display:block;unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'IBM Plex Serif';src:url('/public/fonts/ibm-plex-serif-400-latin-ext.woff2') format('woff2');font-weight:400;font-style:normal;font-display:block;unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'IBM Plex Serif';src:url('/public/fonts/ibm-plex-serif-400-italic-latin.woff2') format('woff2');font-weight:400;font-style:italic;font-display:block;unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'IBM Plex Serif';src:url('/public/fonts/ibm-plex-serif-400-italic-latin-ext.woff2') format('woff2');font-weight:400;font-style:italic;font-display:block;unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'IBM Plex Serif';src:url('/public/fonts/ibm-plex-serif-500-latin.woff2') format('woff2');font-weight:500;font-style:normal;font-display:block;unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'IBM Plex Serif';src:url('/public/fonts/ibm-plex-serif-500-latin-ext.woff2') format('woff2');font-weight:500;font-style:normal;font-display:block;unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'IBM Plex Serif';src:url('/public/fonts/ibm-plex-serif-600-latin.woff2') format('woff2');font-weight:600;font-style:normal;font-display:block;unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'IBM Plex Serif';src:url('/public/fonts/ibm-plex-serif-600-latin-ext.woff2') format('woff2');font-weight:600;font-style:normal;font-display:block;unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+
+
+@page { size: A4; margin: 18mm 16mm; }
+
+:root{
+  --ink:#07111F;
+  --ink-soft:#39414D;
+  --meta:#6B6257;
+  --rule:#C8C0B4;
+  --rule-faint:#DCD5CA;
+  --page-h:260mm;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+
+html,body{margin:0;padding:0;background:#FFFFFF}
+
+body{
+  font-family:'IBM Plex Serif',Georgia,'Times New Roman',serif;
+  font-weight:400;
+  color:var(--ink);
+  font-size:11pt;
+  line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+  -webkit-print-color-adjust:exact;
+  print-color-adjust:exact;
+}
+
+/* ---------- page frame ---------------------------------------------- */
+
+.page{
+  height:var(--page-h);
+  display:flex;
+  flex-direction:column;
+  break-after:page;
+  page-break-after:always;
+  break-inside:avoid;
+  position:relative;
+}
+.page:last-of-type{break-after:auto;page-break-after:auto}
+
+.page__body{flex:1 1 auto;min-height:0}
+
+.foot{
+  flex:0 0 auto;
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:6mm;
+  margin-top:4mm;
+  padding-top:2mm;
+  border-top:0.5pt solid var(--rule-faint);
+  font-family:'Satoshi',Helvetica,Arial,sans-serif;
+  font-weight:400;
+  font-size:7.5pt;
+  letter-spacing:0.045em;
+  color:var(--meta);
+}
+.foot__page{
+  font-weight:500;
+  color:var(--accent);
+  letter-spacing:0.1em;
+  white-space:nowrap;
+}
+
+/* ---------- shared type roles --------------------------------------- */
+
+.sans{font-family:'Satoshi',Helvetica,Arial,sans-serif}
+.serif{font-family:'IBM Plex Serif',Georgia,serif}
+.display{font-family:'Playfair Display',Georgia,serif}
+
+.kicker{
+  font-family:'Satoshi',Helvetica,Arial,sans-serif;
+  font-weight:500;
+  font-size:8pt;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--accent);
+}
+
+/* ---------- document head ------------------------------------------- */
+
+.head{margin-bottom:5mm}
+.head__mark{display:flex;align-items:center;gap:2.4mm;margin-bottom:3mm}
+.head__title{
+  font-family:'Playfair Display',Georgia,serif;
+  font-weight:600;
+  font-size:23pt;
+  line-height:1.05;
+  letter-spacing:-0.008em;
+  margin:0 0 2.6mm;
+  color:var(--ink);
+}
+.head__rule{border-top:1.1pt solid var(--accent);margin:0 0 3.2mm}
+.head__purpose{
+  font-family:'IBM Plex Serif',Georgia,serif;
+  font-size:11pt;
+  line-height:1.45;
+  margin:0;
+  max-width:152mm;
+  color:var(--ink);
+}
+
+/* ---------- editorial paragraphs ------------------------------------ */
+
+.note{
+  font-family:'IBM Plex Serif',Georgia,serif;
+  font-size:10.5pt;
+  line-height:1.42;
+  margin:0 0 4.5mm;
+  max-width:160mm;
+  color:var(--ink-soft);
+}
+.note--tight{margin-bottom:3.2mm}
+.note--aside{font-style:italic;color:var(--ink-soft)}
+
+.small{
+  font-family:'Satoshi',Helvetica,Arial,sans-serif;
+  font-weight:400;
+  font-size:8.5pt;
+  line-height:1.5;
+  letter-spacing:0.012em;
+  color:var(--meta);
+  margin:0 0 4mm;
+}
+
+/* ---------- section starts ------------------------------------------ */
+
+.sec{
+  display:flex;
+  align-items:flex-end;
+  gap:2.4mm;
+  border-bottom:0.9pt solid var(--accent);
+  padding-bottom:1.4mm;
+  margin:0 0 4mm;
+  break-after:avoid;
+}
+.sec__num{
+  font-family:'Satoshi',Helvetica,Arial,sans-serif;
+  font-weight:500;
+  font-size:8pt;
+  letter-spacing:0.18em;
+  color:var(--accent);
+  padding-bottom:0.4mm;
+}
+.sec__title{
+  font-family:'Playfair Display',Georgia,serif;
+  font-weight:600;
+  font-size:13.5pt;
+  line-height:1.1;
+  margin:0;
+  flex:1 1 auto;
+}
+.sec--spaced{margin-top:6mm}
+
+.sec--cont{
+  border-bottom-width:0.5pt;
+  border-bottom-color:var(--rule);
+  padding-bottom:1.2mm;
+  margin-bottom:3.5mm;
+}
+.sec--cont .sec__title{
+  font-family:'Satoshi',Helvetica,Arial,sans-serif;
+  font-weight:400;
+  font-size:8pt;
+  letter-spacing:0.06em;
+  color:var(--meta);
+}
+
+/* ---------- meta strip ---------------------------------------------- */
+
+.meta{display:flex;gap:7mm;margin:0 0 5mm}
+.meta__item{flex:1 1 0}
+.meta__label{
+  font-family:'Satoshi',Helvetica,Arial,sans-serif;
+  font-weight:500;
+  font-size:7.5pt;
+  line-height:1.2;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--meta);
+  margin-bottom:1mm;
+}
+.meta__rule{height:7mm;border-bottom:0.5pt solid var(--rule)}
+
+/* ---------- prompt fields ------------------------------------------- */
+
+.field{break-inside:avoid;page-break-inside:avoid;margin:0 0 5mm}
+.field__label{
+  font-family:'Satoshi',Helvetica,Arial,sans-serif;
+  font-weight:500;
+  font-size:8.5pt;
+  line-height:1.2;
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  color:var(--ink);
+  margin-bottom:1.2mm;
+}
+.field__prompt{
+  font-family:'IBM Plex Serif',Georgia,serif;
+  font-size:10.5pt;
+  line-height:1.38;
+  color:var(--ink-soft);
+  margin:0 0 2mm;
+  max-width:162mm;
+}
+
+.lines{border-top:0}
+.line{height:9.5mm;border-bottom:0.5pt solid var(--rule)}
+.line--tall{height:10.5mm}
+
+/* ---------- column grids ---------------------------------------------
+   Subgrid keeps the label, the prompt and the first writing line on the same
+   baseline across every column, even when one label or prompt wraps to two
+   lines and its neighbours do not. */
+
+.grid2,.grid3{
+  display:grid;
+  row-gap:0;
+  break-inside:avoid;
+  page-break-inside:avoid;
+  margin:0;
+}
+.grid2{grid-template-columns:1fr 1fr;column-gap:8mm}
+.grid3{grid-template-columns:repeat(3,1fr);column-gap:7mm}
+
+.grid2>.field,.grid3>.field{
+  grid-row:span 3;
+  display:grid;
+  grid-template-rows:subgrid;
+  margin:0;
+  min-width:0;
+}
+.grid2>.field>.field__prompt,.grid3>.field>.field__prompt{max-width:none}
+.grid2>.field>.lines{padding-bottom:4mm}
+.grid3>.field>.lines{padding-bottom:4mm}
+
+/* ---------- inline label + rule -------------------------------------- */
+
+.inline{display:flex;align-items:flex-end;gap:3mm;height:9.5mm;break-inside:avoid}
+.inline__label{
+  flex:0 0 auto;
+  width:44mm;
+  font-family:'Satoshi',Helvetica,Arial,sans-serif;
+  font-weight:400;
+  font-size:8.5pt;
+  letter-spacing:0.03em;
+  color:var(--meta);
+  padding-bottom:1.4mm;
+}
+.inline__rule{flex:1 1 auto;border-bottom:0.5pt solid var(--rule);height:100%}
+
+/* ---------- checkboxes ----------------------------------------------- */
+
+.cb{
+  display:inline-block;
+  width:3.5mm;
+  height:3.5mm;
+  border:0.6pt solid var(--ink);
+  margin-right:1.5mm;
+  vertical-align:-0.5mm;
+  background:#FFFFFF;
+}
+.ticks{
+  display:flex;
+  flex-wrap:wrap;
+  gap:1.8mm 5mm;
+  font-family:'Satoshi',Helvetica,Arial,sans-serif;
+  font-weight:400;
+  font-size:8.2pt;
+  line-height:1.2;
+  color:var(--ink-soft);
+  break-inside:avoid;
+}
+.ticks__lead{
+  flex:0 0 auto;
+  font-size:7.5pt;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--meta);
+}
+.tick{display:inline-flex;align-items:baseline;white-space:nowrap}
+
+/* ---------- capture block (tool 3) ----------------------------------- */
+
+.cap{
+  break-inside:avoid;page-break-inside:avoid;
+  border-left:1.2pt solid var(--accent);
+  padding:0 0 0 4mm;
+  margin:0 0 2.8mm;
+}
+.cap__num{
+  font-family:'Satoshi',Helvetica,Arial,sans-serif;
+  font-weight:700;
+  font-size:8pt;
+  line-height:1.2;
+  letter-spacing:0.16em;
+  color:var(--accent);
+  margin-bottom:0.6mm;
+}
+.cap .inline{height:7.6mm}
+.cap .ticks{margin-top:1.2mm}
+
+/* ---------- pair rows (tool 3 part two) ------------------------------ */
+
+.pair{break-inside:avoid;margin:0 0 4mm}
+.pair__num{
+  font-family:'Satoshi',Helvetica,Arial,sans-serif;
+  font-weight:700;
+  font-size:8pt;
+  line-height:1.2;
+  letter-spacing:0.16em;
+  color:var(--accent);
+  margin-bottom:0.6mm;
+}
+
+/* ---------- toolkit cover -------------------------------------------- */
+
+.cover{display:flex;flex-direction:column;height:100%}
+.ribbon{display:flex;align-items:flex-end;gap:3.2mm;margin:0 0 9mm}
+.cover__kicker{
+  font-family:'Satoshi',Helvetica,Arial,sans-serif;
+  font-weight:500;
+  font-size:8pt;
+  letter-spacing:0.24em;
+  text-transform:uppercase;
+  color:var(--meta);
+  margin-bottom:5mm;
+}
+.cover__title{
+  font-family:'Playfair Display',Georgia,serif;
+  font-weight:600;
+  font-size:38pt;
+  line-height:1.02;
+  letter-spacing:-0.014em;
+  margin:0 0 5mm;
+  max-width:150mm;
+}
+.cover__sub{
+  font-family:'IBM Plex Serif',Georgia,serif;
+  font-size:13pt;
+  line-height:1.4;
+  margin:0 0 6mm;
+  max-width:140mm;
+}
+.cover__line{
+  font-family:'Satoshi',Helvetica,Arial,sans-serif;
+  font-weight:500;
+  font-size:9pt;
+  letter-spacing:0.26em;
+  text-transform:uppercase;
+  color:var(--ink);
+  margin:0 0 10mm;
+}
+.cover__rule{border-top:0.8pt solid var(--rule);margin:0 0 7mm}
+
+.toc{margin:0}
+.toc__row{display:flex;gap:4mm;align-items:flex-start;margin:0 0 6mm;break-inside:avoid}
+.toc__mark{flex:0 0 auto;padding-top:1.2mm}
+.toc__body{flex:1 1 auto}
+.toc__num{
+  font-family:'Satoshi',Helvetica,Arial,sans-serif;
+  font-weight:500;
+  font-size:7.5pt;
+  letter-spacing:0.2em;
+  color:var(--meta);
+  margin-bottom:1mm;
+}
+.toc__name{
+  font-family:'Playfair Display',Georgia,serif;
+  font-weight:600;
+  font-size:15pt;
+  line-height:1.15;
+  margin:0 0 1.4mm;
+}
+.toc__desc{
+  font-family:'IBM Plex Serif',Georgia,serif;
+  font-size:10.5pt;
+  line-height:1.4;
+  color:var(--ink-soft);
+  margin:0;
+  max-width:150mm;
+}
+
+.spacer{flex:1 1 auto;min-height:4mm}
+
+.licence{
+  font-family:'Satoshi',Helvetica,Arial,sans-serif;
+  font-weight:400;
+  font-size:7.5pt;
+  line-height:1.55;
+  letter-spacing:0.01em;
+  color:var(--meta);
+  border-top:0.5pt solid var(--rule-faint);
+  padding-top:3mm;
+  max-width:158mm;
+  margin:0;
+}
+.licence b{font-weight:500;color:var(--ink);letter-spacing:0.12em;text-transform:uppercase;font-size:7pt;display:block;margin-bottom:1.2mm}
+
+/* ---------- quick start ---------------------------------------------- */
+
+.step{display:flex;gap:4mm;align-items:flex-start;margin:0 0 5.5mm;break-inside:avoid}
+.step__mark{flex:0 0 auto;padding-top:1.4mm}
+.step__body{flex:1 1 auto}
+.step__head{display:flex;align-items:baseline;gap:3mm;margin-bottom:1.2mm;flex-wrap:wrap}
+.step__num{
+  font-family:'Satoshi',Helvetica,Arial,sans-serif;
+  font-weight:700;
+  font-size:8.5pt;
+  letter-spacing:0.2em;
+}
+.step__name{
+  font-family:'Playfair Display',Georgia,serif;
+  font-weight:600;
+  font-size:13pt;
+  line-height:1.1;
+}
+.step__tool{
+  font-family:'Satoshi',Helvetica,Arial,sans-serif;
+  font-weight:400;
+  font-size:8pt;
+  letter-spacing:0.06em;
+  color:var(--meta);
+}
+.step__desc{
+  font-family:'IBM Plex Serif',Georgia,serif;
+  font-size:10.5pt;
+  line-height:1.42;
+  color:var(--ink-soft);
+  margin:0;
+  max-width:152mm;
+}
+
+.times{display:flex;gap:0;margin:0 0 6mm;border-top:0.6pt solid var(--rule);border-bottom:0.6pt solid var(--rule)}
+.times__cell{flex:1 1 0;padding:3.4mm 0 3.4mm 4mm;border-left:0.5pt solid var(--rule-faint)}
+.times__cell:first-child{padding-left:0;border-left:0}
+.times__k{
+  font-family:'Satoshi',Helvetica,Arial,sans-serif;
+  font-weight:500;
+  font-size:7.5pt;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:var(--meta);
+  margin-bottom:1.4mm;
+}
+.times__v{
+  font-family:'Playfair Display',Georgia,serif;
+  font-weight:600;
+  font-size:13pt;
+  line-height:1;
+}
+
+.bullets{
+  font-family:'Satoshi',Helvetica,Arial,sans-serif;
+  font-weight:400;
+  font-size:9pt;
+  line-height:1.75;
+  color:var(--ink-soft);
+  margin:0 0 5mm;
+  padding:0;
+  list-style:none;
+}
+.bullets li{padding-left:5mm;position:relative}
+.bullets li::before{
+  content:'';
+  position:absolute;
+  left:0;top:1.6mm;
+  width:1.6mm;height:1.6mm;
+  background:var(--accent);
+  transform:rotate(45deg);
+}
+
+.rules-two{display:flex;gap:8mm;margin:0 0 5mm}
+.rules-two__item{flex:1 1 0}
+.rules-two__n{
+  font-family:'Satoshi',Helvetica,Arial,sans-serif;
+  font-weight:700;
+  font-size:8pt;
+  letter-spacing:0.18em;
+  color:var(--accent);
+  margin-bottom:1.2mm;
+}
+.rules-two__t{
+  font-family:'IBM Plex Serif',Georgia,serif;
+  font-size:10.5pt;
+  line-height:1.4;
+  margin:0;
+}
+
+/* ---------- arrow glyph (drawn, not typed) ---------------------------- */
+
+.arw{
+  display:inline-block;
+  width:0.86em;
+  height:0.5em;
+  vertical-align:0.02em;
+  margin:0 0.12em;
+}
+.arw svg{display:block;width:100%;height:100%;overflow:visible}
+
+/* ---------- diamond --------------------------------------------------- */
+
+.dia{display:block}
+
+/* ---------- screen proofing ------------------------------------------
+   On screen each .page is drawn inside a full A4 sheet with the same 18mm /
+   16mm margins that @page applies when printing, so a 794x1123 screenshot is
+   a faithful proof of the printed page and the overflow audit measures the
+   same content box. */
+
+@media screen{
+  html{background:#E8E3DC}
+  body{margin:0}
+  .page{
+    box-sizing:content-box;
+    width:178mm;
+    height:var(--page-h);
+    padding:18mm 16mm 19mm;
+    margin:0 auto;
+    background:#FFFFFF;
+  }
+  body.proof .page{display:none}
+  body.proof .page.proof-on{display:flex}
+}
+
+body{--accent:#07111F}
+#meish-audit{display:none}
+</style>
+</head>
+<body>
+<section class="page" style="--accent:#07111F"><div class="page__body cover"><div class="ribbon"><svg class="dia" width="5.4mm" height="13.500mm" viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 0 L10 19 L20 38 Z" fill="#D56A16" fill-opacity="0.34"/><path d="M10 19 L0 38 L20 38 Z" fill="#D56A16" fill-opacity="0.14"/><path d="M20 0 L30 19 L20 38 Z" fill="#D56A16" fill-opacity="0.22"/><path d="M30 19 L40 38 L20 38 Z" fill="#D56A16" fill-opacity="0.44"/><path d="M0 38 L10 69 L20 38 Z" fill="#D56A16" fill-opacity="0.18"/><path d="M10 69 L20 100 L20 38 Z" fill="#D56A16" fill-opacity="0.38"/><path d="M40 38 L30 69 L20 38 Z" fill="#D56A16" fill-opacity="0.28"/><path d="M30 69 L20 100 L20 38 Z" fill="#D56A16" fill-opacity="0.1"/><path d="M20 0 L40 38 L20 100 L0 38 Z" stroke="#D56A16" stroke-width="2.4" stroke-linejoin="miter" fill="none"/><path d="M0 38 L40 38" stroke="#D56A16" stroke-width="1.32" stroke-opacity="0.75"/></svg><svg class="dia" width="5.4mm" height="13.500mm" viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 0 L10 19 L20 38 Z" fill="#E7A92F" fill-opacity="0.34"/><path d="M10 19 L0 38 L20 38 Z" fill="#E7A92F" fill-opacity="0.14"/><path d="M20 0 L30 19 L20 38 Z" fill="#E7A92F" fill-opacity="0.22"/><path d="M30 19 L40 38 L20 38 Z" fill="#E7A92F" fill-opacity="0.44"/><path d="M0 38 L10 69 L20 38 Z" fill="#E7A92F" fill-opacity="0.18"/><path d="M10 69 L20 100 L20 38 Z" fill="#E7A92F" fill-opacity="0.38"/><path d="M40 38 L30 69 L20 38 Z" fill="#E7A92F" fill-opacity="0.28"/><path d="M30 69 L20 100 L20 38 Z" fill="#E7A92F" fill-opacity="0.1"/><path d="M20 0 L40 38 L20 100 L0 38 Z" stroke="#E7A92F" stroke-width="2.4" stroke-linejoin="miter" fill="none"/><path d="M0 38 L40 38" stroke="#E7A92F" stroke-width="1.32" stroke-opacity="0.75"/></svg><svg class="dia" width="5.4mm" height="13.500mm" viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 0 L10 19 L20 38 Z" fill="#20A6A6" fill-opacity="0.34"/><path d="M10 19 L0 38 L20 38 Z" fill="#20A6A6" fill-opacity="0.14"/><path d="M20 0 L30 19 L20 38 Z" fill="#20A6A6" fill-opacity="0.22"/><path d="M30 19 L40 38 L20 38 Z" fill="#20A6A6" fill-opacity="0.44"/><path d="M0 38 L10 69 L20 38 Z" fill="#20A6A6" fill-opacity="0.18"/><path d="M10 69 L20 100 L20 38 Z" fill="#20A6A6" fill-opacity="0.38"/><path d="M40 38 L30 69 L20 38 Z" fill="#20A6A6" fill-opacity="0.28"/><path d="M30 69 L20 100 L20 38 Z" fill="#20A6A6" fill-opacity="0.1"/><path d="M20 0 L40 38 L20 100 L0 38 Z" stroke="#20A6A6" stroke-width="2.4" stroke-linejoin="miter" fill="none"/><path d="M0 38 L40 38" stroke="#20A6A6" stroke-width="1.32" stroke-opacity="0.75"/></svg><svg class="dia" width="5.4mm" height="13.500mm" viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 0 L10 19 L20 38 Z" fill="#D73E82" fill-opacity="0.34"/><path d="M10 19 L0 38 L20 38 Z" fill="#D73E82" fill-opacity="0.14"/><path d="M20 0 L30 19 L20 38 Z" fill="#D73E82" fill-opacity="0.22"/><path d="M30 19 L40 38 L20 38 Z" fill="#D73E82" fill-opacity="0.44"/><path d="M0 38 L10 69 L20 38 Z" fill="#D73E82" fill-opacity="0.18"/><path d="M10 69 L20 100 L20 38 Z" fill="#D73E82" fill-opacity="0.38"/><path d="M40 38 L30 69 L20 38 Z" fill="#D73E82" fill-opacity="0.28"/><path d="M30 69 L20 100 L20 38 Z" fill="#D73E82" fill-opacity="0.1"/><path d="M20 0 L40 38 L20 100 L0 38 Z" stroke="#D73E82" stroke-width="2.4" stroke-linejoin="miter" fill="none"/><path d="M0 38 L40 38" stroke="#D73E82" stroke-width="1.32" stroke-opacity="0.75"/></svg><svg class="dia" width="5.4mm" height="13.500mm" viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 0 L10 19 L20 38 Z" fill="#7147A8" fill-opacity="0.34"/><path d="M10 19 L0 38 L20 38 Z" fill="#7147A8" fill-opacity="0.14"/><path d="M20 0 L30 19 L20 38 Z" fill="#7147A8" fill-opacity="0.22"/><path d="M30 19 L40 38 L20 38 Z" fill="#7147A8" fill-opacity="0.44"/><path d="M0 38 L10 69 L20 38 Z" fill="#7147A8" fill-opacity="0.18"/><path d="M10 69 L20 100 L20 38 Z" fill="#7147A8" fill-opacity="0.38"/><path d="M40 38 L30 69 L20 38 Z" fill="#7147A8" fill-opacity="0.28"/><path d="M30 69 L20 100 L20 38 Z" fill="#7147A8" fill-opacity="0.1"/><path d="M20 0 L40 38 L20 100 L0 38 Z" stroke="#7147A8" stroke-width="2.4" stroke-linejoin="miter" fill="none"/><path d="M0 38 L40 38" stroke="#7147A8" stroke-width="1.32" stroke-opacity="0.75"/></svg><svg class="dia" width="5.4mm" height="13.500mm" viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 0 L10 19 L20 38 Z" fill="#D83A32" fill-opacity="0.34"/><path d="M10 19 L0 38 L20 38 Z" fill="#D83A32" fill-opacity="0.14"/><path d="M20 0 L30 19 L20 38 Z" fill="#D83A32" fill-opacity="0.22"/><path d="M30 19 L40 38 L20 38 Z" fill="#D83A32" fill-opacity="0.44"/><path d="M0 38 L10 69 L20 38 Z" fill="#D83A32" fill-opacity="0.18"/><path d="M10 69 L20 100 L20 38 Z" fill="#D83A32" fill-opacity="0.38"/><path d="M40 38 L30 69 L20 38 Z" fill="#D83A32" fill-opacity="0.28"/><path d="M30 69 L20 100 L20 38 Z" fill="#D83A32" fill-opacity="0.1"/><path d="M20 0 L40 38 L20 100 L0 38 Z" stroke="#D83A32" stroke-width="2.4" stroke-linejoin="miter" fill="none"/><path d="M0 38 L40 38" stroke="#D83A32" stroke-width="1.32" stroke-opacity="0.75"/></svg><svg class="dia" width="5.4mm" height="13.500mm" viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 0 L10 19 L20 38 Z" fill="#273F86" fill-opacity="0.34"/><path d="M10 19 L0 38 L20 38 Z" fill="#273F86" fill-opacity="0.14"/><path d="M20 0 L30 19 L20 38 Z" fill="#273F86" fill-opacity="0.22"/><path d="M30 19 L40 38 L20 38 Z" fill="#273F86" fill-opacity="0.44"/><path d="M0 38 L10 69 L20 38 Z" fill="#273F86" fill-opacity="0.18"/><path d="M10 69 L20 100 L20 38 Z" fill="#273F86" fill-opacity="0.38"/><path d="M40 38 L30 69 L20 38 Z" fill="#273F86" fill-opacity="0.28"/><path d="M30 69 L20 100 L20 38 Z" fill="#273F86" fill-opacity="0.1"/><path d="M20 0 L40 38 L20 100 L0 38 Z" stroke="#273F86" stroke-width="2.4" stroke-linejoin="miter" fill="none"/><path d="M0 38 L40 38" stroke="#273F86" stroke-width="1.32" stroke-opacity="0.75"/></svg></div>
+<div class="cover__kicker">Meish · working tools</div><h1 class="cover__title">Meish Human Experience Toolkit</h1><p class="cover__sub">Three tools to notice what experience is doing.</p><p class="cover__line">Observe before you improve.</p><div class="cover__rule"></div>
+<div class="toc"><div class="toc__row"><div class="toc__mark"><svg class="dia" width="4.6mm" height="11.500mm" viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 0 L10 19 L20 38 Z" fill="#20A6A6" fill-opacity="0.34"/><path d="M10 19 L0 38 L20 38 Z" fill="#20A6A6" fill-opacity="0.14"/><path d="M20 0 L30 19 L20 38 Z" fill="#20A6A6" fill-opacity="0.22"/><path d="M30 19 L40 38 L20 38 Z" fill="#20A6A6" fill-opacity="0.44"/><path d="M0 38 L10 69 L20 38 Z" fill="#20A6A6" fill-opacity="0.18"/><path d="M10 69 L20 100 L20 38 Z" fill="#20A6A6" fill-opacity="0.38"/><path d="M40 38 L30 69 L20 38 Z" fill="#20A6A6" fill-opacity="0.28"/><path d="M30 69 L20 100 L20 38 Z" fill="#20A6A6" fill-opacity="0.1"/><path d="M20 0 L40 38 L20 100 L0 38 Z" stroke="#20A6A6" stroke-width="2.4" stroke-linejoin="miter" fill="none"/><path d="M0 38 L40 38" stroke="#20A6A6" stroke-width="1.32" stroke-opacity="0.75"/></svg></div><div class="toc__body"><div class="toc__num">01 · Notice</div><div class="toc__name">Meish Sensory Walk</div><p class="toc__desc">Describe what a place, service, product or moment is actually doing, through the senses, before changing anything.</p></div></div><div class="toc__row"><div class="toc__mark"><svg class="dia" width="4.6mm" height="11.500mm" viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 0 L10 19 L20 38 Z" fill="#D73E82" fill-opacity="0.34"/><path d="M10 19 L0 38 L20 38 Z" fill="#D73E82" fill-opacity="0.14"/><path d="M20 0 L30 19 L20 38 Z" fill="#D73E82" fill-opacity="0.22"/><path d="M30 19 L40 38 L20 38 Z" fill="#D73E82" fill-opacity="0.44"/><path d="M0 38 L10 69 L20 38 Z" fill="#D73E82" fill-opacity="0.18"/><path d="M10 69 L20 100 L20 38 Z" fill="#D73E82" fill-opacity="0.38"/><path d="M40 38 L30 69 L20 38 Z" fill="#D73E82" fill-opacity="0.28"/><path d="M30 69 L20 100 L20 38 Z" fill="#D73E82" fill-opacity="0.1"/><path d="M20 0 L40 38 L20 100 L0 38 Z" stroke="#D73E82" stroke-width="2.4" stroke-linejoin="miter" fill="none"/><path d="M0 38 L40 38" stroke="#D73E82" stroke-width="1.32" stroke-opacity="0.75"/></svg></div><div class="toc__body"><div class="toc__num">02 · Shape</div><div class="toc__name">Meish Atmosphere Builder</div><p class="toc__desc">Decide what the moment should feel like, then translate that feeling into light, sound, materials and behaviour.</p></div></div><div class="toc__row"><div class="toc__mark"><svg class="dia" width="4.6mm" height="11.500mm" viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 0 L10 19 L20 38 Z" fill="#273F86" fill-opacity="0.34"/><path d="M10 19 L0 38 L20 38 Z" fill="#273F86" fill-opacity="0.14"/><path d="M20 0 L30 19 L20 38 Z" fill="#273F86" fill-opacity="0.22"/><path d="M30 19 L40 38 L20 38 Z" fill="#273F86" fill-opacity="0.44"/><path d="M0 38 L10 69 L20 38 Z" fill="#273F86" fill-opacity="0.18"/><path d="M10 69 L20 100 L20 38 Z" fill="#273F86" fill-opacity="0.38"/><path d="M40 38 L30 69 L20 38 Z" fill="#273F86" fill-opacity="0.28"/><path d="M30 69 L20 100 L20 38 Z" fill="#273F86" fill-opacity="0.1"/><path d="M20 0 L40 38 L20 100 L0 38 Z" stroke="#273F86" stroke-width="2.4" stroke-linejoin="miter" fill="none"/><path d="M0 38 L40 38" stroke="#273F86" stroke-width="1.32" stroke-opacity="0.75"/></svg></div><div class="toc__body"><div class="toc__num">03 · Remove friction</div><div class="toc__name">Meish Points of Confusion <span class="arw" aria-label="to"><svg viewBox="0 0 20 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 5 H17.4 M12.6 0.9 L17.6 5 L12.6 9.1" stroke="currentColor" stroke-width="1.1" stroke-linecap="square" stroke-linejoin="miter"/></svg></span> Presence</div><p class="toc__desc">Find where people guess, search, wait or check, and take away the load that does not need to be there.</p></div></div></div>
+<div class="spacer"></div>
+<p class="licence"><b>Licence</b>For the purchaser's own internal work and team use. May be printed and reused within the purchaser's organisation. Not for resale, redistribution, white-labelling or client resale without separate permission.</p></div><div class="foot"><span>Meish · meish.work · Designed around being human.</span><span class="foot__page">01 / 08</span></div></section>
+<section class="page" style="--accent:#07111F"><div class="page__body cover"><div class="sec"><svg class="dia" width="2.6mm" height="6.500mm" viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 0 L10 19 L20 38 Z" fill="#07111F" fill-opacity="0.34"/><path d="M10 19 L0 38 L20 38 Z" fill="#07111F" fill-opacity="0.14"/><path d="M20 0 L30 19 L20 38 Z" fill="#07111F" fill-opacity="0.22"/><path d="M30 19 L40 38 L20 38 Z" fill="#07111F" fill-opacity="0.44"/><path d="M0 38 L10 69 L20 38 Z" fill="#07111F" fill-opacity="0.18"/><path d="M10 69 L20 100 L20 38 Z" fill="#07111F" fill-opacity="0.38"/><path d="M40 38 L30 69 L20 38 Z" fill="#07111F" fill-opacity="0.28"/><path d="M30 69 L20 100 L20 38 Z" fill="#07111F" fill-opacity="0.1"/><path d="M20 0 L40 38 L20 100 L0 38 Z" stroke="#07111F" stroke-width="2.4" stroke-linejoin="miter" fill="none"/><path d="M0 38 L40 38" stroke="#07111F" stroke-width="1.32" stroke-opacity="0.75"/></svg><span class="sec__num">—</span><h2 class="sec__title">Quick start</h2></div>
+<p class="note">Three short tools for looking at an experience honestly. Print them, take a pen, and go to the actual place — a room, a service, a website, a meeting, a morning. Write in ordinary words. Description first, judgement later.</p>
+<div class="step"><div class="step__mark"><svg class="dia" width="4.2mm" height="10.500mm" viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 0 L10 19 L20 38 Z" fill="#20A6A6" fill-opacity="0.34"/><path d="M10 19 L0 38 L20 38 Z" fill="#20A6A6" fill-opacity="0.14"/><path d="M20 0 L30 19 L20 38 Z" fill="#20A6A6" fill-opacity="0.22"/><path d="M30 19 L40 38 L20 38 Z" fill="#20A6A6" fill-opacity="0.44"/><path d="M0 38 L10 69 L20 38 Z" fill="#20A6A6" fill-opacity="0.18"/><path d="M10 69 L20 100 L20 38 Z" fill="#20A6A6" fill-opacity="0.38"/><path d="M40 38 L30 69 L20 38 Z" fill="#20A6A6" fill-opacity="0.28"/><path d="M30 69 L20 100 L20 38 Z" fill="#20A6A6" fill-opacity="0.1"/><path d="M20 0 L40 38 L20 100 L0 38 Z" stroke="#20A6A6" stroke-width="2.4" stroke-linejoin="miter" fill="none"/><path d="M0 38 L40 38" stroke="#20A6A6" stroke-width="1.32" stroke-opacity="0.75"/></svg></div><div class="step__body"><div class="step__head"><span class="step__num" style="color:#20A6A6">01</span><span class="step__name">Notice</span><span class="step__tool">Meish Sensory Walk</span></div><p class="step__desc">Describe what is actually here through the senses, before anyone proposes a change. Two pages, one walk.</p></div></div>
+<div class="step"><div class="step__mark"><svg class="dia" width="4.2mm" height="10.500mm" viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 0 L10 19 L20 38 Z" fill="#D73E82" fill-opacity="0.34"/><path d="M10 19 L0 38 L20 38 Z" fill="#D73E82" fill-opacity="0.14"/><path d="M20 0 L30 19 L20 38 Z" fill="#D73E82" fill-opacity="0.22"/><path d="M30 19 L40 38 L20 38 Z" fill="#D73E82" fill-opacity="0.44"/><path d="M0 38 L10 69 L20 38 Z" fill="#D73E82" fill-opacity="0.18"/><path d="M10 69 L20 100 L20 38 Z" fill="#D73E82" fill-opacity="0.38"/><path d="M40 38 L30 69 L20 38 Z" fill="#D73E82" fill-opacity="0.28"/><path d="M30 69 L20 100 L20 38 Z" fill="#D73E82" fill-opacity="0.1"/><path d="M20 0 L40 38 L20 100 L0 38 Z" stroke="#D73E82" stroke-width="2.4" stroke-linejoin="miter" fill="none"/><path d="M0 38 L40 38" stroke="#D73E82" stroke-width="1.32" stroke-opacity="0.75"/></svg></div><div class="step__body"><div class="step__head"><span class="step__num" style="color:#D73E82">02</span><span class="step__name">Shape</span><span class="step__tool">Meish Atmosphere Builder</span></div><p class="step__desc">Decide the feeling you want, then turn it into light, sound, materials, spatial cues and human behaviour.</p></div></div>
+<div class="step"><div class="step__mark"><svg class="dia" width="4.2mm" height="10.500mm" viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 0 L10 19 L20 38 Z" fill="#273F86" fill-opacity="0.34"/><path d="M10 19 L0 38 L20 38 Z" fill="#273F86" fill-opacity="0.14"/><path d="M20 0 L30 19 L20 38 Z" fill="#273F86" fill-opacity="0.22"/><path d="M30 19 L40 38 L20 38 Z" fill="#273F86" fill-opacity="0.44"/><path d="M0 38 L10 69 L20 38 Z" fill="#273F86" fill-opacity="0.18"/><path d="M10 69 L20 100 L20 38 Z" fill="#273F86" fill-opacity="0.38"/><path d="M40 38 L30 69 L20 38 Z" fill="#273F86" fill-opacity="0.28"/><path d="M30 69 L20 100 L20 38 Z" fill="#273F86" fill-opacity="0.1"/><path d="M20 0 L40 38 L20 100 L0 38 Z" stroke="#273F86" stroke-width="2.4" stroke-linejoin="miter" fill="none"/><path d="M0 38 L40 38" stroke="#273F86" stroke-width="1.32" stroke-opacity="0.75"/></svg></div><div class="step__body"><div class="step__head"><span class="step__num" style="color:#273F86">03</span><span class="step__name">Remove friction</span><span class="step__tool">Meish Points of Confusion <span class="arw" aria-label="to"><svg viewBox="0 0 20 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 5 H17.4 M12.6 0.9 L17.6 5 L12.6 9.1" stroke="currentColor" stroke-width="1.1" stroke-linecap="square" stroke-linejoin="miter"/></svg></span> Presence</span></div><p class="step__desc">Collect the moments where a person had to guess, search, wait or check, and work out what they needed instead.</p></div></div>
+<p class="note">Each tool works on its own. Used in sequence they answer three different questions: what is here, what we want, and what is in the way.</p>
+<p class="note note--tight">Working alone is quicker and often more honest. A pair sees more. A small team of three to five brings disagreement, which is useful — fill the sheets separately first, then compare.</p>
+<div class="times"><div class="times__cell"><div class="times__k">Solo</div><div class="times__v">30–45 min</div></div><div class="times__cell"><div class="times__k">Pair</div><div class="times__v">45–60 min</div></div><div class="times__cell"><div class="times__k">Small team</div><div class="times__v">60–90 min</div></div></div>
+<ul class="bullets"><li>A printed copy for each person, and a pen</li><li>The real place, not a photograph or a memory of it</li><li>Permission to be slow for half an hour</li><li>Somewhere to put the finished sheets where they will be read again</li></ul>
+<p class="note">Nothing here has to be filled in completely. A half-finished sheet with three honest observations is worth more than a tidy one written from memory afterwards.</p>
+<div class="spacer"></div>
+<div class="rules-two"><div class="rules-two__item"><div class="rules-two__n">Rule one</div><p class="rules-two__t">Describe before you explain. Write what is there before writing what it means.</p></div><div class="rules-two__item"><div class="rules-two__n">Rule two</div><p class="rules-two__t">Do not solve anything until the closing section of each tool.</p></div></div></div><div class="foot"><span>Meish · meish.work · Designed around being human.</span><span class="foot__page">02 / 08</span></div></section>
+<section class="page" style="--accent:#20A6A6"><div class="page__body"><div class="head"><div class="head__mark"><svg class="dia" width="3.6mm" height="9.000mm" viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 0 L10 19 L20 38 Z" fill="#20A6A6" fill-opacity="0.34"/><path d="M10 19 L0 38 L20 38 Z" fill="#20A6A6" fill-opacity="0.14"/><path d="M20 0 L30 19 L20 38 Z" fill="#20A6A6" fill-opacity="0.22"/><path d="M30 19 L40 38 L20 38 Z" fill="#20A6A6" fill-opacity="0.44"/><path d="M0 38 L10 69 L20 38 Z" fill="#20A6A6" fill-opacity="0.18"/><path d="M10 69 L20 100 L20 38 Z" fill="#20A6A6" fill-opacity="0.38"/><path d="M40 38 L30 69 L20 38 Z" fill="#20A6A6" fill-opacity="0.28"/><path d="M30 69 L20 100 L20 38 Z" fill="#20A6A6" fill-opacity="0.1"/><path d="M20 0 L40 38 L20 100 L0 38 Z" stroke="#20A6A6" stroke-width="2.4" stroke-linejoin="miter" fill="none"/><path d="M0 38 L40 38" stroke="#20A6A6" stroke-width="1.32" stroke-opacity="0.75"/></svg><span class="kicker">Meish working tool — 01</span></div><h1 class="head__title">Meish Sensory Walk</h1><div class="head__rule"></div><p class="head__purpose">Notice what a place, service, product or moment is actually doing before trying to improve it.</p></div>
+<p class="note note--tight">Walk through it at ordinary speed and fix nothing yet. Describe what is there in plain words, as if telling someone who cannot see it. Opinions can wait until the last section.</p>
+<div class="meta"><div class="meta__item"><div class="meta__label">Place or moment</div><div class="meta__rule"></div></div><div class="meta__item"><div class="meta__label">Date</div><div class="meta__rule"></div></div><div class="meta__item"><div class="meta__label">Time of day</div><div class="meta__rule"></div></div><div class="meta__item"><div class="meta__label">Who is walking</div><div class="meta__rule"></div></div></div>
+<div class="sec"><svg class="dia" width="2.6mm" height="6.500mm" viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 0 L10 19 L20 38 Z" fill="#20A6A6" fill-opacity="0.34"/><path d="M10 19 L0 38 L20 38 Z" fill="#20A6A6" fill-opacity="0.14"/><path d="M20 0 L30 19 L20 38 Z" fill="#20A6A6" fill-opacity="0.22"/><path d="M30 19 L40 38 L20 38 Z" fill="#20A6A6" fill-opacity="0.44"/><path d="M0 38 L10 69 L20 38 Z" fill="#20A6A6" fill-opacity="0.18"/><path d="M10 69 L20 100 L20 38 Z" fill="#20A6A6" fill-opacity="0.38"/><path d="M40 38 L30 69 L20 38 Z" fill="#20A6A6" fill-opacity="0.28"/><path d="M30 69 L20 100 L20 38 Z" fill="#20A6A6" fill-opacity="0.1"/><path d="M20 0 L40 38 L20 100 L0 38 Z" stroke="#20A6A6" stroke-width="2.4" stroke-linejoin="miter" fill="none"/><path d="M0 38 L40 38" stroke="#20A6A6" stroke-width="1.32" stroke-opacity="0.75"/></svg><span class="sec__num">01</span><h2 class="sec__title">What is here</h2></div>
+<div class="field"><div class="field__label">Visual environment</div><p class="field__prompt">What do you see first, second, third? Describe the light, the surfaces, and what is competing for attention.</p><div class="lines"><div class="line line--tall"></div><div class="line line--tall"></div></div></div>
+<div class="field"><div class="field__label">Sound</div><p class="field__prompt">What can you hear once you stop talking? Name the constant sounds and the sudden ones.</p><div class="lines"><div class="line line--tall"></div><div class="line line--tall"></div></div></div>
+<div class="field"><div class="field__label">Touch and material</div><p class="field__prompt">What do you actually touch here, and how does it feel — warm, cold, smooth, sticky, heavy, flimsy?</p><div class="lines"><div class="line line--tall"></div><div class="line line--tall"></div></div></div>
+<div class="field"><div class="field__label">Scent</div><p class="field__prompt">What does the air smell of? If it smells of nothing, say whether that reads as clean or as empty.</p><div class="lines"><div class="line line--tall"></div><div class="line line--tall"></div></div></div></div><div class="foot"><span>Meish · meish.work · Designed around being human.</span><span class="foot__page">03 / 08</span></div></section>
+<section class="page" style="--accent:#20A6A6"><div class="page__body"><div class="sec"><svg class="dia" width="2.6mm" height="6.500mm" viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 0 L10 19 L20 38 Z" fill="#20A6A6" fill-opacity="0.34"/><path d="M10 19 L0 38 L20 38 Z" fill="#20A6A6" fill-opacity="0.14"/><path d="M20 0 L30 19 L20 38 Z" fill="#20A6A6" fill-opacity="0.22"/><path d="M30 19 L40 38 L20 38 Z" fill="#20A6A6" fill-opacity="0.44"/><path d="M0 38 L10 69 L20 38 Z" fill="#20A6A6" fill-opacity="0.18"/><path d="M10 69 L20 100 L20 38 Z" fill="#20A6A6" fill-opacity="0.38"/><path d="M40 38 L30 69 L20 38 Z" fill="#20A6A6" fill-opacity="0.28"/><path d="M30 69 L20 100 L20 38 Z" fill="#20A6A6" fill-opacity="0.1"/><path d="M20 0 L40 38 L20 100 L0 38 Z" stroke="#20A6A6" stroke-width="2.4" stroke-linejoin="miter" fill="none"/><path d="M0 38 L40 38" stroke="#20A6A6" stroke-width="1.32" stroke-opacity="0.75"/></svg><span class="sec__num">02</span><h2 class="sec__title">What it does to a body</h2></div>
+<div class="field"><div class="field__label">Temperature</div><p class="field__prompt">Are you too warm, too cold, or unaware of it? Where does that change as you move through?</p><div class="lines"><div class="line"></div><div class="line"></div></div></div>
+<div class="field"><div class="field__label">Movement</div><p class="field__prompt">Where do people go, pause, hesitate or turn back? Describe the route your body wants to take.</p><div class="lines"><div class="line"></div><div class="line"></div></div></div>
+<div class="field"><div class="field__label">Bodily response</div><p class="field__prompt">What does your body do here? Note your shoulders, your breathing, your pace, your hands, your eyes.</p><div class="lines"><div class="line"></div><div class="line"></div></div></div>
+<div class="field"><div class="field__label">Emotional tone</div><p class="field__prompt">If this were a mood, what would you call it? Describe the feeling before you explain it.</p><div class="lines"><div class="line"></div><div class="line"></div></div></div>
+<div class="sec sec--spaced"><svg class="dia" width="2.6mm" height="6.500mm" viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 0 L10 19 L20 38 Z" fill="#20A6A6" fill-opacity="0.34"/><path d="M10 19 L0 38 L20 38 Z" fill="#20A6A6" fill-opacity="0.14"/><path d="M20 0 L30 19 L20 38 Z" fill="#20A6A6" fill-opacity="0.22"/><path d="M30 19 L40 38 L20 38 Z" fill="#20A6A6" fill-opacity="0.44"/><path d="M0 38 L10 69 L20 38 Z" fill="#20A6A6" fill-opacity="0.18"/><path d="M10 69 L20 100 L20 38 Z" fill="#20A6A6" fill-opacity="0.38"/><path d="M40 38 L30 69 L20 38 Z" fill="#20A6A6" fill-opacity="0.28"/><path d="M30 69 L20 100 L20 38 Z" fill="#20A6A6" fill-opacity="0.1"/><path d="M20 0 L40 38 L20 100 L0 38 Z" stroke="#20A6A6" stroke-width="2.4" stroke-linejoin="miter" fill="none"/><path d="M0 38 L40 38" stroke="#20A6A6" stroke-width="1.32" stroke-opacity="0.75"/></svg><span class="sec__num">03</span><h2 class="sec__title">What this asks of us</h2></div>
+<p class="note note--tight">Now you may have an opinion — but answer from what you wrote above.</p>
+<div class="grid3"><div class="field"><div class="field__label">Keep</div><p class="field__prompt">Working. Protect it.</p><div class="lines"><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div></div></div><div class="field"><div class="field__label">Soften</div><p class="field__prompt">Too loud, too much.</p><div class="lines"><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div></div></div><div class="field"><div class="field__label">Strengthen</div><p class="field__prompt">Nearly right already.</p><div class="lines"><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div></div></div></div>
+<div class="spacer"></div>
+<p class="small">One walk is one reading. Walk the route again at another time of day before deciding anything permanent.</p></div><div class="foot"><span>Meish · meish.work · Designed around being human.</span><span class="foot__page">04 / 08</span></div></section>
+<section class="page" style="--accent:#D73E82"><div class="page__body"><div class="head"><div class="head__mark"><svg class="dia" width="3.6mm" height="9.000mm" viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 0 L10 19 L20 38 Z" fill="#D73E82" fill-opacity="0.34"/><path d="M10 19 L0 38 L20 38 Z" fill="#D73E82" fill-opacity="0.14"/><path d="M20 0 L30 19 L20 38 Z" fill="#D73E82" fill-opacity="0.22"/><path d="M30 19 L40 38 L20 38 Z" fill="#D73E82" fill-opacity="0.44"/><path d="M0 38 L10 69 L20 38 Z" fill="#D73E82" fill-opacity="0.18"/><path d="M10 69 L20 100 L20 38 Z" fill="#D73E82" fill-opacity="0.38"/><path d="M40 38 L30 69 L20 38 Z" fill="#D73E82" fill-opacity="0.28"/><path d="M30 69 L20 100 L20 38 Z" fill="#D73E82" fill-opacity="0.1"/><path d="M20 0 L40 38 L20 100 L0 38 Z" stroke="#D73E82" stroke-width="2.4" stroke-linejoin="miter" fill="none"/><path d="M0 38 L40 38" stroke="#D73E82" stroke-width="1.32" stroke-opacity="0.75"/></svg><span class="kicker">Meish working tool — 02</span></div><h1 class="head__title">Meish Atmosphere Builder</h1><div class="head__rule"></div><p class="head__purpose">Choose what a moment should feel like, and turn that intended feeling into concrete sensory and behavioural signals.</p></div>
+<p class="note note--tight">An atmosphere is not decoration. It is the sum of small decisions people can feel but rarely name. Decide the feeling first, then decide what would carry it.</p>
+<div class="meta"><div class="meta__item"><div class="meta__label">Moment or space</div><div class="meta__rule"></div></div><div class="meta__item"><div class="meta__label">Who it is for</div><div class="meta__rule"></div></div><div class="meta__item"><div class="meta__label">Date</div><div class="meta__rule"></div></div></div>
+<div class="sec"><svg class="dia" width="2.6mm" height="6.500mm" viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 0 L10 19 L20 38 Z" fill="#D73E82" fill-opacity="0.34"/><path d="M10 19 L0 38 L20 38 Z" fill="#D73E82" fill-opacity="0.14"/><path d="M20 0 L30 19 L20 38 Z" fill="#D73E82" fill-opacity="0.22"/><path d="M30 19 L40 38 L20 38 Z" fill="#D73E82" fill-opacity="0.44"/><path d="M0 38 L10 69 L20 38 Z" fill="#D73E82" fill-opacity="0.18"/><path d="M10 69 L20 100 L20 38 Z" fill="#D73E82" fill-opacity="0.38"/><path d="M40 38 L30 69 L20 38 Z" fill="#D73E82" fill-opacity="0.28"/><path d="M30 69 L20 100 L20 38 Z" fill="#D73E82" fill-opacity="0.1"/><path d="M20 0 L40 38 L20 100 L0 38 Z" stroke="#D73E82" stroke-width="2.4" stroke-linejoin="miter" fill="none"/><path d="M0 38 L40 38" stroke="#D73E82" stroke-width="1.32" stroke-opacity="0.75"/></svg><span class="sec__num">01</span><h2 class="sec__title">The intended feeling</h2></div>
+<div class="field"><div class="field__label">In three words</div><p class="field__prompt"></p><div class="lines"><div class="line line--tall"></div></div></div>
+<div class="grid2"><div class="field"><div class="field__label">Say it in a sentence</div><p class="field__prompt">What should a person feel in the first thirty seconds?</p><div class="lines"><div class="line"></div><div class="line"></div></div></div><div class="field"><div class="field__label">And explicitly not</div><p class="field__prompt">Including what we could drift into by accident.</p><div class="lines"><div class="line"></div><div class="line"></div></div></div></div>
+<div class="sec sec--spaced"><svg class="dia" width="2.6mm" height="6.500mm" viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 0 L10 19 L20 38 Z" fill="#D73E82" fill-opacity="0.34"/><path d="M10 19 L0 38 L20 38 Z" fill="#D73E82" fill-opacity="0.14"/><path d="M20 0 L30 19 L20 38 Z" fill="#D73E82" fill-opacity="0.22"/><path d="M30 19 L40 38 L20 38 Z" fill="#D73E82" fill-opacity="0.44"/><path d="M0 38 L10 69 L20 38 Z" fill="#D73E82" fill-opacity="0.18"/><path d="M10 69 L20 100 L20 38 Z" fill="#D73E82" fill-opacity="0.38"/><path d="M40 38 L30 69 L20 38 Z" fill="#D73E82" fill-opacity="0.28"/><path d="M30 69 L20 100 L20 38 Z" fill="#D73E82" fill-opacity="0.1"/><path d="M20 0 L40 38 L20 100 L0 38 Z" stroke="#D73E82" stroke-width="2.4" stroke-linejoin="miter" fill="none"/><path d="M0 38 L40 38" stroke="#D73E82" stroke-width="1.32" stroke-opacity="0.75"/></svg><span class="sec__num">02</span><h2 class="sec__title">Signals that carry it</h2></div>
+<p class="small">Write what each one would actually look like here — the thing, not the principle.</p>
+<div class="grid2"><div class="field"><div class="field__label">Light</div><p class="field__prompt">How bright, from where, what is left in shadow?</p><div class="lines"><div class="line"></div><div class="line"></div></div></div><div class="field"><div class="field__label">Sound</div><p class="field__prompt">What is heard, what is quieter, what never here?</p><div class="lines"><div class="line"></div><div class="line"></div></div></div><div class="field"><div class="field__label">Materials</div><p class="field__prompt">What do people touch, sit on, carry, put down?</p><div class="lines"><div class="line"></div><div class="line"></div></div></div><div class="field"><div class="field__label">Scent</div><p class="field__prompt">What should the air do? Restraint is usually right.</p><div class="lines"><div class="line"></div><div class="line"></div></div></div></div></div><div class="foot"><span>Meish · meish.work · Designed around being human.</span><span class="foot__page">05 / 08</span></div></section>
+<section class="page" style="--accent:#D73E82"><div class="page__body"><div class="sec sec--cont"><svg class="dia" width="2.6mm" height="6.500mm" viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 0 L10 19 L20 38 Z" fill="#D73E82" fill-opacity="0.34"/><path d="M10 19 L0 38 L20 38 Z" fill="#D73E82" fill-opacity="0.14"/><path d="M20 0 L30 19 L20 38 Z" fill="#D73E82" fill-opacity="0.22"/><path d="M30 19 L40 38 L20 38 Z" fill="#D73E82" fill-opacity="0.44"/><path d="M0 38 L10 69 L20 38 Z" fill="#D73E82" fill-opacity="0.18"/><path d="M10 69 L20 100 L20 38 Z" fill="#D73E82" fill-opacity="0.38"/><path d="M40 38 L30 69 L20 38 Z" fill="#D73E82" fill-opacity="0.28"/><path d="M30 69 L20 100 L20 38 Z" fill="#D73E82" fill-opacity="0.1"/><path d="M20 0 L40 38 L20 100 L0 38 Z" stroke="#D73E82" stroke-width="2.4" stroke-linejoin="miter" fill="none"/><path d="M0 38 L40 38" stroke="#D73E82" stroke-width="1.32" stroke-opacity="0.75"/></svg><span class="sec__num">02</span><h2 class="sec__title">Signals that carry it, continued</h2></div>
+<div class="grid2"><div class="field"><div class="field__label">Spatial cues</div><p class="field__prompt">How does the space say go, wait, stay?</p><div class="lines"><div class="line"></div><div class="line"></div></div></div><div class="field"><div class="field__label">Human behaviour</div><p class="field__prompt">What is the first thing said to a guest?</p><div class="lines"><div class="line"></div><div class="line"></div></div></div></div>
+<div class="field"><div class="field__label">Transition signals</div><p class="field__prompt">How does a person know they have arrived, that something is beginning, and that it has ended?</p><div class="lines"><div class="line line--tall"></div><div class="line line--tall"></div></div></div>
+<div class="sec sec--spaced"><svg class="dia" width="2.6mm" height="6.500mm" viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 0 L10 19 L20 38 Z" fill="#D73E82" fill-opacity="0.34"/><path d="M10 19 L0 38 L20 38 Z" fill="#D73E82" fill-opacity="0.14"/><path d="M20 0 L30 19 L20 38 Z" fill="#D73E82" fill-opacity="0.22"/><path d="M30 19 L40 38 L20 38 Z" fill="#D73E82" fill-opacity="0.44"/><path d="M0 38 L10 69 L20 38 Z" fill="#D73E82" fill-opacity="0.18"/><path d="M10 69 L20 100 L20 38 Z" fill="#D73E82" fill-opacity="0.38"/><path d="M40 38 L30 69 L20 38 Z" fill="#D73E82" fill-opacity="0.28"/><path d="M30 69 L20 100 L20 38 Z" fill="#D73E82" fill-opacity="0.1"/><path d="M20 0 L40 38 L20 100 L0 38 Z" stroke="#D73E82" stroke-width="2.4" stroke-linejoin="miter" fill="none"/><path d="M0 38 L40 38" stroke="#D73E82" stroke-width="1.32" stroke-opacity="0.75"/></svg><span class="sec__num">03</span><h2 class="sec__title">First move</h2></div>
+<p class="note note--tight">Choose one change, not a programme. Atmosphere shifts through small repeated decisions rather than one large gesture.</p>
+<div class="field"><div class="field__label">Change this first</div><p class="field__prompt">The smallest change with the largest felt difference.</p><div class="lines"><div class="line line--tall"></div><div class="line line--tall"></div><div class="line line--tall"></div></div></div>
+<div class="field"><div class="field__label">We would know it worked because</div><p class="field__prompt">What would we see, hear or notice that we do not see, hear or notice now?</p><div class="lines"><div class="line line--tall"></div><div class="line line--tall"></div><div class="line line--tall"></div></div></div>
+<div class="inline"><div class="inline__label">Who does it</div><div class="inline__rule"></div></div>
+<div class="inline"><div class="inline__label">By when</div><div class="inline__rule"></div></div>
+<div class="spacer"></div>
+<p class="small">Test it on a real day with real people. An atmosphere that only works when the room is empty is not finished.</p></div><div class="foot"><span>Meish · meish.work · Designed around being human.</span><span class="foot__page">06 / 08</span></div></section>
+<section class="page" style="--accent:#273F86"><div class="page__body"><div class="head"><div class="head__mark"><svg class="dia" width="3.6mm" height="9.000mm" viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 0 L10 19 L20 38 Z" fill="#273F86" fill-opacity="0.34"/><path d="M10 19 L0 38 L20 38 Z" fill="#273F86" fill-opacity="0.14"/><path d="M20 0 L30 19 L20 38 Z" fill="#273F86" fill-opacity="0.22"/><path d="M30 19 L40 38 L20 38 Z" fill="#273F86" fill-opacity="0.44"/><path d="M0 38 L10 69 L20 38 Z" fill="#273F86" fill-opacity="0.18"/><path d="M10 69 L20 100 L20 38 Z" fill="#273F86" fill-opacity="0.38"/><path d="M40 38 L30 69 L20 38 Z" fill="#273F86" fill-opacity="0.28"/><path d="M30 69 L20 100 L20 38 Z" fill="#273F86" fill-opacity="0.1"/><path d="M20 0 L40 38 L20 100 L0 38 Z" stroke="#273F86" stroke-width="2.4" stroke-linejoin="miter" fill="none"/><path d="M0 38 L40 38" stroke="#273F86" stroke-width="1.32" stroke-opacity="0.75"/></svg><span class="kicker">Meish working tool — 03</span></div><h1 class="head__title">Meish Points of Confusion <span class="arw" aria-label="to"><svg viewBox="0 0 20 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 5 H17.4 M12.6 0.9 L17.6 5 L12.6 9.1" stroke="currentColor" stroke-width="1.1" stroke-linecap="square" stroke-linejoin="miter"/></svg></span> Presence</h1><div class="head__rule"></div><p class="head__purpose">Find where a person must guess, search, wait, remember, compare or check — and remove the mental load that does not need to be there.</p></div>
+<p class="note note--tight">Confusion shows up as a pause, a re-read, or the same question asked twice. Fill in a block each time someone must stop and work something out.</p>
+<div class="meta"><div class="meta__item"><div class="meta__label">What we are looking at</div><div class="meta__rule"></div></div><div class="meta__item"><div class="meta__label">Date</div><div class="meta__rule"></div></div><div class="meta__item"><div class="meta__label">Observed by</div><div class="meta__rule"></div></div></div>
+<div class="sec"><svg class="dia" width="2.6mm" height="6.500mm" viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 0 L10 19 L20 38 Z" fill="#273F86" fill-opacity="0.34"/><path d="M10 19 L0 38 L20 38 Z" fill="#273F86" fill-opacity="0.14"/><path d="M20 0 L30 19 L20 38 Z" fill="#273F86" fill-opacity="0.22"/><path d="M30 19 L40 38 L20 38 Z" fill="#273F86" fill-opacity="0.44"/><path d="M0 38 L10 69 L20 38 Z" fill="#273F86" fill-opacity="0.18"/><path d="M10 69 L20 100 L20 38 Z" fill="#273F86" fill-opacity="0.38"/><path d="M40 38 L30 69 L20 38 Z" fill="#273F86" fill-opacity="0.28"/><path d="M30 69 L20 100 L20 38 Z" fill="#273F86" fill-opacity="0.1"/><path d="M20 0 L40 38 L20 100 L0 38 Z" stroke="#273F86" stroke-width="2.4" stroke-linejoin="miter" fill="none"/><path d="M0 38 L40 38" stroke="#273F86" stroke-width="1.32" stroke-opacity="0.75"/></svg><span class="sec__num">Part one</span><h2 class="sec__title">Capture the moments</h2></div>
+<div class="cap"><div class="cap__num">Moment 01</div><div class="inline"><div class="inline__label">Where it happened</div><div class="inline__rule"></div></div><div class="inline"><div class="inline__label">What they were trying to do</div><div class="inline__rule"></div></div><div class="inline"><div class="inline__label">What made them pause</div><div class="inline__rule"></div></div><div class="ticks"><div class="ticks__lead">Type</div><span class="tick"><span class="cb"></span>uncertainty</span><span class="tick"><span class="cb"></span>unclear next step</span><span class="tick"><span class="cb"></span>searching</span><span class="tick"><span class="cb"></span>waiting</span><span class="tick"><span class="cb"></span>conflicting information</span><span class="tick"><span class="cb"></span>missing cue</span><span class="tick"><span class="cb"></span>too many choices</span><span class="tick"><span class="cb"></span>transition</span></div></div>
+<div class="cap"><div class="cap__num">Moment 02</div><div class="inline"><div class="inline__label">Where it happened</div><div class="inline__rule"></div></div><div class="inline"><div class="inline__label">What they were trying to do</div><div class="inline__rule"></div></div><div class="inline"><div class="inline__label">What made them pause</div><div class="inline__rule"></div></div><div class="ticks"><div class="ticks__lead">Type</div><span class="tick"><span class="cb"></span>uncertainty</span><span class="tick"><span class="cb"></span>unclear next step</span><span class="tick"><span class="cb"></span>searching</span><span class="tick"><span class="cb"></span>waiting</span><span class="tick"><span class="cb"></span>conflicting information</span><span class="tick"><span class="cb"></span>missing cue</span><span class="tick"><span class="cb"></span>too many choices</span><span class="tick"><span class="cb"></span>transition</span></div></div>
+<div class="cap"><div class="cap__num">Moment 03</div><div class="inline"><div class="inline__label">Where it happened</div><div class="inline__rule"></div></div><div class="inline"><div class="inline__label">What they were trying to do</div><div class="inline__rule"></div></div><div class="inline"><div class="inline__label">What made them pause</div><div class="inline__rule"></div></div><div class="ticks"><div class="ticks__lead">Type</div><span class="tick"><span class="cb"></span>uncertainty</span><span class="tick"><span class="cb"></span>unclear next step</span><span class="tick"><span class="cb"></span>searching</span><span class="tick"><span class="cb"></span>waiting</span><span class="tick"><span class="cb"></span>conflicting information</span><span class="tick"><span class="cb"></span>missing cue</span><span class="tick"><span class="cb"></span>too many choices</span><span class="tick"><span class="cb"></span>transition</span></div></div>
+<div class="cap"><div class="cap__num">Moment 04</div><div class="inline"><div class="inline__label">Where it happened</div><div class="inline__rule"></div></div><div class="inline"><div class="inline__label">What they were trying to do</div><div class="inline__rule"></div></div><div class="inline"><div class="inline__label">What made them pause</div><div class="inline__rule"></div></div><div class="ticks"><div class="ticks__lead">Type</div><span class="tick"><span class="cb"></span>uncertainty</span><span class="tick"><span class="cb"></span>unclear next step</span><span class="tick"><span class="cb"></span>searching</span><span class="tick"><span class="cb"></span>waiting</span><span class="tick"><span class="cb"></span>conflicting information</span><span class="tick"><span class="cb"></span>missing cue</span><span class="tick"><span class="cb"></span>too many choices</span><span class="tick"><span class="cb"></span>transition</span></div></div></div><div class="foot"><span>Meish · meish.work · Designed around being human.</span><span class="foot__page">07 / 08</span></div></section>
+<section class="page" style="--accent:#273F86"><div class="page__body"><div class="sec"><svg class="dia" width="2.6mm" height="6.500mm" viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 0 L10 19 L20 38 Z" fill="#273F86" fill-opacity="0.34"/><path d="M10 19 L0 38 L20 38 Z" fill="#273F86" fill-opacity="0.14"/><path d="M20 0 L30 19 L20 38 Z" fill="#273F86" fill-opacity="0.22"/><path d="M30 19 L40 38 L20 38 Z" fill="#273F86" fill-opacity="0.44"/><path d="M0 38 L10 69 L20 38 Z" fill="#273F86" fill-opacity="0.18"/><path d="M10 69 L20 100 L20 38 Z" fill="#273F86" fill-opacity="0.38"/><path d="M40 38 L30 69 L20 38 Z" fill="#273F86" fill-opacity="0.28"/><path d="M30 69 L20 100 L20 38 Z" fill="#273F86" fill-opacity="0.1"/><path d="M20 0 L40 38 L20 100 L0 38 Z" stroke="#273F86" stroke-width="2.4" stroke-linejoin="miter" fill="none"/><path d="M0 38 L40 38" stroke="#273F86" stroke-width="1.32" stroke-opacity="0.75"/></svg><span class="sec__num">Part two</span><h2 class="sec__title">Turn each one into presence</h2></div>
+<p class="note note--tight">Take the moments above one at a time. Describe what the person needed at that exact second, not what we would like to tell them afterwards.</p>
+<div class="pair"><div class="pair__num">Moment 01</div><div class="inline"><div class="inline__label">What they actually needed</div><div class="inline__rule"></div></div><div class="inline"><div class="inline__label">What could have anticipated it</div><div class="inline__rule"></div></div></div>
+<div class="pair"><div class="pair__num">Moment 02</div><div class="inline"><div class="inline__label">What they actually needed</div><div class="inline__rule"></div></div><div class="inline"><div class="inline__label">What could have anticipated it</div><div class="inline__rule"></div></div></div>
+<div class="pair"><div class="pair__num">Moment 03</div><div class="inline"><div class="inline__label">What they actually needed</div><div class="inline__rule"></div></div><div class="inline"><div class="inline__label">What could have anticipated it</div><div class="inline__rule"></div></div></div>
+<div class="pair"><div class="pair__num">Moment 04</div><div class="inline"><div class="inline__label">What they actually needed</div><div class="inline__rule"></div></div><div class="inline"><div class="inline__label">What could have anticipated it</div><div class="inline__rule"></div></div></div>
+<p class="note note--aside">The answer to confusion is not always more information. Sometimes it is removing something, moving something earlier, or a person who notices you.</p>
+<div class="sec sec--spaced"><svg class="dia" width="2.6mm" height="6.500mm" viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 0 L10 19 L20 38 Z" fill="#273F86" fill-opacity="0.34"/><path d="M10 19 L0 38 L20 38 Z" fill="#273F86" fill-opacity="0.14"/><path d="M20 0 L30 19 L20 38 Z" fill="#273F86" fill-opacity="0.22"/><path d="M30 19 L40 38 L20 38 Z" fill="#273F86" fill-opacity="0.44"/><path d="M0 38 L10 69 L20 38 Z" fill="#273F86" fill-opacity="0.18"/><path d="M10 69 L20 100 L20 38 Z" fill="#273F86" fill-opacity="0.38"/><path d="M40 38 L30 69 L20 38 Z" fill="#273F86" fill-opacity="0.28"/><path d="M30 69 L20 100 L20 38 Z" fill="#273F86" fill-opacity="0.1"/><path d="M20 0 L40 38 L20 100 L0 38 Z" stroke="#273F86" stroke-width="2.4" stroke-linejoin="miter" fill="none"/><path d="M0 38 L40 38" stroke="#273F86" stroke-width="1.32" stroke-opacity="0.75"/></svg><span class="sec__num">—</span><h2 class="sec__title">What we do with this</h2></div>
+<div class="grid3"><div class="field"><div class="field__label">The three that matter most</div><p class="field__prompt">Most people affected, or most cost.</p><div class="lines"><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div></div></div><div class="field"><div class="field__label">Easiest to remove</div><p class="field__prompt">Genuinely gone by next week.</p><div class="lines"><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div></div></div><div class="field"><div class="field__label">One thing that surprised us</div><p class="field__prompt">Nobody expected this one.</p><div class="lines"><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div></div></div></div>
+<div class="spacer"></div>
+<p class="small">Keep the sheets. The same point of confusion appearing twice, months apart, is telling you something structural.</p></div><div class="foot"><span>Meish · meish.work · Designed around being human.</span><span class="foot__page">08 / 08</span></div></section>
+<pre id="meish-audit"></pre>
+
+<script>
+(function () {
+  var only = /[?&]only=(\d+)/.exec(location.search);
+  if (!only) return;
+  var i = parseInt(only[1], 10);
+  document.body.classList.add('proof');
+  var p = document.querySelectorAll('.page')[i - 1];
+  if (p) p.classList.add('proof-on');
+})();
+window.__meishAudit = async function () {
+  try { await document.fonts.ready; } catch (e) {}
+  var over = [];
+  var slackMm = [];
+  var PX_PER_MM = 96 / 25.4;
+  document.querySelectorAll('.page').forEach(function (p, i) {
+    var body = p.querySelector('.page__body');
+    var rect = body.getBoundingClientRect();
+    var maxBottom = rect.top;
+    body.querySelectorAll('*').forEach(function (c) {
+      var r = c.getBoundingClientRect();
+      if (r.height > 0 && r.bottom > maxBottom) maxBottom = r.bottom;
+    });
+    var used = maxBottom - rect.top;
+    if (body.scrollHeight > body.clientHeight) {
+      used = Math.max(used, body.scrollHeight);
+    }
+    var free = body.clientHeight - used;
+    slackMm.push(Math.round((free / PX_PER_MM) * 10) / 10);
+    if (free < -1) over.push({ page: i + 1, overflowMm: Math.round(-free / PX_PER_MM) });
+  });
+  var fam = ['Playfair Display', 'IBM Plex Serif', 'Satoshi'];
+  var fonts = {};
+  fam.forEach(function (f) {
+    fonts[f] = document.fonts.check('12pt "' + f + '"', 'Ää Öö Åå');
+  });
+  var el = document.getElementById('meish-audit');
+  el.textContent = JSON.stringify({
+    pages: document.querySelectorAll('.page').length,
+    overflow: over,
+    fillMm: slackMm,
+    fonts: fonts
+  });
+};
+window.addEventListener('load', function () { window.__meishAudit(); });
+</script>
+</body>
+</html>

@@ -15,7 +15,7 @@ export interface UniverseNode {
 export const universeNodes: Record<string, UniverseNode> = {
   business: {
     slug: 'business',
-    title: 'Meish for Your Business',
+    title: 'Meish & Your Business',
     summary: 'Practical help for founders and teams — maps, fit checks, and clear next steps.',
     drawMe: 'Business door — compass and map motifs.',
     taidot: [
@@ -52,10 +52,10 @@ export const universeNodes: Record<string, UniverseNode> = {
       { name: 'Possibility Map — Gamma Test', note: '590 € + VAT · 5 business days' },
     ],
     kokonaisuudet: [
-      { slug: 'business', title: 'Meish for Your Business' },
+      { slug: 'business', title: 'Meish & Your Business' },
       { slug: '', title: 'Meish Universe' },
     ],
-    ikonit: ['Map', 'Three paths', 'North star'],
+    ikonit: ['Map', 'Three paths', 'Compass'],
     tyokalut: ['Interview script', 'Map template', 'Delivery checklist'],
     lapset: [
       { slug: 'business/possibility-map/interview', title: 'Interview', summary: '60-minute client session' },
@@ -75,7 +75,7 @@ export const universeNodes: Record<string, UniverseNode> = {
     taidot: ['Active listening', 'Structured questioning', 'Constraint mapping'],
     kokonaisuudet: [
       { slug: 'business/possibility-map', title: 'Possibility Map' },
-      { slug: 'business', title: 'Meish for Your Business' },
+      { slug: 'business', title: 'Meish & Your Business' },
     ],
     lapset: [],
   },

@@ -1,0 +1,101 @@
+---
+/**
+ * Meish Universe lockup — diamond + Meish + UNIVERSE + tagline (board).
+ * Preview / brand moments only — not wired into live header yet.
+ */
+import MeishDiamond from './MeishDiamond.astro';
+
+interface Props {
+  mode?: 'dark' | 'light' | 'transparent';
+  uid?: string;
+  showTagline?: boolean;
+  diamondSize?: string;
+}
+
+const {
+  mode = 'dark',
+  uid = 'lockup',
+  showTagline = true,
+  diamondSize = '7.5rem',
+} = Astro.props;
+
+const diamondVariant = mode === 'light' ? 'light' : mode === 'transparent' ? 'transparent' : 'dark';
+---
+
+<div class:list={['meish-lockup', `meish-lockup--${mode}`]}>
+  <div class="meish-lockup__gem">
+    <MeishDiamond variant={diamondVariant} uid={uid} size={diamondSize} />
+  </div>
+  <p class="meish-lockup__name">Meish</p>
+  <p class="meish-lockup__universe">Universe</p>
+  {
+    showTagline && (
+      <p class="meish-lockup__tagline">Intelligence · Human Experience · Harmony</p>
+    )
+  }
+</div>
+
+<style>
+  .meish-lockup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.65rem;
+    padding: 2rem 1.25rem;
+  }
+  .meish-lockup__gem {
+    width: min(100%, 9rem);
+    margin-bottom: 0.35rem;
+  }
+  .meish-lockup__name {
+    font-family: var(--font-display);
+    font-weight: var(--weight-semibold);
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+  .meish-lockup__universe {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: var(--weight-medium);
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  .meish-lockup__tagline {
+    font-family: var(--font-body);
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin: 0.35rem 0 0;
+    max-width: 22rem;
+    line-height: 1.45;
+    opacity: 0.85;
+  }
+
+  .meish-lockup--dark .meish-lockup__name {
+    color: #f7f4ef;
+  }
+  .meish-lockup--dark .meish-lockup__universe,
+  .meish-lockup--dark .meish-lockup__tagline {
+    color: #c4b8e8;
+  }
+
+  .meish-lockup--light .meish-lockup__name {
+    color: var(--color-deep-space, #0b1020);
+  }
+  .meish-lockup--light .meish-lockup__universe,
+  .meish-lockup--light .meish-lockup__tagline {
+    color: var(--f5, #7a5fb0);
+  }
+
+  .meish-lockup--transparent .meish-lockup__name {
+    color: #f7f4ef;
+  }
+  .meish-lockup--transparent .meish-lockup__universe,
+  .meish-lockup--transparent .meish-lockup__tagline {
+    color: #d4c8f0;
+  }
+</style>

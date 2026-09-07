@@ -1,50 +1,303 @@
 ---
+/**
+ * About Meish.
+ *
+ * Uses the secondary line — "Built for human experience." — rather than the
+ * primary one, which belongs to the homepage. This page explains the working
+ * principle plainly and then gets out of the way.
+ */
 import Base from '../layouts/Base.astro';
-import { fitCallHref, fitCallLabel } from '../data/hatchling-nav';
+import { CONTACT_EMAIL, mailTo, brand } from '../data/site-content';
+
+const beliefs = [
+  [
+    'Recognition before creation',
+    'We do not assume something is wrong. We look at what is actually there first, and sometimes the answer is that it needs nothing.',
+  ],
+  [
+    'The person stays the decision-maker',
+    'We make possibilities visible and say what we would choose. Choosing is still yours, and so is the understanding of why.',
+  ],
+  [
+    'Smaller than the problem',
+    'A tool, a change or a project should be no larger or more technical than the thing genuinely requires.',
+  ],
+  [
+    'Removing counts as building',
+    'Fewer steps, fewer decisions, fewer things to maintain. Better does not automatically mean more.',
+  ],
+  [
+    'If it frees time, the time stays free',
+    'Work that gives back four hours a week has only worked if those four hours do not immediately fill up again.',
+  ],
+];
+
+/* Matches the header. /for-you and /treasure are not offered publicly in this
+   release; their source files remain, but nothing routes a visitor to them. */
+const routes = [
+  ['/for-business', 'Business', 'Direction, first tests, human experience, useful AI.'],
+  ['/for-your-space', 'Space', 'What a place is doing to the people in it.'],
+  ['/tools', 'Tools', 'Small instruments for one situation each.'],
+];
 ---
+
 <Base
-  title="About Meish"
-  description="Meish specialises in human experience — understanding it, reviewing it and making it better. North Star: human experience."
+  title="About Meish — built for human experience"
+  description="Meish observes what is actually happening for people, makes possibilities visible and turns the right ones into something useful. English and Finnish."
 >
-  <section class="section container door-page">
-    <p class="eyebrow">About</p>
-    <h1>About Meish</h1>
-    <p class="lead">
-      Meish specialises in human experience — understanding it, reviewing it and making it
-      better. We build the tools when the right ones do not exist yet. Technology is not the
-      goal; it should create more room for meaningful work and life.
-    </p>
+  <section class="head">
+    <div class="container head__grid">
+      <div>
+        <p class="head__eyebrow">About Meish</p>
+        <h1>Built for human experience.</h1>
+        <p class="head__lead">
+          Every experience is designed — on purpose or by accident. Meish looks at what is actually
+          happening for the people inside one, and turns that into something useful: a direction, a
+          change, a tool, or the decision to leave it alone.
+        </p>
+        <p class="head__langs">
+          We work in English and Finnish. <span lang="fi">Palvelemme myös suomeksi.</span>
+        </p>
+      </div>
 
-    <h2>What Meish offers now</h2>
-    <ul>
-      <li>
-        <a href="/for-business"><strong>Meish for Your Business</strong></a> — 20-minute Fit Check,
-        Possibility Map, Build, Friction Removal, Human Experience Review, and deeper engagements.
-      </li>
-      <li>
-        <a href="/for-you"><strong>Meish for You</strong></a> — personal growth, decision support
-        and wellbeing.
-      </li>
-      <li>
-        <a href="/tools"><strong>Meish Tools</strong></a> — focused instruments when the right tool
-        already exists.
-      </li>
-      <li>
-        <a href="/gifts"><strong>Gifts for You</strong></a> — free downloads, when they are ready.
-      </li>
-    </ul>
+      {/* The one large diamond on this page, and the only one outside the
+          header. Copy first in the source so it also reads correctly stacked. */}
+      <div class="head__gem">
+        <img src={brand.diamond} alt="" width="360" height="540" decoding="async" />
+      </div>
+    </div>
+  </section>
 
-    <h2>What we believe</h2>
-    <p>
-      Human experience is our North Star. Every experience is designed — on purpose or by
-      accident. When you can see what actually happens for the people inside an experience, you
-      can protect what works and fix what quietly hurts — without removing human choice.
-      Read our <a href="/privacy">privacy and boundaries</a>.
-    </p>
+  <section class="band" aria-labelledby="believe-title">
+    <div class="container">
+      <h2 id="believe-title">How we work, and why</h2>
+      <dl class="beliefs">
+        {
+          beliefs.map(([name, note]) => (
+            <div class="beliefs__row">
+              <dt>{name}</dt>
+              <dd>{note}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
 
-    <p class="actions">
-      <a class="button button--primary" href={fitCallHref}>{fitCallLabel}</a>
-      <a class="button button--ghost" href="/for-business">See business offers</a>
-    </p>
+  <section class="band band--soft" aria-labelledby="where-title">
+    <div class="container">
+      <h2 id="where-title">Where to go from here</h2>
+      <ul class="routes">
+        {
+          routes.map(([href, name, note]) => (
+            <li>
+              <a href={href}>{name}</a>
+              <span>{note}</span>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="band__intro">
+        How we handle information is written down in
+        <a href="/privacy">privacy and boundaries</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="band band--ink on-dark" aria-labelledby="talk-title">
+    <div class="container">
+      <h2 id="talk-title">Talk to a person.</h2>
+      <p class="band__intro">
+        Meish is a small Finnish practice. You’ll talk directly with someone who does the work.
+      </p>
+      <p class="band__address">
+        <a href={mailTo('Meish')}>{CONTACT_EMAIL}</a>
+      </p>
+      <p class="band__action">
+        <a class="button button--primary" href="/fit-check">Book a Fit Check — €0</a>
+      </p>
+    </div>
   </section>
 </Base>
+
+<style>
+  .head {
+    padding-block: clamp(2.75rem, 6vw, 4.5rem) clamp(2rem, 4vw, 3.25rem);
+    background: var(--color-ivory);
+  }
+
+  /* Copy left, diamond right, nothing between them. No frame and no backdrop:
+     the asset is transparent and carries its own light. */
+  .head__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 34rem) minmax(8rem, 15rem);
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: center;
+    justify-content: space-between;
+  }
+  .head__gem img {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: transparent;
+  }
+  .head__eyebrow {
+    margin: 0 0 0.8rem;
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+  }
+  .head h1 {
+    margin: 0;
+    font-weight: 400;
+    max-width: 18ch;
+  }
+  .head__lead {
+    margin: 1.15rem 0 0;
+    font-family: var(--font-body);
+    font-size: clamp(1.125rem, 1.6vw, 1.25rem);
+    line-height: 1.6;
+    max-width: 50ch;
+    color: var(--color-ink-soft);
+  }
+  .head__langs {
+    margin: 1rem 0 0;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-ink-muted);
+  }
+
+  .band {
+    padding-block: clamp(2.75rem, 6vw, 4.5rem);
+  }
+  .band--soft {
+    background: var(--color-cream);
+  }
+  .band--ink {
+    background: var(--meish-navy);
+    color: var(--meish-ivory);
+  }
+  .band--ink :global(h2) {
+    color: var(--meish-ivory);
+  }
+  .band h2 {
+    font-weight: 400;
+  }
+  .band__intro {
+    margin: 1.6rem 0 0;
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.64;
+    max-width: 52ch;
+    color: var(--color-ink-soft);
+  }
+  .band--ink .band__intro {
+    color: rgba(244, 239, 232, 0.86);
+  }
+  /* The address is set at reading-plus size and left clickable: someone who
+     wants to write now should not have to find the contact page first. */
+  .band__address {
+    margin: 1.1rem 0 0;
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    max-width: none;
+  }
+  .band__address a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.22em;
+    overflow-wrap: anywhere;
+  }
+
+  .band__action {
+    margin: 1.75rem 0 0;
+    max-width: none;
+  }
+
+  .beliefs {
+    margin: clamp(1.5rem, 3vw, 2.25rem) 0 0;
+  }
+  .beliefs__row {
+    display: grid;
+    grid-template-columns: minmax(0, 16rem) minmax(0, 36rem);
+    gap: 0.35rem 3rem;
+    padding-block: 1.15rem;
+    border-top: 1px solid var(--color-line);
+  }
+  .beliefs__row:last-child {
+    border-bottom: 1px solid var(--color-line);
+  }
+  .beliefs dt {
+    font-family: var(--font-ui);
+    font-size: var(--text-base);
+    font-weight: var(--weight-semibold);
+    line-height: 1.4;
+    color: var(--color-navy);
+  }
+  .beliefs dd {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: 1.6;
+    color: var(--color-ink-soft);
+  }
+
+  .routes {
+    list-style: none;
+    margin: clamp(1.5rem, 3vw, 2.25rem) 0 0;
+    padding: 0;
+  }
+  .routes li {
+    display: grid;
+    grid-template-columns: minmax(0, 14rem) minmax(0, 34rem);
+    gap: 0.3rem 3rem;
+    padding-block: 0.9rem;
+    border-top: 1px solid var(--color-line);
+    align-items: baseline;
+  }
+  .routes li:last-child {
+    border-bottom: 1px solid var(--color-line);
+  }
+  .routes a {
+    font-family: var(--font-ui);
+    font-weight: var(--weight-semibold);
+    font-size: var(--text-base);
+    color: var(--color-navy);
+    text-decoration: underline;
+    text-decoration-color: var(--color-line-strong);
+    text-underline-offset: 0.2em;
+  }
+  .routes a:hover {
+    color: var(--accent);
+  }
+  .routes span {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-ink-soft);
+  }
+
+  @media (max-width: 52rem) {
+    /* Stacks in source order: heading, copy, then the diamond. Capped so it
+       stays deliberate without taking the whole first screen. */
+    .head__grid {
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+      justify-items: start;
+    }
+    .head__gem img {
+      width: min(38vw, 9rem);
+    }
+  }
+
+  @media (max-width: 48rem) {
+    .beliefs__row,
+    .routes li {
+      grid-template-columns: 1fr;
+      gap: 0.3rem;
+      padding-block: 1.1rem;
+    }
+  }
+</style>

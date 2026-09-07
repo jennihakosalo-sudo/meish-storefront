@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+  <!-- Diamond 2 — paler nacre, tilted 45° like the kit field -->
+  <g transform="translate(40 40) rotate(45) scale(0.62)">
+    <polygon points="0,-48 28,-8 0,0" fill="#E8F2F8"/>
+    <polygon points="0,-48 -28,-8 0,0" fill="#EDE0F2"/>
+    <polygon points="28,-8 0,0 28,10" fill="#D8EBE6"/>
+    <polygon points="-28,-8 0,0 -28,10" fill="#F3E2C8"/>
+    <polygon points="28,10 0,0 0,48" fill="#F0D4C8"/>
+    <polygon points="-28,10 0,0 0,48" fill="#E8C4B0"/>
+    <polyline points="0,-48 28,-8 0,48 -28,-8 0,-48" stroke="#FBD79F" stroke-width="1.2" opacity="0.55"/>
+  </g>
+</svg>

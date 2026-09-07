@@ -1,48 +1,30 @@
-/** Public contact + tracked mailto links for meish.work */
+/** Public contact + mailto links for meish.work */
 
 export const CONTACT_EMAIL = 'moona.m@meish.work';
 export const SITE_ORIGIN = 'https://www.meish.work';
 
 export type MeishMailtoOpts = {
   product: string;
-  page: string;
-  section: string;
-  cta: string;
+  page?: string;
+  section?: string;
+  cta?: string;
   pageUrl?: string;
   extraBody?: string;
 };
 
 /**
- * Subject: MEISH | [PRODUCT] | [PAGE] | [CTA]
- * Body includes source tracking fields for Moona.
+ * A mailto whose subject is just the product name.
+ *
+ * This used to build a subject of the form
+ * `MEISH | Product | Page | CTA clicked` and pre-fill the body with a source
+ * trace and a seven-item checklist. Two problems with that: the visitor saw a
+ * form they had not asked to fill in and had to delete before writing, and the
+ * subject line was unreadable in an inbox. Source tracking was for us, at the
+ * customer's expense, so it is gone.
+ *
+ * `page`, `section` and `cta` are accepted and ignored so existing call sites
+ * keep working; remove them as each page is next touched.
  */
 export function meishMailto(opts: MeishMailtoOpts): string {
-  const subject = `MEISH | ${opts.product} | ${opts.page} | ${opts.cta}`;
-  const body = [
-    'MEISH WEBSITE INQUIRY',
-    '',
-    `Product / topic: ${opts.product}`,
-    `Source page: ${opts.page}`,
-    `Section: ${opts.section}`,
-    `CTA clicked: ${opts.cta}`,
-    `Page URL: ${opts.pageUrl ?? SITE_ORIGIN}`,
-    '',
-    opts.extraBody ??
-      [
-        'What I would like to make better (mark Y where useful):',
-        '',
-        '[ ] Fewer tasks I dislike',
-        '[ ] More time with my family',
-        '[ ] More peace in my workday',
-        '[ ] Help using AI',
-        '[ ] Better customer experience',
-        '[ ] How my business works',
-        '[ ] Something else:',
-        '',
-        'A few words about the situation:',
-        '',
-      ].join('\n'),
-  ].join('\n');
-
-  return `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  return `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(opts.product)}`;
 }

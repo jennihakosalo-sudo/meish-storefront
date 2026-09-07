@@ -1,0 +1,247 @@
+---
+/**
+ * For Your Space.
+ *
+ * The argument of the page is one sentence — design what happens in a place,
+ * not the place — so the layout gives that sentence its own band and lets the
+ * process carry the rest. Deliberately not an interiors page.
+ */
+import Base from '../layouts/Base.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { getProduct } from '../data/meish-products';
+import { fitCheckHref } from '../data/navigation';
+
+const audit = getProduct('behavior-composition-audit')!;
+const review = getProduct('human-experience-review')!;
+
+const process = [
+  ['Observe behaviour', 'Watch what people actually do in the place. Not what the plan assumed.'],
+  ['Recognize patterns', 'The same pause, the same detour, the same corner nobody uses.'],
+  ['Understand what it supports now', 'Every space already encourages something. Usually by accident.'],
+  ['Decide what it should support', 'Name it. A room cannot support everything at once.'],
+  ['Change only what matters', 'Often less than expected, and rarely the thing that looked wrong.'],
+];
+
+const questions = [
+  'Where do people stop without meaning to?',
+  'Which route do they take instead of the one you designed?',
+  'What do they do first when they arrive?',
+  'Which part of the room is never used, and why?',
+  'Where do they lower their voice?',
+  'What do they have to ask about, every time?',
+];
+---
+
+<Base
+  title="Meish for Your Space — design what happens there"
+  description="Understand how people actually use a space before deciding what it should support. Behavior & Composition Audit €690 + VAT."
+>
+  <section class="head">
+    <div class="container">
+      <p class="head__eyebrow">This may interest you if you run a place people move through</p>
+      <h1>Do not design only the room. Design what happens there.</h1>
+      <p class="head__lead">
+        A space is already influencing behaviour — where people pause, what they do first, what
+        they never notice. Meish looks at that before anything is moved, bought or rebuilt.
+      </p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="process-title">
+    <div class="container">
+      <h2 id="process-title">How we look at a space</h2>
+      <ol class="process">
+        {
+          process.map(([step, note], i) => (
+            <li>
+              <span class="process__no" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <h3>{step}</h3>
+                <p>{note}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="band band--soft" aria-labelledby="questions-title">
+    <div class="container">
+      <h2 id="questions-title">The questions we are actually asking</h2>
+      <ul class="questions">
+        {questions.map((q) => <li>{q}</li>)}
+      </ul>
+      <p class="band__intro">
+        None of these are about taste. They are about what the place is doing to the people in it.
+      </p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="offers-title">
+    <div class="container">
+      <h2 id="offers-title">What we can do together</h2>
+      <div class="products">
+        <ProductCard product={audit} featured />
+        <ProductCard product={review} />
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--ink on-dark" aria-labelledby="unsure-title">
+    <div class="container">
+      <h2 id="unsure-title">Not sure it is a space problem?</h2>
+      <p class="band__intro">
+        Often it is not. Twenty free minutes is usually enough to tell whether the thing to change
+        is the room, the service inside it, or nothing at all.
+      </p>
+      <p class="band__action">
+        <a class="button button--primary" href={fitCheckHref}>Book a Fit Check — €0</a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .head {
+    padding-block: clamp(2.75rem, 6vw, 4.5rem) clamp(1.5rem, 3vw, 2.25rem);
+    background: var(--color-ivory);
+  }
+  .head__eyebrow {
+    margin: 0 0 0.9rem;
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    color: var(--color-ink-muted);
+    max-width: 46ch;
+  }
+  .head h1 {
+    margin: 0;
+    font-size: var(--text-page);
+    font-weight: 400;
+    max-width: 20ch;
+  }
+  .head__lead {
+    margin: 1.15rem 0 0;
+    font-family: var(--font-body);
+    font-size: clamp(1.125rem, 1.6vw, 1.25rem);
+    line-height: 1.6;
+    max-width: 48ch;
+    color: var(--color-ink-soft);
+  }
+
+  .band {
+    padding-block: clamp(2.75rem, 6vw, 4.5rem);
+  }
+  .band--soft {
+    background: var(--color-cream);
+  }
+  .band--ink {
+    background: var(--meish-navy);
+    color: var(--meish-ivory);
+  }
+  .band--ink :global(h2) {
+    color: var(--meish-ivory);
+  }
+  .band h2 {
+    font-weight: 400;
+  }
+  .band__intro {
+    margin: 1.4rem 0 0;
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.64;
+    max-width: 52ch;
+    color: var(--color-ink-soft);
+  }
+  .band--ink .band__intro {
+    color: rgba(244, 239, 232, 0.86);
+  }
+  .band__action {
+    margin: 1.75rem 0 0;
+    max-width: none;
+  }
+
+  /* The process runs down the page as a numbered register — a space is walked
+     through in order, and the layout should read the same way. */
+  .process {
+    list-style: none;
+    margin: clamp(1.75rem, 3.5vw, 2.5rem) 0 0;
+    padding: 0;
+    max-width: 46rem;
+  }
+  .process li {
+    display: grid;
+    grid-template-columns: 3.25rem minmax(0, 1fr);
+    gap: 0 1rem;
+    padding-block: 1.15rem;
+    border-top: 1px solid var(--color-line);
+  }
+  .process li:last-child {
+    border-bottom: 1px solid var(--color-line);
+  }
+  .process__no {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    color: var(--color-ink-muted);
+    font-variant-numeric: tabular-nums;
+    padding-top: 0.4em;
+  }
+  .process h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+  .process p {
+    margin: 0.4rem 0 0;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-ink-soft);
+  }
+
+  .questions {
+    list-style: none;
+    margin: clamp(1.5rem, 3vw, 2.25rem) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+    gap: 0.85rem 3rem;
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+    font-weight: 400;
+    line-height: 1.45;
+  }
+  .questions li {
+    position: relative;
+    padding-left: 1.35rem;
+  }
+  .questions li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 0.6rem;
+    height: 1px;
+    background: var(--lucent-teal);
+  }
+
+  .products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    gap: clamp(1.75rem, 3vw, 2.5rem);
+    margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
+  }
+  .products > :global(.product--featured) {
+    grid-column: 1 / -1;
+  }
+
+  @media (max-width: 48rem) {
+    .questions {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

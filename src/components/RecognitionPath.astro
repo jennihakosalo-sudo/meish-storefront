@@ -1,0 +1,153 @@
+---
+/**
+ * The Meish working sequence, drawn as a construction line with five nodes.
+ *
+ * Not five pills and not five cards. The line is the point: it says these are
+ * one movement in order, and the eye reads the order before it reads a word.
+ *
+ * Desktop lays the line horizontally; below 56rem it stands up and runs down
+ * the left edge. That is a genuine recomposition rather than a squeeze — five
+ * labels side by side on a 375px screen is unreadable at any size.
+ */
+import { recognition } from '../data/site-content';
+
+interface Step {
+  label: string;
+  note: string;
+  accent: string;
+}
+
+interface Props {
+  steps?: Step[];
+}
+
+const { steps = recognition.steps } = Astro.props as Props;
+---
+
+<ol class="path" aria-label="How Meish works, in order">
+  {
+    steps.map((s, i) => (
+      <li class="path__step" style={`--node: ${s.accent}`}>
+        <span class="path__node" aria-hidden="true" />
+        <span class="path__index" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+        <h3 class="path__label">{s.label}</h3>
+        <p class="path__note">{s.note}</p>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .path {
+    --line: rgba(11, 16, 32, 0.18);
+    --path-gap: clamp(1.25rem, 2.4vw, 2rem);
+    list-style: none;
+    margin: clamp(2rem, 4vw, 3rem) 0 0;
+    padding: 0;
+    display: grid;
+    gap: clamp(1.75rem, 3vw, 2.25rem);
+  }
+
+  .path__step {
+    position: relative;
+  }
+
+  .path__node {
+    display: block;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--node);
+    position: relative;
+    z-index: 1;
+  }
+
+  .path__index {
+    display: block;
+    margin-top: 0.9rem;
+    font-family: var(--font-body);
+    /* 12px numerals read as microscopic on a phone; this matches the metadata
+       size used everywhere else on the site. */
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    color: var(--color-ink-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .path__label {
+    margin: 0.3rem 0 0;
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 400;
+    line-height: 1.24;
+    letter-spacing: 0;
+  }
+
+  .path__note {
+    margin: 0.5rem 0 0;
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: 1.55;
+    color: var(--color-ink-soft);
+    max-width: 24ch;
+    text-wrap: pretty;
+  }
+
+  /* --- Horizontal: the line runs through the nodes ----------------------- */
+  @media (min-width: 56rem) {
+    .path {
+      grid-template-columns: repeat(5, 1fr);
+      gap: var(--path-gap);
+      position: relative;
+    }
+    /* One segment per step rather than one rule across the whole row. Spanning
+       the row meant computing where the fifth node sits from the column count,
+       and the result stopped a gap short of it. A segment that reaches from
+       its own node into the next one always terminates on a node. */
+    .path__step:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      top: 4px;
+      left: 4.5px;
+      right: calc(-1 * var(--path-gap) - 4.5px);
+      height: 1px;
+      background: var(--line);
+    }
+  }
+
+  /* --- Vertical: the line runs down the left ----------------------------- */
+  @media (max-width: 55.999rem) {
+    .path {
+      gap: 0;
+    }
+    .path__step {
+      padding-left: 1.75rem;
+      padding-bottom: 1.75rem;
+    }
+    .path__step:last-child {
+      padding-bottom: 0;
+    }
+    .path__node {
+      position: absolute;
+      left: 0;
+      top: 0.4rem;
+    }
+    /* The connector stops at the last node for the same reason. */
+    .path__step:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 0.4rem;
+      bottom: 0;
+      width: 1px;
+      background: var(--line);
+    }
+    .path__index {
+      margin-top: 0;
+    }
+    .path__note {
+      max-width: 40ch;
+    }
+  }
+</style>

@@ -1,392 +1,556 @@
 ---
+/**
+ * Homepage.
+ *
+ * Ordered for a visitor who has never heard of Meish and will give the page
+ * about fifteen seconds: what this is, what it looks like in practice, what
+ * they can buy and for how much, how we work, and the free way in.
+ *
+ * Products sit above the philosophy. Anyone who wants the thinking will keep
+ * scrolling; nobody should have to scroll past it to find a price.
+ *
+ * Copy lives in src/data/site-content.ts. Edit it there, not here.
+ */
 import Base from '../layouts/Base.astro';
 import LightHero from '../components/LightHero.astro';
-import { becomeBetterHref, becomeBetterLabel } from '../data/hatchling-nav';
-import { meishMailto } from '../lib/meish-mailto';
-
-const mapMail = meishMailto({
-  product: 'Possibility Map',
-  page: 'Homepage',
-  section: 'Offers',
-  cta: 'Ask about Possibility Map',
-});
+import RecognitionPath from '../components/RecognitionPath.astro';
+import ProductCard from '../components/ProductCard.astro';
+import {
+  coreMessage,
+  examples,
+  products,
+  toolSets,
+  recognition,
+  fitCheckSection,
+  fitCheck,
+  CONTACT_EMAIL,
+  mailTo,
+} from '../data/site-content';
 ---
 
 <Base
-  title="Meish — human experience is our North Star"
-  description="Meish notices what is actually happening for people — then turns observation into a clearer process, a map, a tool or a next step. Possibility Map €590 + VAT. English and Finnish."
-  universeHome={true}
+  title="Meish — Designed around being human."
+  description="We notice what matters, compare what could come next and turn the right direction into something useful. Recognition Sprint, Human Experience Review, Behavior & Composition Audit. Free 20-minute Fit Check."
 >
   <LightHero />
 
-  <section class="block" aria-labelledby="arrive-title">
+  {/* ---- Core message -----------------------------------------------------
+       The question a prospective client should recognise themselves in, asked
+       before anything is explained or sold. English then Finnish: one
+       statement made twice, never interleaved. The Finnish half carries the
+       same indigo rule and teal node used for the Finnish band on /tools, so
+       "this is the same thing, in your language" reads the same way sitewide.
+       -------------------------------------------------------------------- */}
+  <section class="core" aria-labelledby="core-title">
     <div class="container">
-      <h2 id="arrive-title">Come with the situation</h2>
-      <p class="intro">
-        Meish starts by noticing. You can arrive with something unfinished — we do not expect you
-        to name the service first.
-      </p>
-      <ul class="arrive">
-        <li>“This is annoying.”</li>
-        <li>“This takes too much time.”</li>
-        <li>“Our customers keep getting confused here.”</li>
-        <li>“I know a lot about this, but I don’t know how to sell it.”</li>
-        <li>“We have an idea but no product.”</li>
-        <li>“I don’t know what I need.”</li>
-      </ul>
-    </div>
-  </section>
+      <div class="core__block">
+        <h2 id="core-title" class="core__question">{coreMessage.en.question}</h2>
+        <p class="core__answer">{coreMessage.en.answer}</p>
+        {coreMessage.en.body.map((p) => <p class="core__body">{p}</p>)}
+      </div>
 
-  <section class="block block--soft" id="pathways" aria-labelledby="pathways-title">
-    <div class="container">
-      <h2 id="pathways-title">How Meish works</h2>
-      <p class="intro">
-        Recognition before creation. Review before build. AI only after we know it should do the
-        work at all.
-      </p>
-      <ol class="paths">
-        <li id="review">
-          <a href="/for-business#human-experience-review">
-            <strong>Review</strong>
-            <span>Understand what is actually happening — and what it feels like for the person moving through it.</span>
-          </a>
-        </li>
-        <li id="improve">
-          <a href="/for-business#friction-removal">
-            <strong>Improve</strong>
-            <span>Make something clearer, easier or less friction-heavy. Sometimes by removing it.</span>
-          </a>
-        </li>
-        <li id="build">
-          <a href="/for-business#build-with-meish">
-            <strong>Build</strong>
-            <span>Create something useful only when something genuinely needs to exist.</span>
-          </a>
-        </li>
-        <li>
-          <a href="/tools">
-            <strong>Tools</strong>
-            <span>Use a focused tool when a full project is unnecessary.</span>
-          </a>
-        </li>
-        <li>
-          <a href="#offers">
-            <strong>Offers</strong>
-            <span>Choose something already packaged — with a price, a scope and a next step.</span>
-          </a>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <section class="block" aria-labelledby="happen-title">
-    <div class="container">
-      <h2 id="happen-title">What happens when we work</h2>
-      <p class="intro">The shape of the work, not a rigid method for every case.</p>
-      <ol class="happen">
-        <li>
-          <strong>You bring</strong>
-          a problem, idea, awkward thing, opportunity or question.
-        </li>
-        <li>
-          <strong>We notice</strong>
-          what is actually happening — and what it feels like for the people inside it.
-        </li>
-        <li>
-          <strong>We make sense of it</strong>
-          patterns, friction, what already works, what does not need to exist.
-        </li>
-        <li>
-          <strong>We make something useful</strong>
-          a map, a tool, a process, material, an improvement — or a clear next step.
-        </li>
-        <li>
-          <strong>You leave with</strong>
-          something understandable you can use. If time is freed, it may stay free.
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <section class="block" aria-labelledby="diff-title">
-    <div class="container narrow">
-      <h2 id="diff-title">What is different</h2>
-      <p>
-        Meish is not generic consulting or “AI services”. We look at the lived experience first —
-        what it is actually like for the person moving through the work, the service or the day.
-      </p>
-      <p>
-        Before we build, we ask whether something should be removed, simplified, reordered, left
-        with a human, or given to a tool. Better does not necessarily mean more.
-      </p>
-      <p>
-        From an interview we can turn messy knowledge into something usable. Expertise can become
-        sellable products. Friction can become a clearer process. An idea can become an offer.
-        An experience — a hotel stay, a journey, a service — can become less confusing and more
-        memorable. In a tightly scoped situation this can happen quickly. We do not promise that
-        every idea becomes a business in one day.
-      </p>
-      <p>
-        If the work frees time, we do not immediately fill it. Sometimes the useful next step is
-        to enjoy doing nothing for a while.
-      </p>
-    </div>
-  </section>
-
-  <section class="block block--soft" aria-labelledby="who-title">
-    <div class="container">
-      <h2 id="who-title">Who it is for</h2>
-      <div class="who">
-        <a href="/for-business">
-          <strong>Meish &amp; Your Business</strong>
-          <p>
-            Something is awkward, inefficient, unclear or simply not working as well as it could?
-            Bring it to us.
-          </p>
-          <p class="who__meta">
-            Customer experience · processes · products · services · communication · practical AI ·
-            new business ideas
-          </p>
-          <span class="who__cta">Explore Meish &amp; Your Business →</span>
-        </a>
-        <a href="/for-you">
-          <strong>Meish &amp; You</strong>
-          <p>Something in your life, work or thinking could become clearer, easier or more useful?</p>
-          <p class="who__meta">
-            Decisions · transitions · self-guidance · family life · thinking tools · everyday friction
-          </p>
-          <span class="who__cta">Explore Meish &amp; You →</span>
-        </a>
+      <div class="core__block core__block--fi" lang="fi">
+        <p class="core__lang">
+          <span class="core__node" aria-hidden="true"></span>
+          {coreMessage.fi.label}
+        </p>
+        <h2 class="core__question">{coreMessage.fi.question}</h2>
+        <p class="core__answer">{coreMessage.fi.answer}</p>
+        {coreMessage.fi.body.map((p) => <p class="core__body">{p}</p>)}
       </div>
     </div>
   </section>
 
-  <section class="block" id="offers" aria-labelledby="offers-title">
+  {/* ---- For example ------------------------------------------------------
+       Four situations, not four boxes. The rule at the left edge is one line
+       carrying four coloured nodes: the same colours reappear on the products
+       further down, so a reader can follow "a company" to Recognition Sprint
+       without being told to.
+       -------------------------------------------------------------------- */}
+  <section class="band" id="for-example" aria-labelledby="for-example-title">
     <div class="container">
-      <h2 id="offers-title">What you can get</h2>
-      <article class="offer">
-        <p class="eyebrow">Meish &amp; Your Business · Gamma Test Phase</p>
-        <h3>Possibility Map</h3>
-        <p>
-          For a decision-maker who can see that something could work better — but not yet what to
-          do. One interview. Then a visible map: three different routes, one recommendation, and
-          practical next steps for 30 days. Delivered within five business days.
-        </p>
-        <p>
-          You receive the map, the three routes, the recommendation and the 30-day guide. Next:
-          email us, or start with a free Fit Check if you are still deciding.
-        </p>
-        <p class="offer__price"><strong>€590 + VAT 25.5%</strong> · Regular €950 + VAT 25.5%</p>
-        <p>
-          <a class="button button--primary" href={mapMail}>Ask about Possibility Map</a>
-        </p>
-      </article>
-      <article class="offer offer--quiet">
-        <h3>20-minute Meish Fit Check</h3>
-        <p>
-          A short conversation to see whether Meish work would be useful in your situation. Not a
-          physical fitness assessment.
-        </p>
-        <p class="offer__price"><strong>€0</strong></p>
-        <p class="offer__routes">
-          <a href="/contact#fit-you">Meish &amp; You Fit Check</a>
-          ·
-          <a href="/contact#fit-business">Meish &amp; Your Business Fit Check</a>
-        </p>
-      </article>
-      <p class="more">
-        More named work lives on
-        <a href="/for-business">Meish &amp; Your Business</a>.
+      <p class="eyebrow">For example</p>
+      <h2 id="for-example-title" class="band__title">What we actually do</h2>
+
+      <ul class="examples">
+        {examples.map((e) => (
+          <li class="example" style={`--node: ${e.accent}`}>
+            {/* A label, not a heading. Marking it up as h3 put a 13px caps
+                label into the document outline between two real headings. */}
+            <p class="example__who">{e.who}</p>
+            <p class="example__what">{e.what}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  {/* ---- Products --------------------------------------------------------- */}
+  <section class="band band--soft" id="products" aria-labelledby="products-title">
+    <div class="container">
+      <h2 id="products-title" class="band__title">What we can do together</h2>
+      <p class="band__lead">
+        Three ways to start. Each one ends with something you can act on.
+      </p>
+
+      <div class="products">
+        {products.map((p) => (
+          <ProductCard product={p} />
+        ))}
+      </div>
+
+      <p class="products__note">
+        Prices exclude VAT. Every one of these starts with an email — the address is
+        <a href={mailTo('Meish')}>{CONTACT_EMAIL}</a>.
       </p>
     </div>
   </section>
 
-  <section class="block block--soft" aria-labelledby="gifts-title">
-    <div class="container">
-      <h2 id="gifts-title">Useful things you can use without us</h2>
-      <p>
-        <a href="/gifts#clarity-starter"><strong>Meish Clarity Starter (PDF)</strong></a>
-        — one page, five questions, one next move. Free. No signup.
-      </p>
-      <p>
-        <a class="button button--ghost" href="/gifts/meish-clarity-starter.pdf">Download the PDF</a>
-      </p>
+  {/* ---- Small practical tools --------------------------------------------
+       Deliberately secondary: a strip, not a third product row, so it reads as
+       "there is also a smaller way in" rather than competing with the three.
+       -------------------------------------------------------------------- */}
+  <section class="band strip" aria-labelledby="tools-title">
+    <div class="container strip__grid">
+      <div>
+        <h2 id="tools-title" class="strip__title">{toolSets.heading}</h2>
+        <p class="strip__lead">{toolSets.lead}</p>
+        <p class="strip__price">{toolSets.price}</p>
+        <p class="strip__action">
+          <a class="button button--ghost" href={toolSets.cta.href}>{toolSets.cta.label}</a>
+        </p>
+      </div>
+      <ul class="sets">
+        {toolSets.sets.map((s) => (
+          <li class="set" style={`--node: ${s.accent}`}>
+            <span class="set__name">{s.name}</span>
+            <span class="set__skill">{s.skill}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 
-  <section class="block block--end" aria-labelledby="end-title">
+  {/* ---- Recognition before creation --------------------------------------- */}
+  <section class="band band--soft" aria-labelledby="recognition-title">
     <div class="container">
-      <h2 id="end-title">Should we Meish this?</h2>
-      <p>You can come with the situation. You do not have to come with the answer.</p>
-      <p class="hero__actions">
-        <a class="button button--primary" href={becomeBetterHref}>{becomeBetterLabel}</a>
-        <a class="button button--ghost" href="/contact">20-min Meish Fit Check →</a>
-      </p>
+      <p class="eyebrow">Recognition before creation</p>
+      <h2 id="recognition-title" class="band__title">{recognition.heading}</h2>
+      <p class="band__lead">{recognition.body}</p>
+
+      <RecognitionPath steps={recognition.steps} />
+    </div>
+  </section>
+
+  {/* ---- Fit Check --------------------------------------------------------- */}
+  <section class="band band--ink on-dark" id="fit-check" aria-labelledby="fit-check-title">
+    <div class="container fit">
+      <div class="fit__head">
+        <p class="eyebrow eyebrow--light">{fitCheckSection.eyebrow}</p>
+        <h2 id="fit-check-title" class="fit__title">{fitCheckSection.heading}</h2>
+        <p class="fit__price">{fitCheckSection.price}</p>
+      </div>
+
+      <div class="fit__body">
+        <p class="fit__intro">{fitCheckSection.intro}</p>
+        <ul class="fit__bring">
+          {fitCheckSection.bring.map((b) => (
+            <li>{b}</li>
+          ))}
+        </ul>
+        <p class="fit__note">{fitCheckSection.inTwenty}</p>
+        <p class="fit__note">{fitCheckSection.leaveWith}</p>
+        <p class="fit__note fit__note--quiet">{fitCheckSection.noPressure}</p>
+
+        <p class="fit__actions">
+          <a class="button button--primary" href={fitCheck.href}>{fitCheck.cta}</a>
+        </p>
+        <p class="fit__address">
+          or write to <a href={mailTo('Meish Fit Check')}>{CONTACT_EMAIL}</a>
+        </p>
+      </div>
     </div>
   </section>
 </Base>
 
 <style>
-  .block {
-    padding: clamp(3.75rem, 8vw, 6.5rem) 0;
+  /* --- Shared section shell ------------------------------------------------ */
+
+  .band {
+    padding-block: clamp(3rem, 6.5vw, 5.5rem);
   }
-  .block--soft {
-    background: var(--color-cream);
+  .band--soft {
+    background: var(--bg-alt);
+    border-block: var(--border-hair);
   }
-  .block--end {
-    padding-bottom: clamp(5rem, 10vw, 8rem);
+  .band--ink {
+    background: var(--color-navy);
+    color: var(--color-ivory);
   }
-  h2 {
-    margin: 0 0 1.75rem;
-    max-width: 18ch;
+
+  .eyebrow {
+    margin: 0 0 0.75rem;
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-medium);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--text-muted);
   }
-  .intro {
-    margin: -0.5rem 0 2rem;
-    font-size: 1.2rem;
-    line-height: 1.6;
-    max-width: 46rem;
+  .eyebrow--light {
+    color: rgba(244, 239, 232, 0.62);
   }
-  .arrive {
+
+  .band__title {
     margin: 0;
-    padding: 0;
-    list-style: none;
-    display: grid;
-    gap: 0.65rem;
-    max-width: 40rem;
-    font-size: 1.2rem;
-    line-height: 1.55;
+    font-size: var(--text-xl);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.006em;
+    max-width: 20ch;
+    text-wrap: balance;
   }
-  .happen {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: grid;
-    gap: 1.35rem;
-    max-width: 40rem;
-  }
-  .happen li {
-    font-size: 1.125rem;
+  .band__lead {
+    margin: 1rem 0 0;
+    font-size: var(--text-md);
     line-height: 1.6;
+    color: var(--text-soft);
+    max-width: 54ch;
+    text-wrap: pretty;
   }
-  .happen strong {
-    display: block;
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 0.25rem;
+
+  /* --- Core message --------------------------------------------------------
+     The question is the largest thing on the page after the hero and is meant
+     to be read on its own. It is set below the hero's own scale so the two do
+     not compete: the hero says who this is, the question says what we do about
+     it. Everything else in the block is deliberately quiet.
+     ---------------------------------------------------------------------- */
+
+  .core {
+    padding-block: clamp(3rem, 6.5vw, 5rem);
+    background: var(--color-ivory);
+    border-block: var(--border-hair);
+  }
+
+  .core__question {
+    margin: 0;
+    font-size: var(--text-page);
+    font-weight: 400;
+    line-height: 1.16;
+    letter-spacing: -0.008em;
+    max-width: 20ch;
+    text-wrap: balance;
     color: var(--color-navy);
   }
-  .paths {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    gap: 1.75rem 3rem;
+  /* The answer, not a subtitle: same voice as the question, half the size, no
+     hedging around it. */
+  .core__answer {
+    margin: 1.45rem 0 0;
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--color-navy);
   }
-  @media (min-width: 800px) {
-    .paths {
-      grid-template-columns: 1fr 1fr;
+  .core__body {
+    margin: 1.15rem 0 0;
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: 1.6;
+    max-width: 60ch;
+    color: var(--color-ink-soft);
+    text-wrap: pretty;
+  }
+  .core__body:first-of-type {
+    margin-top: 1.6rem;
+  }
+
+  /* The Finnish half repeats the English one exactly — same scale, same
+     measure, same spacing — and is marked rather than restyled. The rule
+     begins at the boundary between the two so the second block reads as the
+     first one continuing in another language. */
+  .core__block--fi {
+    position: relative;
+    margin-top: clamp(2.75rem, 5.5vw, 4rem);
+    padding-top: clamp(2.75rem, 5.5vw, 4rem);
+  }
+  .core__block--fi::before {
+    content: '';
+    position: absolute;
+    left: -1.75rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--deep-orbit-indigo);
+  }
+  .core__lang {
+    position: relative;
+    margin: 0 0 0.9rem;
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--deep-orbit-indigo);
+  }
+  .core__node {
+    position: absolute;
+    left: -2rem;
+    top: 0.34em;
+    width: 0.625rem;
+    height: 0.625rem;
+    background: var(--lucent-teal);
+    border-radius: 50%;
+  }
+
+  @media (max-width: 40rem) {
+    /* The gutter cannot hold the offset, so the rule moves to the screen edge
+       rather than pushing the Finnish copy out of line with the English. */
+    .core__block--fi::before {
+      left: calc(-1 * var(--gutter) + 0.625rem);
+    }
+    .core__node {
+      left: calc(-1 * var(--gutter) + 0.375rem);
     }
   }
-  .paths a {
-    display: block;
-    color: inherit;
-    text-decoration: none;
-  }
-  .paths a:hover strong {
-    color: var(--accent);
-  }
-  .paths strong {
-    display: block;
-    font-family: var(--font-display);
-    font-size: clamp(1.5rem, 2.4vw, 1.85rem);
-    font-weight: 600;
-    color: var(--color-navy);
-    margin-bottom: 0.4rem;
-  }
-  .paths span {
-    display: block;
-    max-width: 36ch;
-    font-size: 1.125rem;
-    line-height: 1.6;
-    color: var(--color-ink-soft);
-  }
-  .who {
+
+  /* --- For example ---------------------------------------------------------
+     One vertical construction line down the left of the group, with a node per
+     situation. The line says "these belong together"; the nodes carry the
+     colour that the matching product repeats.
+     ---------------------------------------------------------------------- */
+
+  .examples {
     display: grid;
-    gap: 2.5rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 clamp(2rem, 5vw, 4.5rem);
+    margin: clamp(2rem, 4vw, 3rem) 0 0;
+    padding: 0;
+    list-style: none;
   }
-  @media (min-width: 800px) {
-    .who {
-      grid-template-columns: 1fr 1fr;
-      gap: 3.5rem;
+
+  .example {
+    position: relative;
+    padding: 1.4rem 0 1.4rem 2rem;
+    border-left: 1px solid rgba(11, 16, 32, 0.14);
+  }
+  .example::before {
+    content: '';
+    position: absolute;
+    top: 1.95rem;
+    left: -0.3125rem;
+    width: 0.625rem;
+    height: 0.625rem;
+    background: var(--node);
+    border-radius: 50%;
+  }
+
+  .example__who {
+    margin: 0;
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--text);
+  }
+  .example__what {
+    margin: 0.5rem 0 0;
+    font-size: var(--text-base);
+    line-height: 1.58;
+    color: var(--text-soft);
+    max-width: 34ch;
+    text-wrap: pretty;
+  }
+
+  /* --- Products ------------------------------------------------------------ */
+
+  .products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    gap: clamp(1.25rem, 2.5vw, 2rem);
+    margin-top: clamp(2rem, 4vw, 3rem);
+  }
+  .products__note {
+    margin: clamp(1.5rem, 3vw, 2.25rem) 0 0;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    max-width: 60ch;
+  }
+  .products__note a {
+    color: var(--text-soft);
+  }
+
+  /* --- Small practical tools ----------------------------------------------- */
+
+  .strip__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
+    gap: clamp(1.75rem, 4vw, 4rem);
+    align-items: start;
+  }
+  .strip__title {
+    margin: 0;
+    font-size: var(--text-lg);
+    font-weight: 400;
+    line-height: 1.24;
+  }
+  .strip__lead {
+    margin: 0.65rem 0 0;
+    font-size: var(--text-base);
+    line-height: 1.58;
+    color: var(--text-soft);
+  }
+  .strip__price {
+    margin: 0.65rem 0 0;
+    font-family: var(--font-ui);
+    font-size: var(--text-base);
+    font-weight: var(--weight-semibold);
+    color: var(--text);
+  }
+  .strip__action {
+    margin: 1.25rem 0 0;
+  }
+
+  .sets {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .set {
+    display: grid;
+    grid-template-columns: 0.75rem minmax(0, 9rem) minmax(0, 1fr);
+    align-items: baseline;
+    gap: 0 1rem;
+    padding: 0.95rem 0;
+    border-top: var(--border-hair);
+  }
+  .set:last-child {
+    border-bottom: var(--border-hair);
+  }
+  .set::before {
+    content: '';
+    width: 0.5rem;
+    height: 0.5rem;
+    background: var(--node);
+    border-radius: 50%;
+    transform: translateY(-0.15rem);
+  }
+  .set__name {
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--text);
+  }
+  .set__skill {
+    font-size: var(--text-base);
+    line-height: 1.5;
+    color: var(--text-soft);
+  }
+
+  /* --- Fit Check ------------------------------------------------------------ */
+
+  .fit {
+    display: grid;
+    grid-template-columns: minmax(0, 22rem) minmax(0, 1fr);
+    gap: clamp(1.75rem, 4vw, 4rem);
+    align-items: start;
+  }
+  .fit__title {
+    margin: 0;
+    font-size: var(--text-xl);
+    font-weight: 400;
+    line-height: 1.18;
+    color: var(--color-ivory);
+    text-wrap: balance;
+  }
+  .fit__price {
+    margin: 0.75rem 0 0;
+    font-family: var(--font-ui);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-semibold);
+    color: var(--color-ivory);
+  }
+  .fit__intro {
+    margin: 0;
+    font-size: var(--text-base);
+    color: rgba(244, 239, 232, 0.86);
+  }
+  .fit__bring {
+    display: grid;
+    gap: 0.15rem;
+    margin: 0.85rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .fit__bring li {
+    position: relative;
+    padding-left: 1.5rem;
+    font-size: var(--text-base);
+    line-height: 1.62;
+    color: rgba(244, 239, 232, 0.86);
+  }
+  .fit__bring li::before {
+    content: '';
+    position: absolute;
+    top: 0.85em;
+    left: 0;
+    width: 0.6rem;
+    height: 1px;
+    background: rgba(244, 239, 232, 0.5);
+  }
+  .fit__note {
+    margin: 1.05rem 0 0;
+    font-size: var(--text-base);
+    line-height: 1.62;
+    color: rgba(244, 239, 232, 0.86);
+    max-width: 56ch;
+    text-wrap: pretty;
+  }
+  .fit__note--quiet {
+    color: rgba(244, 239, 232, 0.6);
+  }
+  .fit__actions {
+    margin: 1.75rem 0 0;
+  }
+  .fit__address {
+    margin: 0.85rem 0 0;
+    font-size: var(--text-base);
+    color: rgba(244, 239, 232, 0.72);
+  }
+  .fit__address a {
+    color: var(--color-ivory);
+    box-shadow: inset 0 -1px 0 rgba(244, 239, 232, 0.45);
+  }
+
+  /* --- Narrow --------------------------------------------------------------- */
+
+  @media (max-width: 52rem) {
+    .examples,
+    .strip__grid,
+    .fit {
+      grid-template-columns: 1fr;
     }
-  }
-  .who a {
-    color: inherit;
-    text-decoration: none;
-  }
-  .who strong {
-    display: block;
-    font-family: var(--font-display);
-    font-size: clamp(1.6rem, 2.6vw, 2rem);
-    margin-bottom: 0.7rem;
-    color: var(--color-navy);
-  }
-  .who p {
-    margin: 0 0 0.85rem;
-    font-size: 1.125rem;
-    line-height: 1.6;
-  }
-  .who__meta {
-    color: var(--color-ink-soft);
-    font-size: 1.0625rem;
-  }
-  .who__cta {
-    display: inline-flex;
-    align-items: center;
-    min-height: 2.75rem;
-    font-size: 1.0625rem;
-    color: var(--color-navy);
-  }
-  .offer {
-    max-width: 40rem;
-  }
-  .offer h3 {
-    margin: 0.4rem 0 0.8rem;
-    font-size: clamp(1.6rem, 2.4vw, 2rem);
-  }
-  .offer p {
-    font-size: 1.125rem;
-    line-height: 1.6;
-  }
-  .offer__price {
-    margin: 1rem 0 1.25rem;
-  }
-  .offer--quiet {
-    margin-top: 3rem;
-  }
-  .offer__routes {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem 0.75rem;
-  }
-  .more {
-    margin-top: 2.25rem;
-    font-size: 1.125rem;
-  }
-  .narrow p {
-    font-size: 1.2rem;
-    line-height: 1.65;
-  }
-  .narrow p + p {
-    margin-top: 1.15rem;
-  }
-  .block--end .hero__actions,
-  .hero__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.85rem 1.1rem;
-    margin-top: 1.5rem;
-    max-width: none;
+    .examples {
+      gap: 0;
+    }
+    .strip__grid,
+    .fit {
+      gap: 1.75rem;
+    }
+    .set {
+      grid-template-columns: 0.75rem minmax(0, 1fr);
+      row-gap: 0.3rem;
+    }
+    .set__skill {
+      grid-column: 2;
+    }
+    .fit__actions .button {
+      width: 100%;
+    }
   }
 </style>

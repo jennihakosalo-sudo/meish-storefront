@@ -55,7 +55,7 @@ export const universeNodes: Record<string, UniverseNode> = {
       { slug: 'business', title: 'Meish & Your Business' },
       { slug: '', title: 'Meish Universe' },
     ],
-    ikonit: ['Map', 'Three paths', 'North star'],
+    ikonit: ['Map', 'Three paths', 'Compass'],
     tyokalut: ['Interview script', 'Map template', 'Delivery checklist'],
     lapset: [
       { slug: 'business/possibility-map/interview', title: 'Interview', summary: '60-minute client session' },

@@ -1,65 +1,38 @@
 ---
-import {
-  hatchlingNav,
-  fitYouHref,
-  fitYouLabel,
-  fitBusinessHref,
-  fitBusinessLabel,
-  contactEmail,
-  contactMeishHref,
-  contactMeishLabel,
-} from '../data/hatchling-nav';
-import { meishMailto } from '../lib/meish-mailto';
-
-interface Props {
-  universeHome?: boolean;
-}
-
-const { universeHome = false } = Astro.props;
+import { nav, fitCheck, brand, CONTACT_EMAIL, mailTo } from '../data/site-content';
 
 const year = 2026;
-const footerMail = meishMailto({
-  product: 'Contact',
-  page: 'Footer',
-  section: 'Contact',
-  cta: 'Email',
-});
 ---
 
-<footer class:list={['site-footer', universeHome && 'site-footer--universe']}>
-  <div class="container container--wide grid">
+<footer class="site-footer">
+  <div class="container grid">
     <div>
       <p class="wordmark">Meish</p>
-      <p class="blurb">
-        Human experience is our North Star. We work in English and Finnish. Palvelemme myös
-        suomeksi.
-      </p>
+      <p class="blurb">{brand.line}</p>
+      <p class="blurb blurb--fi">We work in English and Finnish. Palvelemme myös suomeksi.</p>
     </div>
+
     <nav aria-label="Site">
       <p class="col-title">Meish</p>
       <ul>
-        {hatchlingNav.map((l) => (
+        {nav.map((l) => (
           <li><a href={l.href}>{l.label}</a></li>
         ))}
-        <li><a href="/contact">Contact</a></li>
-        <li><a href="/about">About</a></li>
         <li><a href="/privacy">Privacy</a></li>
       </ul>
     </nav>
-    <nav aria-label="Contact">
-      <p class="col-title">Contact</p>
-      <ul>
-        <li><a href={contactMeishHref}>{contactMeishLabel}</a></li>
-        <li><a href={footerMail}>{contactEmail}</a></li>
-        <li><a href={fitYouHref}>{fitYouLabel}</a></li>
-        <li><a href={fitBusinessHref}>{fitBusinessLabel}</a></li>
-        <li><a href="/for-business">Business offers</a></li>
-      </ul>
-    </nav>
+
+    <div>
+      <p class="col-title">Get in touch</p>
+      {/* The address is written out, not hidden behind a word. Someone reading
+          on a phone should be able to copy it into their own mail client. */}
+      <p class="address"><a href={mailTo('Meish')}>{CONTACT_EMAIL}</a></p>
+      <p class="fit"><a href="/fit-check">{fitCheck.meta}</a></p>
+    </div>
   </div>
-  <div class="container container--wide baseline">
+
+  <div class="container baseline">
     <p>© {year} Meish. All rights reserved.</p>
-    <p>Made on <a href="https://www.meish.work">meish.work</a></p>
   </div>
 </footer>
 
@@ -68,40 +41,32 @@ const footerMail = meishMailto({
     margin-top: var(--space-4xl);
     background: var(--bg-alt);
     border-top: var(--border-hair);
-    padding-block: var(--space-2xl) var(--space-xl);
-  }
-  .site-footer--universe {
-    margin-top: 0;
-    background: #0b1020;
-    border-top: 1px solid rgba(234, 246, 255, 0.12);
-    color: #eaf6ff;
-  }
-  .site-footer--universe .wordmark,
-  .site-footer--universe .col-title,
-  .site-footer--universe a {
-    color: #eaf6ff;
-  }
-  .site-footer--universe .blurb,
-  .site-footer--universe .baseline {
-    color: #6f87a8;
-  }
-  .site-footer--universe a:hover {
-    color: #00c3d6;
+    padding-block: var(--space-2xl) var(--space-lg);
   }
   .grid {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1.2fr;
     gap: var(--space-xl);
-    padding-bottom: var(--space-xl);
+    padding-bottom: var(--space-lg);
   }
   .wordmark {
     font-family: var(--font-display);
-    font-weight: var(--weight-black);
+    font-weight: var(--weight-bold);
     font-size: var(--text-lg);
     color: var(--text);
     margin-bottom: var(--space-sm);
   }
-  .blurb { color: var(--text-muted); font-size: 1.125rem; line-height: 1.6; max-width: 42ch; }
+  .blurb {
+    color: var(--text-soft);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    max-width: 34ch;
+  }
+  .blurb--fi {
+    margin-top: 0.4rem;
+    color: var(--text-muted);
+    font-size: 1rem;
+  }
   .col-title {
     font-size: var(--text-xs);
     letter-spacing: var(--tracking-wide);
@@ -109,7 +74,12 @@ const footerMail = meishMailto({
     color: var(--text-muted);
     margin-bottom: var(--space-sm);
   }
-  nav ul { list-style: none; padding: 0; display: grid; gap: 0.15rem; }
+  nav ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.15rem;
+  }
   nav a {
     display: inline-flex;
     align-items: center;
@@ -117,19 +87,34 @@ const footerMail = meishMailto({
     color: var(--text-soft);
     font-size: 1.0625rem;
   }
-  nav a:hover { color: var(--accent); }
+  .address a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    font-size: 1.125rem;
+    color: var(--text);
+    box-shadow: inset 0 -1px 0 rgba(11, 16, 32, 0.3);
+  }
+  .fit a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    font-size: 1.0625rem;
+    color: var(--text-soft);
+  }
+  a:hover {
+    color: var(--accent);
+  }
   .baseline {
-    display: flex;
-    justify-content: space-between;
-    gap: var(--space-md);
-    padding-top: var(--space-lg);
+    padding-top: var(--space-md);
     border-top: var(--border-hair);
     color: var(--text-muted);
-    font-size: 1rem;
+    font-size: var(--text-sm);
   }
-  .baseline a { color: var(--text-muted); }
-  @media (max-width: 640px) {
-    .grid { grid-template-columns: 1fr; gap: var(--space-lg); }
-    .baseline { flex-direction: column; }
+  @media (max-width: 780px) {
+    .grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
   }
 </style>

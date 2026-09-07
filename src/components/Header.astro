@@ -1,51 +1,48 @@
 ---
-import { pathwayNav, becomeBetterHref, becomeBetterLabel } from '../data/hatchling-nav';
+import { nav, fitCheck, brand } from '../data/site-content';
 
-interface Props {
-  universeHome?: boolean;
-}
-
-const { universeHome = false } = Astro.props;
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 
 function isActive(href: string) {
-  if (href.startsWith('/#')) return false;
+  if (href.startsWith('/#') || href.startsWith('mailto:')) return false;
   const dest = href.replace(/\/$/, '') || '/';
   return dest !== '/' && path === dest;
 }
+
 ---
 
-<header class:list={['site-header', universeHome && 'site-header--home']}>
-  <div class="container container--wide bar">
+<header class="site-header">
+  <div class="container bar">
     <a href="/" class="wordmark" aria-label="Meish — home">
-      <img src="/brand/meish-diamond-light.png" alt="" width="22" height="55" />
+      <img src={brand.diamond} alt="" width="360" height="540" />
       <span>Meish</span>
     </a>
 
-    <nav class="nav-desktop" aria-label="Pathways">
+    <nav class="nav-desktop" aria-label="Main">
       <ul class="nav">
-        {pathwayNav.map((l) => (
+        {nav.map((l) => (
           <li>
             <a href={l.href} class:list={['nav__link', isActive(l.href) && 'nav__link--active']}>
               {l.label}
             </a>
           </li>
         ))}
+        <li>
+          <a class="nav__link nav__link--cta" href="/fit-check">{fitCheck.navLabel}</a>
+        </li>
       </ul>
     </nav>
-
-    <a class="header-cta" href={becomeBetterHref}>{becomeBetterLabel}</a>
 
     <details class="nav-mobile">
       <summary>Menu</summary>
       <ul>
-        {pathwayNav.map((l) => (
+        {nav.map((l) => (
           <li>
             <a href={l.href}>{l.label}</a>
           </li>
         ))}
         <li>
-          <a href={becomeBetterHref}>{becomeBetterLabel}</a>
+          <a href="/fit-check">{fitCheck.navLabel}</a>
         </li>
       </ul>
     </details>
@@ -65,32 +62,38 @@ function isActive(href: string) {
   .bar {
     display: flex;
     align-items: center;
-    gap: 1.25rem;
-    min-height: 4.5rem;
+    gap: 1.5rem;
+    min-height: 4.75rem;
   }
 
   .wordmark {
     display: flex;
     align-items: center;
-    gap: 0.55rem;
+    gap: 0.6rem;
     margin-right: auto;
     font-family: var(--font-display);
     font-weight: var(--weight-semibold);
-    font-size: 1.35rem;
+    font-size: 1.625rem;
+    letter-spacing: 0.005em;
     color: var(--color-navy);
   }
+  /* Sized by height: the approved master is a tall, narrow crop, so setting a
+     width here would make it tower over the wordmark. */
   .wordmark img {
-    width: 1.15rem;
-    height: auto;
+    height: 2.35rem;
+    width: auto;
   }
   .wordmark:hover {
     text-decoration: none;
     color: var(--color-navy);
   }
 
+  /* Four destinations and one action. At this count the labels can be set at
+     reading size instead of the squeezed 15px the six-item bar needed. */
   .nav {
     display: flex;
-    gap: 1.35rem;
+    align-items: center;
+    gap: 1.75rem;
     list-style: none;
     padding: 0;
   }
@@ -101,59 +104,68 @@ function isActive(href: string) {
     font-size: 1.0625rem;
     font-weight: var(--weight-medium);
     letter-spacing: 0.01em;
-    text-transform: none;
+    white-space: nowrap;
     color: var(--color-navy);
   }
   .nav__link--active,
   .nav__link:hover {
     color: var(--color-navy);
     text-decoration: none;
-    box-shadow: inset 0 -2px 0 var(--color-amethyst);
+    box-shadow: inset 0 -2px 0 var(--accent);
   }
 
-  .header-cta {
-    display: inline-flex;
-    align-items: center;
-    min-height: 2.75rem;
-    padding: 0.45rem 0.95rem;
-    font-size: 1.0625rem;
+  /* The free entry point is an action, not a destination, so it is set apart
+     rather than simply being the fifth word in the row. */
+  .nav__link--cta {
+    padding: 0.5rem 1.1rem;
     color: #fff;
     background: var(--color-navy);
     border: 1px solid var(--color-navy);
   }
-  .header-cta:hover {
+  .nav__link--cta:hover {
     color: #fff;
     background: #1a2438;
-    text-decoration: none;
-  }
-  .header-cta:hover {
-    text-decoration: none;
-    border-color: var(--color-navy);
+    box-shadow: none;
   }
 
   .nav-mobile {
     display: none;
   }
 
-  @media (max-width: 860px) {
-    .nav-desktop,
-    .header-cta {
+  @media (max-width: 780px) {
+    .nav-desktop {
       display: none;
     }
     .nav-mobile {
       display: block;
     }
+    /* A word with a rule under it rather than a full outlined box. The box
+       read as an unstyled wireframe control at this size, and the outline was
+       doing no work the label was not already doing. */
     .nav-mobile summary {
       min-height: 2.75rem;
-      min-width: 2.75rem;
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      padding: 0 0.85rem;
-      font-size: 1rem;
+      gap: 0.45rem;
+      padding: 0 0.25rem;
+      font-size: 1.0625rem;
+      font-weight: var(--weight-semibold);
+      letter-spacing: 0.01em;
+      color: var(--color-navy);
       cursor: pointer;
       list-style: none;
-      border: 1px solid rgba(11, 16, 32, 0.28);
+      box-shadow: inset 0 -2px 0 var(--color-navy);
+    }
+    .nav-mobile summary::after {
+      content: '';
+      width: 0.5rem;
+      height: 0.5rem;
+      border-right: 1.5px solid currentColor;
+      border-bottom: 1.5px solid currentColor;
+      transform: translateY(-0.14em) rotate(45deg);
+    }
+    .nav-mobile[open] summary::after {
+      transform: translateY(0.06em) rotate(-135deg);
     }
     .nav-mobile summary::-webkit-details-marker {
       display: none;
@@ -163,16 +175,20 @@ function isActive(href: string) {
       right: var(--gutter);
       left: var(--gutter);
       margin: 0.5rem 0 0;
-      padding: 0.75rem 1rem;
+      padding: 0.5rem 1.25rem;
       list-style: none;
       background: var(--color-ivory);
       border: 1px solid rgba(11, 16, 32, 0.12);
+      box-shadow: 0 18px 40px -28px rgba(7, 17, 31, 0.5);
+    }
+    .nav-mobile li + li {
+      border-top: 1px solid rgba(11, 16, 32, 0.08);
     }
     .nav-mobile a {
       display: flex;
       align-items: center;
-      min-height: 2.75rem;
-      font-size: 1.0625rem;
+      min-height: 3.25rem;
+      font-size: 1.1875rem;
       color: var(--color-navy);
     }
   }

@@ -2,9 +2,15 @@
    Meish Universe — Global base + universe scene
    ========================================================================== */
 
+@import './fonts.css';
 @import './tokens.css';
-@import './diamond-families.css';
-@import './universe-scene.css';
+
+/* diamond-families.css and universe-scene.css are no longer loaded. They
+   belong to the earlier dark "Universe" visual direction, which is not the
+   public system. The files remain in the repository as source material; they
+   simply must not reach a visitor. Pages still written against them — /gifts
+   via DoorUniverseBand — are outside the public minimum and will render
+   unstyled in those regions until they are rebuilt or retired. */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; }
 
@@ -79,6 +85,25 @@ img, picture, svg, video { display: block; max-width: 100%; height: auto; }
 }
 .container--wide { max-width: var(--width-wide); }
 
+/* Pages close on a full-bleed band. The band's own padding already provides
+   the separation the footer's top margin exists to create, so leaving the
+   margin in adds a stray strip between the two — a visible fault when the band
+   is dark, and simply a page trailing off when it is light. */
+main:has(> :last-child.band) + .site-footer {
+  margin-top: 0;
+}
+
+/* Product actions and the contact address are the links a visitor is actually
+   meant to tap, and as plain underlined text they were 22–27px tall on a
+   phone. Vertical padding on an inline element grows the hit area without
+   touching the line box, so the layout is unchanged. Addresses written into a
+   sentence are left alone: they are exempt, and padding them would overlap the
+   lines above and below. */
+.product__action a,
+.band__address a {
+  padding-block: 0.6rem;
+}
+
 .section { padding-block: var(--space-3xl); }
 
 .door-page h1 { margin-top: 0.35rem; }
@@ -112,11 +137,19 @@ img, picture, svg, video { display: block; max-width: 100%; height: auto; }
 }
 .button:hover { transform: translateY(-1px); text-decoration: none; }
 
+/* The primary action is ink on ivory, not a coloured pill. Colour is reserved
+   for signals — a button that shouts in violet competes with the nodes and
+   markers that are actually carrying meaning. */
 .button--primary {
-  background-color: var(--accent);
-  color: #fff;
+  background-color: var(--meish-navy);
+  color: var(--meish-ivory);
+  border-color: var(--meish-navy);
 }
-.button--primary:hover { background-color: var(--accent-hover); color: #fff; }
+.button--primary:hover {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: var(--meish-ivory);
+}
 
 .button--ghost {
   background-color: transparent;
@@ -124,6 +157,20 @@ img, picture, svg, video { display: block; max-width: 100%; height: auto; }
   border-color: var(--color-line-strong);
 }
 .button--ghost:hover { border-color: var(--text); }
+
+/* On a dark band the link colour rule would repaint a light button's label
+   near-white and leave a blank pill. Buttons carry their own foreground. */
+.on-dark a:not(.button) { color: var(--color-opal); }
+.on-dark .button--primary {
+  background-color: var(--meish-ivory);
+  color: var(--meish-navy);
+  border-color: var(--meish-ivory);
+}
+.on-dark .button--ghost {
+  color: var(--meish-ivory);
+  border-color: rgba(244, 239, 232, 0.4);
+}
+.on-dark .button--ghost:hover { border-color: var(--meish-ivory); }
 
 .tag {
   display: inline-block;

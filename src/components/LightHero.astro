@@ -1,44 +1,46 @@
 ---
 /**
- * Light / editorial homepage hero.
- * Diamond: working light selection — /brand/meish-diamond-light.png (RGBA).
- * Display type: ATHENA Condensed when present; Bodoni is temporary fallback only.
+ * Homepage hero.
+ *
+ * Diamond: /brand/meish-diamond-master-transparent.png — the approved master.
+ * It is the only diamond on the homepage. One at identity scale carries more
+ * than a row of small ones, and a row is what this page used to have.
+ *
+ * The headline is the brand line and nothing else. Everything explanatory sits
+ * below it in body type, because a visitor who reads only the first two lines
+ * should still know what Meish is called and what it stands for.
+ *
+ * One action, the Fit Check. The hero is orientation; the specific claim it
+ * used to gesture at is now made outright in the core message below it.
  */
-import { becomeBetterHref, becomeBetterLabel } from '../data/hatchling-nav';
-
-const diamondSrc = '/brand/meish-diamond-light.png';
+import { hero, brand } from '../data/site-content';
 ---
 
 <section class="hero" aria-labelledby="hero-title">
   <div class="hero__grid container">
     <div class="hero__gem">
       <img
-        src={diamondSrc}
-        alt="Meish Diamond"
-        width="257"
-        height="640"
+        src={brand.diamond}
+        alt=""
+        width="360"
+        height="540"
         fetchpriority="high"
         decoding="async"
       />
     </div>
+
     <div class="hero__copy">
-      <p class="hero__mark" id="hero-title">Meish</p>
-      <h1>Human experience is our North Star.</h1>
-      <p class="hero__lead">
-        We notice what is actually happening for the people inside a situation — then decide what
-        should be removed, clarified, or made.
-      </p>
-      <p class="hero__body">
-        You do not need the diagnosis first. Finding the right problem can be part of the work.
-      </p>
+      <p class="hero__mark">Meish</p>
+      <h1 class="hero__line" id="hero-title">{hero.line}</h1>
+
+      <p class="hero__lead">{hero.lead}</p>
       <p class="hero__for">
-        For people and businesses.<br />
-        <span lang="fi">Palvelemme myös suomeksi.</span>
+        {hero.audience}<br />
+        <span lang="fi">{hero.finnish}</span>
       </p>
+
       <p class="hero__actions">
-        <a class="button button--primary" href={becomeBetterHref}>{becomeBetterLabel}</a>
-        <a class="button button--ghost" href="#offers">See what we can do →</a>
-        <a class="hero__fit" href="/contact">20-min Meish Fit Check →</a>
+        <a class="button button--primary" href={hero.action.href}>{hero.action.label}</a>
       </p>
     </div>
   </div>
@@ -46,60 +48,74 @@ const diamondSrc = '/brand/meish-diamond-light.png';
 
 <style>
   .hero {
-    padding: clamp(3.5rem, 8vw, 6.5rem) 0 clamp(4rem, 8vw, 7rem);
+    padding: clamp(2.5rem, 6vw, 5rem) 0 clamp(3rem, 7vw, 5.5rem);
     background: var(--color-ivory);
   }
 
+  /* Diamond and wordmark read as one lockup, so the gem sits in column one at a
+     size that holds its own against MEISH rather than decorating beside it. */
   .hero__grid {
     display: grid;
-    grid-template-columns: minmax(8rem, 15rem) minmax(0, 38rem);
-    gap: clamp(2rem, 5vw, 4.5rem);
-    align-items: center;
-    justify-content: center;
+    grid-template-columns: minmax(6rem, 10rem) minmax(0, 38rem);
+    gap: clamp(1.5rem, 3.5vw, 3rem);
+    /* Aligned to the container's left edge, the same edge the header wordmark
+       and every section heading below sit on. Centring the pair floated the
+       hero off that line and made the page look like two designs. */
+    align-items: start;
   }
 
   .hero__gem img {
-    width: min(100%, 13.5rem);
+    display: block;
+    width: 100%;
     height: auto;
-    margin-inline: auto;
     background: transparent;
+  }
+  /* Sits the gem against the wordmark and headline rather than the full copy
+     column, so diamond and MEISH read as one lockup. */
+  .hero__gem {
+    padding-top: 0.35rem;
   }
 
   .hero__mark {
-    margin: 0 0 0.85rem;
+    margin: 0 0 0.5rem;
     font-family: var(--font-display);
     font-size: var(--text-meish);
     font-weight: 700;
-    font-style: normal;
-    line-height: 0.92;
-    letter-spacing: -0.03em;
+    line-height: 0.98;
+    /* Baskerville is already tightly fitted; negative tracking at display size
+       closes the counters on M and S. */
+    letter-spacing: -0.012em;
     color: var(--color-navy);
     max-width: none;
   }
 
-  h1 {
+  .hero__line {
     margin: 0;
-    font-size: clamp(2.5rem, 5vw, 4.25rem);
-    font-weight: 600;
-    font-style: normal;
-    line-height: 1.12;
+    font-size: var(--text-2xl);
+    font-weight: 400;
+    line-height: 1.16;
+    letter-spacing: -0.008em;
     max-width: 16ch;
+    text-wrap: balance;
   }
 
   .hero__lead,
-  .hero__body,
   .hero__for {
-    margin: 1.15rem 0 0;
-    font-size: clamp(1.125rem, 1.6vw, 1.25rem);
+    margin: 1.1rem 0 0;
+    font-family: var(--font-body);
     line-height: 1.6;
-    color: var(--color-navy);
+    max-width: 44ch;
+    text-wrap: pretty;
   }
 
   .hero__lead {
+    font-size: var(--text-md);
     font-weight: 500;
+    color: var(--color-navy);
   }
 
   .hero__for {
+    font-size: var(--text-base);
     color: var(--color-ink-soft);
   }
 
@@ -107,27 +123,39 @@ const diamondSrc = '/brand/meish-diamond-light.png';
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.85rem 1.1rem;
-    margin-top: 1.85rem;
+    gap: 0.75rem;
+    margin-top: 2rem;
     max-width: none;
   }
 
-  .hero__fit {
-    font-size: 1.0625rem;
-    color: var(--color-navy);
-    min-height: 2.75rem;
-    display: inline-flex;
-    align-items: center;
-  }
-
-  @media (max-width: 800px) {
+  @media (max-width: 52rem) {
     .hero__grid {
       grid-template-columns: 1fr;
-      text-align: left;
+      gap: 1.25rem;
+    }
+    /* The gem keeps its place above the words on a phone, still at a size that
+       registers as identity — small enough not to push the headline below the
+       fold, large enough not to look like a favicon. */
+    .hero__gem {
+      padding-top: 0;
     }
     .hero__gem img {
-      width: min(42vw, 9.5rem);
-      margin: 0;
+      width: min(30vw, 7.5rem);
+    }
+    /* Tightened so the primary action clears the fold on a 390×844 screen.
+       At desktop spacing the buttons landed just below it, which reads as a
+       hero with no way out of it. */
+    .hero__lead,
+    .hero__for {
+      margin-top: 0.9rem;
+    }
+    .hero__actions {
+      margin-top: 1.5rem;
+    }
+    /* A button narrower than the viewport, but full width when the label would
+       otherwise wrap to two lines on its own. */
+    .hero__actions .button {
+      flex: 1 1 14rem;
     }
   }
 </style>

@@ -1,0 +1,226 @@
+---
+/**
+ * For You.
+ *
+ * Explicitly not wellness copy. Every line here has to point at something a
+ * person could actually do this week — a decision they are carrying, a
+ * direction they cannot choose between, a thing they want to make.
+ */
+import Base from '../layouts/Base.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { productsFor } from '../data/meish-products';
+import { fitCheckHref } from '../data/navigation';
+
+const products = productsFor('you');
+
+const situations = [
+  {
+    when: 'You are carrying a decision you keep not making.',
+    then: 'Usually because two of the options are genuinely reasonable, and nobody has said so out loud.',
+    accent: 'var(--lucent-teal)',
+  },
+  {
+    when: 'You can do a lot of things well and cannot choose between them.',
+    then: 'The question is not which you are best at. It is which one you would still want in three years.',
+    accent: 'var(--deep-orbit-indigo)',
+  },
+  {
+    when: 'You want to build something and it has stayed an idea.',
+    then: 'Almost always because the first step was never made small enough to be done on a Tuesday.',
+    accent: 'var(--orbit-ember)',
+  },
+  {
+    when: 'Something in your work is quietly wrong and you cannot name it.',
+    then: 'Naming it is most of the work. It is also the part that is hardest to do alone.',
+    accent: 'var(--resonance-violet)',
+  },
+  {
+    when: 'Something is already good and could be more.',
+    then: 'This is the one people never ask for help with, and the one where help is cheapest.',
+    accent: 'var(--alignment-gold)',
+  },
+];
+---
+
+<Base
+  title="Meish for You — clarity, direction and things you can actually do"
+  description="For personal decisions, life and work direction, and things you want to make. Small practical tools and a free 20-minute Fit Check."
+>
+  <section class="head">
+    <div class="container">
+      <p class="head__eyebrow">
+        This may interest you if you are deciding something, or building something.
+      </p>
+      <h1>Not advice. A clearer view of what you are actually choosing between.</h1>
+      <p class="head__lead">
+        Meish works the same way for a person as for a company: look at what is there, name what
+        matters, put the real options side by side, and pick one.
+      </p>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="when-title">
+    <div class="container">
+      <h2 id="when-title">When this is useful</h2>
+      <dl class="situations">
+        {
+          situations.map((s) => (
+            <div class="situations__row" style={`--accent-node: ${s.accent}`}>
+              <dt>
+                <span class="situations__node" aria-hidden="true" />
+                {s.when}
+              </dt>
+              <dd>{s.then}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="band band--soft" aria-labelledby="offers-title">
+    <div class="container">
+      <h2 id="offers-title">What we can do together</h2>
+      <p class="band__intro">
+        Most personal work starts with the free conversation and stays small. The tools below are
+        the things people keep after it.
+      </p>
+      <div class="products">
+        {products.map((p) => <ProductCard product={p} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--ink on-dark" aria-labelledby="start-title">
+    <div class="container">
+      <h2 id="start-title">Start with twenty free minutes.</h2>
+      <p class="band__intro">
+        You do not need to have worked out what you want first. Describing the situation out loud
+        to someone who is listening for what matters is usually the step that has been missing.
+      </p>
+      <p class="band__action">
+        <a class="button button--primary" href={fitCheckHref}>Book a Fit Check — €0</a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .head {
+    padding-block: clamp(2.75rem, 6vw, 4.5rem) clamp(1.5rem, 3vw, 2.25rem);
+    background: var(--color-ivory);
+  }
+  .head__eyebrow {
+    margin: 0 0 0.9rem;
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    color: var(--color-ink-muted);
+    max-width: 46ch;
+  }
+  .head h1 {
+    margin: 0;
+    font-weight: 400;
+    max-width: 22ch;
+  }
+  .head__lead {
+    margin: 1.15rem 0 0;
+    font-family: var(--font-body);
+    font-size: clamp(1.125rem, 1.6vw, 1.25rem);
+    line-height: 1.6;
+    max-width: 48ch;
+    color: var(--color-ink-soft);
+  }
+
+  .band {
+    padding-block: clamp(2.75rem, 6vw, 4.5rem);
+  }
+  .band--soft {
+    background: var(--color-cream);
+  }
+  .band--ink {
+    background: var(--meish-navy);
+    color: var(--meish-ivory);
+  }
+  .band--ink :global(h2) {
+    color: var(--meish-ivory);
+  }
+  .band h2 {
+    font-weight: 400;
+  }
+  .band__intro {
+    margin: 1.2rem 0 0;
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.64;
+    max-width: 52ch;
+    color: var(--color-ink-soft);
+  }
+  .band--ink .band__intro {
+    color: rgba(244, 239, 232, 0.86);
+  }
+  .band__action {
+    margin: 1.75rem 0 0;
+    max-width: none;
+  }
+
+  /* Two columns: the situation in display type on the left, the observation in
+     body type on the right. The pairing is the content — a person should be
+     able to read only the left column and find themselves. */
+  .situations {
+    margin: clamp(1.75rem, 3.5vw, 2.5rem) 0 0;
+  }
+  .situations__row {
+    display: grid;
+    grid-template-columns: minmax(0, 24rem) minmax(0, 30rem);
+    gap: 0.4rem 3rem;
+    padding-block: 1.25rem;
+    border-top: 1px solid var(--color-line);
+  }
+  .situations__row:last-child {
+    border-bottom: 1px solid var(--color-line);
+  }
+  .situations dt {
+    display: grid;
+    grid-template-columns: 1rem minmax(0, 1fr);
+    gap: 0.5rem;
+    align-items: baseline;
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+    font-weight: 400;
+    line-height: 1.42;
+  }
+  .situations__node {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-node);
+    transform: translateY(-0.15em);
+  }
+  .situations dd {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-ink-soft);
+  }
+
+  .products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    gap: clamp(1.75rem, 3vw, 2.5rem);
+    margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
+  }
+
+  @media (max-width: 52rem) {
+    .situations__row {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+      padding-block: 1.35rem;
+    }
+    /* The observation indents to the same optical line as the situation text,
+       so the pair still reads as one item rather than two. */
+    .situations dd {
+      padding-left: 1.5rem;
+    }
+  }
+</style>

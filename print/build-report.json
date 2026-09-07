@@ -1,0 +1,158 @@
+[
+  {
+    "doc": "Meish_Human_Experience_Toolkit_3_Tools",
+    "expectedPages": 8,
+    "size": 225237,
+    "audit": {
+      "pages": 8,
+      "overflow": [],
+      "fillMm": [
+        0.1,
+        5.1,
+        3.3,
+        5.2,
+        2.5,
+        9.5,
+        3.1,
+        7
+      ],
+      "fonts": {
+        "Playfair Display": true,
+        "IBM Plex Serif": true,
+        "Satoshi": true
+      }
+    }
+  },
+  {
+    "doc": "Meish_Sensory_Walk",
+    "expectedPages": 2,
+    "size": 60716,
+    "audit": {
+      "pages": 2,
+      "overflow": [],
+      "fillMm": [
+        3.3,
+        5.2
+      ],
+      "fonts": {
+        "Playfair Display": true,
+        "IBM Plex Serif": true,
+        "Satoshi": true
+      }
+    }
+  },
+  {
+    "doc": "Meish_Atmosphere_Builder",
+    "expectedPages": 2,
+    "size": 67098,
+    "audit": {
+      "pages": 2,
+      "overflow": [],
+      "fillMm": [
+        2.5,
+        9.5
+      ],
+      "fonts": {
+        "Playfair Display": true,
+        "IBM Plex Serif": true,
+        "Satoshi": true
+      }
+    }
+  },
+  {
+    "doc": "Meish_Points_of_Confusion_to_Presence",
+    "expectedPages": 2,
+    "size": 77945,
+    "audit": {
+      "pages": 2,
+      "overflow": [],
+      "fillMm": [
+        3.1,
+        7
+      ],
+      "fonts": {
+        "Playfair Display": true,
+        "IBM Plex Serif": true,
+        "Satoshi": true
+      }
+    }
+  },
+  {
+    "doc": "Meish_Human_Experience_Toolkit_3_Tools_FI",
+    "expectedPages": 8,
+    "size": 215498,
+    "audit": {
+      "pages": 8,
+      "overflow": [],
+      "fillMm": [
+        0.1,
+        5.1,
+        3.1,
+        10.3,
+        2.5,
+        14.6,
+        3.1,
+        10.6
+      ],
+      "fonts": {
+        "Playfair Display": true,
+        "IBM Plex Serif": true,
+        "Satoshi": true
+      }
+    }
+  },
+  {
+    "doc": "Meish_Sensory_Walk_FI",
+    "expectedPages": 2,
+    "size": 58990,
+    "audit": {
+      "pages": 2,
+      "overflow": [],
+      "fillMm": [
+        3.1,
+        10.3
+      ],
+      "fonts": {
+        "Playfair Display": true,
+        "IBM Plex Serif": true,
+        "Satoshi": true
+      }
+    }
+  },
+  {
+    "doc": "Meish_Atmosphere_Builder_FI",
+    "expectedPages": 2,
+    "size": 63632,
+    "audit": {
+      "pages": 2,
+      "overflow": [],
+      "fillMm": [
+        2.5,
+        14.6
+      ],
+      "fonts": {
+        "Playfair Display": true,
+        "IBM Plex Serif": true,
+        "Satoshi": true
+      }
+    }
+  },
+  {
+    "doc": "Meish_Points_of_Confusion_to_Presence_FI",
+    "expectedPages": 2,
+    "size": 74731,
+    "audit": {
+      "pages": 2,
+      "overflow": [],
+      "fillMm": [
+        3.1,
+        10.6
+      ],
+      "fonts": {
+        "Playfair Display": true,
+        "IBM Plex Serif": true,
+        "Satoshi": true
+      }
+    }
+  }
+]

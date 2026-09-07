@@ -7,7 +7,6 @@ import { SITE_ORIGIN } from '../lib/meish-mailto';
 interface Props {
   title?: string;
   description?: string;
-  universeHome?: boolean;
   /** Absolute path under public/, default social card */
   ogImage?: string;
   /** Extra schema.org objects (Organization + WebSite always included) */
@@ -16,10 +15,9 @@ interface Props {
 }
 
 const {
-  title = 'Meish — human experience is our North Star',
+  title = 'Meish — designed around being human',
   description =
-    'Meish notices what is actually happening for the people inside work and life — then removes friction or makes something useful. Possibility Map €590 + VAT. English and Finnish.',
-  universeHome = false,
+    'We notice what matters, compare what could come next and turn the right direction into something useful. For people and businesses, in English and Finnish.',
   ogImage = '/og/meish-share.jpg',
   schema,
   noindex = false,
@@ -48,7 +46,7 @@ const websiteSchema = {
   name: 'Meish',
   url: SITE_ORIGIN,
   description:
-    'Meish — human experience is our North Star. Business offers, personal support, tools and gifts. English and Finnish.',
+    'Meish — designed around being human Business offers, personal support, tools and gifts. English and Finnish.',
   inLanguage: ['en', 'fi'],
   publisher: { '@id': `${SITE_ORIGIN}/#organization` },
 };
@@ -72,10 +70,18 @@ const jsonLd = {
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- Roboto = body. ATHENA Condensed is canonical display; files missing from public/fonts/. Bodoni Moda is a TEMPORARY DEVELOPMENT FALLBACK only. -->
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,600;0,6..96,700;1,6..96,400&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" />
+    {/* Both faces are served from this origin, so there is no third-party
+        font request to preconnect to — and none to declare in the privacy
+        page. Only the two faces above the fold are preloaded; the rest arrive
+        with the stylesheet. */}
+    <link
+      rel="preload"
+      href="/fonts/libre-baskerville-400-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="preload" href="/fonts/satoshi-400.woff2" as="font" type="font/woff2" crossorigin />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Meish" />
@@ -98,9 +104,9 @@ const jsonLd = {
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
-  <body class:list={universeHome && 'is-universe-home'}>
+  <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <Header universeHome={universeHome} />
+    <Header />
     <main id="main">
       <slot />
     </main>
@@ -114,7 +120,9 @@ const jsonLd = {
       .skip-link {
         position: absolute;
         left: var(--space-md);
-        top: -3rem;
+        /* -3rem left a dark sliver of this visible above the header, which read
+           as a rendering fault. The link is ~3.05rem tall. */
+        top: -5rem;
         z-index: var(--z-overlay);
         background: var(--text);
         color: var(--bg);
@@ -124,10 +132,6 @@ const jsonLd = {
         transition: top var(--dur) var(--ease);
       }
       .skip-link:focus { top: var(--space-md); color: var(--bg); }
-
-      body.is-universe-home {
-        background: var(--color-ivory);
-      }
     </style>
   </body>
 </html>

@@ -1,11 +1,28 @@
 /* ==========================================================================
-   Meish Universe — Brand colours (Intensive / mineral palette)
-   Source: Meish Universe Brand Guide — Intensive Version
-   ATHENA Condensed pending — Bodoni Moda is the display stand-in.
+   Meish — design tokens
+   --------------------------------------------------------------------------
+   Colour is a SIGNAL, not a surface. The functional colours below mark nodes,
+   states, categories and relationships. They are not there to fill boxes: a
+   page with seven coloured panels says nothing, a page with one amber node on
+   a thin line says "this one".
    ========================================================================== */
 
 :root {
-  /* Universe mineral palette */
+  /* --- Neutrals: the two colours the site is actually made of ------------ */
+  --meish-navy:  #07111F;
+  --meish-ivory: #F4EFE8;
+
+  /* --- Functional colours ------------------------------------------------
+     Each carries a meaning; use the name, not the hex, at the call site. */
+  --orbit-ember:       #D56A16;  /* movement, energy, something starting   */
+  --alignment-gold:    #E7A92F;  /* fit, resonance, a match found          */
+  --lucent-teal:       #20A6A6;  /* clarity, seeing through                */
+  --gift-magenta:      #D73E82;  /* offering, something given              */
+  --resonance-violet:  #7147A8;  /* reflection, human signal               */
+  --insight-red:       #D83A32;  /* attention, a finding                   */
+  --deep-orbit-indigo: #273F86;  /* structure, system, depth               */
+
+  /* Universe mineral palette (older names, kept so existing pages resolve) */
   --color-deep-space:  #0B1020;
   --color-amethyst:    #6A5ACD;
   --color-fluorite:    #00C3D6;
@@ -15,11 +32,13 @@
   --color-pink-quartz: #F6B8E0;
   --color-opal:        #EAF6FF;
 
-  /* Light / editorial surfaces (primary website world) */
-  --color-ivory:    #f6f1e8;
+  /* Light / editorial surfaces (primary website world).
+     Ivory and navy now resolve to the canonical Meish neutrals, so every
+     existing rule picks up the new palette without being rewritten. */
+  --color-ivory:    var(--meish-ivory);
   --color-cream:    #f3eee4;
   --color-pearl:    #f7f3ea;
-  --color-navy:     var(--color-deep-space);
+  --color-navy:     var(--meish-navy);
   --color-lavender: var(--color-amethyst);
   --color-red:      var(--color-coral);
 
@@ -44,36 +63,62 @@
   --text-soft:     var(--color-ink-soft);
   --text-muted:    var(--color-larvikite);
   --border:        var(--color-line);
-  --accent:        var(--color-amethyst);
-  --accent-hover:  #5748b8;
-  --accent-tint:   rgba(106, 90, 205, 0.12);
+  /* Was amethyst #6A5ACD — the lilac that made every button look like a
+     generic SaaS product. Deep Orbit Indigo is a Meish colour and reads as
+     structure rather than decoration. */
+  --accent:        var(--deep-orbit-indigo);
+  --accent-hover:  #1c2f68;
+  --accent-tint:   rgba(39, 63, 134, 0.1);
 
   /*
-    Canonical display: ATHENA Condensed.
-    TEMPORARY DEVELOPMENT FALLBACK — not production canon:
-    Bodoni Moda is used only while ATHENA files are missing from public/fonts/.
-    Do not treat Bodoni as the approved headline face.
+    Two families, both self-hosted. See fonts.css for why.
+    --font-display  headings and large editorial statements
+    --font-body     everything else: copy, nav, buttons, labels, prices
+    Do not add a third.
   */
-  --font-display: 'ATHENA Condensed', 'ATHENA', 'Bodoni Moda', Georgia, 'Times New Roman', serif;
-  --font-body:    'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-display: 'Libre Baskerville', Georgia, 'Times New Roman', serif;
+  --font-body:    'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  /* Kept as an alias so older rules asking for a UI face resolve correctly
+     instead of silently falling back to the browser default. */
+  --font-ui:      var(--font-body);
 
-  --text-xs:   0.875rem;  /* 14px — smallest public label */
-  --text-sm:   1rem;      /* 16px — nav / buttons */
-  --text-base: 1.125rem;  /* 18px — body */
-  --text-md:   1.25rem;   /* 20px — important explainer */
-  --text-lg:   1.75rem;   /* ~28px H3 */
-  --text-xl:   clamp(2rem, 3.4vw, 3.25rem);   /* H2 32–52 */
-  --text-2xl:  clamp(2.625rem, 6vw, 5.5rem);  /* H1 42–88 */
-  --text-meish: clamp(2.75rem, 7vw, 5.75rem);
+  /* One scale for the whole site. The clamps are tuned so the value at 390px
+     lands on the mobile target and the value at 1280–1440px lands on the
+     desktop target, rather than sliding freely between them:
+
+                     mobile target   at 390px   desktop target   at 1280px
+       H1            40–46px         40px       56–64px          56px
+       H2            30–34px         30px       38–44px          38px
+       H3            22–26px         22px       24–28px          24px
+       Body          17–18px         18px       17–19px          18px
+
+     Nothing here shrinks to make content fit. If something does not fit, the
+     content or the layout changes — not the type size. */
+  --text-xs:   0.8125rem;  /* 13px — labels, metadata */
+  --text-sm:   0.9375rem;  /* 15px — small print */
+  --text-base: 1.125rem;   /* 18px — body */
+  --text-md:   clamp(1.1875rem, 1.6vw, 1.375rem);  /* lead 19–22 */
+  --text-lg:   clamp(1.375rem, 1.9vw, 1.75rem);    /* H3 22–28 */
+  --text-xl:   clamp(1.875rem, 3vw, 2.75rem);      /* H2 30–44 */
+  /* Inner-page titles. The display size below is reserved for the two brand
+     lines; a page title set at 64px turns every working principle into a
+     manifesto. This sits clear of H2 so the hierarchy still reads. */
+  --text-page: clamp(2.25rem, 3.6vw, 3.125rem);    /* 36–50 */
+  --text-2xl:  clamp(2.5rem, 4.4vw, 4rem);         /* H1 40–64 */
+  /* The wordmark sits above H1 and must stay visually dominant. */
+  --text-meish: clamp(3.25rem, 6.4vw, 5.5rem);     /* 52–88 */
+  --text-button: 1.0625rem;  /* 17px */
 
   --weight-regular: 400;
   --weight-medium:  500;
   --weight-semibold:600;
   --weight-black:   700;
 
-  --leading-tight:  1.08;
-  --leading-snug:   1.28;
-  --leading-normal: 1.6;
+  /* A transitional serif needs more room between lines than a condensed one.
+     Body stays inside the 1.5–1.7 band the brief asks for. */
+  --leading-tight:  1.18;
+  --leading-snug:   1.34;
+  --leading-normal: 1.62;
 
   --tracking-tight: -0.02em;
   --tracking-wide:  0.2em;
@@ -91,7 +136,10 @@
   --measure:       62ch;
   --width-content: 1080px;
   --width-wide:    1320px;
-  --gutter:        clamp(1.25rem, 5vw, 3.5rem);
+  /* Floor of 1.5rem = the 24px minimum the brief sets for phones. The old
+     1.25rem floor put text 20px from the edge at 375px wide, which reads as
+     the page having no margin at all. */
+  --gutter:        clamp(1.5rem, 5vw, 3.5rem);
 
   --radius-sm: 2px;
   --radius-md: 4px;

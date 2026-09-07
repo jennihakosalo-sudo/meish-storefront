@@ -93,34 +93,111 @@ export const coreMessage = {
 
 /* --- For example ---------------------------------------------------------- */
 
+/* Each entry answers three things in order: when to get in touch, what we
+   would actually do, and what the client ends up with. Situations, not
+   shortcomings — nobody recognises themselves in a description of a deficit. */
+
 export interface Example {
   who: string;
-  what: string;
+  what: string[];
   accent: string;
+  product?: { name: string; tagline: string };
 }
 
 export const examples: Example[] = [
   {
     who: 'A company',
-    what: 'Five possible directions. We find which one deserves a real test.',
+    what: [
+      'Contact us when your business has several possible directions and you need to decide which one is worth pursuing.',
+      'We identify realistic opportunities and help assess which one deserves a practical test.',
+      'This could mean a new product, customer group, service, way of working or commercial direction.',
+    ],
     accent: 'var(--deep-orbit-indigo)',
   },
   {
     who: 'A hotel or service',
-    what: 'We observe one part of the customer journey and identify what deserves changing.',
+    what: [
+      'Contact us when you want to know what your customers actually experience and notice.',
+      'We can observe the real customer journey — including arrival, service, spaces, cleanliness, sensory experience and departure — and assess which observations genuinely matter.',
+      'The result helps distinguish what should be kept, changed, tested or left alone.',
+    ],
     accent: 'var(--resonance-violet)',
   },
   {
     who: 'A leader',
-    what: 'We make uncertainty and working patterns easier to notice.',
+    what: [
+      'Contact us when valuable thinking, experience or working philosophy exists mostly in your head and deserves to become usable.',
+      'We interview you to uncover and structure what you know, think and have learned — including knowledge that may never have been written down.',
+      'That thinking can then become useful material such as LinkedIn posts, training material, talks, working principles or other content.',
+    ],
     accent: 'var(--alignment-gold)',
+    product: {
+      name: 'Meish Thought Leadership Sprint',
+      tagline: 'Your thinking is valuable. Make it visible.',
+    },
   },
   {
     who: 'A space',
-    what: 'We observe how people actually use it before changing it.',
+    what: [
+      'Contact us when the purpose of a space is changing or the way the space is used needs to change.',
+      'Before designing solutions, we observe how people use the space now, what actually happens there and what the space should enable in the future.',
+      'We then assess what should be kept, what should change and what may not need to be done at all.',
+    ],
     accent: 'var(--lucent-teal)',
   },
 ];
+
+/* The same four situations in Finnish. Each one keeps the colour of its
+   English counterpart, which is what tells a reader the two lists are one list
+   rather than two. The Sprint name and its line stay in English on purpose:
+   it is a product name, not a sentence to translate. */
+
+export const examplesFi: { label: string; heading: string; items: Example[] } = {
+  label: 'Suomeksi',
+  heading: 'Mitä me oikeasti teemme',
+  items: [
+    {
+      who: 'Yritys',
+      what: [
+        'Ota meihin yhteyttä, kun yritykselläsi on useita mahdollisia suuntia ja pitäisi selvittää, mikä niistä kannattaa viedä eteenpäin.',
+        'Tunnistamme realistisia mahdollisuuksia ja autamme arvioimaan, mikä niistä kannattaa viedä käytännön testiin.',
+        'Se voi tarkoittaa esimerkiksi uutta tuotetta, asiakasryhmää, palvelua, toimintatapaa tai kaupallista suuntaa.',
+      ],
+      accent: 'var(--deep-orbit-indigo)',
+    },
+    {
+      who: 'Hotelli tai palvelu',
+      what: [
+        'Ota meihin yhteyttä, kun haluat tietää, mitä asiakkaasi todella kokee ja havaitsee.',
+        'Voimme havainnoida todellista asiakaspolkua — esimerkiksi saapumista, palvelua, tiloja, siisteyttä, aistikokemusta ja lähtöä — ja arvioida, millä havainnoilla on oikeasti merkitystä.',
+        'Tulosten perusteella voidaan erottaa, mitä kannattaa säilyttää, muuttaa, testata tai jättää tekemättä.',
+      ],
+      accent: 'var(--resonance-violet)',
+    },
+    {
+      who: 'Johtaja',
+      what: [
+        'Ota meihin yhteyttä, kun arvokasta ajattelua, kokemusta tai työfilosofiaa on tarve tehdä näkyväksi.',
+        'Haastattelemme sinua. Saat kertoa, mitä ajattelet, tiedät ja osaat — myös sellaista hiljaista tietoa, jota et ehkä ole koskaan tullut ajatelleeksi.',
+        'Saat meiltä esimerkiksi LinkedIn-sisältöjä, koulutusmateriaalia, puheenvuoroja, työskentelyperiaatteita tai muuta juuri sinulle käyttökelpoista aineistoa.',
+      ],
+      accent: 'var(--alignment-gold)',
+      product: {
+        name: 'Meish Thought Leadership Sprint',
+        tagline: 'Your thinking is valuable. Make it visible.',
+      },
+    },
+    {
+      who: 'Tila',
+      what: [
+        'Ota meihin yhteyttä, jos tilan käyttötarkoitus on muuttumassa tai tilankäyttöön tarvitaan muutoksia.',
+        'Ennen ratkaisujen suunnittelua selvitämme, miten ihmiset käyttävät tilaa nyt, mitä siellä todella tapahtuu ja mitä tilan pitäisi jatkossa mahdollistaa.',
+        'Sen perusteella arvioimme, mitä kannattaa säilyttää, mitä muuttaa ja mitä ei tarvitse tehdä lainkaan.',
+      ],
+      accent: 'var(--lucent-teal)',
+    },
+  ],
+};
 
 /* --- Products ------------------------------------------------------------- */
 
@@ -183,7 +260,7 @@ export const toolSets = {
     { name: 'Flow', skill: 'A week that runs without friction you stopped noticing.', accent: 'var(--orbit-ember)' },
     {
       name: 'Human signals',
-      skill: 'Reading what people are telling you before they say it.',
+      skill: 'Noticing the signals people give through behaviour, choices and interaction.',
       accent: 'var(--resonance-violet)',
     },
   ],

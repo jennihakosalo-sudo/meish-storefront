@@ -147,7 +147,7 @@ export const leadershipToolSets: ToolSet[] = [
   {
     slug: 'human-signals',
     name: 'Human Signals',
-    skill: 'Reading what people are telling you before they say it.',
+    skill: 'Noticing the signals people give through behaviour, choices and interaction.',
     tools: ['Uncertainty Load Scan', 'Meeting Aftertaste', 'Signal Before Survey'],
     accent: 'var(--resonance-violet)',
   },

@@ -24,9 +24,15 @@ interface Props {
   product: CardProduct;
   /** Renders the price larger and the name at heading scale. */
   featured?: boolean;
+  /**
+   * The homepage names the products but does not price them: a price asked for
+   * before the work is understood invites a comparison rather than a question.
+   * Prices live on the pages that explain what is being bought.
+   */
+  showPrice?: boolean;
 }
 
-const { product, featured = false } = Astro.props as Props;
+const { product, featured = false, showPrice = true } = Astro.props as Props;
 
 /* Keep the final word and the arrow together. Without this the longest label
    wrapped and left the arrow sitting alone on a second line. */
@@ -36,7 +42,7 @@ const ctaHead = words.join(' ');
 ---
 
 <article
-  class:list={['product', featured && 'product--featured']}
+  class:list={['product', featured && 'product--featured', !showPrice && 'product--unpriced']}
   style={`--accent-node: ${product.accent}`}
   id={product.slug}
 >
@@ -46,7 +52,7 @@ const ctaHead = words.join(' ');
   </p>
   <h3 class="product__name">{product.name}</h3>
   <p class="product__promise">{product.promise}</p>
-  <p class="product__price">{product.price}</p>
+  {showPrice && <p class="product__price">{product.price}</p>}
   <p class="product__action">
     {/* Kept on one line: broken across lines, the template collapses the space
         between the head and the tail and the label renders as one word. */}
@@ -107,12 +113,18 @@ const ctaHead = words.join(' ');
     text-wrap: pretty;
   }
 
+  /* One row fewer when there is no price, so the promise still absorbs the
+     slack and the actions still line up across a row of cards. */
+  .product--unpriced {
+    grid-template-rows: auto auto 1fr auto;
+  }
+
   .product__price {
-    margin: 1rem 0 0;
+    margin: 0.75rem 0 0;
     font-family: var(--font-body);
-    font-size: var(--text-base);
-    font-weight: 600;
-    color: var(--color-navy);
+    font-size: 0.9375rem;
+    font-weight: 400;
+    color: #13254a;
     font-variant-numeric: tabular-nums;
   }
 
@@ -164,6 +176,12 @@ const ctaHead = words.join(' ');
     grid-row: 3;
     margin-top: 0.15rem;
   }
+  /* Without a price above it, the action takes the row the price would have
+     had — otherwise it sits a row down from nothing. */
+  .product--featured.product--unpriced .product__action {
+    grid-row: 2;
+    margin-top: 0.75rem;
+  }
 
   .product--featured .product__name {
     font-size: clamp(1.5rem, 2.2vw, 1.875rem);
@@ -173,7 +191,8 @@ const ctaHead = words.join(' ');
     max-width: 44ch;
   }
   .product--featured .product__price {
-    font-size: 1.1875rem;
+    font-size: 0.9375rem;
+    font-weight: 400;
   }
 
   @media (max-width: 48rem) {

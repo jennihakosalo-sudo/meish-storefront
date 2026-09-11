@@ -8,13 +8,28 @@
  * reasoning only once something has caught their attention.
  */
 import Base from '../layouts/Base.astro';
+import LightHero from '../components/LightHero.astro';
 import ProductCard from '../components/ProductCard.astro';
-import { productsFor } from '../data/meish-products';
-import { fitCheckHref } from '../data/navigation';
+import ProductDetail from '../components/ProductDetail.astro';
+import { getProduct as getCatalogProduct } from '../data/meish-products';
+import { closing, contactAction, getProductDetail, pageHeroes } from '../data/site-content';
 
-const products = productsFor('business');
-const lead = products.find((p) => p.slug === 'recognition-sprint');
-const rest = products.filter((p) => p.slug !== 'recognition-sprint');
+/* The three a business is most likely to be here for, described at length.
+   Order is deliberate: direction first, then experience, then the leader's
+   own thinking. */
+const detailed = [
+  getProductDetail('recognition-sprint'),
+  getProductDetail('human-experience-review'),
+  getProductDetail('thought-leadership-sprint'),
+];
+
+/* Real products, but not what this page is arguing for. Named and priced so
+   nothing is hidden, and short so they do not compete with the three above. */
+const alsoAvailable = [
+  getCatalogProduct('behavior-composition-audit')!,
+  getCatalogProduct('leadership-tool-sets')!,
+  getCatalogProduct('business-factory')!,
+];
 
 const themes = [
   ['Clarity', 'Knowing what is actually being decided, and by whom.'],
@@ -28,32 +43,29 @@ const themes = [
 
 <Base
   title="Meish for Your Business — recognition, then the first useful test"
-  description="Find the strongest next direction and define the first test. Recognition Sprint from €590 + VAT, Human Experience Review from €950 + VAT, Leadership Tool Sets from €49. 20-minute Fit Check €0."
+  description="Find the strongest next direction and define the first test. Recognition Sprint from €590 + VAT, Human Experience Review from €950 + VAT, Thought Leadership Sprint from €690 + VAT."
 >
-  <section class="head">
-    <div class="container">
-      <p class="head__eyebrow">
-        This may interest you if you are an entrepreneur, CEO or team lead.
-      </p>
-      <h1>The hard part is rarely a lack of options.</h1>
-      <p class="head__lead">
-        It is knowing which one deserves to move, and what the first honest test of it would be.
-        That is the work.
-      </p>
-    </div>
-  </section>
+  <LightHero {...pageHeroes.business} action={null} />
 
   <section class="band" aria-labelledby="offers-title">
     <div class="container">
       <h2 id="offers-title">What we can do together</h2>
-      <div class="products">
-        {lead && <ProductCard product={lead} featured />}
-        {rest.map((p) => <ProductCard product={p} />)}
+      <div class="details">
+        {detailed.map((p) => <ProductDetail product={p} />)}
       </div>
     </div>
   </section>
 
-  <section class="band band--soft" aria-labelledby="themes-title">
+  <section class="band band--soft" aria-labelledby="also-title">
+    <div class="container">
+      <h2 id="also-title">Also available</h2>
+      <div class="products">
+        {alsoAvailable.map((p) => <ProductCard product={p} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="themes-title">
     <div class="container">
       <h2 id="themes-title">What tends to come up</h2>
       <dl class="themes">
@@ -77,45 +89,20 @@ const themes = [
     <div class="container">
       <h2 id="start-title">Not sure which one?</h2>
       <p class="band__intro">
-        Twenty free minutes is usually enough to tell whether any of this is useful in your
-        situation — and which one to start with if it is.
+        Describe the situation in a couple of sentences. We will say whether any of this is useful
+        here — and which one to start with if it is.
       </p>
+      <p class="band__brief">{closing.heading}</p>
       <p class="band__action">
-        <a class="button button--primary" href={fitCheckHref}>Book a Fit Check — €0</a>
+        <a class="button button--primary" href={contactAction.href}>{contactAction.label}</a>
       </p>
     </div>
   </section>
 </Base>
 
 <style>
-  .head {
-    padding-block: clamp(2.75rem, 6vw, 4.5rem) clamp(1.5rem, 3vw, 2.25rem);
-    background: var(--color-ivory);
-  }
-  .head__eyebrow {
-    margin: 0 0 0.9rem;
-    font-family: var(--font-body);
-    font-size: 0.9375rem;
-    color: var(--color-ink-muted);
-    max-width: 46ch;
-  }
-  .head h1 {
-    margin: 0;
-    font-size: var(--text-page);
-    font-weight: 400;
-    max-width: 20ch;
-  }
-  .head__lead {
-    margin: 1.15rem 0 0;
-    font-family: var(--font-body);
-    font-size: clamp(1.125rem, 1.6vw, 1.25rem);
-    line-height: 1.6;
-    max-width: 48ch;
-    color: var(--color-ink-soft);
-  }
-
   .band {
-    padding-block: clamp(2.75rem, 6vw, 4.5rem);
+    padding-block: clamp(2rem, 4vw, 3rem);
   }
   .band--soft {
     background: var(--color-cream);
@@ -144,6 +131,21 @@ const themes = [
   .band__action {
     margin: 1.75rem 0 0;
     max-width: none;
+  }
+  .band__brief {
+    margin: 1.25rem 0 0;
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    line-height: 1.4;
+    color: var(--meish-ivory);
+  }
+
+  /* One product per row, stacked. Three long descriptions side by side would
+     be three columns of text nobody reads across. */
+  .details {
+    display: grid;
+    gap: clamp(2rem, 4vw, 3rem);
+    margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
   }
 
   .products {

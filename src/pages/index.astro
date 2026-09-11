@@ -4,10 +4,12 @@
  *
  * Ordered for a visitor who has never heard of Meish and will give the page
  * about fifteen seconds: what this is, what it looks like in practice, what
- * they can buy and for how much, how we work, and the free way in.
+ * they can buy, how we work, and how to get in touch.
  *
  * Products sit above the philosophy. Anyone who wants the thinking will keep
- * scrolling; nobody should have to scroll past it to find a price.
+ * scrolling; nobody should have to scroll past it to find out what is sold.
+ *
+ * No prices here. They are on the pages that explain what is being bought.
  *
  * Copy lives in src/data/site-content.ts. Edit it there, not here.
  */
@@ -18,55 +20,62 @@ import ProductCard from '../components/ProductCard.astro';
 import {
   coreMessage,
   examples,
-  examplesFi,
   products,
   toolSets,
   recognition,
-  fitCheckSection,
-  fitCheck,
+  closing,
+  contactAction,
   CONTACT_EMAIL,
   mailTo,
+  getProduct,
 } from '../data/site-content';
 ---
 
 <Base
   title="Meish — Designed around being human."
-  description="We notice what matters, compare what could come next and turn the right direction into something useful. Recognition Sprint, Human Experience Review, Behavior & Composition Audit. Free 20-minute Fit Check."
+  description="We notice what matters, compare what could come next and turn the right direction into something useful. Recognition Sprint, Human Experience Review, Behavior & Composition Audit."
 >
-  <LightHero />
+  <LightHero modifier="hero--home" />
 
-  {/* ---- Core message -----------------------------------------------------
-       The question a prospective client should recognise themselves in, asked
-       before anything is explained or sold. English then Finnish: one
-       statement made twice, never interleaved. The Finnish half carries the
-       same indigo rule and teal node used for the Finnish band on /tools, so
-       "this is the same thing, in your language" reads the same way sitewide.
+  {/* ---- Orientation ------------------------------------------------------
+       After the image: one question, then air. Not another dense block.
        -------------------------------------------------------------------- */}
   <section class="core" aria-labelledby="core-title">
     <div class="container">
       <div class="core__block">
-        <h2 id="core-title" class="core__question">{coreMessage.en.question}</h2>
-        <p class="core__answer">{coreMessage.en.answer}</p>
-        {coreMessage.en.body.map((p) => <p class="core__body">{p}</p>)}
-      </div>
-
-      <div class="core__block fi" lang="fi">
-        <p class="fi__lang">
-          <span class="fi__node" aria-hidden="true"></span>
-          {coreMessage.fi.label}
-        </p>
-        <h2 class="core__question">{coreMessage.fi.question}</h2>
-        <p class="core__answer">{coreMessage.fi.answer}</p>
-        {coreMessage.fi.body.map((p) => <p class="core__body">{p}</p>)}
+        <h2 id="core-title" class="core__question">{coreMessage.question}</h2>
+        <p class="core__answer">{coreMessage.answer}</p>
+        {coreMessage.body.map((p) => <p class="core__body">{p}</p>)}
       </div>
     </div>
   </section>
 
+  {/* ---- What you can buy ------------------------------------------------- */}
+  <section class="offers" aria-labelledby="offers-title">
+    <div class="container">
+      <h2 id="offers-title" class="offers__title">What we can start with</h2>
+
+      <ul class="offers__list">
+        {products.map((p) => (
+          <li class="offer" style={`--node: ${p.accent}`}>
+            <p class="offer__name">
+              <span class="offer__node" aria-hidden="true"></span>
+              <a href={`#${p.slug}`}>{p.name}</a>
+            </p>
+            <p class="offer__outcome">{p.outcome}</p>
+          </li>
+        ))}
+      </ul>
+
+      <p class="offers__more">
+        <a href="#products">What each one includes</a>
+      </p>
+    </div>
+  </section>
+
   {/* ---- For example ------------------------------------------------------
-       Four situations, not four boxes. The rule at the left edge is one line
-       carrying four coloured nodes: the same colours reappear on the products
-       further down, so a reader can follow "a company" to Recognition Sprint
-       without being told to.
+       Four situations in one vertical flow. The product name carries the
+       colour of that situation.
        -------------------------------------------------------------------- */}
   <section class="band" id="for-example" aria-labelledby="for-example-title">
     <div class="container">
@@ -76,64 +85,40 @@ import {
       <ul class="examples">
         {examples.map((e) => (
           <li class="example" style={`--node: ${e.accent}`}>
-            {/* A label, not a heading. Marking it up as h3 put a 13px caps
-                label into the document outline between two real headings. */}
             <p class="example__who">{e.who}</p>
             {e.what.map((p) => <p class="example__what">{p}</p>)}
-            {e.product && (
+            {e.href && (
               <div class="example__product">
-                <p class="example__product-name">{e.product.name}</p>
-                <p class="example__product-line">{e.product.tagline}</p>
+                <p class="example__product-name">
+                  <a href={e.href}>
+                    {e.product?.name ?? getProduct(e.productSlug ?? '')?.name}
+                    <span aria-hidden="true"> →</span>
+                  </a>
+                </p>
+                {e.product?.tagline && (
+                  <p class="example__product-line">{e.product.tagline}</p>
+                )}
               </div>
             )}
           </li>
         ))}
       </ul>
-
-      {/* The same four situations in Finnish. Each node keeps the colour of
-          its English counterpart: that correspondence is what says "same list,
-          other language" without a word of explanation. */}
-      <div class="fi" lang="fi">
-        <p class="fi__lang">
-          <span class="fi__node" aria-hidden="true"></span>
-          {examplesFi.label}
-        </p>
-        <h2 class="band__title">{examplesFi.heading}</h2>
-
-        <ul class="examples">
-          {examplesFi.items.map((e) => (
-            <li class="example" style={`--node: ${e.accent}`}>
-              <p class="example__who">{e.who}</p>
-              {e.what.map((p) => <p class="example__what">{p}</p>)}
-              {e.product && (
-                <div class="example__product" lang="en">
-                  <p class="example__product-name">{e.product.name}</p>
-                  <p class="example__product-line">{e.product.tagline}</p>
-                </div>
-              )}
-            </li>
-          ))}
-        </ul>
-      </div>
     </div>
   </section>
 
   {/* ---- Products --------------------------------------------------------- */}
-  <section class="band band--soft" id="products" aria-labelledby="products-title">
+  <section class="band band--opal" id="products" aria-labelledby="products-title">
     <div class="container">
-      <h2 id="products-title" class="band__title">What we can do together</h2>
-      <p class="band__lead">
-        Three ways to start. Each one ends with something you can act on.
-      </p>
+      <h2 id="products-title" class="band__title">What each one includes</h2>
 
       <div class="products">
         {products.map((p) => (
-          <ProductCard product={p} />
+          <ProductCard product={p} showPrice={false} />
         ))}
       </div>
 
       <p class="products__note">
-        Prices exclude VAT. Every one of these starts with an email — the address is
+        Every one of these starts with an email — the address is
         <a href={mailTo('Meish')}>{CONTACT_EMAIL}</a>.
       </p>
     </div>
@@ -148,7 +133,6 @@ import {
       <div>
         <h2 id="tools-title" class="strip__title">{toolSets.heading}</h2>
         <p class="strip__lead">{toolSets.lead}</p>
-        <p class="strip__price">{toolSets.price}</p>
         <p class="strip__action">
           <a class="button button--ghost" href={toolSets.cta.href}>{toolSets.cta.label}</a>
         </p>
@@ -165,62 +149,91 @@ import {
   </section>
 
   {/* ---- Recognition before creation --------------------------------------- */}
-  <section class="band band--soft" aria-labelledby="recognition-title">
+  <section class="moment" aria-labelledby="recognition-title">
     <div class="container">
       <p class="eyebrow">Recognition before creation</p>
-      <h2 id="recognition-title" class="band__title">{recognition.heading}</h2>
-      <p class="band__lead">{recognition.body}</p>
+      <h2 id="recognition-title" class="moment__title">{recognition.heading}</h2>
+      <p class="moment__lead">{recognition.body}</p>
 
-      <RecognitionPath steps={recognition.steps} />
+      <RecognitionPath steps={recognition.steps} size="moment" />
     </div>
   </section>
 
-  {/* ---- Fit Check --------------------------------------------------------- */}
-  <section class="band band--ink on-dark" id="fit-check" aria-labelledby="fit-check-title">
-    <div class="container fit">
-      <div class="fit__head">
-        <p class="eyebrow eyebrow--light">{fitCheckSection.eyebrow}</p>
-        <h2 id="fit-check-title" class="fit__title">{fitCheckSection.heading}</h2>
-        <p class="fit__price">{fitCheckSection.price}</p>
-      </div>
-
-      <div class="fit__body">
-        <p class="fit__intro">{fitCheckSection.intro}</p>
-        <ul class="fit__bring">
-          {fitCheckSection.bring.map((b) => (
-            <li>{b}</li>
-          ))}
-        </ul>
-        <p class="fit__note">{fitCheckSection.inTwenty}</p>
-        <p class="fit__note">{fitCheckSection.leaveWith}</p>
-        <p class="fit__note fit__note--quiet">{fitCheckSection.noPressure}</p>
-
-        <p class="fit__actions">
-          <a class="button button--primary" href={fitCheck.href}>{fitCheck.cta}</a>
-        </p>
-        <p class="fit__address">
-          or write to <a href={mailTo('Meish Fit Check')}>{CONTACT_EMAIL}</a>
-        </p>
+  {/* ---- Close: write ------------------------------------------------------ */}
+  <section class="close on-dark" id="start" aria-labelledby="start-title">
+    <div class="container">
+      <div class="fit">
+        <div class="fit__head">
+          <p class="eyebrow eyebrow--light">{closing.eyebrow}</p>
+          <h2 id="start-title" class="fit__title">{closing.heading}</h2>
+        </div>
+        <div class="fit__body">
+          <p class="fit__intro">{closing.intro}</p>
+          <ul class="fit__bring">
+            {closing.bring.map((b) => (
+              <li>{b}</li>
+            ))}
+          </ul>
+          <p class="fit__note">{closing.weDo}</p>
+          <p class="fit__note">{closing.leaveWith}</p>
+          <p class="fit__note fit__note--quiet">{closing.noPressure}</p>
+          <p class="fit__actions">
+            <a class="button button--primary" href={contactAction.href}>{contactAction.label}</a>
+          </p>
+          <p class="fit__address">
+            or write to <a href={mailTo('Meish')}>{CONTACT_EMAIL}</a>
+          </p>
+        </div>
       </div>
     </div>
   </section>
 </Base>
 
 <style>
+  /* Homepage rhythm. Scoped here so Business / Space / Tools / About stay. */
+  .core,
+  .offers,
+  .band,
+  .strip,
+  .moment,
+  .close {
+    --home-midnight: #13254a;
+    --home-opal: #f7f4ee;
+    --home-white: #ffffff;
+    --home-ruby: #c92f46;
+    --home-violet: #7548d8;
+    --home-orange: #d98532;
+  }
+
   /* --- Shared section shell ------------------------------------------------ */
 
   .band {
-    padding-block: clamp(3rem, 6.5vw, 5.5rem);
+    padding-block: clamp(2rem, 4vw, 3rem);
+    background: var(--home-white, #ffffff);
   }
   .band--soft {
-    background: var(--bg-alt);
-    border-block: var(--border-hair);
+    background: var(--home-opal, #f7f4ee);
+    border-block: none;
+  }
+  .band--opal {
+    background: #f7f4ee;
+    border-block: none;
+    padding-block: clamp(2rem, 4vw, 3rem);
   }
   .band--ink {
     background: var(--color-navy);
     color: var(--color-ivory);
   }
 
+  /* One dusk field from the hero stone and oak — not a second night. */
+  .close {
+    --scale-night: #13254a;
+    --scale-oak: #d98532;
+    --scale-lamp: #f7f4ee;
+    padding-block: clamp(2rem, 4vw, 3rem);
+    background: var(--scale-night);
+    color: #ffffff;
+  }
   .eyebrow {
     margin: 0 0 0.75rem;
     font-family: var(--font-ui);
@@ -252,6 +265,174 @@ import {
     text-wrap: pretty;
   }
 
+  .moment {
+    padding-block: clamp(2rem, 4vw, 3rem);
+    background: #13254a;
+    color: #ffffff;
+  }
+  .moment .eyebrow {
+    color: rgba(247, 244, 238, 0.55);
+  }
+  .moment__title {
+    margin: 0;
+    font-size: var(--text-page);
+    font-weight: 400;
+    line-height: 1.16;
+    letter-spacing: -0.008em;
+    max-width: 18ch;
+    color: #ffffff;
+    text-wrap: balance;
+  }
+  .moment__lead {
+    margin: 0.85rem 0 0;
+    font-size: var(--text-base);
+    line-height: 1.55;
+    max-width: 48ch;
+    color: rgba(247, 244, 238, 0.7);
+    text-wrap: pretty;
+  }
+  .moment :global(.path) {
+    --line: rgba(247, 244, 238, 0.28);
+    margin-top: clamp(1.75rem, 4vw, 2.5rem);
+  }
+  .moment :global(.path__label) {
+    color: #ffffff;
+  }
+  .moment :global(.path__note) {
+    color: rgba(247, 244, 238, 0.62);
+  }
+  .moment :global(.path__index) {
+    color: rgba(247, 244, 238, 0.45);
+  }
+  .moment :global(.path__step:nth-child(1)) { --node: #c92f46; }
+  .moment :global(.path__step:nth-child(2)) { --node: #7548d8; }
+  .moment :global(.path__step:nth-child(3)) { --node: #d98532; }
+  .moment :global(.path__step:nth-child(4)) { --node: #f7f4ee; }
+  .moment :global(.path__step:nth-child(5)) { --node: #c92f46; }
+
+  /* --- What you can buy ----------------------------------------------------
+     A row of offers has to be read across, not down. The three items share
+     one subgrid, so name sits level with name and outcome with outcome
+     however the text wraps — that shared baseline is what makes three offers
+     comparable at a glance instead of three paragraphs to work through.
+
+     Quiet on purpose. It carries no cards, borders or buttons; the coloured
+     node is the same marker the examples and product cards already use, so a
+     reader can follow one colour from a situation to its card.
+     ---------------------------------------------------------------------- */
+
+  .offers {
+    padding-block: clamp(2rem, 4vw, 3rem);
+    background: #f7f4ee;
+    border-bottom: 0;
+  }
+  .offers .offer:nth-child(1) { --node: #13254a; }
+  .offers .offer:nth-child(2) { --node: #c92f46; }
+  .offers .offer:nth-child(3) { --node: #7548d8; }
+
+  .offers__title {
+    margin: 0 0 clamp(1.5rem, 3vw, 2.25rem);
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .offers__list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .offer {
+    display: grid;
+    gap: 0.4rem;
+    /* Two shared rows: name, outcome. Without subgrid each column would align
+       only at its own top edge and a two-line product name would push its
+       outcome out of line with the other two. */
+    grid-row: span 2;
+    grid-template-rows: subgrid;
+  }
+
+  /* The node marks the product: its job is to tie this offer to the situation
+     and the card that share its colour. */
+  .offer__name {
+    position: relative;
+    margin: 0;
+    padding-left: 1.1rem;
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    line-height: 1.2;
+    color: var(--color-navy);
+    text-wrap: balance;
+  }
+  .offer__name a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--color-line-strong);
+    text-underline-offset: 0.18em;
+  }
+  .offer__name a:hover {
+    color: var(--accent);
+    text-decoration-color: currentColor;
+  }
+  .offer__node {
+    position: absolute;
+    left: 0;
+    top: 0.52em;
+    width: 0.5rem;
+    height: 0.5rem;
+    background: var(--node);
+    border-radius: 50%;
+  }
+
+  .offer__outcome {
+    margin: 0;
+    padding-left: 1.1rem;
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    color: var(--text-soft);
+    text-wrap: pretty;
+  }
+
+  .offers__more {
+    margin: clamp(1.5rem, 3vw, 2.25rem) 0 0;
+    padding-left: 1.1rem;
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+  }
+  /* A one-line link at this size is about 20px tall, which is below a reliable
+     tap target. The padding is on the link, not the paragraph, so the extra
+     height is actually clickable. */
+  .offers__more a {
+    display: inline-block;
+    padding-block: 0.6rem;
+  }
+
+  @media (max-width: 52rem) {
+    /* Below three legible columns the row stops being a comparison, so it
+       becomes a list. Subgrid alignment is dropped with it: stacked, each
+       item aligns to itself and there is nothing left to compare across. */
+    .offers__list {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    .offer {
+      grid-row: auto;
+      grid-template-rows: none;
+      gap: 0.25rem;
+    }
+    .offer__name {
+      font-size: var(--text-md);
+    }
+  }
+
   /* --- Core message --------------------------------------------------------
      The question is the largest thing on the page after the hero and is meant
      to be read on its own. It is set below the hero's own scale so the two do
@@ -260,9 +441,9 @@ import {
      ---------------------------------------------------------------------- */
 
   .core {
-    padding-block: clamp(3rem, 6.5vw, 5rem);
-    background: var(--color-ivory);
-    border-block: var(--border-hair);
+    padding-block: clamp(2rem, 4vw, 3rem);
+    background: #ffffff;
+    border-block: 0;
   }
 
   .core__question {
@@ -273,12 +454,12 @@ import {
     letter-spacing: -0.008em;
     max-width: 20ch;
     text-wrap: balance;
-    color: var(--color-navy);
+    color: #13254a;
   }
   /* The answer, not a subtitle: same voice as the question, half the size, no
      hedging around it. */
   .core__answer {
-    margin: 1.45rem 0 0;
+    margin: 0.85rem 0 0;
     font-family: var(--font-display);
     font-size: var(--text-lg);
     font-weight: 700;
@@ -286,7 +467,7 @@ import {
     color: var(--color-navy);
   }
   .core__body {
-    margin: 1.15rem 0 0;
+    margin: 0.7rem 0 0;
     font-family: var(--font-body);
     font-size: var(--text-base);
     line-height: 1.6;
@@ -295,124 +476,72 @@ import {
     text-wrap: pretty;
   }
   .core__body:first-of-type {
-    margin-top: 1.6rem;
-  }
-
-  /* --- Finnish counterparts ------------------------------------------------
-     Wherever an English block is repeated in Finnish, the Finnish half repeats
-     it exactly — same scale, same measure, same spacing — and is marked rather
-     than restyled. The rule begins at the boundary between the two so the
-     second block reads as the first one continuing in another language. The
-     same marker carries the Finnish band on /tools.
-     ---------------------------------------------------------------------- */
-
-  .fi {
-    position: relative;
-    margin-top: clamp(2.75rem, 5.5vw, 4rem);
-    padding-top: clamp(2.75rem, 5.5vw, 4rem);
-  }
-  .fi::before {
-    content: '';
-    position: absolute;
-    left: -1.75rem;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: var(--deep-orbit-indigo);
-  }
-  .fi__lang {
-    position: relative;
-    margin: 0 0 0.9rem;
-    font-family: var(--font-ui);
-    font-size: var(--text-xs);
-    font-weight: var(--weight-semibold);
-    letter-spacing: var(--tracking-wide);
-    text-transform: uppercase;
-    color: var(--deep-orbit-indigo);
-  }
-  .fi__node {
-    position: absolute;
-    left: -2rem;
-    top: 0.34em;
-    width: 0.625rem;
-    height: 0.625rem;
-    background: var(--lucent-teal);
-    border-radius: 50%;
-  }
-
-  @media (max-width: 40rem) {
-    /* The gutter cannot hold the offset, so the rule moves to the screen edge
-       rather than pushing the Finnish copy out of line with the English. */
-    .fi::before {
-      left: calc(-1 * var(--gutter) + 0.625rem);
-    }
-    .fi__node {
-      left: calc(-1 * var(--gutter) + 0.375rem);
-    }
+    margin-top: 1rem;
   }
 
   /* --- For example ---------------------------------------------------------
-     One vertical construction line down the left of the group, with a node per
-     situation. The line says "these belong together"; the nodes carry the
-     colour that the matching product repeats.
+     One vertical flow. A fine divider and colour on the product rule keep
+     the entries separate without cards or a two-column grid.
      ---------------------------------------------------------------------- */
 
   .examples {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0 clamp(2rem, 5vw, 4.5rem);
-    margin: clamp(2rem, 4vw, 3rem) 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: clamp(1.5rem, 3vw, 2.25rem) 0 0;
     padding: 0;
     list-style: none;
+    max-width: 42rem;
   }
 
   .example {
-    position: relative;
-    padding: 1.4rem 0 1.4rem 2rem;
-    border-left: 1px solid rgba(11, 16, 32, 0.14);
+    padding: clamp(1.25rem, 2.5vw, 1.75rem) 0;
+    border-top: 1px solid rgba(19, 37, 74, 0.12);
   }
-  .example::before {
-    content: '';
-    position: absolute;
-    top: 1.95rem;
-    left: -0.3125rem;
-    width: 0.625rem;
-    height: 0.625rem;
-    background: var(--node);
-    border-radius: 50%;
+  .example:first-child {
+    border-top: 0;
+    padding-top: 0.25rem;
   }
+  .example:nth-child(1) { --node: #13254a; }
+  .example:nth-child(2) { --node: #c92f46; }
+  .example:nth-child(3) { --node: #d98532; }
+  .example:nth-child(4) { --node: #7548d8; }
 
   .example__who {
     margin: 0;
-    font-family: var(--font-ui);
-    font-size: var(--text-xs);
-    font-weight: var(--weight-semibold);
-    letter-spacing: var(--tracking-wide);
-    text-transform: uppercase;
-    color: var(--text);
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 400;
+    letter-spacing: -0.006em;
+    text-transform: none;
+    color: #13254a;
   }
   .example__what {
     margin: 0.5rem 0 0;
     font-size: var(--text-base);
     line-height: 1.58;
-    color: var(--text-soft);
-    max-width: 34ch;
+    color: rgba(19, 37, 74, 0.62);
+    max-width: 48ch;
     text-wrap: pretty;
+  }
+  .example__what:nth-child(2) {
+    font-size: var(--text-md);
+    color: #13254a;
   }
   /* Each entry runs to three paragraphs — when to call, what we do, what you
      get — and they have to read as three, not as one block that broke. */
   .example__what + .example__what {
-    margin-top: 0.8rem;
+    margin-top: 0.55rem;
   }
 
   /* Where a situation has a named product, it is named. Set off by a rule in
      the entry's own colour so it reads as the conclusion of that entry rather
      than a fifth paragraph. */
   .example__product {
-    margin-top: 1.1rem;
-    padding-top: 0.9rem;
+    margin-top: 0.85rem;
+    padding-top: 0.7rem;
     border-top: 1px solid var(--node);
-    max-width: 34ch;
+    max-width: 48ch;
   }
   .example__product-name {
     margin: 0;
@@ -421,6 +550,16 @@ import {
     font-weight: 700;
     line-height: 1.35;
     color: var(--color-navy);
+  }
+  .example__product-name a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--color-line-strong);
+    text-underline-offset: 0.18em;
+  }
+  .example__product-name a:hover {
+    color: var(--accent);
+    text-decoration-color: currentColor;
   }
   .example__product-line {
     margin: 0.35rem 0 0;
@@ -435,7 +574,7 @@ import {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
     gap: clamp(1.25rem, 2.5vw, 2rem);
-    margin-top: clamp(2rem, 4vw, 3rem);
+    margin-top: clamp(1.25rem, 3vw, 2rem);
   }
   .products__note {
     margin: clamp(1.5rem, 3vw, 2.25rem) 0 0;
@@ -449,6 +588,10 @@ import {
 
   /* --- Small practical tools ----------------------------------------------- */
 
+  .strip {
+    background: #ffffff;
+    padding-block: clamp(2rem, 4vw, 3rem);
+  }
   .strip__grid {
     display: grid;
     grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
@@ -467,13 +610,6 @@ import {
     line-height: 1.58;
     color: var(--text-soft);
   }
-  .strip__price {
-    margin: 0.65rem 0 0;
-    font-family: var(--font-ui);
-    font-size: var(--text-base);
-    font-weight: var(--weight-semibold);
-    color: var(--text);
-  }
   .strip__action {
     margin: 1.25rem 0 0;
   }
@@ -485,6 +621,9 @@ import {
     padding: 0;
     list-style: none;
   }
+  .set:nth-child(1) { --node: #13254a; }
+  .set:nth-child(2) { --node: #d98532; }
+  .set:nth-child(3) { --node: #7548d8; }
   .set {
     display: grid;
     grid-template-columns: 0.75rem minmax(0, 9rem) minmax(0, 1fr);
@@ -518,7 +657,7 @@ import {
     color: var(--text-soft);
   }
 
-  /* --- Fit Check ------------------------------------------------------------ */
+  /* --- How to start --------------------------------------------------------- */
 
   .fit {
     display: grid;
@@ -533,13 +672,6 @@ import {
     line-height: 1.18;
     color: var(--color-ivory);
     text-wrap: balance;
-  }
-  .fit__price {
-    margin: 0.75rem 0 0;
-    font-family: var(--font-ui);
-    font-size: var(--text-lg);
-    font-weight: var(--weight-semibold);
-    color: var(--color-ivory);
   }
   .fit__intro {
     margin: 0;
@@ -596,13 +728,9 @@ import {
   /* --- Narrow --------------------------------------------------------------- */
 
   @media (max-width: 52rem) {
-    .examples,
     .strip__grid,
     .fit {
       grid-template-columns: 1fr;
-    }
-    .examples {
-      gap: 0;
     }
     .strip__grid,
     .fit {

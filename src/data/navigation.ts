@@ -29,7 +29,7 @@ export const primaryNav: NavLink[] = [
 ];
 
 /** Reachable, but not competing with the primary six. */
-export const secondaryNav: NavLink[] = [{ href: '/contact', label: 'Contact' }];
+export const secondaryNav: NavLink[] = [{ href: 'mailto:moona.m@meish.work?subject=Meish', label: 'Email Meish' }];
 
 export const allPublicNav: NavLink[] = [...primaryNav, ...secondaryNav];
 
@@ -42,18 +42,18 @@ export const contactEmail = CONTACT_EMAIL;
    ------------------------------------------------------------------------ */
 
 export const exploreLabel = 'Explore what Meish can do';
-export const exploreHref = '/#what-we-can-do-together';
+export const exploreHref = '/#products';
 
-/** The free entry conversation. Always priced in the label — it is the point. */
-export const fitCheckLabel = '20-minute Fit Check — €0';
-export const fitCheckHref = '/fit-check';
-
-/** Used where a direct message genuinely is the better route. */
+/**
+ * The one action on the public site. The named, priced 20-minute Fit Check and
+ * its route were retired: see `contactAction` in site-content, which is what
+ * the header, footer and every page ending now use.
+ */
 export const writeDirectHref = meishMailto({
-  product: '20-minute Fit Check',
+  product: 'Meish',
   page: 'Site',
-  section: 'Fit Check',
-  cta: 'Book a Fit Check',
+  section: 'Contact',
+  cta: 'Email Meish',
 });
 
 /* --- Transitional aliases -------------------------------------------------
@@ -71,13 +71,17 @@ export const contactMeishLabel = exploreLabel;
 /** @deprecated Use exploreHref. */
 export const contactMeishHref = exploreHref;
 
-/** @deprecated One Fit Check now, not two. Use fitCheckLabel. */
+/** @deprecated The Fit Check is retired. Use writeDirectHref. */
+export const fitCheckLabel = 'Email Meish';
+/** @deprecated The Fit Check is retired. Use writeDirectHref. */
+export const fitCheckHref = writeDirectHref;
+/** @deprecated The Fit Check is retired. Use writeDirectHref. */
 export const fitYouLabel = fitCheckLabel;
-/** @deprecated Use fitCheckHref. */
+/** @deprecated The Fit Check is retired. Use writeDirectHref. */
 export const fitYouHref = fitCheckHref;
-/** @deprecated One Fit Check now, not two. Use fitCheckLabel. */
+/** @deprecated The Fit Check is retired. Use writeDirectHref. */
 export const fitBusinessLabel = fitCheckLabel;
-/** @deprecated Use fitCheckHref. */
+/** @deprecated The Fit Check is retired. Use writeDirectHref. */
 export const fitBusinessHref = fitCheckHref;
 
 /** @deprecated The header no longer exposes internal pathway names. */

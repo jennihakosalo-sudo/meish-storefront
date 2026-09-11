@@ -97,17 +97,6 @@ export const meishProducts: MeishProduct[] = [
     accent: 'var(--orbit-ember)',
     order: 5,
   },
-  {
-    slug: 'fit-check',
-    category: 'Start here',
-    name: '20-minute Fit Check',
-    promise: 'A short conversation to see whether there is a useful next step together.',
-    price: '€0',
-    cta: { label: 'Book a Fit Check', href: '/fit-check' },
-    audiences: ['start', 'business', 'you', 'space'],
-    accent: 'var(--gift-magenta)',
-    order: 6,
-  },
 ];
 
 export const getProduct = (slug: string) => meishProducts.find((p) => p.slug === slug);

@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_ORIGIN } from '../lib/meish-mailto';
+import { publicServiceGraph } from '../data/public-services';
 
 interface Props {
   title?: string;
@@ -46,15 +47,17 @@ const websiteSchema = {
   name: 'Meish',
   url: SITE_ORIGIN,
   description:
-    'Meish — designed around being human Business offers, personal support, tools and gifts. English and Finnish.',
-  inLanguage: ['en', 'fi'],
+    'Meish — designed around being human. Recognition, human experience review, space audit, thought leadership and practical tools.',
+  /* The site itself is English. Meish works in Finnish too, which is stated on
+     the organisation above, but no Finnish version of these pages exists. */
+  inLanguage: 'en',
   publisher: { '@id': `${SITE_ORIGIN}/#organization` },
 };
 
 const extra = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@graph': [orgSchema, websiteSchema, ...extra],
+  '@graph': [orgSchema, websiteSchema, ...publicServiceGraph(), ...extra],
 };
 ---
 
@@ -92,14 +95,13 @@ const jsonLd = {
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="en_GB" />
-    <meta property="og:locale:alternate" content="fi_FI" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
 
-    <meta name="theme-color" content="#f6f1e8" />
+    <meta name="theme-color" content="#f7f2ea" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
@@ -111,10 +113,6 @@ const jsonLd = {
       <slot />
     </main>
     <Footer />
-
-    <script>
-      import '../scripts/cart';
-    </script>
 
     <style>
       .skip-link {

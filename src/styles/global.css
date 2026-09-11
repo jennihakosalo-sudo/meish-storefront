@@ -89,7 +89,8 @@ img, picture, svg, video { display: block; max-width: 100%; height: auto; }
    the separation the footer's top margin exists to create, so leaving the
    margin in adds a stray strip between the two — a visible fault when the band
    is dark, and simply a page trailing off when it is light. */
-main:has(> :last-child.band) + .site-footer {
+main:has(> :last-child.band) + .site-footer,
+main:has(> :last-child.close) + .site-footer {
   margin-top: 0;
 }
 
@@ -149,6 +150,28 @@ main:has(> :last-child.band) + .site-footer {
   background-color: var(--accent);
   border-color: var(--accent);
   color: var(--meish-ivory);
+}
+
+/* The hero button sits on a photograph, so it cannot borrow the page's
+   assumptions about what is behind it. It carries its own border in every
+   state, and hover inverts the button outright instead of shifting one dark
+   blue to another — over an image, a subtle hover reads as no hover at all. */
+.button--hero {
+  background-color: var(--meish-navy);
+  color: var(--meish-ivory);
+  border-color: rgba(244, 239, 232, 0.55);
+}
+.button--hero:hover {
+  background-color: var(--meish-ivory);
+  color: var(--meish-navy);
+  border-color: var(--meish-ivory);
+}
+/* A navy focus ring disappears against a dark photograph. This one is drawn in
+   ivory with a dark halo, so it survives whichever image is behind it. */
+.button--hero:focus-visible {
+  outline: 2px solid var(--meish-ivory);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px rgba(7, 17, 31, 0.55);
 }
 
 .button--ghost {

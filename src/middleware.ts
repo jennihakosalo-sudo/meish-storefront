@@ -10,9 +10,11 @@ const exact: Record<string, string> = {
   '/style': '/',
   '/success': '/',
   '/shop': '/',
-  '/services': '/contact',
-  '/reserve': '/contact',
+  '/services': '/for-business',
+  '/reserve': '/for-business',
+  '/contact': '/',
   '/elements': '/',
+  '/fit-check': '/',
   '/for-business/meish-treasure': '/for-business',
 };
 
@@ -21,8 +23,8 @@ function destination(path: string): string | null {
   if (path.startsWith('/universe')) return '/';
   if (path.startsWith('/shop/')) return '/';
   if (path.startsWith('/design/')) return '/';
-  if (path.startsWith('/services/')) return '/contact';
-  if (path.startsWith('/reserve/')) return '/contact';
+  if (path.startsWith('/services/')) return '/for-business';
+  if (path.startsWith('/reserve/')) return '/for-business';
   if (path.startsWith('/for-business/meish-treasure/')) return '/for-business';
   return null;
 }

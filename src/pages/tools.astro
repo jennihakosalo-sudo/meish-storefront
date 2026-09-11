@@ -10,7 +10,9 @@
  */
 import Base from '../layouts/Base.astro';
 import { leadershipToolSets, getProduct } from '../data/meish-products';
-import { fitCheckHref, writeDirectHref } from '../data/navigation';
+import LightHero from '../components/LightHero.astro';
+import { closing, contactAction, pageHeroes } from '../data/site-content';
+import { writeDirectHref } from '../data/navigation';
 
 const sets = leadershipToolSets;
 const setProduct = getProduct('leadership-tool-sets')!;
@@ -48,16 +50,7 @@ const tools = [
   title="Meish Tools — small instruments for one situation each"
   description="Small, practical, specific tools: Points of Confusion, Arrival Experience, Sensory Walk, Atmosphere Builder, and three Leadership Tool Sets from €49."
 >
-  <section class="head">
-    <div class="container">
-      <p class="head__eyebrow">Meish Tools</p>
-      <h1>A tool should be smaller than the problem.</h1>
-      <p class="head__lead">
-        Each of these does one thing, in one situation, and can be put down afterwards. None of
-        them is a platform, and none of them needs an account.
-      </p>
-    </div>
-  </section>
+  <LightHero {...pageHeroes.tools} action={null} />
 
   <section class="band" aria-labelledby="register-title">
     <div class="container">
@@ -87,9 +80,11 @@ const tools = [
     <div class="container">
       <p class="band__eyebrow">{setProduct.price}</p>
       <h2 id="sets-title">Leadership Tool Sets</h2>
+      <p class="band__intro">{setProduct.promise}</p>
       <p class="band__intro">
         Three sets, three tools each, one leadership skill per set. Made to be printed, filled in
-        and argued with — not to be read.
+        and argued with — not to be read. Choose the set by the skill you want to work on; the
+        three tools in it are listed below.
       </p>
 
       <div class="sets">
@@ -102,6 +97,7 @@ const tools = [
               </p>
               <h3 class="set__name">{s.name}</h3>
               <p class="set__skill">{s.skill}</p>
+              <p class="set__contains">Three tools in this set</p>
               <ul class="set__tools">
                 {s.tools.map((t) => (
                   <li>{t}</li>
@@ -126,71 +122,20 @@ const tools = [
       <h2 id="which-title">Not sure which tool fits?</h2>
       <p class="band__intro">
         Often the honest answer is that no tool is needed and the situation just has not been
-        described out loud yet. Twenty free minutes will tell you which it is.
+        described out loud yet. Write it down and send it — that is usually enough to tell.
       </p>
+      <p class="band__brief">{closing.heading}</p>
       <p class="band__action">
-        <a class="button button--primary" href={fitCheckHref}>Book a Fit Check — €0</a>
+        <a class="button button--primary" href={contactAction.href}>{contactAction.label}</a>
       </p>
     </div>
   </section>
 
-  {/* The same decision point, in Finnish. Same structure, same measure, same
-      destination — only the surface differs, so the two read as one choice
-      offered twice rather than as two separate offers. The indigo rule starts
-      at the seam with the band above and runs the height of this one. */}
-  <section class="band band--fi" aria-labelledby="fi-title" lang="fi">
-    <div class="container fi">
-      <p class="fi__lang">
-        <span class="fi__node" aria-hidden="true"></span>
-        Suomeksi
-      </p>
-      <h2 id="fi-title">Etkö tiedä, mikä työkalu sopii?</h2>
-      <p class="band__intro">
-        Aina työkalua ei tarvita. Joskus tilanne pitää ensin tehdä näkyväksi ja ymmärtää, mitä siinä
-        oikeastaan tapahtuu.
-      </p>
-      <p class="band__intro">
-        20 minuutin maksuttomassa Fit Checkissä selvitämme, mikä olisi hyödyllinen seuraava askel —
-        vai kannattaako tässä vaiheessa tehdä mitään.
-      </p>
-      <p class="band__action">
-        <a class="button button--primary" href={fitCheckHref}>Varaa Fit Check — 20 min · 0 €</a>
-      </p>
-    </div>
-  </section>
 </Base>
 
 <style>
-  .head {
-    padding-block: clamp(2.75rem, 6vw, 4.5rem) clamp(1.5rem, 3vw, 2.25rem);
-    background: var(--color-ivory);
-  }
-  .head__eyebrow {
-    margin: 0 0 0.8rem;
-    font-family: var(--font-body);
-    font-size: 0.8125rem;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--color-ink-muted);
-  }
-  .head h1 {
-    margin: 0;
-    font-size: var(--text-page);
-    font-weight: 400;
-    max-width: 20ch;
-  }
-  .head__lead {
-    margin: 1.15rem 0 0;
-    font-family: var(--font-body);
-    font-size: clamp(1.125rem, 1.6vw, 1.25rem);
-    line-height: 1.6;
-    max-width: 48ch;
-    color: var(--color-ink-soft);
-  }
-
   .band {
-    padding-block: clamp(2.75rem, 6vw, 4.5rem);
+    padding-block: clamp(2rem, 4vw, 3rem);
   }
   .band--soft {
     background: var(--color-cream);
@@ -203,69 +148,6 @@ const tools = [
     color: var(--meish-ivory);
   }
 
-  /* --- Finnish band --------------------------------------------------------
-     Ivory rather than navy so the two are told apart at a glance, but every
-     other measurement is inherited from the band above: same padding, same
-     measure, same heading scale, same button. Nothing here is smaller or
-     quieter than the English version.
-     ---------------------------------------------------------------------- */
-  .band--fi {
-    background: var(--color-ivory);
-  }
-  .fi {
-    position: relative;
-  }
-  /* Begins flush with the boundary between the two bands, so the eye reads it
-     as the dark band continuing rather than as a new block starting. It sits
-     out in the gutter so the Finnish copy keeps the exact left edge of the
-     English copy above it. */
-  .fi::before {
-    content: '';
-    position: absolute;
-    left: calc(var(--gutter) - 1.75rem);
-    top: calc(-1 * clamp(2.75rem, 6vw, 4.5rem));
-    bottom: 0;
-    width: 2px;
-    background: var(--deep-orbit-indigo);
-  }
-  .fi__lang {
-    position: relative;
-    margin: 0 0 0.9rem;
-    font-family: var(--font-ui);
-    font-size: var(--text-xs);
-    font-weight: var(--weight-semibold);
-    letter-spacing: var(--tracking-wide);
-    text-transform: uppercase;
-    color: var(--deep-orbit-indigo);
-  }
-  /* The one place the second signal colour appears: it marks where this
-     language version begins. */
-  .fi__node {
-    position: absolute;
-    left: -2rem;
-    top: 0.34em;
-    width: 0.625rem;
-    height: 0.625rem;
-    background: var(--lucent-teal);
-    border-radius: 50%;
-  }
-  .fi h2 {
-    color: var(--color-navy);
-  }
-  .fi .band__intro + .band__intro {
-    margin-top: 1rem;
-  }
-
-  @media (max-width: 40rem) {
-    /* The gutter is too narrow to hold the full offset, so the rule moves to
-       the screen edge rather than pushing the text out of alignment. */
-    .fi::before {
-      left: 0.625rem;
-    }
-    .fi__node {
-      left: -1.125rem;
-    }
-  }
   .band h2 {
     font-weight: 400;
   }
@@ -299,6 +181,13 @@ const tools = [
   .band__action {
     margin: 1.1rem 0 0;
     max-width: none;
+  }
+  .band__brief {
+    margin: 1.25rem 0 0;
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    line-height: 1.4;
+    color: var(--meish-ivory);
   }
 
   /* --- Tool register ------------------------------------------------------ */
@@ -400,9 +289,20 @@ const tools = [
     line-height: 1.6;
     color: var(--color-ink-soft);
   }
+  /* The list underneath is three named tools, not three features. Saying so
+     stops it reading as a bullet list of claims. */
+  .set__contains {
+    margin: 1.1rem 0 0;
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+  }
   .set__tools {
     list-style: none;
-    margin: 1rem 0 0;
+    margin: 0.55rem 0 0;
     padding: 0;
     display: grid;
     gap: 0.4rem;

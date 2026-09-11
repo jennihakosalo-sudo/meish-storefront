@@ -1,10 +1,12 @@
 User-agent: *
 Allow: /
 
-# Brand working files, not part of the public site.
+# Brand working files and development labs, not part of the public site.
 Disallow: /brand/reference
 Disallow: /brand/reference/
 Disallow: /brand/archive
 Disallow: /brand/archive/
+Disallow: /dev
+Disallow: /dev/
 
 Sitemap: https://www.meish.work/sitemap.xml

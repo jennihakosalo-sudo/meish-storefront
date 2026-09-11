@@ -19,12 +19,14 @@ interface Step {
 
 interface Props {
   steps?: Step[];
+  /** Homepage only: more space and larger names so the path is a moment. */
+  size?: 'default' | 'moment';
 }
 
-const { steps = recognition.steps } = Astro.props as Props;
+const { steps = recognition.steps, size = 'default' } = Astro.props as Props;
 ---
 
-<ol class="path" aria-label="How Meish works, in order">
+<ol class:list={['path', size === 'moment' && 'path--moment']} aria-label="How Meish works, in order">
   {
     steps.map((s, i) => (
       <li class="path__step" style={`--node: ${s.accent}`}>
@@ -148,6 +150,27 @@ const { steps = recognition.steps } = Astro.props as Props;
     }
     .path__note {
       max-width: 40ch;
+    }
+  }
+
+  .path--moment {
+    margin-top: clamp(3rem, 7vw, 5rem);
+  }
+  .path--moment .path__label {
+    font-size: var(--text-xl);
+  }
+  .path--moment .path__note {
+    font-size: var(--text-sm);
+    color: var(--color-ink-muted);
+  }
+  @media (min-width: 56rem) {
+    .path--moment {
+      gap: clamp(2rem, 4vw, 3.25rem);
+    }
+  }
+  @media (max-width: 55.999rem) {
+    .path--moment .path__step {
+      padding-bottom: 2.5rem;
     }
   }
 </style>

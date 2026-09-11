@@ -7,12 +7,14 @@
  * process carry the rest. Deliberately not an interiors page.
  */
 import Base from '../layouts/Base.astro';
-import ProductCard from '../components/ProductCard.astro';
-import { getProduct } from '../data/meish-products';
-import { fitCheckHref } from '../data/navigation';
+import LightHero from '../components/LightHero.astro';
+import ProductDetail from '../components/ProductDetail.astro';
+import { closing, contactAction, getProductDetail, pageHeroes } from '../data/site-content';
 
-const audit = getProduct('behavior-composition-audit')!;
-const review = getProduct('human-experience-review')!;
+const detailed = [
+  getProductDetail('behavior-composition-audit'),
+  getProductDetail('human-experience-review'),
+];
 
 const process = [
   ['Observe behaviour', 'Watch what people actually do in the place. Not what the plan assumed.'],
@@ -34,18 +36,9 @@ const questions = [
 
 <Base
   title="Meish for Your Space — design what happens there"
-  description="Understand how people actually use a space before deciding what it should support. Behavior & Composition Audit €690 + VAT."
+  description="Understand how people actually use a space before deciding what it should support. Behavior & Composition Audit €690 + VAT, Human Experience Review from €950 + VAT."
 >
-  <section class="head">
-    <div class="container">
-      <p class="head__eyebrow">This may interest you if you run a place people move through</p>
-      <h1>Do not design only the room. Design what happens there.</h1>
-      <p class="head__lead">
-        A space is already influencing behaviour — where people pause, what they do first, what
-        they never notice. Meish looks at that before anything is moved, bought or rebuilt.
-      </p>
-    </div>
-  </section>
+  <LightHero {...pageHeroes.space} action={null} />
 
   <section class="band" aria-labelledby="process-title">
     <div class="container">
@@ -81,9 +74,8 @@ const questions = [
   <section class="band" aria-labelledby="offers-title">
     <div class="container">
       <h2 id="offers-title">What we can do together</h2>
-      <div class="products">
-        <ProductCard product={audit} featured />
-        <ProductCard product={review} />
+      <div class="details">
+        {detailed.map((p) => <ProductDetail product={p} />)}
       </div>
     </div>
   </section>
@@ -92,45 +84,20 @@ const questions = [
     <div class="container">
       <h2 id="unsure-title">Not sure it is a space problem?</h2>
       <p class="band__intro">
-        Often it is not. Twenty free minutes is usually enough to tell whether the thing to change
-        is the room, the service inside it, or nothing at all.
+        Often it is not. Describe what is happening in the place and we will say whether the thing
+        to change is the room, the service inside it, or nothing at all.
       </p>
+      <p class="band__brief">{closing.heading}</p>
       <p class="band__action">
-        <a class="button button--primary" href={fitCheckHref}>Book a Fit Check — €0</a>
+        <a class="button button--primary" href={contactAction.href}>{contactAction.label}</a>
       </p>
     </div>
   </section>
 </Base>
 
 <style>
-  .head {
-    padding-block: clamp(2.75rem, 6vw, 4.5rem) clamp(1.5rem, 3vw, 2.25rem);
-    background: var(--color-ivory);
-  }
-  .head__eyebrow {
-    margin: 0 0 0.9rem;
-    font-family: var(--font-body);
-    font-size: 0.9375rem;
-    color: var(--color-ink-muted);
-    max-width: 46ch;
-  }
-  .head h1 {
-    margin: 0;
-    font-size: var(--text-page);
-    font-weight: 400;
-    max-width: 20ch;
-  }
-  .head__lead {
-    margin: 1.15rem 0 0;
-    font-family: var(--font-body);
-    font-size: clamp(1.125rem, 1.6vw, 1.25rem);
-    line-height: 1.6;
-    max-width: 48ch;
-    color: var(--color-ink-soft);
-  }
-
   .band {
-    padding-block: clamp(2.75rem, 6vw, 4.5rem);
+    padding-block: clamp(2rem, 4vw, 3rem);
   }
   .band--soft {
     background: var(--color-cream);
@@ -159,6 +126,13 @@ const questions = [
   .band__action {
     margin: 1.75rem 0 0;
     max-width: none;
+  }
+  .band__brief {
+    margin: 1.25rem 0 0;
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    line-height: 1.4;
+    color: var(--meish-ivory);
   }
 
   /* The process runs down the page as a numbered register — a space is walked
@@ -229,14 +203,12 @@ const questions = [
     background: var(--lucent-teal);
   }
 
-  .products {
+  /* One product per row, stacked. Two long descriptions side by side would be
+     two columns of text nobody reads across. */
+  .details {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
-    gap: clamp(1.75rem, 3vw, 2.5rem);
+    gap: clamp(2rem, 4vw, 3rem);
     margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
-  }
-  .products > :global(.product--featured) {
-    grid-column: 1 / -1;
   }
 
   @media (max-width: 48rem) {

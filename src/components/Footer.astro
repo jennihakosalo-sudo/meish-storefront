@@ -1,5 +1,5 @@
 ---
-import { nav, fitCheck, brand, CONTACT_EMAIL, mailTo } from '../data/site-content';
+import { nav, brand, CONTACT_EMAIL, mailTo } from '../data/site-content';
 
 const year = 2026;
 ---
@@ -9,7 +9,7 @@ const year = 2026;
     <div>
       <p class="wordmark">Meish</p>
       <p class="blurb">{brand.line}</p>
-      <p class="blurb blurb--fi">We work in English and Finnish. Palvelemme myös suomeksi.</p>
+      <p class="blurb blurb--langs">We work in English and Finnish.</p>
     </div>
 
     <nav aria-label="Site">
@@ -27,7 +27,6 @@ const year = 2026;
       {/* The address is written out, not hidden behind a word. Someone reading
           on a phone should be able to copy it into their own mail client. */}
       <p class="address"><a href={mailTo('Meish')}>{CONTACT_EMAIL}</a></p>
-      <p class="fit"><a href="/fit-check">{fitCheck.meta}</a></p>
     </div>
   </div>
 
@@ -62,7 +61,7 @@ const year = 2026;
     line-height: 1.6;
     max-width: 34ch;
   }
-  .blurb--fi {
+  .blurb--langs {
     margin-top: 0.4rem;
     color: var(--text-muted);
     font-size: 1rem;
@@ -94,13 +93,6 @@ const year = 2026;
     font-size: 1.125rem;
     color: var(--text);
     box-shadow: inset 0 -1px 0 rgba(11, 16, 32, 0.3);
-  }
-  .fit a {
-    display: inline-flex;
-    align-items: center;
-    min-height: 2.75rem;
-    font-size: 1.0625rem;
-    color: var(--text-soft);
   }
   a:hover {
     color: var(--accent);

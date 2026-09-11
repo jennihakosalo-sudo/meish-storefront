@@ -1,0 +1,8 @@
+node_modules
+tmp
+design-system
+public-legacy
+src/pages/dev
+src/components/dev
+.env*
+.DS_Store
